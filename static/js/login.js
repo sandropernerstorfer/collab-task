@@ -116,9 +116,7 @@ function renderErrors(errorArray){
 };
 
 function signupUser(newUser){
-    const expDate = new Date(9999, 0, 1).toUTCString();
-    document.cookie = 'logged=true; expires='+expDate+'';
-
+    createLogCookie();
     $.ajax({
         url: '/user',
         method: 'POST',
@@ -126,8 +124,6 @@ function signupUser(newUser){
         contentType:'application/json'
         }).done(res => {
             if(res == 'user exists'){
-                const deleteDate = new Date(1999, 0, 1).toUTCString();
-                document.cookie = 'logged=; expires='+deleteDate+'';
                 renderErrors(['', 'This email already exists', '']);
             }
             else{
@@ -136,9 +132,7 @@ function signupUser(newUser){
         });
 };
 function signinUser(userLogin){
-    const expDate = new Date(9999, 0, 1).toUTCString();
-    document.cookie = 'logged=true; expires='+expDate+'';
-
+    createLogCookie();
     $.ajax({
         url: '/user',
         method: 'POST',
@@ -147,16 +141,17 @@ function signinUser(userLogin){
         }).done(res => {
             if(res == 'no user'){
                 renderErrors(['Email not found','']);
-                const deleteDate = new Date(1999, 0, 1).toUTCString();
-                document.cookie = 'logged=; expires='+deleteDate+'';
             }
             else if(res == 'wrong password'){
                 renderErrors(['','Wrong password']);
-                const deleteDate = new Date(1999, 0, 1).toUTCString();
-                document.cookie = 'logged=; expires='+deleteDate+'';
             }
             else{
                 window.location.href = '/desk';
             }
         });
+};
+
+function createLogCookie(){
+    const expDate = new Date(9999, 0, 1).toUTCString();
+    document.cookie = 'logged=true; expires='+expDate+'';
 };

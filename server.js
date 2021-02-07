@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
+const { v4: uuidv4 } = require('uuid');
 require('dotenv/config');
 const cookieParser = require("cookie-parser");
 const PORT = process.env.PORT || 5500;
@@ -21,22 +22,29 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-app.use((req, res, next) => {
-    if(!req.cookies.logged){
-        console.log('cookie no here');
+app.use( async (req, res, next) => {                // gets User-Data by comparing cookie and db session id
+    if(req.cookies.id){
+        const user = await User.findOne({sessionid: req.cookies.id}, (err,obj) => {
+            try{
+                console.log('checked ids');
+            }
+            catch(err){
+                res.end();
+            }
+        });
+        currentUser = user;
         next();
     }
     else{
-        console.log('cookie here');
+        currentUser = {};
         next();
     }
 });
-
 app.use('/login/*?', (req,res) => {                 // catch all routes following Login and redirect to /login
     res.redirect('/login');
 });
 app.use('/login', (req, res) => {                   // if path /login AND cookie found -> redirect to desk / else login
-    if(req.cookies.logged){
+    if(req.cookies.logged && req.cookies.id){
         res.redirect('/desk');
     }
     else{
@@ -53,7 +61,7 @@ app.use((req, res, next) => {                       // if cookie NOT found -> re
 });
 
 //USER-ROUTES
-// POST - create user
+
 app.post('/user', async (req, res) => {
 
     const userExists = await User.findOne({email: req.body.email}, (err,obj) => {
@@ -66,15 +74,18 @@ app.post('/user', async (req, res) => {
         });
     if(req.body.name){
         if(userExists != null){
+            req.clearCookie('logged');
             res.end('user exists');
         }
         else{
+            const sessionID = uuidv4();
             const user = new User({
                 name: req.body.name,
                 email: req.body.email,
-                password: req.body.password
+                password: req.body.password,
+                sessionid: sessionID
             });
-
+            res.cookie('id', sessionID, {httpOnly: true});
             try{
                 const savedUser = await user.save();
                 currentUser = savedUser;
@@ -87,14 +98,26 @@ app.post('/user', async (req, res) => {
     }
     else{
         if(userExists == null){
+            req.clearCookie('logged');
             res.end('no user');
         }
         else{
             const correctPassword = userExists.password == req.body.password ? true : false;
 
-            if(!correctPassword) res.end('wrong password');
+            if(!correctPassword){
+                req.clearCookie('logged');
+                res.end('wrong password');
+            } 
             else{
-                currentUser = userExists;
+                const sessionID = uuidv4();
+                res.cookie('id', sessionID, {httpOnly: true});
+                try{
+                    const updatedUser = await User.updateOne({ email: req.body.email }, { $set: {sessionid: sessionID}});
+                    currentUser = updatedUser;
+                }
+                catch(err){
+                    res.json(err);
+                }
                 res.end();
             }
         }
@@ -102,6 +125,16 @@ app.post('/user', async (req, res) => {
 });
 
 // DESK-ROUTES
+
+app.use('/desk', (req,res,next) => {
+    if(Object.keys(currentUser).length == 0){
+        res.clearCookie('logged');
+        res.redirect('/login');
+    }
+    else{
+        next();
+    }
+});
 
 app.get('/desk', (req,res) => {
     res.sendFile(__dirname+'/static/board.html')
@@ -113,6 +146,7 @@ app.get('/desk/userdata', (req, res) => {
 
 // LOGOUT
 app.get('/logout', (req, res) => {
-    currentUser = {};
-    res.status(200).end();
+    res.clearCookie('logged');
+    res.clearCookie('id');
+    res.redirect('/login');
 });

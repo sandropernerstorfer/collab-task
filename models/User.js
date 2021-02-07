@@ -13,6 +13,10 @@ const UserSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    sessionid: {
+        type: String,
+        required: true
+    },
     desks: {
         type: Array,
         default: []
