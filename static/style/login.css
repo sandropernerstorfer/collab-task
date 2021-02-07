@@ -6,12 +6,12 @@ body { overflow-x: hidden; width: 100vw; height: 100vh; }
 
 body { width: 100vw; height: 100vh; }
 
-#form-switch { display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-pack: center; -ms-flex-pack: center; justify-content: center; -webkit-box-align: end; -ms-flex-align: end; align-items: flex-end; padding-bottom: 50px; height: 35vh; }
-#form-switch div { width: 97%; max-width: 500px; display: -webkit-box; display: -ms-flexbox; display: flex; -ms-flex-pack: distribute; justify-content: space-around; }
-#form-switch div span { font-size: 2.3rem; color: rgba(204, 204, 204, 0.719); cursor: pointer; }
-#form-switch #active-form { background: #99E8A7; background: -webkit-gradient(linear, right bottom, left top, from(#99E8A7), to(#139C29)); background: linear-gradient(to top left, #99E8A7 0%, #139C29 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+#form-toggle-box { display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-pack: center; -ms-flex-pack: center; justify-content: center; -webkit-box-align: end; -ms-flex-align: end; align-items: flex-end; padding-bottom: 50px; height: 35vh; }
+#form-toggle-box div { width: 97%; max-width: 500px; display: -webkit-box; display: -ms-flexbox; display: flex; -ms-flex-pack: distribute; justify-content: space-around; }
+#form-toggle-box div span { font-size: 2.3rem; color: rgba(204, 204, 204, 0.719); cursor: pointer; outline: none; -webkit-transition: color .8s; transition: color .8s; }
+#form-toggle-box .active-form { color: #75be84; }
 
-#user-form { display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-pack: center; -ms-flex-pack: center; justify-content: center; -webkit-box-align: center; -ms-flex-align: center; align-items: center; }
+#user-form { display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-pack: center; -ms-flex-pack: center; justify-content: center; -webkit-box-align: center; -ms-flex-align: center; align-items: center; -webkit-transition: opacity .4s; transition: opacity .4s; }
 #user-form form { border-radius: 5px; -webkit-box-shadow: -1px 4px 20px -2px rgba(99, 99, 99, 0.92); box-shadow: -1px 4px 20px -2px rgba(99, 99, 99, 0.92); padding: 20px; width: 97%; max-width: 500px; }
 #user-form form input { border-width: 0 0 1px 0; border-radius: 0px; padding-left: 0; }
 #user-form form input:focus { border-color: #45be5c; }

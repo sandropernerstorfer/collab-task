@@ -13,14 +13,15 @@
     <title>Task-App | Login</title>
 </head>
 <body>
-    <section id="form-switch">
+    <section id="form-toggle-box">
         <div>
-            <span id="active-form">Sign In</span>
-            <span>Sign Up</span>
+            <span id="signin-form" class="form-toggle active-form" tabindex="0">Sign In</span>
+            <span id="signup-form" class="form-toggle" tabindex="0">Sign Up</span>
         </div>
     </section>
     <section id="user-form">
         <form>
+            <div id="username-container"></div>
             <div class="form-group position-relative mb-3">
                 <label for="email-input" class="mb-0"></label><small class="form-error float-end form-text">-</small>
                 <input type="text" class="form-control shadow-none" id="email-input" name="email" placeholder="Email"><span class="form-icon"><i class="fas fa-at"></i></span>
@@ -29,11 +30,8 @@
                 <label for="password-input" class="mb-0"></label><small class="form-error float-end form-text">-</small>
                 <input type="password" class="form-control shadow-none" id="password-input" name="password" placeholder="Password"><span class="form-icon"><i class="fas fa-lock"></i></span>
             </div>
-            <button type="submit" class="btn shadow-none mt-3">Sign In <i class="fas fa-sign-in-alt"></i></button>
+            <button type="submit" class="btn shadow-none mt-3"><span id="submit-text">Sign In </span><i class="fas fa-sign-in-alt"></i></button>
         </form>
     </section>
-
-    <!-- TEMPLATES -->
-
 </body>
 </html>
