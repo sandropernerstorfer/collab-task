@@ -25,12 +25,8 @@ app.use(cookieParser());
 app.use( async (req, res, next) => {                // gets User-Data by comparing cookie and db session id
     if(req.cookies.id){
         const user = await User.findOne({sessionid: req.cookies.id}, (err,obj) => {
-            try{
-                console.log('checked ids');
-            }
-            catch(err){
-                res.end();
-            }
+            try{}
+            catch(err){res.end();}
         });
         currentUser = user;
         next();
@@ -62,64 +58,65 @@ app.use((req, res, next) => {                       // if cookie NOT found -> re
 
 //USER-ROUTES
 
-app.post('/user', async (req, res) => {
-
+app.post('/user/signup', async (req, res) => {     // SIGNUP users and create session -> when done redirects to '/desk'
+    // suche USER in DB nach EMAIL
     const userExists = await User.findOne({email: req.body.email}, (err,obj) => {
+        try{}
+        catch(err){res.end(err);}
+    });
+
+    if(userExists != null){             // wenn user nicht null ist (also existiert) -> respond: existiert bereits
+        res.clearCookie('logged');
+        res.end('user exists');
+    }
+    else{                               // wenn user noch nicht existiert    
+        const sessionID = uuidv4();     // generiert uuid für session management
+        const user = new User({         // neuer USER
+            name: req.body.name,
+            email: req.body.email,
+            password: req.body.password,
+            sessionid: sessionID
+        });
+        res.cookie('id', sessionID, {httpOnly: true});      // erstellt cookie mit selber sessionID
         try{
-            console.log('checked db');
+            const savedUser = await user.save();            // speichert USER in Datenbank
+            currentUser = savedUser;                        // speichert USER lokal
+            res.end();                                      // ende - client leitet auf /desk
         }
         catch(err){
-            res.end(err);
-        }
-        });
-    if(req.body.name){
-        if(userExists != null){
-            req.clearCookie('logged');
-            res.end('user exists');
-        }
+            res.json(err);
+        };
+    }
+});
+
+app.post('/user/signin', async (req, res) => {     // SIGNIN users and create session -> when done redirects to '/desk'
+    const userExists = await User.findOne({email: req.body.email}, (err,obj) => {
+        try{}
+        catch(err){res.end(err);}
+    });
+
+    if(userExists == null){             // wenn user NICHT existiert -> respond: kein user , kein login
+        res.clearCookie('logged');
+        res.end('no user');
+    }
+    else{                               // wenn user existiert -> vergleiche passwörter
+        const correctPassword = userExists.password == req.body.password ? true : false;
+
+        if(!correctPassword){           // wenn passwörter nicht gleich -> respond: falsches passwort
+            res.clearCookie('logged');
+            res.end('wrong password');
+        } 
         else{
-            const sessionID = uuidv4();
-            const user = new User({
-                name: req.body.name,
-                email: req.body.email,
-                password: req.body.password,
-                sessionid: sessionID
-            });
-            res.cookie('id', sessionID, {httpOnly: true});
-            try{
-                const savedUser = await user.save();
-                currentUser = savedUser;
-                res.end();
+            const sessionID = uuidv4();                     // wenn passwörter gleich -> erstelle neue sessionID
+            res.cookie('id', sessionID, {httpOnly: true});  // erstelle cookie mit gleicher sessionID
+            try{                                            // sessionID update in datenbank
+                const updatedUser = await User.updateOne({ email: req.body.email }, { $set: {sessionid: sessionID}});
+                currentUser = updatedUser;                  // USER lokal speichern
             }
             catch(err){
                 res.json(err);
-            };
-        }
-    }
-    else{
-        if(userExists == null){
-            req.clearCookie('logged');
-            res.end('no user');
-        }
-        else{
-            const correctPassword = userExists.password == req.body.password ? true : false;
-
-            if(!correctPassword){
-                req.clearCookie('logged');
-                res.end('wrong password');
-            } 
-            else{
-                const sessionID = uuidv4();
-                res.cookie('id', sessionID, {httpOnly: true});
-                try{
-                    const updatedUser = await User.updateOne({ email: req.body.email }, { $set: {sessionid: sessionID}});
-                    currentUser = updatedUser;
-                }
-                catch(err){
-                    res.json(err);
-                }
-                res.end();
             }
+            res.end();                                      // ende - client leitet auf /desk
         }
     }
 });

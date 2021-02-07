@@ -118,7 +118,7 @@ function renderErrors(errorArray){
 function signupUser(newUser){
     createLogCookie();
     $.ajax({
-        url: '/user',
+        url: '/user/signup',
         method: 'POST',
         data: JSON.stringify(newUser),
         contentType:'application/json'
@@ -134,7 +134,7 @@ function signupUser(newUser){
 function signinUser(userLogin){
     createLogCookie();
     $.ajax({
-        url: '/user',
+        url: '/user/signin',
         method: 'POST',
         data: JSON.stringify(userLogin),
         contentType:'application/json'
@@ -143,14 +143,13 @@ function signinUser(userLogin){
                 renderErrors(['Email not found','']);
             }
             else if(res == 'wrong password'){
-                renderErrors(['','Wrong password']);
+                renderErrors(['','Incorrect Password']);
             }
             else{
                 window.location.href = '/desk';
             }
         });
 };
-
 function createLogCookie(){
     const expDate = new Date(9999, 0, 1).toUTCString();
     document.cookie = 'logged=true; expires='+expDate+'';
