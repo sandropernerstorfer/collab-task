@@ -6,15 +6,15 @@ require('dotenv/config');
 const cookieParser = require("cookie-parser");
 const PORT = process.env.PORT || 5500;
 const User = require('./models/User');
+let currentUser = {};
 
+// Server Listen & Database Connection
 app.listen(PORT);
 mongoose.connect(
     process.env.DB_CONNECTION, {useNewUrlParser: true, useUnifiedTopology: true}, () => {
         console.log('DB Connected');
     }
 );
-
-let currentUser = {};
 
 //Middleware
 app.use(express.static('static'));
