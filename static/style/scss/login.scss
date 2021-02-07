@@ -1,1 +1,89 @@
 @import 'base';
+
+body{
+    width: 100vw;
+    height: 100vh;
+}
+
+#form-switch{
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    padding-bottom: 50px;
+    height: 35vh;
+
+    div{
+        width: 97%;
+        max-width: 500px;
+        display: flex;
+        justify-content: space-around;
+
+        span{
+            font-size: 2.3rem;
+            color: rgba(204, 204, 204, 0.719);
+            cursor: pointer;
+        }
+    }
+
+    #active-form{
+        background: #99E8A7;
+        background: linear-gradient(to top left, #99E8A7 0%, #139C29 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+}
+
+#user-form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    form{
+        border-radius: 5px;
+        box-shadow: -1px 4px 20px -2px rgba(99,99,99,0.92);
+        padding: 20px;
+        width: 97%;
+        max-width: 500px;
+
+        input{
+            border-width: 0 0 1px 0;
+            border-radius: 0px;
+            padding-left: 0;
+
+            &:focus{
+                border-color: #45be5c;
+            }
+
+            &::placeholder{
+                color: rgba(72, 78, 72, 0.61);
+            }
+        }
+
+        button{
+            border-radius: 5px;
+            padding: 5px 5px;
+            color: #45be5c;
+            border-color: #45be5c;
+            width: 20%;
+
+            &:hover{
+                background-color: #45be5c;
+                color: #fff;
+            }
+        }
+
+        .form-icon{
+            position: absolute;
+            right: 10px;
+            bottom: 7px;
+            color: #45be5c;
+        }
+
+        .form-error{
+            margin-right: 12px;
+            color: rgba(220, 20, 60, 0.699);
+            cursor: default;
+        }
+    }
+}
