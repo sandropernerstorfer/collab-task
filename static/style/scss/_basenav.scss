@@ -1,0 +1,29 @@
+header{
+    border-bottom: 1px solid #ccc;
+    box-shadow: $boxShadow;
+
+    nav{
+        padding: 20px 0;
+        width: 100vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        h3{
+            color: rgb(73, 73, 73);
+            
+            i{
+                color: $primary;
+            }
+        }
+    }
+
+    #about-button{
+        position: absolute;
+        top: 18px;
+        right: 2vw;
+        padding: 5px;
+        background-color: $primary;
+        color: #fff;
+    }
+}

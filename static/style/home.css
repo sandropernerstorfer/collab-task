@@ -3,3 +3,11 @@
 html { font-size: 16px; }
 
 body { overflow-x: hidden; width: 100vw; height: 100vh; }
+
+a { text-decoration: none; }
+
+header { border-bottom: 1px solid #ccc; -webkit-box-shadow: -1px 4px 20px -2px rgba(99, 99, 99, 0.63); box-shadow: -1px 4px 20px -2px rgba(99, 99, 99, 0.63); }
+header nav { padding: 20px 0; width: 100vw; display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-pack: center; -ms-flex-pack: center; justify-content: center; -webkit-box-align: center; -ms-flex-align: center; align-items: center; }
+header nav h3 { color: #494949; }
+header nav h3 i { color: #23CE6B; }
+header #about-button { position: absolute; top: 18px; right: 2vw; padding: 5px; background-color: #23CE6B; color: #fff; }

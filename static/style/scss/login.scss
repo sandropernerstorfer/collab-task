@@ -1,4 +1,5 @@
 @import 'base';
+@import 'basenav';
 
 body{
     width: 100vw;
@@ -10,7 +11,7 @@ body{
     justify-content: center;
     align-items: flex-end;
     padding-bottom: 50px;
-    height: 35vh;
+    height: 25vh;
 
     div{
         width: 97%;
@@ -20,15 +21,15 @@ body{
 
         span{
             font-size: 2.3rem;
-            color: rgba(204, 204, 204, 0.719);
+            color: $muted;
             cursor: pointer;
             outline: none;
-            transition: color .8s;
+            transition: color .7s;
         }
     }
 
     .active-form{
-        color: #75be84;
+        color: $primary;
     }
 }
 
@@ -40,7 +41,7 @@ body{
 
     form{
         border-radius: 5px;
-        box-shadow: -1px 4px 20px -2px rgba(99,99,99,0.92);
+        box-shadow: $boxShadow;
         padding: 20px;
         width: 97%;
         max-width: 500px;
@@ -49,26 +50,28 @@ body{
             border-width: 0 0 1px 0;
             border-radius: 0px;
             padding-left: 0;
+            color: $primaryText;
+            font-weight: 300;
 
             &:focus{
-                border-color: #45be5c;
+                border-color: $primary;
             }
 
             &::placeholder{
-                color: rgba(72, 78, 72, 0.61);
+                color: $placeholder;
             }
         }
 
         button{
             border-radius: 5px;
             padding: 5px 5px;
-            color: #45be5c;
-            border-color: #45be5c;
+            background-color: $primary;
+            color: #fff;
             width: 20%;
 
             &:hover{
-                background-color: #45be5c;
-                color: #fff;
+                background-color: #fff;
+                color: $primary;
             }
         }
 
@@ -76,12 +79,14 @@ body{
             position: absolute;
             right: 10px;
             bottom: 7px;
-            color: #45be5c;
+            color: $primary;
         }
 
         .form-error{
+            position: absolute;
+            right: 0px;
             margin-right: 12px;
-            color: rgba(220, 20, 60, 0.699);
+            color: $error;
             cursor: default;
         }
     }
