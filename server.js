@@ -21,7 +21,7 @@ async function getUserDataLocal(req, res, next){
     if(req.cookies._taskID){
         const user = await User.findOne({sessionid: req.cookies._taskID}, (err,obj) => {
             try{}
-            catch(err){res.end(err);}
+            catch(err){req.clearCookie('_taskID'); next();}
         });
         currentUser = user;
         next();
