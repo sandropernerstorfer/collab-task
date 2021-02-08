@@ -124,7 +124,7 @@ function signupUser(newUser){
         contentType:'application/json'
         }).done(res => {
             if(res == 'user exists'){
-                renderErrors(['', 'This email already exists', '']);
+                renderErrors(['', 'This email is already in use', '']);
             }
             else{
                 window.location.href = '/desk';
