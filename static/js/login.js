@@ -1,11 +1,8 @@
 import validation from './scripts/validation.js';
 
 const form = document.querySelector('form');
-const formContainer = document.querySelector('#user-form');
 const signinForm = document.querySelector('#signin-form');
 const signupForm = document.querySelector('#signup-form');
-const usernameContainer = document.querySelector('#username-container');
-const submitText = document.querySelector('#submit-text');
 let toggling = false;
 let activeForm = 'signin';
 
@@ -31,6 +28,10 @@ function toggleFormSwitches(){
 function toggleForms(formType){
     toggling = true;
     activeForm = formType;
+    const formContainer = document.querySelector('#user-form');
+    const usernameContainer = document.querySelector('#username-container');
+    const submitText = document.querySelector('#submit-text');
+    
     formContainer.style.opacity = '0';
     setTimeout(() => {
         if(formType == 'signin'){
