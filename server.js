@@ -87,11 +87,11 @@ app.post('/user/signup', async (req, res) => {      // SIGNUP users and create s
             password: req.body.password,
             sessionid: sessionID
         });
-        res.cookie('_taskID', sessionID, {httpOnly: true});      // erstellt cookie mit selber sessionID
+        res.cookie('_taskID', sessionID, {httpOnly: false});    // erstellt cookie mit selber sessionID
         try{
-            const savedUser = await user.save();            // speichert USER in Datenbank
-            currentUser = savedUser;                        // speichert USER lokal
-            res.end();                                      // ende - client leitet auf /desk
+            const savedUser = await user.save();                // speichert USER in Datenbank
+            currentUser = savedUser;                            // speichert USER lokal
+            res.end();                                          // ende - client leitet auf /desk
         }
         catch(err){
             res.json(err);
@@ -114,11 +114,11 @@ app.post('/user/signin', async (req, res) => {      // SIGNIN users and create s
             res.end('wrong password');
         } 
         else{
-            const sessionID = uuidv4();                     // wenn passwörter gleich -> erstelle neue sessionID
-            res.cookie('_taskID', sessionID, {httpOnly: true});  // erstelle cookie mit gleicher sessionID
-            try{                                            // sessionID update in datenbank
+            const sessionID = uuidv4();                             // wenn passwörter gleich -> erstelle neue sessionID
+            res.cookie('_taskID', sessionID, {httpOnly: false});    // erstelle cookie mit gleicher sessionID
+            try{                                                    // sessionID update in datenbank
                 const updatedUser = await User.updateOne({ email: req.body.email }, { $set: {sessionid: sessionID}});
-                currentUser = updatedUser;                  // USER lokal speichern
+                currentUser = updatedUser;                          // USER lokal speichern
             }
             catch(err){
                 res.json(err);
