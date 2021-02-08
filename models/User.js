@@ -24,6 +24,10 @@ const UserSchema = mongoose.Schema({
     sharedDesks: {
         type: Array,
         default: []
+    },
+    invites: {
+        type: Array,
+        default: []
     }
 });
 
