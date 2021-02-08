@@ -38,9 +38,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-app.get('/', (req, res) => {
-    res.sendFile(__dirname+'/static/index.html');
-});
 app.get('/userdata', async (req, res) => {
     if(Object.keys(currentUser).length == 0 && req.cookies._taskID){
         const user = await User.findOne({sessionid: req.cookies._taskID}, (err,obj) => {
@@ -67,7 +64,7 @@ app.use('/login', (req, res) => {                   // if path /login AND cookie
         res.redirect('/desk');
     }
     else{
-        res.sendFile(__dirname+'/static/login.html');
+        res.sendFile('login.html', {root: 'static'});
     } 
 });
 
@@ -142,7 +139,7 @@ app.use('/desk', (req,res,next) => {                // if no local user data sav
 });
 
 app.get('/desk', (req,res) => {
-    res.sendFile(__dirname+'/static/board.html')
+    res.sendFile('board.html', {root: 'static'});
 });
 
 app.get('/desk/userdata', (req, res) => {
