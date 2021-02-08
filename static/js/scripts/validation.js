@@ -1,12 +1,12 @@
 const validation = {
     name: (name) => {
-        return name.length >= 6 ? '' : 'Name: at least 6 characters';
+        return name.trim().length >= 6 ? '' : 'Name: at least 6 characters';
     },
     mail: (mail) => {
-        return mail.includes('@') && mail.includes('.') ? '' : 'Enter a valid Email-Address';
+        return mail.trim().includes('@') && mail.includes('.') ? '' : 'Enter a valid Email-Address';
     },
     pass: (pass) => {
-        return pass.length >= 8 ? '' : 'Password: at least 8 characters';
+        return pass.trim().length >= 8 ? '' : 'Password: at least 8 characters';
     }
 };
 

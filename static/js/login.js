@@ -76,16 +76,16 @@ form.addEventListener('submit', e => {
     
     if(activeForm == 'signup'){
         const newUser = {
-            name: form.username.value,
-            email: form.email.value,
-            password: form.password.value
+            name: form.username.value.trim(),
+            email: form.email.value.toLowerCase().trim(),
+            password: form.password.value.trim()
         };
         signupUser(newUser);
     }
     else if(activeForm == 'signin'){
         const userLogin = {
-            email: form.email.value,
-            password: form.password.value
+            email: form.email.value.toLowerCase().trim(),
+            password: form.password.value.trim()
         };
         signinUser(userLogin);
     }
