@@ -1,3 +1,5 @@
+import validation from './validation.js';
+
 const form = document.querySelector('form');
 const formContainer = document.querySelector('#user-form');
 const signinForm = document.querySelector('#signin-form');
@@ -57,12 +59,12 @@ form.addEventListener('submit', e => {
     let errorArray = [];
 
     if(activeForm == 'signup'){
-        errorArray.push(validateUsername(form.username.value));
-        errorArray.push(validateEmail(form.email.value));
-        errorArray.push(validatePassword(form.password.value));
+        errorArray.push(validation.name(form.username.value));
+        errorArray.push(validation.mail(form.email.value));
+        errorArray.push(validation.pass(form.password.value));
     }
     else if(activeForm == 'signin'){
-        errorArray.push(validateEmail(form.email.value));
+        errorArray.push(validation.mail(form.email.value));
     }
 
     renderErrors(errorArray);
@@ -92,15 +94,6 @@ form.addEventListener('submit', e => {
     }
 });
 
-function validateUsername(name){
-    return name.length >= 6 ? '' : 'Name: at least 6 characters';
-};
-function validateEmail(email){
-    return email.includes('@') && email.includes('.') ? '' : 'Enter a valid Email-Address';
-};
-function validatePassword(password){
-    return password.length >= 8 ? '' : 'Password: at least 8 characters';
-};
 function renderErrors(errorArray){
     const errorElements = document.querySelectorAll('.form-error');
     if(!errorArray){
