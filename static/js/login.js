@@ -1,4 +1,4 @@
-import validation from './validation.js';
+import validation from './scripts/validation.js';
 
 const form = document.querySelector('form');
 const formContainer = document.querySelector('#user-form');
