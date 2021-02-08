@@ -58,7 +58,6 @@ form.addEventListener('submit', e => {
     e.preventDefault();
 
     let errorArray = [];
-
     if(activeForm == 'signup'){
         errorArray.push(validation.name(form.username.value));
         errorArray.push(validation.mail(form.email.value));
@@ -67,7 +66,6 @@ form.addEventListener('submit', e => {
     else if(activeForm == 'signin'){
         errorArray.push(validation.mail(form.email.value));
     }
-
     renderErrors(errorArray);
     
     const sum = errorArray.reduce((sum, content) =>{
@@ -77,7 +75,6 @@ form.addEventListener('submit', e => {
     if(sum != '') return;
     
     if(activeForm == 'signup'){
-
         const newUser = {
             name: form.username.value,
             email: form.email.value,
@@ -86,7 +83,6 @@ form.addEventListener('submit', e => {
         signupUser(newUser);
     }
     else if(activeForm == 'signin'){
-
         const userLogin = {
             email: form.email.value,
             password: form.password.value
@@ -110,7 +106,6 @@ function renderErrors(errorArray){
 };
 
 function signupUser(newUser){
-    createLogCookie();
     $.ajax({
         url: '/user/signup',
         method: 'POST',
@@ -126,7 +121,6 @@ function signupUser(newUser){
         });
 };
 function signinUser(userLogin){
-    createLogCookie();
     $.ajax({
         url: '/user/signin',
         method: 'POST',
@@ -143,8 +137,4 @@ function signinUser(userLogin){
                 window.location.href = '/desk';
             }
         });
-};
-function createLogCookie(){
-    const expDate = new Date(9999, 0, 1).toUTCString();
-    document.cookie = 'logged=true; expires='+expDate+'';
 };
