@@ -9,7 +9,7 @@ body{
 #form-toggle-box{
     @include flex(center,flex-end);
     padding-bottom: 50px;
-    height: 25vh;
+    height: 20vh;
 
     div{
         width: 97%;
@@ -26,7 +26,7 @@ body{
     }
 
     .active-form{
-        color: $primary;
+        color: $secondary2;
     }
 }
 

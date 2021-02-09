@@ -36,7 +36,7 @@ function toggleForms(formType){
     setTimeout(() => {
         if(formType == 'signin'){
             usernameContainer.innerHTML = '';
-            submitText.textContent = 'Sign In ';
+            submitText.textContent = 'Log In ';
         }
         else if(formType == 'signup'){
             usernameContainer.innerHTML = `
