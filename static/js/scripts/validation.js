@@ -1,8 +1,8 @@
 const validation = {
     name: (name) => {
         name = name.trim();
-        if(name.length <= 6) return 'Name: at least 6 characters';
-        if(name.length >= 30) return 'Name: max. 30 characters';
+        if(name.length < 6) return 'Name: at least 6 characters';
+        if(name.length > 30) return 'Name: max. 30 characters';
         return '';
     },
     mail: (mail) => {
