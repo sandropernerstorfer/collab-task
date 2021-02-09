@@ -130,3 +130,22 @@ main{
     height: 100%;
     box-shadow: $boxShadow;
 }
+
+.scroll-to-top{
+    border-radius: 50%;
+    font-size: 1.3rem;
+    padding-left: 13px;
+    padding-right: 13px;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 100;
+    opacity: 0;
+    transform: translateY(100px);
+    transition: all .5s ease;
+}
+
+.show-btn{
+    opacity: 1;
+    transform: translateY(0)
+}
