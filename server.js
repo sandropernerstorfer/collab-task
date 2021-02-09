@@ -23,7 +23,11 @@ async function getUserDataLocal(req, res, next){
             try{}
             catch(err){req.clearCookie('_taskID'); next();}
         });
-        currentUser = user;
+        if(user == null){
+            currentUser = {};
+            res.clearCookie('_taskID');
+        }
+        else currentUser = user;
         next();
     }
     else{
@@ -45,6 +49,7 @@ app.get('/userdata', async (req, res) => {
             catch(err){res.end(err);}
         });
         if(user == null){
+            currentUser = {};
             res.end(JSON.stringify(false));
         }
         else{
@@ -53,6 +58,7 @@ app.get('/userdata', async (req, res) => {
         }
     }
     else if(!req.cookies._taskID){
+        currentUser = {};
         res.end(JSON.stringify(false));
     }
     else{
