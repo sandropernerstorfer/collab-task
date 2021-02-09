@@ -44,3 +44,13 @@ p{
         color: $primary;
     }
 }
+
+.button-2{
+    background-color: $secondary2;
+    border-color: $secondary2;
+    
+    &:hover{
+        border-color: $secondary2;
+        color: $secondary2;
+    }
+}
