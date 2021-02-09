@@ -4,3 +4,66 @@
 nav h3{
     cursor: default;
 }
+
+#main-banner{
+    width: 100%;
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    flex-wrap: nowrap;
+
+    #main-text{
+        box-shadow: $boxShadow;
+        border-radius: 20px;
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        flex-direction: column;
+
+        h2{
+            font-family: "HEADING";
+            font-weight: 400;
+            color: $primaryText;
+        }
+
+        button{
+            width: 230px;
+            padding: 10px 10px;
+            position: relative;
+            color: $primary;
+            border-radius: 13px;
+            border-color: $primary;
+            border-width: 2px;
+            font-weight: 500;
+
+            &:hover{
+                background-color: $primary;
+                border-color: $primary;
+                color: #fff;
+            }
+
+            i{
+                position: absolute;
+                right: 10px;
+                top: 14px;
+            }
+        }
+    }
+    
+    #img2{
+        transform: scaleX(-1);
+    }
+
+    img{
+        height: 360px;
+    }
+
+    @media screen and (max-width: 1000px){
+        img{
+            display: none;
+        }
+        justify-content: center;
+    }
+}
