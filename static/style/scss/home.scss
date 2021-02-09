@@ -15,7 +15,7 @@ nav h3{
         @include flex(flex-start,center);
         flex-direction: column;
         box-shadow: $boxShadow;
-        border-radius: 10px;
+        border-radius: $boxRadius;
         width: 100%;
         max-width: 700px;
 
@@ -66,7 +66,7 @@ nav h3{
         margin: 20px;
         min-width: 250px;
         border: 1px solid #ccc;
-        border-radius: 10px;
+        border-radius: $boxRadius;
         padding: 10px;
 
         .card-image{

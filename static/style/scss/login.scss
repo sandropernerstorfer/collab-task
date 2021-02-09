@@ -35,7 +35,7 @@ body{
     transition: opacity .4s;
 
     form{
-        border-radius: 5px;
+        border-radius: $boxRadius;
         box-shadow: $boxShadow;
         padding: 20px;
         width: 97%;
