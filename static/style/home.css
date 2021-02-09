@@ -9,7 +9,8 @@ body { overflow-x: hidden; width: 100vw; height: 100vh; }
 
 a { text-decoration: none; }
 
-header { -webkit-box-shadow: -1px 4px 20px -2px rgba(99, 99, 99, 0.63); box-shadow: -1px 4px 20px -2px rgba(99, 99, 99, 0.63); }
+h1, h2, h3, h4 { font-family: 'HEADING'; }
+
 header nav { padding: 20px 0; width: 100vw; display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-pack: center; -ms-flex-pack: center; justify-content: center; -webkit-box-align: center; -ms-flex-align: center; align-items: center; }
 header nav h3 { color: #5e5e5e; font-family: "APP-NAME"; }
 header nav h3 i { color: #23CE6B; }
@@ -19,7 +20,7 @@ nav h3 { cursor: default; }
 
 #main-banner { width: 100%; background-color: #fff; display: -webkit-box; display: -ms-flexbox; display: flex; -ms-flex-pack: distribute; justify-content: space-around; -ms-flex-line-pack: center; align-content: center; -ms-flex-wrap: nowrap; flex-wrap: nowrap; }
 #main-banner #main-text { -webkit-box-shadow: -1px 4px 20px -2px rgba(99, 99, 99, 0.63); box-shadow: -1px 4px 20px -2px rgba(99, 99, 99, 0.63); border-radius: 10px; width: 100%; max-width: 700px; display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-pack: start; -ms-flex-pack: start; justify-content: flex-start; -webkit-box-align: center; -ms-flex-align: center; align-items: center; -webkit-box-orient: vertical; -webkit-box-direction: normal; -ms-flex-direction: column; flex-direction: column; }
-#main-banner #main-text h2 { font-family: "HEADING"; font-weight: 400; color: #272D2D; cursor: default; }
+#main-banner #main-text h2 { font-weight: 400; color: #272D2D; cursor: default; }
 #main-banner #main-text button { width: 230px; padding: 10px 10px; position: relative; color: #23CE6B; border-radius: 13px; border-color: #23CE6B; border-width: 2px; font-weight: 500; }
 #main-banner #main-text button:hover { background-color: #23CE6B; border-color: #23CE6B; color: #fff; }
 #main-banner #main-text button i { position: absolute; right: 10px; top: 14px; }

@@ -8,3 +8,5 @@ html { font-size: 16px; }
 body { overflow-x: hidden; width: 100vw; height: 100vh; }
 
 a { text-decoration: none; }
+
+h1, h2, h3, h4 { font-family: 'HEADING'; }

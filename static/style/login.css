@@ -9,7 +9,8 @@ body { overflow-x: hidden; width: 100vw; height: 100vh; }
 
 a { text-decoration: none; }
 
-header { -webkit-box-shadow: -1px 4px 20px -2px rgba(99, 99, 99, 0.63); box-shadow: -1px 4px 20px -2px rgba(99, 99, 99, 0.63); }
+h1, h2, h3, h4 { font-family: 'HEADING'; }
+
 header nav { padding: 20px 0; width: 100vw; display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-pack: center; -ms-flex-pack: center; justify-content: center; -webkit-box-align: center; -ms-flex-align: center; align-items: center; }
 header nav h3 { color: #5e5e5e; font-family: "APP-NAME"; }
 header nav h3 i { color: #23CE6B; }
@@ -19,7 +20,7 @@ body { width: 100vw; height: 100vh; }
 
 #form-toggle-box { display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-pack: center; -ms-flex-pack: center; justify-content: center; -webkit-box-align: end; -ms-flex-align: end; align-items: flex-end; padding-bottom: 50px; height: 25vh; }
 #form-toggle-box div { width: 97%; max-width: 500px; display: -webkit-box; display: -ms-flexbox; display: flex; -ms-flex-pack: distribute; justify-content: space-around; }
-#form-toggle-box div span { font-size: 2.3rem; font-family: 'HEADING'; font-weight: 400; color: rgba(204, 204, 204, 0.56); cursor: pointer; outline: none; -webkit-transition: color .7s; transition: color .7s; }
+#form-toggle-box div h1 { font-weight: 400; color: rgba(204, 204, 204, 0.56); cursor: pointer; outline: none; -webkit-transition: color .7s; transition: color .7s; }
 #form-toggle-box .active-form { color: #23CE6B; }
 
 #user-form { display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-pack: center; -ms-flex-pack: center; justify-content: center; -webkit-box-align: center; -ms-flex-align: center; align-items: center; -webkit-transition: opacity .4s; transition: opacity .4s; }
@@ -30,7 +31,7 @@ body { width: 100vw; height: 100vh; }
 #user-form form input:-ms-input-placeholder { color: rgba(72, 78, 72, 0.562); }
 #user-form form input::-ms-input-placeholder { color: rgba(72, 78, 72, 0.562); }
 #user-form form input::placeholder { color: rgba(72, 78, 72, 0.562); }
-#user-form form button { border-radius: 5px; padding: 5px 5px; background-color: #23CE6B; color: #fff; width: 20%; }
+#user-form form button { border-radius: 5px; padding: 5px 5px; background-color: #23CE6B; color: #fff; width: 20%; min-width: 100px; }
 #user-form form button:hover { background-color: #fff; color: #23CE6B; }
 #user-form form .form-icon { position: absolute; right: 10px; bottom: 7px; color: #23CE6B; }
 #user-form form .form-error { position: absolute; right: 0px; margin-right: 12px; color: rgba(220, 20, 60, 0.699); cursor: default; }
