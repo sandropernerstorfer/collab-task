@@ -19,7 +19,7 @@ header #about-button { position: absolute; top: 18px; right: 2vw; padding: 5px; 
 body { width: 100vw; height: 100vh; }
 
 #form-toggle-box { display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-pack: center; -ms-flex-pack: center; justify-content: center; -webkit-box-align: end; -ms-flex-align: end; align-items: flex-end; padding-bottom: 50px; height: 25vh; }
-#form-toggle-box div { width: 97%; max-width: 500px; display: -webkit-box; display: -ms-flexbox; display: flex; -ms-flex-pack: distribute; justify-content: space-around; }
+#form-toggle-box div { width: 97%; max-width: 500px; display: -webkit-box; display: -ms-flexbox; display: flex; -ms-flex-pack: distribute; justify-content: space-around; -webkit-box-align: start; -ms-flex-align: start; align-items: flex-start; }
 #form-toggle-box div h1 { font-weight: 400; color: rgba(204, 204, 204, 0.56); cursor: pointer; outline: none; -webkit-transition: color .7s; transition: color .7s; }
 #form-toggle-box .active-form { color: #23CE6B; }
 

@@ -7,17 +7,14 @@ body{
 }
 
 #form-toggle-box{
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
+    @include flex(center,flex-end);
     padding-bottom: 50px;
     height: 25vh;
 
     div{
         width: 97%;
         max-width: 500px;
-        display: flex;
-        justify-content: space-around;
+        @include flex(space-around,flex-start);
 
         h1{
             font-weight: 400;
@@ -34,9 +31,7 @@ body{
 }
 
 #user-form{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    @include flex(center,center);
     transition: opacity .4s;
 
     form{
