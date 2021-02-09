@@ -58,7 +58,7 @@ nav h3{
         width: 100%;
         max-width: 700px;
         z-index: 5;
-        background-color: #fff;
+        background-color: rgba(255, 255, 255, 0.750);
 
         h2{
             font-weight: 400;
@@ -83,7 +83,7 @@ nav h3{
         }
     }
 
-    @media screen and (max-width: 1000px){
+    @media screen and (max-width: 900px){
         img{
             display: none;
         }
@@ -104,7 +104,6 @@ nav h3{
         width: 22%;
         margin: 20px;
         min-width: 250px;
-        border: 1px solid #ccc;
         border-radius: $boxRadius;
         padding: 10px;
 
