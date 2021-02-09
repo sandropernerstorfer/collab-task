@@ -11,6 +11,45 @@ nav h3{
     width: 100%;
     background-color: #fff;
 
+    img{
+        height: 360px;
+    }
+    #left-image-box{
+        position: relative;
+        top: 0;
+        left: 0;
+        z-index: 1;
+        #img1{
+            position: relative;
+            top: 0;
+            left: 0;
+            z-index: 5;
+        }
+        #background-boards{
+            position: absolute;
+            top: 10px;
+            left: -10px;
+        }
+    }
+    #right-image-box{
+        position: relative;
+        top: 0;
+        left: 0;
+        z-index: 1;
+        #img2{
+            position: relative;
+            top: 0;
+            left: 0;
+            z-index: 5;
+            transform: scaleX(-1);
+        }
+        #background-plant{
+            position: absolute;
+            top: 10px;
+            right: -10px;
+        }
+    }
+
     #main-text{
         @include flex(flex-start,center);
         flex-direction: column;
@@ -18,6 +57,8 @@ nav h3{
         border-radius: $boxRadius;
         width: 100%;
         max-width: 700px;
+        z-index: 5;
+        background-color: #fff;
 
         h2{
             font-weight: 400;
@@ -40,12 +81,6 @@ nav h3{
                 top: 13px;
             }
         }
-    }
-    img{
-        height: 360px;
-    }
-    #img2{
-        transform: scaleX(-1);
     }
 
     @media screen and (max-width: 1000px){
