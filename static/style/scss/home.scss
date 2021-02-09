@@ -32,16 +32,17 @@ nav h3{
             width: 230px;
             padding: 10px 10px;
             position: relative;
-            color: $primary;
+            background-color: $primary;
+            color: #fff;
             border-radius: 13px;
             border-color: $primary;
             border-width: 2px;
             font-weight: 500;
 
             &:hover{
-                background-color: $primary;
+                background-color: #fff;
                 border-color: $primary;
-                color: #fff;
+                color: $primary;
             }
             i{
                 position: absolute;
@@ -91,11 +92,20 @@ nav h3{
             background-repeat: no-repeat;
             background-position: center center;
         }
+
+        .card-content{
+            h4{
+                color: $secondary;
+            }
+            p{
+                color: $primaryText;
+            }
+        }
     }
 }
 
 main{
-    margin-top: 190px;
+    margin-top: 120px;
     width: 100vw;
     height: 100%;
     box-shadow: $boxShadow;
