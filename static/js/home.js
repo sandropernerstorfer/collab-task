@@ -30,11 +30,11 @@ function renderBannerContent(username){
         route = '/login';
     }
     else if(username){
-        heading = `Welcome ${username} !`;
+        heading = `Welcome <span class="home-username">${username}</span> !`;
         html = `Dashboard <i class="fas fa-clipboard-list"></i>`;
         route = '/desk';
     };
-    dynamicHeading.textContent = heading;
+    dynamicHeading.innerHTML = heading;
     dynamicRoute.innerHTML = `<button class="btn btn-outline-success button shadow-none">${html}</button>`;
     dynamicRoute.setAttribute('href',route);
 };
