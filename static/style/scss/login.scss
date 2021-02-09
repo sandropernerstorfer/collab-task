@@ -58,17 +58,9 @@ body{
         }
 
         button{
-            border-radius: 5px;
-            padding: 5px 5px;
-            background-color: $primary;
-            color: #fff;
+            padding: 5px 10px;
             width: 20%;
-            min-width: 100px;
-
-            &:hover{
-                background-color: #fff;
-                color: $primary;
-            }
+            min-width: 115px;
         }
 
         .form-icon{

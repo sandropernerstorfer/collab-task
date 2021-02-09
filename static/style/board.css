@@ -10,3 +10,8 @@ body { overflow-x: hidden; width: 100vw; height: 100vh; }
 a { text-decoration: none; }
 
 h1, h2, h3, h4 { font-family: 'HEADING'; }
+
+p { color: #272D2D; }
+
+.button { border-radius: 13px; background-color: #23CE6B; border-color: #23CE6B; border-width: 2px; color: #fff; }
+.button:hover { background-color: #fff; border-color: #23CE6B; color: #23CE6B; }

@@ -44,8 +44,13 @@ app.get('/userdata', async (req, res) => {
             try{}
             catch(err){res.end(err);}
         });
-        currentUser = user;
-        res.end(JSON.stringify(currentUser.name));
+        if(user == null){
+            res.end(JSON.stringify(false));
+        }
+        else{
+            currentUser = user;
+            res.end(JSON.stringify(currentUser.name));
+        }
     }
     else if(!req.cookies._taskID){
         res.end(JSON.stringify(false));

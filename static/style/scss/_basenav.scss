@@ -3,9 +3,7 @@ header{
     nav{
         padding: 20px 0;
         width: 100vw;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        @include flex(center,center);
 
         h3{
             color: rgb(94, 94, 94);

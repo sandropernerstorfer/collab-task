@@ -35,6 +35,6 @@ function renderBannerContent(username){
         route = '/desk';
     };
     dynamicHeading.textContent = heading;
-    dynamicRoute.innerHTML = `<button class="mt-5 btn btn-outline-success shadow-none">${html}</button>`;
+    dynamicRoute.innerHTML = `<button class="btn btn-outline-success button shadow-none">${html}</button>`;
     dynamicRoute.setAttribute('href',route);
 };

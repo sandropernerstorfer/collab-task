@@ -26,3 +26,21 @@ a{
 h1,h2,h3,h4{
     font-family: 'HEADING';
 }
+
+p{
+    color: $primaryText;
+}
+
+.button{
+    border-radius: 13px;
+    background-color: $primary;
+    border-color: $primary;
+    border-width: 2px;
+    color: #fff;
+
+    &:hover{
+        background-color: #fff;
+        border-color: $primary;
+        color: $primary;
+    }
+}

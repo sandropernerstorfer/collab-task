@@ -26,20 +26,10 @@ nav h3{
         }
         button{
             width: 230px;
-            padding: 10px 10px;
+            padding: 8px 10px;
             position: relative;
-            background-color: $primary;
-            color: #fff;
-            border-radius: 13px;
-            border-color: $primary;
-            border-width: 2px;
             font-weight: 500;
-
-            &:hover{
-                background-color: #fff;
-                border-color: $primary;
-                color: $primary;
-            }
+            
             i{
                 position: absolute;
                 right: 10px;
@@ -90,9 +80,6 @@ nav h3{
         .card-content{
             h4{
                 color: $secondary;
-            }
-            p{
-                color: $primaryText;
             }
         }
     }
