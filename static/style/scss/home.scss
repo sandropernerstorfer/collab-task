@@ -9,14 +9,15 @@ nav h3{
     width: 100%;
     background-color: #fff;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-content: center;
     flex-wrap: nowrap;
 
     #main-text{
         box-shadow: $boxShadow;
-        border-radius: 20px;
+        border-radius: 10px;
         width: 100%;
+        max-width: 700px;
         display: flex;
         justify-content: flex-start;
         align-items: center;
@@ -26,8 +27,8 @@ nav h3{
             font-family: "HEADING";
             font-weight: 400;
             color: $primaryText;
+            cursor: default;
         }
-
         button{
             width: 230px;
             padding: 10px 10px;
@@ -43,7 +44,6 @@ nav h3{
                 border-color: $primary;
                 color: #fff;
             }
-
             i{
                 position: absolute;
                 right: 10px;
@@ -51,13 +51,11 @@ nav h3{
             }
         }
     }
-    
-    #img2{
-        transform: scaleX(-1);
-    }
-
     img{
         height: 360px;
+    }
+    #img2{
+        transform: scaleX(-1);
     }
 
     @media screen and (max-width: 1000px){
@@ -65,5 +63,8 @@ nav h3{
             display: none;
         }
         justify-content: center;
+        #main-text{
+            max-width: 88vw;
+        }
     }
 }

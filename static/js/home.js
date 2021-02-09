@@ -1,3 +1,7 @@
+const dynamicHeading = document.querySelector('#dynamic-heading');
+const dynamicRoute = document.querySelector('#dynamic-route');
+
+// Try to read sessionID Cookie -> call renderBannerContent function : parameter depends on cookie-status
 try{
     const cookie = document.cookie.split('; ').find(row => row.startsWith('_taskID')).split('=')[1];
     $.ajax({
@@ -6,13 +10,31 @@ try{
     }).done(res => {
         const username = JSON.parse(res);
         if(!username){
-            document.body.innerHTML += `<a href='/login'><button>Login</button></a>`;
+            renderBannerContent();
         }
         else{
-            document.body.innerHTML += `<a href='/desk'><button>${username}</button></a>`;
+            renderBannerContent(username);
         };
     });
 }
 catch(err){
-    document.body.innerHTML += `<a href='/login'><button>Login</button></a>`;
-}
+    renderBannerContent();
+};
+
+// Renders banner heading and button + href
+function renderBannerContent(username){
+    let heading, html, route;
+    if(!username){
+        heading = 'Welcome to TaskApp !';
+        html = `Log In / Sign Up <i class="fas fa-sign-in-alt"></i>`;
+        route = '/login';
+    }
+    else if(username){
+        heading = `Welcome ${username} !`;
+        html = `Dashboard <i class="fas fa-clipboard-list"></i>`;
+        route = '/desk';
+    };
+    dynamicHeading.textContent = heading;
+    dynamicRoute.innerHTML = `<button class="mt-5 btn btn-outline-success shadow-none">${html}</button>`;
+    dynamicRoute.setAttribute('href',route);
+};
