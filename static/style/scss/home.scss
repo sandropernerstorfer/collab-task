@@ -149,6 +149,7 @@ main{
             flex-wrap: wrap;
         }
         .product-description{
+            cursor: default;
             width: 50%;
         }
         .product-image{
@@ -185,6 +186,7 @@ footer{
     width: 100%;
     padding: 50px 10px;
     flex-direction: column;
+    cursor: default;
 
     i{
         color: $primary;
