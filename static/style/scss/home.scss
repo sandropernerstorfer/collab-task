@@ -102,22 +102,35 @@ nav h3{
         display: flex;
         flex-direction: column;
         width: 22%;
-        margin: 20px;
+        margin: 10px;
         min-width: 250px;
         border-radius: $boxRadius;
-        padding: 10px;
 
         .card-image{
             height: 200px;
-            background-image: url('../../assets/img/placeholder.png');
-            background-size: cover;
+            background-size: contain;
             background-repeat: no-repeat;
             background-position: center center;
         }
+        #card-task{
+            background-image: url('../../assets/img/task-icon.png');
+        }
+        #card-collab{
+            background-image: url('../../assets/img/collab-icon.png');
+        }
+        #card-custom{
+            background-image: url('../../assets/img/custom-icon.png');
+        }
 
         .card-content{
+            @include flex(center,center);
+            flex-direction: column;
+            text-align: center;
             h4{
                 color: $secondary;
+            }
+            p{
+                font-size: 1.1rem;
             }
         }
     }
