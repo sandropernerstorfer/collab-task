@@ -1,5 +1,5 @@
 const dynamicHeading = document.querySelector('#dynamic-heading');
-const dynamicRoute = document.querySelector('#dynamic-route');
+const dynamicRoutes = document.querySelectorAll('.dynamic-route');
 const aboutButton = document.querySelector('#about-button');
 const observedElement = document.querySelector('#observed-element');
 const scrollTopButton = document.querySelector('#scroll-to-top');
@@ -38,8 +38,10 @@ function renderBannerContent(username){
         route = '/desk';
     };
     dynamicHeading.innerHTML = heading;
-    dynamicRoute.innerHTML = `<button class="btn btn-outline-success button shadow-none">${html}</button>`;
-    dynamicRoute.setAttribute('href',route);
+    dynamicRoutes.forEach( element => {
+        element.innerHTML = `<button class="btn btn-outline-success button shadow-none">${html}</button>`;
+        element.setAttribute('href',route);
+    });
 };
 
 // Smooth Scroll to Target

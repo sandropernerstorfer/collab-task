@@ -169,6 +169,15 @@ main{
     }
 }
 
+#dynamic-bottom{
+    @include flex(center,center);
+    height: 100px;
+    padding: 10px;
+    button{
+        font-size: 1.3rem;
+    }
+}
+
 .scroll-to-top{
     border-radius: 50%;
     font-size: 1.3rem;
