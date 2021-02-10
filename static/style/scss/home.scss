@@ -184,6 +184,7 @@ footer{
     @include flex(space-between,center);
     width: 100%;
     padding: 50px 10px;
+    flex-direction: column;
 
     i{
         color: $primary;
@@ -195,20 +196,18 @@ footer{
     span{
         color: $primaryText;
         font-weight: 200;
-    }
-
-    @media screen and (max-width:400px){
-        flex-direction: column;
+        margin-top: 10px;
     }
 }
 
 .scroll-to-top{
     border-radius: 50%;
     font-size: 1.3rem;
+    font-weight: 700;
     padding-left: 13px;
     padding-right: 13px;
     position: fixed;
-    bottom: 30px;
+    bottom: 35px;
     right: 30px;
     z-index: 100;
     opacity: 0;
