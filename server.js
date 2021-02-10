@@ -19,15 +19,19 @@ mongoose.connect(
 // Functions
 async function getUserDataLocal(req, res, next){
     if(req.cookies._taskID){
-        const user = await User.findOne({sessionid: req.cookies._taskID}, (err,obj) => {
-            try{}
-            catch(err){req.clearCookie('_taskID'); next();}
+        const user = await User.findOne({sessionid: req.cookies._taskID}, (err, found) => {
+            if(err){
+                req.clearCookie('_taskID');
+                next();
+            };
         });
         if(user == null){
             currentUser = {};
             res.clearCookie('_taskID');
         }
-        else currentUser = user;
+        else{
+            currentUser = user;
+        }
         next();
     }
     else{
@@ -44,9 +48,11 @@ app.use(cookieParser());
 
 app.get('/userdata', async (req, res) => {
     if(Object.keys(currentUser).length == 0 && req.cookies._taskID){
-        const user = await User.findOne({sessionid: req.cookies._taskID}, (err,obj) => {
-            try{}
-            catch(err){res.end(err);}
+        const user = await User.findOne({sessionid: req.cookies._taskID}, (err, found) => {
+            if(err){
+                req.clearCookie('_taskID');
+                res.end(JSON.stringify(false));
+            }
         });
         if(user == null){
             currentUser = {};
@@ -82,9 +88,10 @@ app.use('/login', (req, res) => {                   // if path /login AND cookie
 //USER-ROUTES
 app.post('/user/signup', async (req, res) => {      // SIGNUP users and create session -> when done redirects to '/desk'
     // suche USER in DB nach EMAIL
-    const userExists = await User.findOne({email: req.body.email}, (err,obj) => {
-        try{}
-        catch(err){res.end(err);}
+    const userExists = await User.findOne({email: req.body.email}, (err, found) => {
+        if(err){
+            res.redirect('/login');
+        }
     });
 
     if(userExists != null){             // wenn user nicht null ist (also existiert) -> respond: existiert bereits
@@ -110,9 +117,10 @@ app.post('/user/signup', async (req, res) => {      // SIGNUP users and create s
     }
 });
 app.post('/user/signin', async (req, res) => {      // SIGNIN users and create session -> when done redirects to '/desk'
-    const userExists = await User.findOne({email: req.body.email}, (err,obj) => {
-        try{}
-        catch(err){res.end(err);}
+    const userExists = await User.findOne({email: req.body.email}, (err, found) => {
+        if(err){
+            res.redirect('/login');
+        }
     });
 
     if(userExists == null){             // wenn user NICHT existiert -> respond: kein user , kein login
@@ -159,6 +167,7 @@ app.get('/desk/userdata', (req, res) => {
 
 // LOGOUT
 app.get('/logout', (req, res) => {
+    currentUser = {};
     res.clearCookie('_taskID');
     res.redirect('/login');
 });
