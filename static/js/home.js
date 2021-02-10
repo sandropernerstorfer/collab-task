@@ -1,7 +1,7 @@
 const dynamicHeading = document.querySelector('#dynamic-heading');
 const dynamicRoute = document.querySelector('#dynamic-route');
 const aboutButton = document.querySelector('#about-button');
-const mainBox = document.querySelector('#main-content');
+const observedElement = document.querySelector('#observed-element');
 const scrollTopButton = document.querySelector('#scroll-to-top');
 
 // Try to read sessionID Cookie -> call renderBannerContent(parameter depends on cookie-status)
@@ -57,9 +57,9 @@ scrollTopButton.addEventListener('click', e => {
     })
 });
 
-// Observe if mainBox is in sight -> show and hide top-scroll-button
+// Observe element. if its in sight/not in sight -> show/hide top-scroll-button
 let observer = new IntersectionObserver(callback);
-observer.observe(mainBox);
+observer.observe(observedElement);
 function callback(entries, observer) {
     entries.forEach(entry => {
         if (entry.isIntersecting){
