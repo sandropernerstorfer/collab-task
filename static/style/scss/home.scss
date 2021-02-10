@@ -138,8 +138,10 @@ nav h3{
 }
 
 main{
-    margin: 10vh 0;
+    margin-top: 10vh;
+    padding-bottom: 30px;
     background-color: #FEFCFE;
+    box-shadow: 2px 4px 13px -4px rgba(97,97,97,1);
 
     #product-section{
         .product-row{
@@ -175,6 +177,28 @@ main{
     padding: 10px;
     button{
         font-size: 1.3rem;
+    }
+}
+
+footer{
+    @include flex(space-between,center);
+    width: 100%;
+    padding: 50px 10px;
+
+    i{
+        color: $primary;
+    }
+    h3{
+        font-family: 'APP-NAME';
+        color: rgb(94, 94, 94);
+    }
+    span{
+        color: $primaryText;
+        font-weight: 200;
+    }
+
+    @media screen and (max-width:400px){
+        flex-direction: column;
     }
 }
 
