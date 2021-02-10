@@ -26,7 +26,7 @@ body{
     }
 
     .active-form{
-        color: $secondary2;
+        color: $primary;
     }
 }
 
@@ -76,6 +76,30 @@ body{
             margin-right: 12px;
             color: $error;
             cursor: default;
+        }
+    }
+}
+
+.bottom-wave-shape {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+    svg{
+        position: relative;
+        display: block;
+        width: calc(100% + 1.3px);
+        height: 149px;
+    }
+    .shape-fill{
+        fill: $primary;
+    }
+    @media screen and (max-width:650px){
+        svg{
+            height: 20vw;
         }
     }
 }
