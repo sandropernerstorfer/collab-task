@@ -2,7 +2,7 @@ header{
 
     nav{
         padding: 20px 0;
-        width: 100vw;
+        width: 100%;
         @include flex(center,center);
 
         h3{
@@ -13,14 +13,5 @@ header{
                 color: $primary;
             }
         }
-    }
-
-    #about-button{
-        position: absolute;
-        top: 18px;
-        right: 2vw;
-        padding: 5px;
-        background-color: $primary;
-        color: #fff;
     }
 }

@@ -138,11 +138,35 @@ nav h3{
 }
 
 main{
-    @include flex(center,flex-start);
-    margin-top: 120px;
-    width: 100vw;
-    height: 100%;
-    box-shadow: $boxShadow;
+    margin: 10vh 0;
+    background-color: #FEFCFE;
+
+    #product-section{
+        .product-row{
+            @include flex(space-between,center);
+            flex-wrap: wrap;
+        }
+        .product-description{
+            width: 50%;
+        }
+        .product-image{
+            height: 400px;
+            width: 50%;
+            background-image: url('../../assets/img/placeholder.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        @media screen and (max-width: 990px){
+            .product-description{
+                width: 100%;
+            }
+            .product-image{
+                width: 100%;
+            }
+        }
+    }
 }
 
 .scroll-to-top{
