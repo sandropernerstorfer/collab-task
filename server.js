@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const { v4: uuidv4 } = require('uuid');
+const bcrypt = require('bcrypt');
 require('dotenv/config');
 const cookieParser = require("cookie-parser");
 const PORT = process.env.PORT || 5500;
@@ -98,17 +99,18 @@ app.post('/user/signup', async (req, res) => {      // SIGNUP users and create s
         res.end('user exists');
     }
     else{                               // wenn user noch nicht existiert    
-        const sessionID = uuidv4();     // generiert uuid für session management
-        const user = new User({         // neuer USER
-            name: req.body.name,
-            email: req.body.email,
-            password: req.body.password,
-            sessionid: sessionID
-        });
-        res.cookie('_taskID', sessionID, {httpOnly: false});    // erstellt cookie mit selber sessionID
         try{
+            const sessionID = uuidv4();     // generiert uuid für session management
+            const hashedPassword = await bcrypt.hash(req.body.password, 10);
+            const user = new User({         // neuer USER
+                name: req.body.name,
+                email: req.body.email,
+                password: hashedPassword,
+                sessionid: sessionID
+            });
             const savedUser = await user.save();                // speichert USER in Datenbank
             currentUser = savedUser;                            // speichert USER lokal
+            res.cookie('_taskID', sessionID, {httpOnly: false});    // erstellt cookie mit selber sessionID
             res.end();                                          // ende - client leitet auf /desk
         }
         catch(err){
@@ -127,22 +129,20 @@ app.post('/user/signin', async (req, res) => {      // SIGNIN users and create s
         res.end('no user');
     }
     else{                               // wenn user existiert -> vergleiche passwörter
-        const correctPassword = userExists.password == req.body.password ? true : false;
-
-        if(!correctPassword){           // wenn passwörter nicht gleich -> respond: falsches passwort
-            res.end('wrong password');
-        } 
-        else{
-            const sessionID = uuidv4();                             // wenn passwörter gleich -> erstelle neue sessionID
-            res.cookie('_taskID', sessionID, {httpOnly: false});    // erstelle cookie mit gleicher sessionID
-            try{                                                    // sessionID update in datenbank
-                const updatedUser = await User.updateOne({ email: req.body.email }, { $set: {sessionid: sessionID}});
+        try{
+            if(await bcrypt.compare(req.body.password, userExists.password)){
+                const sessionID = uuidv4();                             // wenn passwörter gleich -> erstelle neue sessionID
+                const updatedUser = await User.updateOne({ email: req.body.email }, { $set: {sessionid: sessionID}});   // sessionID update in datenbank
+                res.cookie('_taskID', sessionID, {httpOnly: false});    // erstelle cookie mit gleicher sessionID
                 currentUser = updatedUser;                          // USER lokal speichern
+                res.end();                                      // ende - client leitet auf /desk
             }
-            catch(err){
-                res.json(err);
+            else{
+                res.end('wrong password');  // wenn passwörter nicht gleich -> respond: falsches passwort
             }
-            res.end();                                      // ende - client leitet auf /desk
+        }
+        catch(err){
+            res.json(err);
         }
     }
 });
