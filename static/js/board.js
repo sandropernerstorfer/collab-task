@@ -1,10 +1,6 @@
-$.ajax({
-    url: '/desk/userdata',
-    method: 'GET'
-}).done(res => {
-    console.log(JSON.parse(res));
-});
-
+fetch('/desk/userdata')
+.then( response => response.json())
+.then( data => console.log(data))
 
 
 
@@ -22,11 +18,6 @@ $.ajax({
 
 const LOGOUT = document.querySelector('button');
 LOGOUT.addEventListener('click', () => {
-
-    $.ajax({
-        url: '/logout',
-        method: 'GET'
-        }).done(res => {
-            window.location.href = '/login';
-        });
+    fetch('/logout')
+    .then( res => window.location.href = '/login');
 });

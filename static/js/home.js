@@ -7,17 +7,11 @@ const scrollTopButton = document.querySelector('#scroll-to-top');
 // Try to read sessionID Cookie -> call renderBannerContent(parameter depends on cookie-status)
 try{
     const cookie = document.cookie.split('; ').find(row => row.startsWith('_taskID')).split('=')[1];
-    $.ajax({
-        url: '/userdata',
-        method: 'GET'
-    }).done(res => {
-        const username = JSON.parse(res);
-        if(!username){
-            renderBannerContent();
-        }
-        else{
-            renderBannerContent(username);
-        };
+    fetch('/userdata')
+    .then(response => response.json())
+    .then(username => {
+        if(!username) renderBannerContent();
+        else renderBannerContent(username);
     });
 }
 catch(err){

@@ -106,35 +106,38 @@ function renderErrors(errorArray){
 };
 
 function signupUser(newUser){
-    $.ajax({
-        url: '/user/signup',
+    fetch('/user/signup', {
         method: 'POST',
-        data: JSON.stringify(newUser),
-        contentType:'application/json'
-        }).done(res => {
-            if(res == 'user exists'){
-                renderErrors(['', 'This email is already in use', '']);
-            }
-            else{
-                window.location.href = '/desk';
-            }
-        });
+        body: JSON.stringify(newUser),
+        headers: {'Content-type' : 'application/json; charset=UTF-8'}
+    })
+    .then(response => response.text())
+    .then( msg => {
+        if(msg == 'user exists'){
+            renderErrors(['', 'This email is already in use', '']);
+        }
+        else{
+            window.location.href = '/desk';
+        }
+    });
 };
+
 function signinUser(userLogin){
-    $.ajax({
-        url: '/user/signin',
+    fetch('/user/signin', {
         method: 'POST',
-        data: JSON.stringify(userLogin),
-        contentType:'application/json'
-        }).done(res => {
-            if(res == 'no user'){
-                renderErrors(['Email not found','']);
-            }
-            else if(res == 'wrong password'){
-                renderErrors(['','Incorrect Password']);
-            }
-            else{
-                window.location.href = '/desk';
-            }
-        });
+        body: JSON.stringify(userLogin),
+        headers: {'Content-type' : 'application/json; charset=UTF-8'}
+    })
+    .then(response => response.text())
+    .then( msg => {
+        if(msg == 'no user'){
+            renderErrors(['Email not found','']);
+        }
+        else if(msg == 'wrong password'){
+            renderErrors(['','Incorrect Password']);
+        }
+        else{
+            window.location.href = '/desk';
+        }
+    });
 };
