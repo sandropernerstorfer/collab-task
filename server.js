@@ -3,13 +3,13 @@ const app = express();
 const mongoose = require('mongoose');
 const { v4: uuidv4 } = require('uuid');
 const bcrypt = require('bcrypt');
-require('dotenv/config');
 const cookieParser = require("cookie-parser");
-const PORT = process.env.PORT || 5500;
+require('dotenv/config');
 const User = require('./models/User');
 let currentUser = {};
 
 // Server Listen & Database Connection
+const PORT = process.env.PORT || 5500;
 app.listen(PORT);
 mongoose.connect(
     process.env.DB_CONNECTION, {useNewUrlParser: true, useUnifiedTopology: true}, () => {
@@ -19,13 +19,14 @@ mongoose.connect(
 
 // Functions
 async function getUserDataLocal(req, res, next){
+    if(req.cookies._taskID && Object.keys(currentUser).length > 0){ next(); };
     if(req.cookies._taskID){
         const user = await User.findOne({sessionid: req.cookies._taskID}, (err, found) => {
             if(err){
                 req.clearCookie('_taskID');
                 next();
             };
-        });
+        }).select('-password');
         if(user == null){
             currentUser = {};
             res.clearCookie('_taskID');
@@ -74,6 +75,8 @@ app.get('/userdata', async (req, res) => {
 });
 
 app.use(getUserDataLocal);                          // gets User-Data by comparing cookieID and DB sessionID
+
+//LOGIN-ROUTES
 app.use('/login/*?', (req,res) => {                 // catch all routes following Login and redirect to /login
     res.redirect('/login');
 });
@@ -148,21 +151,33 @@ app.post('/user/signin', async (req, res) => {      // SIGNIN users and create s
 });
 
 // DESK-ROUTES
-app.use('/desk', (req,res,next) => {                // if no local user data saved -> redirect to login
+
+app.get('/desk', (req,res) => {
     if(Object.keys(currentUser).length == 0){
         res.redirect('/login');
     }
     else{
-        next();
+        res.sendFile('board.html', {root: 'static'});
     }
 });
 
-app.get('/desk', (req,res) => {
-    res.sendFile('board.html', {root: 'static'});
-});
-
 app.get('/desk/userdata', (req, res) => {
-    res.send(JSON.stringify(currentUser));
+    let desks = false;
+    let sharedDesks = false;
+
+    if(currentUser.desks.length > 0){
+        // desks =  -> get deskinfos
+    }
+    if(currentUser.sharedDesks.length > 0){
+        // sharedDesks =  -> get deskinfos
+    }
+
+    const boardData = {
+        name: currentUser.name,
+        desks: desks,
+        sharedDesks: sharedDesks
+    }
+    res.send(JSON.stringify(boardData));
 })
 
 // LOGOUT
