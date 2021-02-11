@@ -1,1 +1,52 @@
 @import 'base';
+@import 'basenav';
+
+section{
+    @include flex(center, flex-start);
+    flex-direction: column;
+    margin-top: 70px;
+}
+
+.section-heading{
+    @include flex(space-between, center);
+    width: 100%;
+    padding: 0 20px;
+    margin-bottom: 20px;
+
+    button{
+        background-color: #fff;
+        color: $primary;
+    }
+    h4{
+        margin: 0;
+    }
+}
+
+.card{
+    padding: 10px 20px;
+    height: 130px;
+    border: 0;
+
+    div{
+        @include flex(flex-start, flex-end);
+        width: 100%;
+        height: 100%;
+        font-weight: 500;
+        color: #fff;
+        border-radius: 10px;
+        padding: 10px 20px;
+    }
+}
+
+.black-card{
+    background-color: #777;
+}
+.blue-card{
+    background-color: mediumslateblue;
+}
+.orange-card{
+    background-color: rgb(238, 179, 52);
+}
+.green-card{
+    background-color: $primary;
+}

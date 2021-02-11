@@ -16,7 +16,7 @@ fetch('/desk/userdata')
 
 
 
-const LOGOUT = document.querySelector('button');
+const LOGOUT = document.querySelector('#logout');
 LOGOUT.addEventListener('click', () => {
     fetch('/logout')
     .then( res => window.location.href = '/login');

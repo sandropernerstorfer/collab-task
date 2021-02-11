@@ -162,8 +162,8 @@ app.get('/desk', (req,res) => {
 });
 
 app.get('/desk/userdata', (req, res) => {
-    let desks = false;
-    let sharedDesks = false;
+    let desks = 0;
+    let sharedDesks = 0;
 
     if(currentUser.desks.length > 0){
         // desks =  -> get deskinfos
