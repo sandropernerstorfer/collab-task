@@ -17,6 +17,12 @@ mongoose.connect(
     }
 );
 
+//Middleware
+app.use(express.static('static'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+
 // Functions
 async function getUserDataLocal(req, res, next){
     if(req.cookies._taskID && Object.keys(currentUser).length > 0){ next(); };
@@ -42,12 +48,10 @@ async function getUserDataLocal(req, res, next){
     }
 };
 
-//Middleware
-app.use(express.static('static'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
+// GET AND SAVE USERDATA
+app.use(getUserDataLocal);                          // gets User-Data by comparing cookieID and DB sessionID
 
+//HOMEPAGE DATA
 app.get('/userdata', async (req, res) => {
     if(Object.keys(currentUser).length == 0 && req.cookies._taskID){
         const user = await User.findOne({sessionid: req.cookies._taskID}, (err, found) => {
@@ -73,8 +77,6 @@ app.get('/userdata', async (req, res) => {
         res.end(JSON.stringify(currentUser.name));
     }
 });
-
-app.use(getUserDataLocal);                          // gets User-Data by comparing cookieID and DB sessionID
 
 //LOGIN-ROUTES
 app.use('/login/*?', (req,res) => {                 // catch all routes following Login and redirect to /login
