@@ -7,7 +7,7 @@ section{
 }
 
 .section-heading{
-    @include flex(space-between, center);
+    @include flex(flex-start, center);
     width: 100%;
     padding: 0 20px;
     margin-bottom: 20px;
@@ -27,11 +27,6 @@ section{
                 display: none;
             }
         }
-    }
-    button{
-        background-color: #fff;
-        color: $primary;
-        padding: 5px 10px;
     }
 }
 
@@ -62,4 +57,28 @@ section{
 }
 .green-card{
     background-color: $primary;
+}
+
+#add-desk{
+    @include flex(center,center);
+    button{
+        background-color: #fff;
+        color: $primary;
+        padding: 10px 20px;
+        border-width: 2px;
+        font-weight: 500;
+    }
+}
+
+#profile{
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    border-radius: 50%;
+    background-image: url('../../assets/img/user-default.png');
+    background-position: center;
+    background-size: cover;
+    opacity: .8;
+    width: 33px;
+    height: 33px;
 }

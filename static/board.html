@@ -16,6 +16,7 @@
     <title>Task-App | Desk</title>
 </head>
 <body>
+    <aside id="profile"></aside>
     <header>
         <nav>
             <a href="/"><h3 class="mb-0"><i class="fas fa-tasks"></i> TaskApp</h3></a>
@@ -23,37 +24,36 @@
     </header>
     <main class="container mt-5">
         <section id="desk-section" class="mb-5">
-            <div class="section-heading">
+            <div class="section-heading mb-4">
                 <div>
                     <h4>Your Desks</h4>
                     <span class="badge rounded-pill">1</span>
                 </div>
-                <button class="btn btn-outline-success shadow-none button">Add <i class="fas fa-plus"></i></button>
             </div>
             <div class="container desk-cards">
-                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
                     <div class="card col">
                         <div class="green-card">Some Good Name</div>
                     </div>
                     <div class="card col">
                         <div class="black-card">Card</div>
                     </div>
-                    <div class="card col">
-                        <div class="orange-card">Card</div>
+                    <div class="card col" id="add-desk">
+                        <button class="btn btn-outline-success shadow-none button"><i class="fas fa-plus"></i> Add Desk</button>
                     </div>
                 </div>
             </div>
         </section>
         <hr>
         <section id="shared-section" class="mt-5">
-            <div class="section-heading">
+            <div class="section-heading mb-4">
                 <div>
                     <h4>Member on</h4>
                     <span class="badge rounded-pill">3</span>
                 </div>
             </div>
             <div class="container desk-cards">
-                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
                     <div class="card col">
                         <div class="black-card">Card</div>
                     </div>
