@@ -31,12 +31,17 @@ a{
 
 h1,h2,h3,h4{
     font-family: 'HEADING';
+    cursor: default;
 }
 
 p{
     color: $primaryText;
     font-weight: 200;
     font-size: 1.05rem;
+    cursor: default;
+}
+
+span{
     cursor: default;
 }
 

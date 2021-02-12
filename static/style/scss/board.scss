@@ -4,7 +4,6 @@
 section{
     @include flex(center, flex-start);
     flex-direction: column;
-    margin-top: 70px;
 }
 
 .section-heading{
@@ -13,12 +12,26 @@ section{
     padding: 0 20px;
     margin-bottom: 20px;
 
+    div{
+        @include flex(flex-start,center);
+
+        h4{
+            margin: 0;
+        }
+        span{
+            margin-left: 7px;
+            background-color: transparent;
+            border: 2px solid $primary;
+            color: $primary;
+            @media screen and (max-width: 350px){
+                display: none;
+            }
+        }
+    }
     button{
         background-color: #fff;
         color: $primary;
-    }
-    h4{
-        margin: 0;
+        padding: 5px 10px;
     }
 }
 
