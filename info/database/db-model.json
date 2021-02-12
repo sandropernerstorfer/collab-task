@@ -1,0 +1,25 @@
+// Database Model
+{
+    "user": {
+        "name": "REQUIRED STRING",
+        "email": "REQUIRED STRING",
+        "password": "REQUIRED STRING",
+        "sessionid": "REQUIRED STRING",
+        "desks": "ARRAY / default []",
+        "sharedDesks": "ARRAY / default []",
+        "invites": "ARRAY / default []",
+        "image": ""
+    },
+    "desk": {
+        "name": "REQUIRED STRING",
+        "admin": "REQUIRED STRING",
+        "lists": "ARRAY / default []",
+        "members": "ARRAY / default []",
+        "color": "STRING / default green"
+    },
+    "list(in desk-collection)": {
+        "name": "STRING",
+        "tasks": "ARRAY / default []",
+        "order": "INT / default 0"
+    }
+}
