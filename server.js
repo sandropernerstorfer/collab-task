@@ -18,6 +18,7 @@ mongoose.connect(
 );
 
 //Middleware
+mongoose.set('useFindAndModify', false);
 app.use(express.static('static'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -25,26 +26,29 @@ app.use(cookieParser());
 
 // Functions
 async function getUserDataLocal(req, res, next){
-    if(req.cookies._taskID && Object.keys(currentUser).length > 0){ next(); };
-    if(req.cookies._taskID){
-        const user = await User.findOne({sessionid: req.cookies._taskID}, (err, found) => {
-            if(err){
-                req.clearCookie('_taskID');
-                next();
-            };
-        }).select('-password');
-        if(user == null){
-            currentUser = {};
-            res.clearCookie('_taskID');
-        }
-        else{
-            currentUser = user;
-        }
+    if(req.cookies._taskID && Object.keys(currentUser).length !== 0){
         next();
     }
     else{
-        currentUser = {};
-        next();
+        if(req.cookies._taskID){
+            const user = await User.findOne({sessionid: req.cookies._taskID}, (err, found) => {
+                if(err){
+                    req.clearCookie('_taskID');
+                    next();
+                };
+            }).select('-password');
+            if(user == null){
+                currentUser = {};
+                res.clearCookie('_taskID');
+            }
+            else{
+                currentUser = user;
+            }
+            next();
+        }
+        else{
+            next();
+        }
     }
 };
 
@@ -52,25 +56,8 @@ async function getUserDataLocal(req, res, next){
 app.use(getUserDataLocal);                          // gets User-Data by comparing cookieID and DB sessionID
 
 //HOMEPAGE DATA
-app.get('/userdata', async (req, res) => {
-    if(Object.keys(currentUser).length == 0 && req.cookies._taskID){
-        const user = await User.findOne({sessionid: req.cookies._taskID}, (err, found) => {
-            if(err){
-                req.clearCookie('_taskID');
-                res.end(JSON.stringify(false));
-            }
-        });
-        if(user == null){
-            currentUser = {};
-            res.end(JSON.stringify(false));
-        }
-        else{
-            currentUser = user;
-            res.end(JSON.stringify(currentUser.name));
-        }
-    }
-    else if(!req.cookies._taskID){
-        currentUser = {};
+app.get('/userdata', (req, res) => {
+    if(Object.keys(currentUser).length == 0){
         res.end(JSON.stringify(false));
     }
     else{
@@ -137,7 +124,7 @@ app.post('/user/signin', async (req, res) => {      // SIGNIN users and create s
         try{
             if(await bcrypt.compare(req.body.password, userExists.password)){
                 const sessionID = uuidv4();                             // wenn passwörter gleich -> erstelle neue sessionID
-                const updatedUser = await User.updateOne({ email: req.body.email }, { $set: {sessionid: sessionID}});   // sessionID update in datenbank
+                const updatedUser = await User.findOneAndUpdate({ email: req.body.email }, { $set: {sessionid: sessionID}}, {new: true});   // sessionID update in datenbank
                 res.cookie('_taskID', sessionID, {httpOnly: false});    // erstelle cookie mit gleicher sessionID
                 currentUser = updatedUser;                          // USER lokal speichern
                 res.end();                                      // ende - client leitet auf /desk
@@ -153,7 +140,6 @@ app.post('/user/signin', async (req, res) => {      // SIGNIN users and create s
 });
 
 // DESK-ROUTES
-
 app.get('/desk', (req,res) => {
     if(Object.keys(currentUser).length == 0){
         res.redirect('/login');
