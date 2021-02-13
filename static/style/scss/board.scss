@@ -85,9 +85,11 @@ section{
         padding-left: 0;
         color: $primaryText;
         font-weight: 400;
-
         &:focus{
             border-color: $primary;
+        }
+        &::placeholder{
+            color: $placeholder;
         }
     }
     .fa-edit{
