@@ -29,6 +29,7 @@
                     <h4>Your Desks</h4>
                     <span class="badge rounded-pill">1</span>
                 </div>
+                <button class="btn btn-outline-success shadow-none button" data-bs-toggle="modal" data-bs-target="#addDeskModal"><i class="fas fa-plus"></i> Add Desk</button>
             </div>
             <div class="container desk-cards">
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
@@ -37,9 +38,6 @@
                     </div>
                     <div class="card col">
                         <div class="black-card">Card</div>
-                    </div>
-                    <div class="card col" id="add-desk">
-                        <button class="btn btn-outline-success shadow-none button"><i class="fas fa-plus"></i> Add Desk</button>
                     </div>
                 </div>
             </div>
@@ -67,6 +65,32 @@
             </div>
         </section>
     </main>
+    <div class="modal fade" id="addDeskModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div id="deskModalBody" class="modal-body text-center">
+                <div class="mb-3">
+                    <label for="newDeskName" class="mb-0"></label><small id="desknameError" class="float-end form-text"></small>
+                    <div class="position-relative">
+                        <input type="text" maxlength="15" class="form-control shadow-none" id="newDeskName" placeholder="Deskname"><i class="far fa-edit"></i>
+                    </div>
+                    <div class="mt-3">
+                        <div class="container" id="deskColors">
+                            <span><i class="fas fa-paint-brush"></i> Desk color</span>
+                            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
+                                <div class="col green-card selected-color"></div>
+                                <div class="col blue-card"></div>
+                                <div class="col orange-card"></div>
+                                <div class="col black-card"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-outline-success button shadow-none mt-3"><i class="fas fa-plus"></i> Create Desk</button>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
     <button id="logout">develop - Logout</button>
 </body>
 </html>

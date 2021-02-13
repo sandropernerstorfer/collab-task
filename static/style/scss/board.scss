@@ -7,7 +7,7 @@ section{
 }
 
 .section-heading{
-    @include flex(flex-start, center);
+    @include flex(space-between, center);
     width: 100%;
     padding: 0 20px;
     margin-bottom: 20px;
@@ -27,6 +27,10 @@ section{
                 display: none;
             }
         }
+    }
+    button{
+        background-color: #fff;
+        color: $primary;
     }
 }
 
@@ -59,17 +63,6 @@ section{
     background-color: $primary;
 }
 
-#add-desk{
-    @include flex(center,center);
-    button{
-        background-color: #fff;
-        color: $primary;
-        padding: 10px 20px;
-        border-width: 2px;
-        font-weight: 500;
-    }
-}
-
 #profile{
     position: absolute;
     top: 15px;
@@ -81,4 +74,65 @@ section{
     opacity: .8;
     width: 33px;
     height: 33px;
+}
+
+#deskModalBody{
+    padding: 30px;
+
+    input{
+        border-width: 0 0 1px 0;
+        border-radius: 0px;
+        padding-left: 0;
+        color: $primaryText;
+        font-weight: 400;
+
+        &:focus{
+            border-color: $primary;
+        }
+    }
+    .fa-edit{
+        position: absolute;
+        color: $primary;
+        top: 10px;
+        right: 0;
+    }
+    #desknameError{
+        color: $error;
+    }
+
+    #deskColors{
+        @include flex(center,center);
+        flex-wrap: wrap;
+        padding: 20px 5px;
+        border-radius: 10px;
+
+        span{
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: rgb(107, 107, 107);
+            i{
+                color: $primary;
+            }
+        }
+        div{
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            @include flex(space-between, center);
+            flex-wrap: wrap;
+            border: 5px solid #fff;
+
+            div{
+                cursor: pointer;
+                border-radius: 10px;
+                height: 60px;
+                width: 60px;
+                margin: 10px;
+            }
+
+            .selected-color{
+                border: 5px solid rgba(0, 0, 0, 0.301);
+            }
+        }
+    }
 }
