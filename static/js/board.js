@@ -57,10 +57,10 @@ function renderContent(){
 
 
 
+document.querySelector('#profile').click();
 
 
-
-const LOGOUT = document.querySelector('#logout');
+const LOGOUT = document.querySelector('#logoutButton');
 LOGOUT.addEventListener('click', () => {
     fetch('/logout')
     .then( res => window.location.href = '/login');

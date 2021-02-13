@@ -16,13 +16,16 @@
     <title>Task-App | Desk</title>
 </head>
 <body>
-    <aside id="profile"></aside>
+<!-- Profile Button -->
+    <aside id="profile" data-bs-toggle="modal" data-bs-target="#profileModal"></aside>
+<!-- Header -->
     <header>
         <nav>
             <a href="/"><h3 class="mb-0"><i class="fas fa-tasks"></i> TaskApp</h3></a>
         </nav>
     </header>
     <main class="container mt-5">
+<!-- Personal Desks -->
         <section id="desk-section" class="mb-5">
             <div class="section-heading mb-4">
                 <div>
@@ -43,6 +46,7 @@
             </div>
         </section>
         <hr>
+<!-- Shared Desks -->
         <section id="shared-section" class="mt-5">
             <div class="section-heading mb-4">
                 <div>
@@ -65,6 +69,7 @@
             </div>
         </section>
     </main>
+<!-- Desk-Creation Modal -->
     <div class="modal fade" id="addDeskModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
@@ -92,7 +97,30 @@
             </div>
           </div>
         </div>
-      </div>
-    <button id="logout">develop - Logout</button>
+    </div>
+<!-- Profile Modal -->
+    <div class="modal fade" id="profileModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div id="profile-content" class="modal-body text-center">
+                <div id="profile-picture">
+                    <div>Edit</div>
+                </div>
+                <h3>Hey <span id="profileUsername">sandro</span> !</h3>
+                <div id="data-field" class="mt-3">
+                    <div>
+                        <span id="left-icon"><i class="fas fa-signature"></i></span>
+                        <span id="currentUsername">sandro</span>
+                    </div>
+                    <button class="btn btn-outline-success button shadow-none"><i class="fas fa-user-edit"></i></button>
+                </div>
+                <div id="profile-buttons" class="mt-4">
+                    <button class="btn btn-outline-success button shadow-none">Save</button>
+                    <button id="logoutButton" class="btn btn-outline-success button shadow-none">Log Out</button>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
 </body>
 </html>
