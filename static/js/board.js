@@ -1,7 +1,11 @@
 import validation from './scripts/validation.js';
 const addDeskModal = document.querySelector('#addDeskModal');
+const profileClose = document.querySelector('#profileClose');
+const profileSave = document.querySelector('#profileSave');
 const deskForm = document.querySelector('#createDeskForm');
 const deskError = document.querySelector('#desknameError');
+const editName = document.querySelector('#editName');
+const nameField = document.querySelector('#currentUsername');
 let boardData = {};
 
 fetch('/desk/userdata')
@@ -10,6 +14,10 @@ fetch('/desk/userdata')
     boardData = data;
     renderContent();
 });
+function renderContent(){
+    console.log('got data');
+    console.log(boardData);
+};
 
 addDeskModal.addEventListener('shown.bs.modal', () => {
     deskForm.deskname.focus();
@@ -47,21 +55,59 @@ document.addEventListener('click', e => {
         element.classList.remove('selected-color');
     });
     e.target.classList.add('selected-color'); 
-})
+});
 
-function renderContent(){
-    console.log('got data');
-    console.log(boardData);
+
+
+let newName;
+let editing = false;
+editName.addEventListener('click', e => {
+    if(!editing){
+        editing = true;
+        nameField.innerHTML = `<input type="text" name="newUsername" maxlength="30" class="form-control shadow-none" id="newUsername" value=${nameField.textContent}>`;
+        editName.innerHTML = `<i class="far fa-check-circle"></i>`;    
+    }
+    else{
+        const inputValue = document.querySelector('#newUsername').value;
+        const error = validation.name(inputValue);
+        if(error == ''){
+            editing = false;
+            newName = inputValue;
+            nameField.innerHTML = newName;
+            editName.innerHTML = `<i class="fas fa-user-edit"></i>`;
+        }
+        else{
+            console.log(error);
+        }
+    }
+});
+
+profileClose.addEventListener('click', () => {
+    resetProfile();
+});
+
+profileSave.addEventListener('click', () => {
+    if(newName === boardData.name || newName == undefined){
+        profileClose.click();
+    }
+    else{
+        console.log(newName);
+    }
+});
+
+// RESETS PROFILE PAGE
+function resetProfile(){
+    editing = false;
+    newName = boardData.name;
+    setTimeout(() => {
+        nameField.innerHTML = boardData.name;
+        editName.innerHTML = `<i class="fas fa-user-edit"></i>`;   
+    }, 400);
 };
 
-
-
-
-document.querySelector('#profile').click();
-
-
-const LOGOUT = document.querySelector('#logoutButton');
-LOGOUT.addEventListener('click', () => {
+// USER-LOGOUT
+const userLogout = document.querySelector('#logoutButton');
+userLogout.addEventListener('click', () => {
     fetch('/logout')
     .then( res => window.location.href = '/login');
 });

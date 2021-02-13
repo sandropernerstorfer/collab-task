@@ -88,6 +88,12 @@ section{
     #profile-content{
         @include flex(center,center);
         flex-direction: column;
+
+        .btn-close{
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
     }
 
     #profile-picture{
@@ -130,12 +136,19 @@ section{
         width: 100%;
         border-top: 1px solid #ccc;
         border-bottom: 1px solid #ccc;
-
+        div{
+            @include flex(flex-start,center);
+            width: 100%;
+            flex-wrap: wrap;
+        }
         #left-icon{
             margin-right: 5px;
-            i{
+            .fa-signature{
                 color: $primary;
-            }    
+            }
+            .fa-times-circle{
+                color: gold;
+            }
         }
         span{
             color: $primaryText;
@@ -144,6 +157,23 @@ section{
         button{
             padding: 5px 7px;
             border-radius: 20px;
+            width: 35px;
+        }
+        input{
+            margin-left: 5px;
+            width: 100%;
+            border-width: 0 0 1px 0;
+            border-radius: 0px;
+            padding-left: 0;
+            color: $primaryText;
+            font-weight: 400;
+            font-size: 1.05rem;
+            &:focus{
+                border-color: $primary;
+            }
+            &::placeholder{
+                color: $placeholder;
+            }
         }
     }
     #profile-buttons{

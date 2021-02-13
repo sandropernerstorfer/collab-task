@@ -99,10 +99,11 @@
         </div>
     </div>
 <!-- Profile Modal -->
-    <div class="modal fade" id="profileModal" tabindex="-1" aria-hidden="true">
+    <div class="modal fade" id="profileModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div id="profile-content" class="modal-body text-center">
+                <button type="button" id="profileClose" class="btn-close shadow-none" data-bs-dismiss="modal" aria-label="Close"></button>
                 <div id="profile-picture">
                     <div>Edit</div>
                 </div>
@@ -112,15 +113,16 @@
                         <span id="left-icon"><i class="fas fa-signature"></i></span>
                         <span id="currentUsername">sandro</span>
                     </div>
-                    <button class="btn btn-outline-success button shadow-none"><i class="fas fa-user-edit"></i></button>
+                    <button id="editName" class="btn btn-outline-success button shadow-none"><i class="fas fa-user-edit"></i></button>
                 </div>
                 <div id="profile-buttons" class="mt-4">
-                    <button class="btn btn-outline-success button shadow-none">Save</button>
+                    <button id="profileSave" class="btn btn-outline-success button shadow-none">Save</button>
                     <button id="logoutButton" class="btn btn-outline-success button shadow-none">Log Out</button>
                 </div>
             </div>
         </div>
         </div>
     </div>
+    
 </body>
 </html>
