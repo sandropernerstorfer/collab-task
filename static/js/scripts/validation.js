@@ -11,7 +11,13 @@ const validation = {
     },
     pass: (pass) => {
         pass = pass.trim();
-        return pass.trim().length >= 8 ? '' : 'Password: at least 8 characters';
+        return pass.length >= 8 ? '' : 'Password: at least 8 characters';
+    },
+    deskname: (deskname) => {
+        deskname = deskname.trim();
+        if(deskname.length > 15) return 'Deskname: max. 15 characters';
+        if(deskname.length <= 0) return 'Please enter a Deskname';
+        return '';
     }
 };
 
