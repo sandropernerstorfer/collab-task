@@ -90,9 +90,10 @@ section{
         top: 20%;
         right: 40px;
         transform: translateY(-50%);
-        font-size: 2rem;
-        color: $secondary2;
-        animation: MoveUpDown 1s linear infinite;
+        font-size: 1.7rem;
+        color: rgb(128, 128, 128);
+        transition: opacity .6s;
+        animation: MoveUpDown 1.1s linear infinite;
         @media screen and (max-width: 767px){
             display: none;
         }
