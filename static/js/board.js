@@ -25,7 +25,8 @@ fetch('/desk/userdata')
     console.log(boardData);
     renderUsername();
     renderUserImage();
-    renderDeskData(); 
+    renderDeskData();
+    renderSharedData();
 });
 
 /**
@@ -34,7 +35,7 @@ fetch('/desk/userdata')
  * lädt user und desk daten von dem boardData objekt in das Dokument
  * beide funktionen werden aufgerufen sobald: 
  * -- der server die daten geschickt hat
- * -- und einzeln wenn daten geupdated wurden
+ * -- und einzeln wenn daten geupdated wurden ( username bearbeitet , desk erstellt)
  */
 function renderUsername(){
     newName = boardData.name;
@@ -49,16 +50,41 @@ function renderUserImage(){
 };
 function renderDeskData(){
     const desksSection = document.querySelector('#desksContainer');
-    
     if(boardData.desks.length == 0){
-        desksSection.innerHTML = `<div class="card col"><div class="no-card">No Desks</div></div>`;
+        desksSection.innerHTML = `<div class="card col"><div class="no-desk">No Desks</div></div>`;
     }
     else{
         desksSection.innerHTML = '';
         for(let i = 0; boardData.desks.length > i; i++){
-            desksSection.innerHTML += `<div class="card col"><div class="${boardData.desks[i].color}-card">${boardData.desks[i].name}</div></div>`;
+            desksSection.innerHTML += `<div class="card col"><div id="desk${i}" class="${boardData.desks[i].color}-card">${boardData.desks[i].name}</div></div>`;
+        };
+        for(let i = 0; boardData.desks.length > i; i++){
+            document.getElementById(`desk${i}`).addEventListener('click', () => { openDesk(boardData.desks[i]._id) });
         };
     }
+};
+function renderSharedData(){
+    const sharedSection = document.querySelector('#sharedContainer');
+    if(boardData.sharedDesks.length == 0){
+        sharedSection.innerHTML = `<div class="card col no-shared"><div><h4>All Desks you are a Member on will show up here</h4><small>Currently there are no invitations or shared desks</small></div></div>`;
+    }
+    else{
+        sharedSection.innerHTML = '';
+        for(let i = 0; boardData.sharedDesks.length > i; i++){
+            sharedSection.innerHTML += `<div class="card col"><div id="shared${i}" class="${boardData.sharedDesks[i].color}-card">${boardData.sharedDesks[i].name}</div></div>`;
+        };
+        for(let i = 0; boardData.sharedDesks.length > i; i++){
+            document.getElementById(`shared${i}`).addEventListener('click', () => { openDesk(boardData.sharedDesks[i]._id) });
+        };
+    }
+};
+
+/**
+ * 
+ * @param {string} deskID - Die ID von dem Desk der geöffnet werden soll
+ */
+function openDesk(deskID){
+    console.log(deskID);
 };
 
 //---- DESK CREATION

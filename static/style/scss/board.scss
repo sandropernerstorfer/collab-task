@@ -62,9 +62,24 @@ section{
 .green-card{
     background-color: $primary;
 }
-.no-card{
+.no-desk{
     border: 1px solid $primary;
     color: black !important;
+}
+.no-shared{
+    @include flex(center,center);
+    border-radius: 13px;
+    width: 100%;
+    div{
+        @include flex(center,center);
+        flex-direction: column;
+        color: $primaryText;
+        border: 1px solid #ccc;
+        width: 100%;
+        small{
+            color: rgb(253, 181, 46);
+        }
+    }
 }
 
 #profile{
