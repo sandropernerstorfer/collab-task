@@ -28,6 +28,10 @@ const UserSchema = mongoose.Schema({
     invites: {
         type: Array,
         default: []
+    },
+    image: {
+        type: String,
+        default: 'user-default.png'
     }
 });
 

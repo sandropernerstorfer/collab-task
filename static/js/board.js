@@ -22,7 +22,8 @@ fetch('/desk/userdata')
 .then( response => response.json())
 .then( data => {
     boardData = data;
-    renderUserData();
+    renderUsername();
+    renderUserImage();
     renderDeskData(); 
 });
 
@@ -34,12 +35,17 @@ fetch('/desk/userdata')
  * -- der server die daten geschickt hat
  * -- und einzeln wenn daten geupdated wurden
  */
-function renderUserData(){
+function renderUsername(){
     newName = boardData.name;
     const nameElements = document.querySelectorAll('.username');
     nameElements.forEach( element => {
         element.textContent = boardData.name;
     });
+};
+function renderUserImage(){
+    document.querySelector('#profile').style.backgroundImage = "url('../../assets/img/"+boardData.image+"')";
+    document.querySelector('#profile-picture').style.backgroundImage = "url('../../assets/img/"+boardData.image+"')";
+    console.log(boardData.image);
 };
 function renderDeskData(){
     console.log('desk-data');
@@ -163,7 +169,7 @@ profileSave.addEventListener('click', () => {
             boardData.name = newName;
             profileClose.click();
             setTimeout(() => {
-                renderUserData();    
+                renderUsername();    
             }, 400);
         });
     }

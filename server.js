@@ -168,6 +168,7 @@ app.get('/desk/userdata', (req, res) => {
     const boardData = {
         _id: currentUser._id,
         name: currentUser.name,
+        image: currentUser.image,
         desks: desks,
         sharedDesks: sharedDesks
     }
