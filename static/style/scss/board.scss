@@ -123,12 +123,14 @@ section{
             font-weight: 500;
         }
     }
+
     h3{
         font-weight: 300;
         #profileUsername{
             color: $primary;
         }
     }
+
     #data-field{
         @include flex(space-between,center);
         position: relative;
@@ -157,7 +159,7 @@ section{
                 top: 25px;
             }
             button{
-                color: rgb(245, 215, 45);
+                color: rgb(255, 228, 75);
             }
         }
         #left-icon{
@@ -190,23 +192,23 @@ section{
             }
         }
     }
+
     #profile-buttons{
         @include flex(space-between,center);
         width: 100%;
 
         button{
-            margin-left: 5px;
             padding: 3px 15px;
-            border-radius: 13px;
+            border-radius: 10px;
+            color: #fff;
         }
         #profileSave{
             background-color: $primary;
-            color: #fff;
         }
         #profileClose{
             background-color: $error;
-            color: #fff;
             border-width: 2px;
+            margin-left: 5px;
         }
         #logoutButton{
             background-color: #fff;
@@ -233,16 +235,18 @@ section{
             color: $placeholder;
         }
     }
+
     .fa-edit{
         position: absolute;
         color: $primary;
         top: 10px;
         right: 0;
     }
+
     #desknameError{
         color: $error;
     }
-
+    
     #deskColors{
         @include flex(center,center);
         flex-wrap: wrap;
