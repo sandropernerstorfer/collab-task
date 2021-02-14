@@ -6,6 +6,7 @@ const bcrypt = require('bcrypt');
 const cookieParser = require("cookie-parser");
 require('dotenv/config');
 const User = require('./models/User');
+const Desk = require('./models/Desk');
 let currentUser = {};
 
 // Server Listen & Database Connection
@@ -172,7 +173,19 @@ app.get('/desk/userdata', (req, res) => {
         desks: desks,
         sharedDesks: sharedDesks
     }
-    res.send(JSON.stringify(boardData));
+    res.end(JSON.stringify(boardData));
+});
+
+app.post('/desk', async (req, res) => {
+    const desk = new Desk({
+        name: req.body.name,
+        color: req.body.color,
+        admin: req.body.admin
+    });
+    const savedDesk = await desk.save();
+    const updatedUser = await User.findOneAndUpdate({ _id: req.body.admin }, { $push: {desks: savedDesk._id}}, {new: true});
+    currentUser = updatedUser;
+    res.end(JSON.stringify(savedDesk));
 });
 
 // LOGOUT

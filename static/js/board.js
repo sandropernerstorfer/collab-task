@@ -45,7 +45,6 @@ function renderUsername(){
 function renderUserImage(){
     document.querySelector('#profile').style.backgroundImage = "url('../../assets/img/"+boardData.image+"')";
     document.querySelector('#profile-picture').style.backgroundImage = "url('../../assets/img/"+boardData.image+"')";
-    console.log(boardData.image);
 };
 function renderDeskData(){
     console.log('desk-data');
@@ -84,7 +83,21 @@ deskForm.addEventListener('submit', e => {
         const selectedColor = document.querySelector('.selected-color');
         const i = Array.prototype.indexOf.call(allColors, selectedColor);
 
-        console.log(deskColors[i], deskname, boardData._id);
+        const newDesk = {
+            name: deskname,
+            color: deskColors[i],
+            admin: boardData._id
+        }
+
+        fetch('/desk', {
+            method: 'POST',
+            body: JSON.stringify(newDesk),
+            headers: {'Content-type' : 'application/json; charset=UTF-8'}
+        })
+        .then(response => response.json())
+        .then( newDesk => {
+            console.log(newDesk);
+        });
     }
 });
 
