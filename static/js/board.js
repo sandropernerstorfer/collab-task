@@ -101,7 +101,7 @@ document.addEventListener('click', e => {
  * editing; boolean -> ändert den dataflow anhängig davon ob der name gerade bearbeitet wird oder nicht
  * editName Event Listener:
  * Übernimmt zwischenspeicherung, error handling und button + input wechsel
- */ //#--------------- ERROR HANDLING HERE
+ */
 let newName;
 let editing = false;
 editName.addEventListener('click', e => {
@@ -117,11 +117,8 @@ editName.addEventListener('click', e => {
         const error = validation.name(inputValue);
         if(error == ''){
             newName = inputValue;
-            editing = false;
             nameField.innerHTML = newName;
-            editName.innerHTML = `<i class="fas fa-pencil-alt"></i>`;
-            cancelBox.innerHTML = '';
-            userError.textContent = '';
+            resetProfile();
         }
         else{
             document.querySelector('#newUsername').focus();
@@ -131,46 +128,22 @@ editName.addEventListener('click', e => {
 });
 
 /**
- * Fängt Klick auf CANCEL EDIT button ab
- * und setzt den usernamen auf den letzten stand zurück
+ * CANCEL EDIT
+ * beendet die bearbeitung und setzt den usernamen wieder auf den letzten stand zurück
  */
 document.addEventListener('click', e => {
     if(e.target.matches('#cancel')){
-        editing = false;
         nameField.innerHTML = newName;
-        editName.innerHTML = `<i class="fas fa-pencil-alt"></i>`;
-        cancelBox.innerHTML = ''; 
-        userError.textContent = '';
+        resetProfile();
     }
     else return;
-});
-
-/**
- * PROFILE CLOSE EVENT LISTENER
- * 
- * wenn das modal geschlossen wird -> rufe resetProfile() funktion auf
- * resetProfile() setzt editing auf false , den zwischenspeicher auf den originalen username
- * und setzt die Profile Page auf standard zurück
- */
-function resetProfile(){
-    editing = false;
-    newName = boardData.name;
-    setTimeout(() => {
-        nameField.innerHTML = boardData.name;
-        editName.innerHTML = `<i class="fas fa-pencil-alt"></i>`;
-        cancelBox.innerHTML = '';
-        userError.textContent = ''; 
-    }, 400);
-};
-profileClose.addEventListener('click', () => {
-    resetProfile();
 });
 
 /**
  * PROFIL ÄNDERUNG SPEICHERN
  * 
  * wenn der SAVE button im Profil bereich geklickt wird
- * vergleiche den neuen namen mit dem originalen -> wenn identisch call close event (resetProfilpage)
+ * vergleiche den neuen namen mit dem originalen -> wenn identisch call close event (resetProfile)
  * wenn der name neu ist Update in der Datenbank und update client mit response
  */
 profileSave.addEventListener('click', () => {
@@ -193,6 +166,32 @@ profileSave.addEventListener('click', () => {
         });
     }
 });
+
+/**
+ * PROFILE CLOSE EVENT LISTENER
+ * 
+ * wenn das modal geschlossen wird -> rufe resetProfile() funktion auf
+ * resetProfile() setzt editing auf false , den zwischenspeicher auf den originalen username
+ * und setzt die Profile Page auf standard zurück
+ */
+profileClose.addEventListener('click', () => {
+    setTimeout(() => {
+        newName = boardData.name;
+        nameField.innerHTML = newName;
+        resetProfile();    
+    }, 400);
+});
+
+/**
+ * resetProfile()
+ * setzt im user profil entsprechend die buttons und daten zurück (zb beim schließen des modal)
+ */
+function resetProfile(){
+    editing = false;
+    editName.innerHTML = `<i class="fas fa-pencil-alt"></i>`;
+    cancelBox.innerHTML = '';
+    userError.textContent = '';
+};
 
 /**
  * USER LOGOUT
