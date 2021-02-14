@@ -6,19 +6,18 @@ const deskForm = document.querySelector('#createDeskForm');
 const deskError = document.querySelector('#desknameError');
 const editName = document.querySelector('#editName');
 const nameField = document.querySelector('#currentUsername');
-let boardData = {};
 
-fetch('/desk/userdata')
-.then( response => response.json())
-.then( data => {
-    boardData = data;
-    renderContent();
-});
+renderContent();
 function renderContent(){
-    console.log('got data');
     console.log(boardData);
 };
 
+//---- DESK CREATION
+/**
+ *  DESK-MODAL
+ * 1.) nach dem öffnen -> Fokus auf Deskname Input
+ * 2.) nach dem schließen -> Reset error und input
+ */
 addDeskModal.addEventListener('shown.bs.modal', () => {
     deskForm.deskname.focus();
 });
@@ -27,12 +26,15 @@ addDeskModal.addEventListener('hidden.bs.modal', () => {
     deskForm.deskname.value = '';
 });
 
+/**
+ * Desk Data Validation
+ * Error Handling
+ * Speicher Desk in Datenbank
+ */ //#------------------ DATABASE WORK HERE
 deskForm.addEventListener('submit', e => {
     e.preventDefault();
-
     const deskname = deskForm.deskname.value.trim();
     const error = validation.deskname(deskname);
-
     if(error !== ''){
         deskError.textContent = error;
         deskForm.deskname.focus();
@@ -47,7 +49,12 @@ deskForm.addEventListener('submit', e => {
     }
 });
 
-// CLICK THROUGH DESK COLORS
+/**
+ * Desk FARBEN durchschalten
+ * bei auswahl :
+ * entferne alle .selected-color klassen
+ * füge sie bei dem ausgewählten element hinzu
+ */
 document.addEventListener('click', e => {
     if(!e.target.matches('.desk-color')) return;
     const colorElements = document.querySelectorAll('.desk-color');
@@ -57,8 +64,14 @@ document.addEventListener('click', e => {
     e.target.classList.add('selected-color'); 
 });
 
-
-
+// ---- USER PROFILE
+/**
+ * newName; zwischenspeichert lokal den neu gewählten namen ( wenn validierung OK )
+ * editing; boolean -> ändert den dataflow anhängig davon ob der name gerade bearbeitet wird oder nicht
+ * 
+ * editName Event Listener:
+ * Übernimmt zwischenspeicherung, error handling und button + input wechsel
+ */ //#--------------- ERROR HANDLING HERE
 let newName;
 let editing = false;
 editName.addEventListener('click', e => {
@@ -82,10 +95,33 @@ editName.addEventListener('click', e => {
     }
 });
 
+/**
+ * PROFILE CLOSE EVENT LISTENER
+ * 
+ * wenn das modal geschlossen wird -> rufe resetProfile() funktion auf
+ * resetProfile() setzt editing auf false , den zwischenspeicher auf den originalen username
+ * und setzt die Profile Page auf standard zurück
+ */
+function resetProfile(){
+    editing = false;
+    newName = boardData.name;
+    setTimeout(() => {
+        nameField.innerHTML = boardData.name;
+        editName.innerHTML = `<i class="fas fa-user-edit"></i>`;   
+    }, 400);
+};
 profileClose.addEventListener('click', () => {
     resetProfile();
 });
 
+/**
+ * PROFIL ÄNDERUNG SPEICHERN
+ * 
+ * wenn der SAVE button im Profil bereich geklickt wird
+ * vergleiche den neuen namen mit dem originalen -> wenn identisch call close event (resetProfilpage)
+ * 
+ * wenn der name neu ist Update in der Datenbank und update client mit response
+ */
 profileSave.addEventListener('click', () => {
     if(newName === boardData.name || newName == undefined){
         profileClose.click();
@@ -95,17 +131,12 @@ profileSave.addEventListener('click', () => {
     }
 });
 
-// RESETS PROFILE PAGE
-function resetProfile(){
-    editing = false;
-    newName = boardData.name;
-    setTimeout(() => {
-        nameField.innerHTML = boardData.name;
-        editName.innerHTML = `<i class="fas fa-user-edit"></i>`;   
-    }, 400);
-};
-
-// USER-LOGOUT
+/**
+ * ----USER LOGOUT
+ * bei klick auf den Log Out button
+ * server call auf /logout -> setzt lokal den user zurück und löscht session
+ * danach redirect auf /login
+ */
 const userLogout = document.querySelector('#logoutButton');
 userLogout.addEventListener('click', () => {
     fetch('/logout')
