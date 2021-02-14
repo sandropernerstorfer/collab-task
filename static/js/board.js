@@ -206,7 +206,7 @@ editName.addEventListener('click', e => {
         const error = validation.name(inputValue);
         if(error == ''){
             newName = inputValue;
-            nameField.innerHTML = newName;
+            nameField.innerHTML = newName.split(' ').join('-');
             resetProfile();
         }
         else{
@@ -242,7 +242,7 @@ profileSave.addEventListener('click', () => {
     else{
         fetch('/user/username', {
             method: 'PATCH',
-            body: JSON.stringify({username : newName}),
+            body: JSON.stringify({username : newName.split(' ').join('-')}),
             headers: {'Content-type' : 'application/json; charset=UTF-8'}
         })
         .then(response => response.json())

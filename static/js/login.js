@@ -76,7 +76,7 @@ form.addEventListener('submit', e => {
     
     if(activeForm == 'signup'){
         const newUser = {
-            name: form.username.value.trim(),
+            name: form.username.value.trim().split(' ').join('-'),
             email: form.email.value.toLowerCase().trim(),
             password: form.password.value.trim()
         };
