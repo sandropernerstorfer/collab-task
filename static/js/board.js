@@ -4,6 +4,7 @@ const profileClose = document.querySelector('#profileClose');
 const profileSave = document.querySelector('#profileSave');
 const deskForm = document.querySelector('#createDeskForm');
 const deskError = document.querySelector('#desknameError');
+const userError = document.querySelector('#usernameError');
 const cancelBox = document.querySelector('#cancel-box');
 const editName = document.querySelector('#editName');
 const nameField = document.querySelector('#currentUsername');
@@ -92,9 +93,11 @@ editName.addEventListener('click', e => {
             nameField.innerHTML = newName;
             editName.innerHTML = `<i class="fas fa-pencil-alt"></i>`;
             cancelBox.innerHTML = '';
+            userError.textContent = '';
         }
         else{
-            console.log(error);
+            document.querySelector('#newUsername').focus();
+            userError.textContent = error;
         }
     }
 });
@@ -109,6 +112,7 @@ document.addEventListener('click', e => {
         nameField.innerHTML = newName;
         editName.innerHTML = `<i class="fas fa-pencil-alt"></i>`;
         cancelBox.innerHTML = ''; 
+        userError.textContent = '';
     }
     else return;
 });
@@ -126,7 +130,8 @@ function resetProfile(){
     setTimeout(() => {
         nameField.innerHTML = boardData.name;
         editName.innerHTML = `<i class="fas fa-pencil-alt"></i>`;
-        cancelBox.innerHTML = '';  
+        cancelBox.innerHTML = '';
+        userError.textContent = ''; 
     }, 400);
 };
 profileClose.addEventListener('click', () => {

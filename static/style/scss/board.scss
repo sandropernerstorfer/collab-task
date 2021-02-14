@@ -92,12 +92,6 @@ section{
     #profile-content{
         @include flex(center,center);
         flex-direction: column;
-
-        .btn-close{
-            position: absolute;
-            top: 10px;
-            right: 10px;
-        }
     }
 
     #profile-picture{
@@ -130,6 +124,7 @@ section{
         }
     }
     h3{
+        font-weight: 300;
         #profileUsername{
             color: $primary;
         }
@@ -141,6 +136,13 @@ section{
         width: 100%;
         border-top: 1px solid #ccc;
         border-bottom: 1px solid #ccc;
+
+        #usernameError{
+            position: absolute;
+            top: 0;
+            right: 10px;
+            color: $error;
+        }
         div{
             @include flex(flex-start,center);
             width: 100%;
@@ -173,7 +175,7 @@ section{
         input{
             margin-left: 5px;
             width: 100%;
-            border-width: 0 0 1px 0;
+            border-width: 0 0 2px 0;
             border-radius: 0px;
             padding-left: 0;
             color: $primaryText;
@@ -188,17 +190,27 @@ section{
         }
     }
     #profile-buttons{
-        @include flex(flex-end,center);
+        @include flex(space-between,center);
         width: 100%;
 
         button{
             margin-left: 5px;
             padding: 3px 15px;
-            &:nth-child(2){
-                background-color: #fff;
-                color: $secondary2;
-                border-color: $secondary2;
-            }
+            border-radius: 13px;
+        }
+        #profileSave{
+            background-color: $primary;
+            color: #fff;
+        }
+        #profileClose{
+            background-color: $error;
+            color: #fff;
+            border-width: 2px;
+        }
+        #logoutButton{
+            background-color: #fff;
+            color: $secondary2;
+            border-color: $secondary2;
         }
     }
 }
