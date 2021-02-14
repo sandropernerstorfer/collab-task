@@ -21,8 +21,6 @@ section{
         span{
             margin-left: 7px;
             background-color: transparent;
-            border: 2px solid $primary;
-            color: $primary;
             @media screen and (max-width: 350px){
                 display: none;
             }
@@ -31,6 +29,14 @@ section{
     button{
         background-color: #fff;
         color: $primary;
+    }
+    #deskCount{
+        color: $primary;
+        border: 2px solid $primary;
+    }
+    #sharedCount, #inviteCount{
+        color: $secondary2;
+        border: 2px solid $secondary2;
     }
 }
 
@@ -68,6 +74,7 @@ section{
     border-radius: 13px;
     width: 100%;
     height: 100%;
+    cursor: default;
     div{
         @include flex(center,center);
         flex-direction: column;
@@ -107,9 +114,9 @@ section{
         }
     }
 }
-.no-shared{
+.no-shared, .no-invites{
     small{
-        color: rgb(253, 181, 46);
+        color: $secondary2;
     }
 }
 

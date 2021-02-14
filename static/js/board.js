@@ -27,6 +27,7 @@ fetch('/desk/userdata')
     renderUserImage();
     renderDeskData();
     renderSharedData();
+    renderInvites();
 });
 
 /**
@@ -82,6 +83,23 @@ function renderSharedData(){
         };
     };
     document.querySelector('#sharedCount').textContent = deskCount.toString();
+};
+function renderInvites(){
+    let inviteCount = 0;
+    const invitesSection = document.querySelector('#invitesContainer');
+    if(boardData.invites.length == 0){
+        invitesSection.innerHTML = `<div class="card col no-card no-invites"><div><h4>Desk Invitations</h4><small>There are no open invitations</small></div></div>`;
+    }
+    else{
+        invitesSection.innerHTML = '';
+        for(let i = 0; boardData.invites.length > i; i++){
+            invitesSection.innerHTML += `<div class="card col"><div id="invite${i}" class="${boardData.invites[i].color}-card">${boardData.invites[i].name}</div></div>`;
+        };
+        for(let i = 0; boardData.invites.length > i; i++){
+            document.getElementById(`invite${i}`).addEventListener('click', () => { openInvite(boardData.invites[i]._id) });
+        };
+    };
+    document.querySelector('#inviteCount').textContent = inviteCount.toString();
 };
 
 /**

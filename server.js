@@ -171,7 +171,8 @@ app.get('/desk/userdata', async (req, res) => {
         name: currentUser.name,
         image: currentUser.image,
         desks: desks,
-        sharedDesks: sharedDesks
+        sharedDesks: sharedDesks,
+        invites: currentUser.invites
     }
     res.end(JSON.stringify(boardData));
 });
