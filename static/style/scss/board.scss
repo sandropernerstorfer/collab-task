@@ -136,6 +136,7 @@ section{
         width: 100%;
         border-top: 1px solid #ccc;
         border-bottom: 1px solid #ccc;
+        font-weight: 300;
 
         #usernameError{
             position: absolute;
@@ -179,7 +180,7 @@ section{
             border-radius: 0px;
             padding-left: 0;
             color: $primaryText;
-            font-weight: 400;
+            font-weight: 300;
             font-size: 1.05rem;
             &:focus{
                 border-color: $primary;
