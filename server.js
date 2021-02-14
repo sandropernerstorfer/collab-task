@@ -155,15 +155,15 @@ app.get('/desk', (req,res) => {
     }
 });
 
-app.get('/desk/userdata', (req, res) => {
-    let desks = 0;
-    let sharedDesks = 0;
+app.get('/desk/userdata', async (req, res) => {
+    let desks = [];
+    let sharedDesks = [];
 
     if(currentUser.desks.length > 0){
-        // desks =  -> get deskinfos
+        desks = await Desk.find().where('_id').in(currentUser.desks).exec();
     }
     if(currentUser.sharedDesks.length > 0){
-        // sharedDesks =  -> get deskinfos
+        sharedDesks = await Desk.find().where('_id').in(currentUser.sharedDesks).exec();
     }
 
     const boardData = {

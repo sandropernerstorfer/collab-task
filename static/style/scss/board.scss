@@ -62,6 +62,10 @@ section{
 .green-card{
     background-color: $primary;
 }
+.no-card{
+    border: 1px solid $primary;
+    color: black !important;
+}
 
 #profile{
     cursor: pointer;
@@ -280,4 +284,9 @@ section{
             }
         }
     }
+}
+#deskModalClose{
+    position: absolute;
+    top: 0;
+    left: -9000px;
 }

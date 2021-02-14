@@ -35,14 +35,7 @@
                 <button id="openDeskModal" class="btn btn-outline-success shadow-none button" data-bs-toggle="modal" data-bs-target="#addDeskModal"><i class="fas fa-plus"></i> Add Desk</button>
             </div>
             <div class="container desk-cards">
-                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
-                    <div class="card col">
-                        <div class="green-card">Some Good Name</div>
-                    </div>
-                    <div class="card col">
-                        <div class="black-card">Card</div>
-                    </div>
-                </div>
+                <div id="desksContainer" class="row row-cols-1 row-cols-sm-2 row-cols-md-4"></div>
             </div>
         </section>
         <hr>
@@ -73,6 +66,7 @@
     <div class="modal fade" id="addDeskModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
+            <button type="button" id="deskModalClose" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             <div id="deskModalBody" class="modal-body text-center">
                 <div class="mb-3">
                     <form id="createDeskForm">

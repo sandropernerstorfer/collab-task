@@ -22,6 +22,7 @@ fetch('/desk/userdata')
 .then( response => response.json())
 .then( data => {
     boardData = data;
+    console.log(boardData);
     renderUsername();
     renderUserImage();
     renderDeskData(); 
@@ -47,7 +48,17 @@ function renderUserImage(){
     document.querySelector('#profile-picture').style.backgroundImage = "url('../../assets/img/"+boardData.image+"')";
 };
 function renderDeskData(){
-    console.log('desk-data');
+    const desksSection = document.querySelector('#desksContainer');
+    
+    if(boardData.desks.length == 0){
+        desksSection.innerHTML = `<div class="card col"><div class="no-card">No Desks</div></div>`;
+    }
+    else{
+        desksSection.innerHTML = '';
+        for(let i = 0; boardData.desks.length > i; i++){
+            desksSection.innerHTML += `<div class="card col"><div class="${boardData.desks[i].color}-card">${boardData.desks[i].name}</div></div>`;
+        };
+    }
 };
 
 //---- DESK CREATION
@@ -68,7 +79,7 @@ deskModal.addEventListener('hidden.bs.modal', () => {
  * Desk Data Validation
  * Error Handling
  * Speicher Desk in Datenbank
- */ //#------------------ DATABASE WORK HERE
+ */
 deskForm.addEventListener('submit', e => {
     e.preventDefault();
     const deskname = deskForm.deskname.value.trim();
@@ -96,7 +107,9 @@ deskForm.addEventListener('submit', e => {
         })
         .then(response => response.json())
         .then( newDesk => {
-            console.log(newDesk);
+            boardData.desks.push(newDesk);
+            renderDeskData();
+            document.querySelector('#deskModalClose').click();
         });
     }
 });
