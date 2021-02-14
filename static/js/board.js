@@ -78,7 +78,7 @@ editName.addEventListener('click', e => {
     if(!editing){
         editing = true;
         nameField.innerHTML = `<input type="text" name="newUsername" maxlength="30" class="form-control shadow-none" id="newUsername" value=${nameField.textContent}>`;
-        editName.innerHTML = `<i class="far fa-check-circle"></i>`;    
+        editName.innerHTML = `<i class="fas fa-check"></i>`;
     }
     else{
         const inputValue = document.querySelector('#newUsername').value;
@@ -87,7 +87,7 @@ editName.addEventListener('click', e => {
             editing = false;
             newName = inputValue;
             nameField.innerHTML = newName;
-            editName.innerHTML = `<i class="fas fa-user-edit"></i>`;
+            editName.innerHTML = `<i class="fas fa-pencil-alt"></i>`;
         }
         else{
             console.log(error);
@@ -107,7 +107,7 @@ function resetProfile(){
     newName = boardData.name;
     setTimeout(() => {
         nameField.innerHTML = boardData.name;
-        editName.innerHTML = `<i class="fas fa-user-edit"></i>`;   
+        editName.innerHTML = `<i class="fas fa-pencil-alt"></i>`;   
     }, 400);
 };
 profileClose.addEventListener('click', () => {

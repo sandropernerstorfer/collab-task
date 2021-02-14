@@ -142,11 +142,16 @@ section{
             flex-wrap: wrap;
         }
         #left-icon{
-            margin-right: 5px;
-            .fa-signature{
-                color: $primary;
+            margin-right: 10px;
+            width: 80px;
+            @include flex(center,center);
+            small{
+                color: $primaryText;
+                display: block;
+                text-decoration: underline;
             }
             .fa-times-circle{
+                cursor: pointer;
                 color: gold;
             }
         }
@@ -155,9 +160,10 @@ section{
             font-size: 1.1rem;
         }
         button{
-            padding: 5px 7px;
-            border-radius: 20px;
-            width: 35px;
+            font-size: 1.2rem;
+            color: $primary;
+            border-color: transparent;
+            background-color: transparent;
         }
         input{
             margin-left: 5px;
