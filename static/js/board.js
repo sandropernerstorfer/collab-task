@@ -8,7 +8,8 @@ const userError = document.querySelector('#usernameError');
 const cancelBox = document.querySelector('#cancel-box');
 const editName = document.querySelector('#editName');
 const nameField = document.querySelector('#currentUsername');
-
+let newName;
+let editing = false;
 /**
  * BOARD DATA FETCH
  * 
@@ -34,10 +35,11 @@ fetch('/desk/userdata')
  * -- und einzeln wenn daten geupdated wurden
  */
 function renderUserData(){
+    newName = boardData.name;
     const nameElements = document.querySelectorAll('.username');
     nameElements.forEach( element => {
         element.textContent = boardData.name;
-    })
+    });
 };
 function renderDeskData(){
     console.log('desk-data');
@@ -102,15 +104,15 @@ document.addEventListener('click', e => {
  * editName Event Listener:
  * Übernimmt zwischenspeicherung, error handling und button + input wechsel
  */
-let newName;
-let editing = false;
 editName.addEventListener('click', e => {
     if(!editing){
         editing = true;
         nameField.innerHTML = `<input type="text" name="newUsername" maxlength="30" class="form-control shadow-none" id="newUsername" value=${nameField.textContent}>`;
         editName.innerHTML = `<i class="fas fa-check"></i>`;
         cancelBox.innerHTML = `<button class="btn btn-outline-success button shadow-none"><i id="cancel" class="fas fa-redo-alt"></i></button>`;
-        document.querySelector('#newUsername').focus();
+        const input = document.querySelector('#newUsername');
+        input.focus();
+        input.select();
     }
     else{
         const inputValue = document.querySelector('#newUsername').value;
