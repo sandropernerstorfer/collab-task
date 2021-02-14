@@ -4,6 +4,7 @@ const profileClose = document.querySelector('#profileClose');
 const profileSave = document.querySelector('#profileSave');
 const deskForm = document.querySelector('#createDeskForm');
 const deskError = document.querySelector('#desknameError');
+const cancelBox = document.querySelector('#cancel-box');
 const editName = document.querySelector('#editName');
 const nameField = document.querySelector('#currentUsername');
 
@@ -79,6 +80,8 @@ editName.addEventListener('click', e => {
         editing = true;
         nameField.innerHTML = `<input type="text" name="newUsername" maxlength="30" class="form-control shadow-none" id="newUsername" value=${nameField.textContent}>`;
         editName.innerHTML = `<i class="fas fa-check"></i>`;
+        cancelBox.innerHTML = `<button id="cancel" class="btn btn-outline-success button shadow-none"><i class="fas fa-redo-alt"></i></button>`;
+        document.querySelector('#newUsername').focus();
     }
     else{
         const inputValue = document.querySelector('#newUsername').value;
@@ -88,6 +91,7 @@ editName.addEventListener('click', e => {
             newName = inputValue;
             nameField.innerHTML = newName;
             editName.innerHTML = `<i class="fas fa-pencil-alt"></i>`;
+            cancelBox.innerHTML = '';
         }
         else{
             console.log(error);
@@ -107,7 +111,8 @@ function resetProfile(){
     newName = boardData.name;
     setTimeout(() => {
         nameField.innerHTML = boardData.name;
-        editName.innerHTML = `<i class="fas fa-pencil-alt"></i>`;   
+        editName.innerHTML = `<i class="fas fa-pencil-alt"></i>`;
+        cancelBox.innerHTML = '';  
     }, 400);
 };
 profileClose.addEventListener('click', () => {

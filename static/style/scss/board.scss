@@ -132,6 +132,7 @@ section{
     }
     #data-field{
         @include flex(space-between,center);
+        position: relative;
         padding: 15px 0;
         width: 100%;
         border-top: 1px solid #ccc;
@@ -141,19 +142,19 @@ section{
             width: 100%;
             flex-wrap: wrap;
         }
+        #cancel-box{
+            position: absolute;
+            top: 15px;
+            right: 40px;
+            @media screen and (max-width: 384px){
+                top: 25px;
+            }
+            button{
+                color: rgb(245, 215, 45);
+            }
+        }
         #left-icon{
             margin-right: 10px;
-            width: 80px;
-            @include flex(center,center);
-            small{
-                color: $primaryText;
-                display: block;
-                text-decoration: underline;
-            }
-            .fa-times-circle{
-                cursor: pointer;
-                color: gold;
-            }
         }
         span{
             color: $primaryText;
