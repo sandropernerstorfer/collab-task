@@ -77,6 +77,10 @@ section{
     height: 33px;
 }
 
+.modal.modal-static .modal-dialog{
+    transform: none !important;
+}
+
 .modal-content{
     border-radius: 20px;
     border: 0;
