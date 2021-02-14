@@ -1,5 +1,5 @@
 import validation from './scripts/validation.js';
-const addDeskModal = document.querySelector('#addDeskModal');
+const deskModal = document.querySelector('#addDeskModal');
 const profileClose = document.querySelector('#profileClose');
 const profileSave = document.querySelector('#profileSave');
 const deskForm = document.querySelector('#createDeskForm');
@@ -9,9 +9,38 @@ const cancelBox = document.querySelector('#cancel-box');
 const editName = document.querySelector('#editName');
 const nameField = document.querySelector('#currentUsername');
 
-renderContent();
-function renderContent(){
-    console.log(boardData);
+/**
+ * BOARD DATA FETCH
+ * 
+ * -- beim öffnen des Dashboards werden vom server die benötigten USER und DESK daten gefetcht
+ * -- in 'boardData' als object gespeichert
+ * -- und im client entsprechen angezeigt
+ */
+let boardData = {};
+fetch('/desk/userdata')
+.then( response => response.json())
+.then( data => {
+    boardData = data;
+    renderUserData();
+    renderDeskData(); 
+});
+
+/**
+ * DISPLAY DESK & USER DATA
+ * 
+ * lädt user und desk daten von dem boardData objekt in das Dokument
+ * beide funktionen werden aufgerufen sobald: 
+ * -- der server die daten geschickt hat
+ * -- und einzeln wenn daten geupdated wurden
+ */
+function renderUserData(){
+    const nameElements = document.querySelectorAll('.username');
+    nameElements.forEach( element => {
+        element.textContent = boardData.name;
+    })
+};
+function renderDeskData(){
+    console.log('desk-data');
 };
 
 //---- DESK CREATION
@@ -20,10 +49,10 @@ function renderContent(){
  * 1.) nach dem öffnen -> Fokus auf Deskname Input
  * 2.) nach dem schließen -> Reset error und input
  */
-addDeskModal.addEventListener('shown.bs.modal', () => {
+deskModal.addEventListener('shown.bs.modal', () => {
     deskForm.deskname.focus();
 });
-addDeskModal.addEventListener('hidden.bs.modal', () => {
+deskModal.addEventListener('hidden.bs.modal', () => {
     deskError.innerHTML = '&nbsp;';
     deskForm.deskname.value = '';
 });
@@ -70,11 +99,10 @@ document.addEventListener('click', e => {
 /**
  * newName; zwischenspeichert lokal den neu gewählten namen ( wenn validierung OK )
  * editing; boolean -> ändert den dataflow anhängig davon ob der name gerade bearbeitet wird oder nicht
- * 
  * editName Event Listener:
  * Übernimmt zwischenspeicherung, error handling und button + input wechsel
  */ //#--------------- ERROR HANDLING HERE
-let newName = boardData.name;
+let newName;
 let editing = false;
 editName.addEventListener('click', e => {
     if(!editing){
@@ -143,7 +171,6 @@ profileClose.addEventListener('click', () => {
  * 
  * wenn der SAVE button im Profil bereich geklickt wird
  * vergleiche den neuen namen mit dem originalen -> wenn identisch call close event (resetProfilpage)
- * 
  * wenn der name neu ist Update in der Datenbank und update client mit response
  */
 profileSave.addEventListener('click', () => {
@@ -151,12 +178,25 @@ profileSave.addEventListener('click', () => {
         profileClose.click();
     }
     else{
-        console.log(newName);
+        fetch('/user/username', {
+            method: 'PATCH',
+            body: JSON.stringify({username : newName}),
+            headers: {'Content-type' : 'application/json; charset=UTF-8'}
+        })
+        .then(response => response.json())
+        .then( newName => {
+            boardData.name = newName;
+            profileClose.click();
+            setTimeout(() => {
+                renderUserData();    
+            }, 400);
+        });
     }
 });
 
 /**
- * ----USER LOGOUT
+ * USER LOGOUT
+ * 
  * bei klick auf den Log Out button
  * server call auf /logout -> setzt lokal den user zurück und löscht session
  * danach redirect auf /login

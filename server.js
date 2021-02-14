@@ -138,6 +138,11 @@ app.post('/user/signin', async (req, res) => {      // SIGNIN users and create s
         }
     }
 });
+app.patch('/user/username', async (req, res) => {
+    const updatedUser = await User.findOneAndUpdate({ _id: currentUser._id }, { $set: {name: req.body.username}}, {new: true});
+    currentUser = updatedUser;
+    res.end(JSON.stringify(currentUser.name));
+});
 
 // DESK-ROUTES
 app.get('/desk', (req,res) => {
@@ -167,7 +172,7 @@ app.get('/desk/userdata', (req, res) => {
         sharedDesks: sharedDesks
     }
     res.send(JSON.stringify(boardData));
-})
+});
 
 // LOGOUT
 app.get('/logout', (req, res) => {
