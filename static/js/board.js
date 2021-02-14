@@ -49,6 +49,7 @@ function renderUserImage(){
     document.querySelector('#profile-picture').style.backgroundImage = "url('../../assets/img/"+boardData.image+"')";
 };
 function renderDeskData(){
+    let deskCount = 0;
     const desksSection = document.querySelector('#desksContainer');
     if(boardData.desks.length == 0){
         desksSection.innerHTML = `<div class="card col no-card no-desk"><div><h4>Start by creating your first Desk</h4><small>You can use your own Deskname and pick a color you like</small><i id="handPointer" class="far fa-hand-point-up"></i></div></div>`;
@@ -56,14 +57,17 @@ function renderDeskData(){
     else{
         desksSection.innerHTML = '';
         for(let i = 0; boardData.desks.length > i; i++){
+            deskCount++;
             desksSection.innerHTML += `<div class="card col"><div id="desk${i}" class="${boardData.desks[i].color}-card">${boardData.desks[i].name}</div></div>`;
         };
         for(let i = 0; boardData.desks.length > i; i++){
             document.getElementById(`desk${i}`).addEventListener('click', () => { openDesk(boardData.desks[i]._id) });
         };
-    }
+    };
+    document.querySelector('#deskCount').textContent = deskCount.toString();
 };
 function renderSharedData(){
+    let deskCount = 0;
     const sharedSection = document.querySelector('#sharedContainer');
     if(boardData.sharedDesks.length == 0){
         sharedSection.innerHTML = `<div class="card col no-card no-shared"><div><h4>All Desks you are a Member on will show up here</h4><small>Currently you are not a member on a desk</small></div></div>`;
@@ -76,7 +80,8 @@ function renderSharedData(){
         for(let i = 0; boardData.sharedDesks.length > i; i++){
             document.getElementById(`shared${i}`).addEventListener('click', () => { openDesk(boardData.sharedDesks[i]._id) });
         };
-    }
+    };
+    document.querySelector('#sharedCount').textContent = deskCount.toString();
 };
 
 /**
