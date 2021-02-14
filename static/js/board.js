@@ -51,7 +51,7 @@ function renderUserImage(){
 function renderDeskData(){
     const desksSection = document.querySelector('#desksContainer');
     if(boardData.desks.length == 0){
-        desksSection.innerHTML = `<div class="card col"><div class="no-desk">No Desks</div></div>`;
+        desksSection.innerHTML = `<div class="card col no-card no-desk"><div><h4>Start by creating your first Desk</h4><small>You can use your own Deskname and pick a color you like</small><i class="far fa-hand-point-up"></i></div></div>`;
     }
     else{
         desksSection.innerHTML = '';
@@ -66,7 +66,7 @@ function renderDeskData(){
 function renderSharedData(){
     const sharedSection = document.querySelector('#sharedContainer');
     if(boardData.sharedDesks.length == 0){
-        sharedSection.innerHTML = `<div class="card col no-shared"><div><h4>All Desks you are a Member on will show up here</h4><small>Currently there are no invitations or shared desks</small></div></div>`;
+        sharedSection.innerHTML = `<div class="card col no-card no-shared"><div><h4>All Desks you are a Member on will show up here</h4><small>Currently there are no invitations or shared desks</small></div></div>`;
     }
     else{
         sharedSection.innerHTML = '';
