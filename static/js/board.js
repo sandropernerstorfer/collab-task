@@ -73,22 +73,22 @@ document.addEventListener('click', e => {
  * editName Event Listener:
  * Übernimmt zwischenspeicherung, error handling und button + input wechsel
  */ //#--------------- ERROR HANDLING HERE
-let newName;
+let newName = boardData.name;
 let editing = false;
 editName.addEventListener('click', e => {
     if(!editing){
         editing = true;
         nameField.innerHTML = `<input type="text" name="newUsername" maxlength="30" class="form-control shadow-none" id="newUsername" value=${nameField.textContent}>`;
         editName.innerHTML = `<i class="fas fa-check"></i>`;
-        cancelBox.innerHTML = `<button id="cancel" class="btn btn-outline-success button shadow-none"><i class="fas fa-redo-alt"></i></button>`;
+        cancelBox.innerHTML = `<button class="btn btn-outline-success button shadow-none"><i id="cancel" class="fas fa-redo-alt"></i></button>`;
         document.querySelector('#newUsername').focus();
     }
     else{
         const inputValue = document.querySelector('#newUsername').value;
         const error = validation.name(inputValue);
         if(error == ''){
-            editing = false;
             newName = inputValue;
+            editing = false;
             nameField.innerHTML = newName;
             editName.innerHTML = `<i class="fas fa-pencil-alt"></i>`;
             cancelBox.innerHTML = '';
@@ -97,6 +97,20 @@ editName.addEventListener('click', e => {
             console.log(error);
         }
     }
+});
+
+/**
+ * Fängt Klick auf CANCEL EDIT button ab
+ * und setzt den usernamen auf den letzten stand zurück
+ */
+document.addEventListener('click', e => {
+    if(e.target.matches('#cancel')){
+        editing = false;
+        nameField.innerHTML = newName;
+        editName.innerHTML = `<i class="fas fa-pencil-alt"></i>`;
+        cancelBox.innerHTML = ''; 
+    }
+    else return;
 });
 
 /**
