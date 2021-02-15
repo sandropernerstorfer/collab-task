@@ -158,12 +158,16 @@ app.get('/desk', (req,res) => {
 app.get('/desk/userdata', async (req, res) => {
     let desks = [];
     let sharedDesks = [];
+    let invites = [];
 
     if(currentUser.desks.length > 0){
         desks = await Desk.find().where('_id').in(currentUser.desks).exec();
     }
     if(currentUser.sharedDesks.length > 0){
         sharedDesks = await Desk.find().where('_id').in(currentUser.sharedDesks).exec();
+    }
+    if(currentUser.invites.length > 0){
+        invites = await Desk.find().where('_id').in(currentUser.invites).exec();
     }
 
     const boardData = {
@@ -172,7 +176,7 @@ app.get('/desk/userdata', async (req, res) => {
         image: currentUser.image,
         desks: desks,
         sharedDesks: sharedDesks,
-        invites: currentUser.invites
+        invites: invites
     }
     res.end(JSON.stringify(boardData));
 });

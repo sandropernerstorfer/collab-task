@@ -103,11 +103,20 @@ function renderInvites(){
 };
 
 /**
- * 
- * @param {string} deskID - Die ID von dem Desk der geöffnet werden soll
+ *# OPEN SPECIFIC DESK ( W.I.P. )
+ * @param {string} deskID - Desk ID des gewählten Desk
+ * übernimmt die gewählte deskID und leitet weiter an diesen Desk
  */
 function openDesk(deskID){
     console.log(deskID);
+};
+
+/**
+ *# INVITE HANDLIND ( W.I.P. )
+ * @param {string} inviteID - Desk ID der Einaldung
+ */
+function openInvite(inviteID){
+    console.log(inviteID);
 };
 
 //---- DESK CREATION
