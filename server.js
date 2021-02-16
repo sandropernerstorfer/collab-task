@@ -220,20 +220,23 @@ app.get('/desk/:deskID', (req, res) => {
     };
 });
 app.get('/deskdata', async (req, res) => {
+    const userData = { id : currentUser.id, name : currentUser.name };
     const deskData = await Desk.findOne({ _id: choosenDesk });
+    const admin = await User.findOne({_id: deskData.admin}).select('-password').select('-sessionid').select('-invites').select('-desks').select('-sharedDesks');
+    
     let members = [];
-
     if(deskData.members.length > 0){
-        members = await User.find().where('_id').in(deskData.members).exec();
-    };  //!! CUT OUT SENSITIVE DATA
+        members = await User.find().where('_id').in(deskData.members).exec(); //!! ------> CUT OUT SENSITIVE DATA
+    }; 
 
-    deskData.members = members;
-    const userData = {
-        name : currentUser.name,
-        email : currentUser.email,
-        image : currentUser.image
+    const fullDeskData = {
+        user : userData,
+        desk : deskData,
+        admin : admin,
+        members : members
     };
-    res.status(200).end(JSON.stringify([userData,deskData]));
+
+    res.status(200).end(JSON.stringify(fullDeskData));
 });
 
 // LOGOUT
