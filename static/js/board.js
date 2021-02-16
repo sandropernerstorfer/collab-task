@@ -108,7 +108,7 @@ function renderInvites(){
  * übernimmt die gewählte deskID und leitet weiter an diesen Desk
  */
 function openDesk(deskID){
-    console.log(deskID);
+    window.location.href = `desk/${deskID}`;
 };
 
 /**
