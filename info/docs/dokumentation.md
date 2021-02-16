@@ -77,4 +77,24 @@
     * Password Hashing
     * jQuery CDN aus dem projekt entfernt
     * jQuery Ajax mit fetchAPI ersetzt
+    * Mit Dashboard UI angefangen
+
+#### 13.02. - 15.02.2021
+* **App-Work :**
     * Dashboard UI
+    * create desk UI
+    * Profile UI
+    * 'Username-ändern' funktionen
+
+#### 15.02. - 17.02.2021
+* **App-Work :**
+    * Dashboard Funktionen
+    * Dynamic Desks display
+    * Dynamic Userdata display
+    * Desk Erstellen
+
+#### 17.02 - 20.02.2021
+* **App-Work :**
+    * Desk Auswahl
+    * Weiterleitung auf Desk bereich
+    * alle nötigen daten von server in den desk bereich laden

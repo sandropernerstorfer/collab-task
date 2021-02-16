@@ -23,7 +23,9 @@
             * Ellipsis-Menü :
                 * Liste Löschen
                 * Listenfarbe ändern
-                * Kategorie      
+                * Kategorie
+        * **Chat :**
+            * Live Desk Chat
 * **Funktionen :**
     * Login / Sign Up
     * Profilbearbeitung
