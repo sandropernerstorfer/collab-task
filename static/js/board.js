@@ -22,7 +22,6 @@ fetch('/board/userdata')
 .then( response => response.json())
 .then( data => {
     boardData = data;
-    console.log(boardData);
     renderUsername();
     renderUserImage();
     renderDeskData();
@@ -103,7 +102,7 @@ function renderInvites(){
 };
 
 /**
- *# OPEN SPECIFIC DESK ( W.I.P. )
+ *
  * @param {string} deskID - Desk ID des gewählten Desk
  * übernimmt die gewählte deskID und leitet weiter an diesen Desk
  */
