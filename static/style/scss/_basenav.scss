@@ -1,8 +1,8 @@
 header{
 
     nav{
-        padding: 20px 0;
-        width: 100vw;
+        padding: 20px;
+        width: 100%;
         @include flex(center,center);
 
         h3{

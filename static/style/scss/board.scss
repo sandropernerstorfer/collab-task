@@ -6,6 +6,24 @@ section{
     flex-direction: column;
 }
 
+nav{
+    justify-content: space-between !important;
+
+    #left-spacing{
+        width: 33px;
+        height: 33px;
+    }
+    #profile{
+        cursor: pointer;
+        border-radius: 50%;
+        background-position: center;
+        background-size: cover;
+        opacity: .8;
+        width: 33px;
+        height: 33px;
+    }
+}
+
 .section-heading{
     @include flex(space-between, center);
     width: 100%;
@@ -118,19 +136,6 @@ section{
     small{
         color: $secondary2;
     }
-}
-
-#profile{
-    cursor: pointer;
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    border-radius: 50%;
-    background-position: center;
-    background-size: cover;
-    opacity: .8;
-    width: 33px;
-    height: 33px;
 }
 
 .modal.modal-static .modal-dialog{
