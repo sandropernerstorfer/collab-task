@@ -8,9 +8,10 @@ require('dotenv/config');
 const User = require('./models/User');
 const Desk = require('./models/Desk');
 let currentUser = {};
+let choosenDesk = '';
 
 // Server Listen & Database Connection
-const PORT = process.env.PORT || 5500;
+const PORT = process.env.PORT || 5400;
 app.listen(PORT);
 mongoose.connect(
     process.env.DB_CONNECTION, {useNewUrlParser: true, useUnifiedTopology: true}, () => {
@@ -70,9 +71,9 @@ app.get('/userdata', (req, res) => {
 app.use('/login/*?', (req,res) => {                 // catch all routes following Login and redirect to /login
     res.redirect('/login');
 });
-app.use('/login', (req, res) => {                   // if path /login AND cookieID found -> redirect to desk / else login
+app.use('/login', (req, res) => {                   // if path /login AND cookieID found -> redirect to board / else login
     if(req.cookies._taskID){
-        res.redirect('/desk');
+        res.redirect('/board');
     }
     else{
         res.sendFile('login.html', {root: 'static'});
@@ -80,7 +81,7 @@ app.use('/login', (req, res) => {                   // if path /login AND cookie
 });
 
 //USER-ROUTES
-app.post('/user/signup', async (req, res) => {      // SIGNUP users and create session -> when done redirects to '/desk'
+app.post('/user/signup', async (req, res) => {      // SIGNUP users and create session -> when done redirects to '/board'
     // suche USER in DB nach EMAIL
     const userExists = await User.findOne({email: req.body.email}, (err, found) => {
         if(err){
@@ -104,14 +105,14 @@ app.post('/user/signup', async (req, res) => {      // SIGNUP users and create s
             const savedUser = await user.save();                // speichert USER in Datenbank
             currentUser = savedUser;                            // speichert USER lokal
             res.cookie('_taskID', sessionID, {httpOnly: false});    // erstellt cookie mit selber sessionID
-            res.end();                                          // ende - client leitet auf /desk
+            res.end();                                          // ende - client leitet auf /board
         }
         catch(err){
             res.json(err);
         };
     }
 });
-app.post('/user/signin', async (req, res) => {      // SIGNIN users and create session -> when done redirects to '/desk'
+app.post('/user/signin', async (req, res) => {      // SIGNIN users and create session -> when done redirects to '/board'
     const userExists = await User.findOne({email: req.body.email}, (err, found) => {
         if(err){
             res.redirect('/login');
@@ -128,7 +129,7 @@ app.post('/user/signin', async (req, res) => {      // SIGNIN users and create s
                 const updatedUser = await User.findOneAndUpdate({ email: req.body.email }, { $set: {sessionid: sessionID}}, {new: true});   // sessionID update in datenbank
                 res.cookie('_taskID', sessionID, {httpOnly: false});    // erstelle cookie mit gleicher sessionID
                 currentUser = updatedUser;                          // USER lokal speichern
-                res.end();                                      // ende - client leitet auf /desk
+                res.end();                                      // ende - client leitet auf /board
             }
             else{
                 res.end('wrong password');  // wenn passwörter nicht gleich -> respond: falsches passwort
@@ -145,8 +146,8 @@ app.patch('/user/username', async (req, res) => {
     res.end(JSON.stringify(currentUser.name));
 });
 
-// DESK-ROUTES
-app.get('/desk', (req,res) => {
+// BOARD-ROUTES
+app.get('/board', (req,res) => {
     if(Object.keys(currentUser).length == 0){
         res.redirect('/login');
     }
@@ -155,7 +156,7 @@ app.get('/desk', (req,res) => {
     }
 });
 
-app.get('/desk/userdata', async (req, res) => {
+app.get('/board/userdata', async (req, res) => {
     let desks = [];
     let sharedDesks = [];
     let invites = [];
@@ -181,7 +182,7 @@ app.get('/desk/userdata', async (req, res) => {
     res.end(JSON.stringify(boardData));
 });
 
-app.post('/desk', async (req, res) => {
+app.post('/board/desk', async (req, res) => {
     const desk = new Desk({
         name: req.body.name,
         color: req.body.color,
@@ -192,6 +193,33 @@ app.post('/desk', async (req, res) => {
     currentUser = updatedUser;
     res.end(JSON.stringify(savedDesk));
 });
+
+// app.get('/desk/:deskID', (req, res) => {
+//     if(!req.cookies._taskID) res.redirect('/login')
+//     else{
+//         let desk;
+//         desk = currentUser.desks.find( desk => {
+//             return desk._id == req.params.deskID;
+//         });
+//         if(desk == undefined){
+//             desk = currentUser.sharedDesks.find( shared => {
+//                 return shared._id == req.params.deskID;
+//             });    
+//         };   
+//         if(desk == undefined){
+//             res.end();
+//         }
+//         else{
+//             choosenDesk = desk;
+//             res.sendFile('desk.html', {root:'static'});
+//         }
+//     };
+// });
+
+// app.get('/desk/deskdata', async (req, res) => {
+//     const deskData = await Desk.findOne({ _id: choosenDesk });
+//     res.status(200).end(JSON.stringify(deskData));
+// });
 
 // LOGOUT
 app.get('/logout', (req, res) => {

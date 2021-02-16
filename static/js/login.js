@@ -117,7 +117,7 @@ function signupUser(newUser){
             renderErrors(['', 'This email is already in use', '']);
         }
         else{
-            window.location.href = '/desk';
+            window.location.href = '/board';
         }
     });
 };
@@ -137,7 +137,7 @@ function signinUser(userLogin){
             renderErrors(['','Incorrect Password']);
         }
         else{
-            window.location.href = '/desk';
+            window.location.href = '/board';
         }
     });
 };

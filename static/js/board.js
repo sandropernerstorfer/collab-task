@@ -18,7 +18,7 @@ let editing = false;
  * -- und im client entsprechen angezeigt
  */
 let boardData = {};
-fetch('/desk/userdata')
+fetch('/board/userdata')
 .then( response => response.json())
 .then( data => {
     boardData = data;
@@ -164,7 +164,7 @@ deskForm.addEventListener('submit', e => {
             admin: boardData._id
         }
 
-        fetch('/desk', {
+        fetch('/board/desk', {
             method: 'POST',
             body: JSON.stringify(newDesk),
             headers: {'Content-type' : 'application/json; charset=UTF-8'}

@@ -29,7 +29,7 @@ function renderBannerContent(username){
     else if(username){
         heading = `Welcome <span class="home-username">${username}</span> !`;
         html = `Dashboard <i class="fas fa-clipboard-list"></i>`;
-        route = '/desk';
+        route = '/board';
     };
     dynamicHeading.innerHTML = heading;
     dynamicRoutes.forEach( element => {
