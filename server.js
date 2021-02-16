@@ -21,7 +21,7 @@ mongoose.connect(
 
 //Middleware
 mongoose.set('useFindAndModify', false);
-app.use(express.static('static'));
+app.use('/', express.static(__dirname + '/static'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -146,7 +146,7 @@ app.patch('/user/username', async (req, res) => {
     res.end(JSON.stringify(currentUser.name));
 });
 
-// BOARD-ROUTES
+//BOARD-ROUTES
 app.get('/board', (req,res) => {
     if(Object.keys(currentUser).length == 0){
         res.redirect('/login');
@@ -155,7 +155,6 @@ app.get('/board', (req,res) => {
         res.sendFile('board.html', {root: 'static'});
     }
 });
-
 app.get('/board/userdata', async (req, res) => {
     let desks = [];
     let sharedDesks = [];
@@ -181,7 +180,6 @@ app.get('/board/userdata', async (req, res) => {
     }
     res.end(JSON.stringify(boardData));
 });
-
 app.post('/board/desk', async (req, res) => {
     const desk = new Desk({
         name: req.body.name,
@@ -194,32 +192,49 @@ app.post('/board/desk', async (req, res) => {
     res.end(JSON.stringify(savedDesk));
 });
 
-// app.get('/desk/:deskID', (req, res) => {
-//     if(!req.cookies._taskID) res.redirect('/login')
-//     else{
-//         let desk;
-//         desk = currentUser.desks.find( desk => {
-//             return desk._id == req.params.deskID;
-//         });
-//         if(desk == undefined){
-//             desk = currentUser.sharedDesks.find( shared => {
-//                 return shared._id == req.params.deskID;
-//             });    
-//         };   
-//         if(desk == undefined){
-//             res.end();
-//         }
-//         else{
-//             choosenDesk = desk;
-//             res.sendFile('desk.html', {root:'static'});
-//         }
-//     };
-// });
+//DESK-ROUTES
+app.get('/desk', (req, res) => {
+    res.redirect('/board');
+});
+app.use('/desk', express.static(__dirname + '/static'));
 
-// app.get('/desk/deskdata', async (req, res) => {
-//     const deskData = await Desk.findOne({ _id: choosenDesk });
-//     res.status(200).end(JSON.stringify(deskData));
-// });
+app.get('/desk/:deskID', (req, res) => {
+    if(!req.cookies._taskID) res.redirect('/login')
+    else{
+        let desk;
+        desk = currentUser.desks.find( desk => {
+            return desk._id == req.params.deskID;
+        });
+        if(desk == undefined){
+            desk = currentUser.sharedDesks.find( shared => {
+                return shared._id == req.params.deskID;
+            });    
+        };   
+        if(desk == undefined){
+            res.redirect('/board');
+        }
+        else{
+            choosenDesk = desk;
+            res.sendFile('desk.html', {root:'static'});
+        }
+    };
+});
+app.get('/deskdata', async (req, res) => {
+    const deskData = await Desk.findOne({ _id: choosenDesk });
+    let members = [];
+
+    if(deskData.members.length > 0){
+        members = await User.find().where('_id').in(deskData.members).exec();
+    };  //!! CUT OUT SENSITIVE DATA
+
+    deskData.members = members;
+    const userData = {
+        name : currentUser.name,
+        email : currentUser.email,
+        image : currentUser.image
+    };
+    res.status(200).end(JSON.stringify([userData,deskData]));
+});
 
 // LOGOUT
 app.get('/logout', (req, res) => {
