@@ -246,3 +246,8 @@ app.get('/logout', (req, res) => {
     res.clearCookie('_taskID');
     res.redirect('/login');
 });
+
+// 404 ROUTE
+app.get('*?', function(req, res){
+    res.sendFile('404.html', {root:'static'});
+});
