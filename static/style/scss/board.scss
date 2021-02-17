@@ -174,8 +174,9 @@ nav{
         width: 150px;
         height: 150px;
         border-radius: 50%;
-        background-size: contain;
+        background-size: cover;
         background-position: center;
+        background-repeat: no-repeat;
         overflow: hidden;
         position: relative;
 
