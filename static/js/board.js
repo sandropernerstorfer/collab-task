@@ -8,6 +8,8 @@ const userError = document.querySelector('#usernameError');
 const cancelBox = document.querySelector('#cancel-box');
 const editName = document.querySelector('#editName');
 const nameField = document.querySelector('#currentUsername');
+const imageEdit = document.querySelector('#imageEdit');
+const imageInput = document.querySelector('#imageInput');
 let newName;
 let editing = false;
 /**
@@ -234,6 +236,23 @@ document.addEventListener('click', e => {
         resetProfile();
     }
     else return;
+});
+
+imageEdit.addEventListener('click', () => {
+    imageInput.click();
+});
+
+imageInput.addEventListener('change', e => {
+    if(e.target.files && e.target.files[0]){
+        let reader = new FileReader();
+
+        reader.addEventListener('load', e => {
+            const imageField = document.querySelector('#profile-picture');
+            imageField.style.backgroundImage = `url("${e.target.result}")`;
+        });
+
+        reader.readAsDataURL(e.target.files[0]);
+    }
 });
 
 /**

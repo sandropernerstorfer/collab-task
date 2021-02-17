@@ -196,6 +196,13 @@ nav{
             transition: bottom .6s;
             font-weight: 500;
         }
+        input{
+            width: 0px;
+            height: 0px;
+            position: absolute;
+            top: 0;
+            left: -90000px;
+        }
     }
 
     h3{
