@@ -228,11 +228,9 @@ nav{
         }
         #cancel-box{
             position: absolute;
-            top: 15px;
+            top: 50%;
             right: 40px;
-            @media screen and (max-width: 384px){
-                top: 25px;
-            }
+            transform: translateY(-50%);
             button{
                 color: rgb(255, 228, 75);
             }
