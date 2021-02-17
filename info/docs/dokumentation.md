@@ -98,3 +98,5 @@
     * Desk Auswahl
     * Weiterleitung auf Desk bereich
     * alle nötigen daten von server in den desk bereich laden
+    * Code- und allgemein- dokumentation
+    * 404 Page + Routing
