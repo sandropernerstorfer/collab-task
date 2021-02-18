@@ -113,7 +113,7 @@ app.post('/user/signup', async (req, res) => {      // SIGNUP users and create s
             });
             const savedUser = await user.save();                // speichert USER in Datenbank
             currentUser = savedUser;                            // speichert USER lokal
-            res.cookie('_taskID', sessionID, {httpOnly: false});    // erstellt cookie mit selber sessionID
+            res.cookie('_taskID', sessionID, {httpOnly: false, maxAge: 1000*1000*1000*1000});    // erstellt cookie mit selber sessionID
             res.end();                                          // ende - client leitet auf /board
         }
         catch(err){
@@ -136,7 +136,7 @@ app.post('/user/signin', async (req, res) => {      // SIGNIN users and create s
             if(await bcrypt.compare(req.body.password, userExists.password)){
                 const sessionID = uuidv4();                             // wenn passwörter gleich -> erstelle neue sessionID
                 const updatedUser = await User.findOneAndUpdate({ email: req.body.email }, { $set: {sessionid: sessionID}}, {new: true});   // sessionID update in datenbank
-                res.cookie('_taskID', sessionID, {httpOnly: false});    // erstelle cookie mit gleicher sessionID
+                res.cookie('_taskID', sessionID, {httpOnly: false, maxAge: 1000*1000*1000*1000});    // erstelle cookie mit gleicher sessionID
                 currentUser = updatedUser;                          // USER lokal speichern
                 res.end();                                      // ende - client leitet auf /board
             }
