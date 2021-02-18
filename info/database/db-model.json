@@ -8,17 +8,17 @@
         "desks": "ARRAY / default []",
         "sharedDesks": "ARRAY / default []",
         "invites": "ARRAY / default []",
-        "image": ""
+        "image": "STRING / default NULL"
     },
     "desk": {
         "name": "REQUIRED STRING",
+        "color": "REQUIRED STRING",
         "admin": "REQUIRED STRING",
-        "lists": "ARRAY / default []",
         "members": "ARRAY / default []",
-        "color": "REQUIRED STRING"
+        "lists": "ARRAY / default []"
     },
-    "list(in desk-collection)": {
-        "name": "STRING",
+    "list( OBJECT in ARRAY located in 'desk collection' lists-field)": {
+        "name": "REQUIRED STRING",
         "tasks": "ARRAY / default []",
         "order": "INT / default 0"
     }

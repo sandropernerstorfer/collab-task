@@ -28,7 +28,7 @@
             * Live Desk Chat
 * **Funktionen :**
     * Login / Sign Up
-    * Profilbearbeitung
+    * Profilbearbeitung ( benutzernamen ändern , Profilbild ändern)
     * Desk Roles ( Admin, Member )
     * Shared Desk / Einladen per email
     * Listen erstellen
@@ -61,6 +61,8 @@
     * cookie-parser
     * uuid
     * bcrypt
+    * cloudinary
+    * formidable
 * **Tools :**
     * Github Projects
     * Postman
@@ -69,7 +71,6 @@
     * GoogleFonts (local font-faces)
     * FontAwesome
 * **API's :**
-    * Maps
-    * ...
-
+    * Cloudinary
+    
 ***

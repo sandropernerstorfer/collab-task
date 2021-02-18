@@ -100,3 +100,4 @@
     * alle nötigen daten von server in den desk bereich laden
     * Code- und allgemein- dokumentation
     * 404 Page + Routing
+    * User Image Funktionen erstellt
