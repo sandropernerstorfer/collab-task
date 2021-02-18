@@ -162,6 +162,7 @@ app.patch('/user/image', (req, res) => {
                 res.end(JSON.stringify(false));
             }
             else{
+                await cloudinary.v2.uploader.destroy(currentUser.image, async(error, result) => {});
                 const updatedUser = await User.findOneAndUpdate({ _id: currentUser._id }, { $set: {image: result.public_id}}, {new: true});
                 currentUser = updatedUser;
                 res.end(JSON.stringify(currentUser.image));
