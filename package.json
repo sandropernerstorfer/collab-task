@@ -19,9 +19,11 @@
   "homepage": "https://github.com/sandropernerstorfer/task-app#readme",
   "dependencies": {
     "bcrypt": "^5.0.0",
+    "cloudinary": "^1.24.0",
     "cookie-parser": "^1.4.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "formidable": "^1.2.2",
     "mongoose": "^5.11.15",
     "uuid": "^8.3.2"
   }

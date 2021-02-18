@@ -5,6 +5,15 @@ const { v4: uuidv4 } = require('uuid');
 const bcrypt = require('bcrypt');
 const cookieParser = require("cookie-parser");
 require('dotenv/config');
+
+const formidable = require('formidable');
+const cloudinary = require('cloudinary');
+cloudinary.config({
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.API_KEY,
+    api_secret: process.env.API_SECRET
+});
+
 const User = require('./models/User');
 const Desk = require('./models/Desk');
 let currentUser = {};
@@ -144,6 +153,20 @@ app.patch('/user/username', async (req, res) => {
     const updatedUser = await User.findOneAndUpdate({ _id: currentUser._id }, { $set: {name: req.body.username}}, {new: true});
     currentUser = updatedUser;
     res.end(JSON.stringify(currentUser.name));
+});
+app.patch('/user/image', (req, res) => {
+    const form = formidable();
+
+    form.parse(req, (err, fields, files) => {
+        cloudinary.v2.uploader.upload(files.image.path, {folder: 'taskapp'}, (error,result) => {
+            console.log(error,result);
+
+            //## In dieser response steckt die public_id
+            //## idee: diese in die db zum user fügen und als img src rendern - mit: =>
+            //## https://res.cloudinary.com/sandrocloud/image/upload/w_200,c_scale/__<PUBLIC_ID>
+        });
+    });
+    res.end();
 });
 
 //BOARD-ROUTES

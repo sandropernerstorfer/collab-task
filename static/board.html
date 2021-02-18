@@ -103,7 +103,10 @@
                 <div id="closeContainer"><button type="button" id="profileClose" class="btn shadow-none" data-bs-dismiss="modal"><i class="far fa-times-circle"></i></button></div>
                 <div id="profile-picture">
                     <div id="imageEdit">Edit</div>
-                    <input id="imageInput" type="file">
+                    <form id="imageForm">
+                        <input id="imageInput" type="file" name="image">
+                        <input type="submit" value="send file">
+                    </form>
                 </div>
                 <h3>Hello <span id="profileUsername" class="username"></span> !</h3>
                 <div id="data-field" class="mt-3">

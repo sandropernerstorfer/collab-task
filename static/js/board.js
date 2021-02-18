@@ -8,8 +8,6 @@ const userError = document.querySelector('#usernameError');
 const cancelBox = document.querySelector('#cancel-box');
 const editName = document.querySelector('#editName');
 const nameField = document.querySelector('#currentUsername');
-const imageEdit = document.querySelector('#imageEdit');
-const imageInput = document.querySelector('#imageInput');
 let newName;
 let editing = false;
 /**
@@ -238,23 +236,6 @@ document.addEventListener('click', e => {
     else return;
 });
 
-imageEdit.addEventListener('click', () => {
-    imageInput.click();
-});
-
-imageInput.addEventListener('change', e => {
-    if(e.target.files && e.target.files[0]){
-        let reader = new FileReader();
-
-        reader.addEventListener('load', e => {
-            const imageField = document.querySelector('#profile-picture');
-            imageField.style.backgroundImage = `url("${e.target.result}")`;
-        });
-
-        reader.readAsDataURL(e.target.files[0]);
-    }
-});
-
 /**
  * PROFIL ÄNDERUNG SPEICHERN
  * 
@@ -320,4 +301,39 @@ const userLogout = document.querySelector('#logoutButton');
 userLogout.addEventListener('click', () => {
     fetch('/logout')
     .then( res => window.location.href = '/login');
+});
+
+
+
+const imageForm = document.querySelector('#imageForm');
+const imageEdit = document.querySelector('#imageEdit');
+const imageInput = document.querySelector('#imageInput');
+
+imageEdit.addEventListener('click', () => {
+    imageInput.click();
+});
+imageInput.addEventListener('change', e => {
+    if(e.target.files && e.target.files[0]){
+        let reader = new FileReader();
+
+        reader.addEventListener('load', e => {
+            const imageField = document.querySelector('#profile-picture');
+            imageField.style.backgroundImage = `url("${e.target.result}")`;
+        });
+
+        reader.readAsDataURL(e.target.files[0]);
+    }
+});
+
+imageForm.addEventListener('submit', e => {
+    e.preventDefault();
+
+    const formData = new FormData();
+
+    formData.append('image', imageInput.files[0]);
+
+    fetch('/user/image', {
+        method: 'PATCH',
+        body: formData
+    });
 });
