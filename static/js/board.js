@@ -8,8 +8,11 @@ const userError = document.querySelector('#usernameError');
 const cancelBox = document.querySelector('#cancel-box');
 const editName = document.querySelector('#editName');
 const nameField = document.querySelector('#currentUsername');
+const imageEdit = document.querySelector('#imageEdit');
+const imageInput = document.querySelector('#imageInput');
 let newName;
 let editing = false;
+let newImage = false;
 /**
  * BOARD DATA FETCH
  * 
@@ -244,18 +247,37 @@ document.addEventListener('click', e => {
 });
 
 /**
+ * INSTANT IMAGE DISPLAY
+ * 
+ * imageEdit ist der custom EDIT button, dieser leitet den click an den eigentlichen input weiter
+ * wenn ein bild ausgewählt wurde wird das event vom eventListener erkannt
+ * und das bild als dataURL in das element geladen
+ */
+imageEdit.addEventListener('click', () => {
+    imageInput.click();
+});
+imageInput.addEventListener('change', e => {
+    if(e.target.files && e.target.files[0]){
+        newImage = true;
+        let reader = new FileReader();
+        reader.addEventListener('load', e => {
+            const imageField = document.querySelector('#profile-picture');
+            imageField.style.backgroundImage = `url("${e.target.result}")`;
+        });
+        reader.readAsDataURL(e.target.files[0]);
+    }
+});
+
+/**
  * PROFIL ÄNDERUNG SPEICHERN
  * 
  * wenn der SAVE button im Profil bereich geklickt wird
  * vergleiche den neuen namen mit dem originalen -> wenn identisch call close event (resetProfile)
  * wenn der name neu ist Update in der Datenbank und update client mit response
  */
-profileSave.addEventListener('click', () => {
-    if(newName === boardData.name || newName == undefined){
-        profileClose.click();
-    }
-    else{
-        fetch('/user/username', {
+profileSave.addEventListener('click', async () => {
+    if(newName !== boardData.name && newName !== undefined){
+        await fetch('/user/username', {
             method: 'PATCH',
             body: JSON.stringify({username : newName.split(' ').join('-')}),
             headers: {'Content-type' : 'application/json; charset=UTF-8'}
@@ -263,12 +285,25 @@ profileSave.addEventListener('click', () => {
         .then(response => response.json())
         .then( newName => {
             boardData.name = newName;
-            profileClose.click();
-            setTimeout(() => {
-                renderUsername();    
-            }, 400);
+            renderUsername();
         });
-    }
+    };
+    if(newImage){
+        const formData = new FormData();
+        formData.append('image', imageInput.files[0]);
+        await fetch('/user/image', {
+            method: 'PATCH',
+            body: formData
+        })
+        .then(res => res.json())
+        .then(newImage => {
+            if(!newImage) console.log('failed')
+            else{
+                boardData.image = newImage;
+                renderUserImage();
+            }
+        })
+    };
 });
 
 /**
@@ -280,6 +315,8 @@ profileSave.addEventListener('click', () => {
  */
 profileClose.addEventListener('click', () => {
     setTimeout(() => {
+        newImage = false;
+        renderUserImage();
         newName = boardData.name;
         nameField.innerHTML = newName;
         resetProfile();    
@@ -308,50 +345,4 @@ const userLogout = document.querySelector('#logoutButton');
 userLogout.addEventListener('click', () => {
     fetch('/logout')
     .then( res => window.location.href = '/login');
-});
-
-
-
-const imageForm = document.querySelector('#imageForm');
-const imageEdit = document.querySelector('#imageEdit');
-const imageInput = document.querySelector('#imageInput');
-
-imageEdit.addEventListener('click', () => {
-    imageInput.click();
-});
-imageInput.addEventListener('change', e => {
-    if(e.target.files && e.target.files[0]){
-        let reader = new FileReader();
-
-        reader.addEventListener('load', e => {
-            const imageField = document.querySelector('#profile-picture');
-            imageField.style.backgroundImage = `url("${e.target.result}")`;
-        });
-
-        reader.readAsDataURL(e.target.files[0]);
-    }
-});
-
-imageForm.addEventListener('submit', e => {
-    e.preventDefault();
-
-    const formData = new FormData();
-
-    formData.append('image', imageInput.files[0]);
-
-    fetch('/user/image', {
-        method: 'PATCH',
-        body: formData
-    })
-    .then(res => res.json())
-    .then(newImage => {
-        if(!newImage) console.log('failed')
-        else{
-            boardData.image = newImage;
-            profileClose.click();
-            setTimeout(() => {
-                renderUserImage();
-            }, 400);
-        }
-    })
 });
