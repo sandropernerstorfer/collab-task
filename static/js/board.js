@@ -289,6 +289,8 @@ profileSave.addEventListener('click', async () => {
         });
     };
     if(newImage){
+        document.querySelector('#profile-picture').style.filter = 'saturate(50%)';
+        document.querySelector('#loadingCircle').innerHTML = `<div class="spinner-border" role="status"></div>`;
         const formData = new FormData();
         formData.append('image', imageInput.files[0]);
         await fetch('/user/image', {
@@ -301,6 +303,8 @@ profileSave.addEventListener('click', async () => {
             else{
                 boardData.image = newImage;
                 renderUserImage();
+                document.querySelector('#loadingCircle').innerHTML = '';
+                document.querySelector('#profile-picture').style.filter = 'none';
             }
         })
     };

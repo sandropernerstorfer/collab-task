@@ -180,11 +180,18 @@ nav{
         position: relative;
 
         &:hover{
-            div{
+            #imageEdit{
                 bottom: 14px;
             }
         }
-        div{
+        #loadingCircle{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            color: $secondary2;
+        }
+        #imageEdit{
             cursor: pointer;
             position: absolute;
             bottom: -25px;
