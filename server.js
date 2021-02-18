@@ -156,17 +156,18 @@ app.patch('/user/username', async (req, res) => {
 });
 app.patch('/user/image', (req, res) => {
     const form = formidable();
-
     form.parse(req, (err, fields, files) => {
-        cloudinary.v2.uploader.upload(files.image.path, {folder: 'taskapp'}, (error,result) => {
-            console.log(error,result);
-
-            //## In dieser response steckt die public_id
-            //## idee: diese in die db zum user fügen und als img src rendern - mit: =>
-            //## https://res.cloudinary.com/sandrocloud/image/upload/w_200,c_scale/__<PUBLIC_ID>
+        cloudinary.v2.uploader.upload(files.image.path, {folder: 'taskapp'}, async (error,result) => {
+            if(error){
+                res.end(JSON.stringify(false));
+            }
+            else{
+                const updatedUser = await User.findOneAndUpdate({ _id: currentUser._id }, { $set: {image: result.public_id}}, {new: true});
+                currentUser = updatedUser;
+                res.end(JSON.stringify(currentUser.image));
+            };
         });
     });
-    res.end();
 });
 
 //BOARD-ROUTES
@@ -178,7 +179,7 @@ app.get('/board', (req,res) => {
         res.sendFile('board.html', {root: 'static'});
     }
 });
-app.get('/board/userdata', async (req, res) => {
+app.get('/board/boarddata', async (req, res) => {
     let desks = [];
     let sharedDesks = [];
     let invites = [];

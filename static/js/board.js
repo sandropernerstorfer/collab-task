@@ -18,7 +18,7 @@ let editing = false;
  * -- und im client entsprechen angezeigt
  */
 let boardData = {};
-fetch('/board/userdata')
+fetch('/board/boarddata')
 .then( response => response.json())
 .then( data => {
     boardData = data;
@@ -45,8 +45,15 @@ function renderUsername(){
     });
 };
 function renderUserImage(){
-    document.querySelector('#profile').style.backgroundImage = "url('../../assets/img/"+boardData.image+"')";
-    document.querySelector('#profile-picture').style.backgroundImage = "url('../../assets/img/"+boardData.image+"')";
+    let imgUrl;
+    if(boardData.image == null){
+        imgUrl = 'url("../../assets/img/user-default.png")'; 
+    }
+    else{
+        imgUrl = `url("https://res.cloudinary.com/sandrocloud/image/upload/w_200,c_scale/${boardData.image}")`;
+    }
+    document.querySelector('#profile').style.backgroundImage = imgUrl;
+    document.querySelector('#profile-picture').style.backgroundImage = imgUrl;
 };
 function renderDeskData(){
     let deskCount = 0;
@@ -335,5 +342,16 @@ imageForm.addEventListener('submit', e => {
     fetch('/user/image', {
         method: 'PATCH',
         body: formData
-    });
+    })
+    .then(res => res.json())
+    .then(newImage => {
+        if(!newImage) console.log('failed')
+        else{
+            boardData.image = newImage;
+            profileClose.click();
+            setTimeout(() => {
+                renderUserImage();
+            }, 400);
+        }
+    })
 });
