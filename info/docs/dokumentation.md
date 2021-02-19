@@ -101,3 +101,4 @@
     * Code- und allgemein- dokumentation
     * 404 Page + Routing
     * User Image Funktionen erstellt
+    * Dashboard UI updates
