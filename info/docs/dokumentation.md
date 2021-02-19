@@ -97,7 +97,7 @@
 * **App-Work :**
     * Desk Auswahl
     * Weiterleitung auf Desk bereich
-    * alle nötigen daten von server in den desk bereich laden
+    * alle nötigen daten von server und DB in den desk bereich laden
     * Code- und allgemein- dokumentation
     * 404 Page + Routing
     * User Image Funktionen erstellt
