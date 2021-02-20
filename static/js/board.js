@@ -298,10 +298,11 @@ profileSave.addEventListener('click', async () => {
             body: formData
         })
         .then(res => res.json())
-        .then(newImage => {
-            if(!newImage) console.log('failed')
+        .then(image => {
+            newImage = false;
+            if(!image) console.log('failed')
             else{
-                boardData.image = newImage;
+                boardData.image = image;
                 renderUserImage();
                 document.querySelector('#loadingCircle').innerHTML = '';
                 document.querySelector('#profile-picture').style.filter = 'none';
