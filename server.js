@@ -19,15 +19,6 @@ const Desk = require('./models/Desk');
 let currentUser = {};
 let choosenDesk = '';
 
-// Server Listen & Database Connection
-const PORT = process.env.PORT || 5400;
-app.listen(PORT);
-mongoose.connect(
-    process.env.DB_CONNECTION, {useNewUrlParser: true, useUnifiedTopology: true}, () => {
-        console.log('DB Connected');
-    }
-);
-
 //Middleware
 mongoose.set('useFindAndModify', false);
 app.use('/', express.static(__dirname + '/static'));
@@ -273,6 +264,15 @@ app.get('/logout', (req, res) => {
 });
 
 // 404 ROUTE
-app.get('*?', function(req, res){
+app.get('*?', (req, res) => {
     res.sendFile('404.html', {root:'static'});
 });
+
+// Server Listen & Database Connection
+const PORT = process.env.PORT || 5400;
+app.listen(PORT);
+mongoose.connect(
+    process.env.DB_CONNECTION, {useNewUrlParser: true, useUnifiedTopology: true}, () => {
+        console.log('DB Connected');
+    }
+);
