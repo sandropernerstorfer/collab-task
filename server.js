@@ -210,6 +210,26 @@ app.post('/board/desk', async (req, res) => {
 app.get('/desk', (req, res) => {
     res.redirect('/board');
 });
+app.get('/desk/deskdata', async (req, res) => {
+    const userData = { id : currentUser.id, name : currentUser.name };
+    const deskData = await Desk.findOne({ _id: choosenDesk });
+    const admin = await User.findOne({_id: deskData.admin})
+        .select('-password -sessionid -invites -desks -sharedDesks');
+    
+    let members = [];
+    if(deskData.members.length > 0){
+        members = await User.find().where('_id').in(deskData.members)
+            .select('-password -sessionid -invites -desks -sharedDesks').exec();
+    }; 
+
+    const fullDeskData = {
+        user : userData,
+        desk : deskData,
+        admin : admin,
+        members : members
+    };
+    res.status(200).end(JSON.stringify(fullDeskData));
+});
 app.use('/desk', express.static(__dirname + '/static'));
 
 app.get('/desk/:deskID', (req, res) => {
@@ -232,26 +252,6 @@ app.get('/desk/:deskID', (req, res) => {
             res.sendFile('desk.html', {root:'static'});
         }
     };
-});
-app.get('/deskdata', async (req, res) => {
-    const userData = { id : currentUser.id, name : currentUser.name };
-    const deskData = await Desk.findOne({ _id: choosenDesk });
-    const admin = await User.findOne({_id: deskData.admin})
-        .select('-password -sessionid -invites -desks -sharedDesks');
-    
-    let members = [];
-    if(deskData.members.length > 0){
-        members = await User.find().where('_id').in(deskData.members)
-            .select('-password -sessionid -invites -desks -sharedDesks').exec();
-    }; 
-
-    const fullDeskData = {
-        user : userData,
-        desk : deskData,
-        admin : admin,
-        members : members
-    };
-    res.status(200).end(JSON.stringify(fullDeskData));
 });
 
 // LOGOUT

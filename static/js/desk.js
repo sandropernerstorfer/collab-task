@@ -1,5 +1,5 @@
 let userData, deskData, adminData, memberData;
-fetch('/deskdata')
+fetch('/desk/deskdata')
 .then(res => res.json())
 .then(data => {
     userData = data.user;
