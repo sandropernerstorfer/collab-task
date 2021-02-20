@@ -57,16 +57,6 @@ async function getUserDataLocal(req, res, next){
 // GET AND SAVE USERDATA
 app.use(getUserDataLocal);                          // gets User-Data by comparing cookieID and DB sessionID
 
-//HOMEPAGE DATA
-app.get('/userdata', (req, res) => {
-    if(Object.keys(currentUser).length == 0){
-        res.end(JSON.stringify(false));
-    }
-    else{
-        res.end(JSON.stringify(currentUser.name));
-    }
-});
-
 //LOGIN-ROUTES
 app.use('/login/*?', (req,res) => {                 // catch all routes following Login and redirect to /login
     res.redirect('/login');
@@ -81,6 +71,14 @@ app.use('/login', (req, res) => {                   // if path /login AND cookie
 });
 
 //USER-ROUTES
+app.get('/user/username', (req, res) => {
+    if(Object.keys(currentUser).length == 0){
+        res.end(JSON.stringify(false));
+    }
+    else{
+        res.end(JSON.stringify(currentUser.name));
+    }
+});
 app.post('/user/signup', async (req, res) => {      // SIGNUP users and create session -> when done redirects to '/board'
     // suche USER in DB nach EMAIL
     const userExists = await User.findOne({email: req.body.email}, (err, found) => {

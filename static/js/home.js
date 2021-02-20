@@ -10,7 +10,7 @@ const scrollTopButton = document.querySelector('#scroll-to-top');
  */
 try{
     const cookie = document.cookie.split('; ').find(row => row.startsWith('_taskID')).split('=')[1];
-    fetch('/userdata')
+    fetch('/user/username')
     .then(response => response.json())
     .then(username => {
         if(!username){
