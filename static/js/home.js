@@ -1,24 +1,38 @@
 const dynamicHeading = document.querySelector('#dynamic-heading');
 const dynamicRoutes = document.querySelectorAll('.dynamic-route');
 const aboutButton = document.querySelector('#about-button');
-const observedElement = document.querySelector('#observed-element');
 const scrollTopButton = document.querySelector('#scroll-to-top');
 
-// Try to read sessionID Cookie -> call renderBannerContent(parameter depends on cookie-status)
+/**
+ * Versuche Session-Cookie zu lesen und rufe renderBannerContent() auf
+ * wird ein cookie gefunden werden per GET request die passenden user daten an den client geschickt
+ * wurde zB. ein 'falscher cookie' erstellt werden keine userdaten gefunden und der server schickt nichts zurück
+ */
 try{
     const cookie = document.cookie.split('; ').find(row => row.startsWith('_taskID')).split('=')[1];
     fetch('/userdata')
     .then(response => response.json())
     .then(username => {
-        if(!username) renderBannerContent();
-        else renderBannerContent(username);
+        if(!username){
+            renderBannerContent();
+        }
+        else{
+            renderBannerContent(username);
+        }
     });
 }
 catch(err){
     renderBannerContent();
 };
 
-// Renders banner heading and button + href
+/**
+ * 
+ * @param {STRING} username Enthält den Username des eingeloggten Users
+ * wird kein parameter an die funktion übergeben, beudetet das dass keine passende session gefunden wurde
+ * und eine allgemeine begrüßung + Login/SignUp button werden gerendert
+ * 
+ * ansonsten wird eine begrüßung mit username + Dashboard button eingeblendet
+ */
 function renderBannerContent(username){
     let heading, html, route;
     if(!username){
@@ -38,31 +52,39 @@ function renderBannerContent(username){
     });
 };
 
-// Smooth Scroll to Target
+/**
+ * LEARN MORE BUTTON
+ * wird der learn more button geklickt wird automatisch zur App Info gescrollt (main-section)
+ */
 aboutButton.addEventListener('click', e => {
-    let href = aboutButton.getAttribute("href");
-    let elem = document.getElementById(href.replace("#",""));
-    elem.scrollIntoView({ left: 0, block: 'start', behavior: 'smooth' });
+    const mainSection = document.querySelector('#main-content');
+    mainSection.scrollIntoView({ left: 0, block: 'start', behavior: 'smooth' });
 });
 
-// Scroll to Top of Document
+/**
+ * SCROLL TO TOP BUTTON
+ * wird der TopScroll button geklickt wird automatisch zum oberen ende des Dokuments gescrollt
+ */
 scrollTopButton.addEventListener('click', e => {
-    document.documentElement.scroll({
-        top: 0,
-        behavior: 'smooth'
-    })
+    document.documentElement.scroll({ top: 0, behavior: 'smooth' });
 });
 
-// Observe element. if its in sight/not in sight -> show/hide top-scroll-button
+/**
+ * SHOW / HIDE SCROLL TO TOP BUTTON
+ * erstellt einen neuen IntersectionObserver welcher das element mit der ID #observed-element überwacht (main section)
+ * ist das element in sicht wird der button eingeblendet.
+ * entfernt sich das element aus dem bildschirm wird der button ausgeblendet
+ */
 let observer = new IntersectionObserver(callback);
+const observedElement = document.querySelector('#observed-element');
 observer.observe(observedElement);
-function callback(entries, observer) {
+function callback(entries, observer){
     entries.forEach(entry => {
-        if (entry.isIntersecting){
-            scrollTopButton.classList.add('show-btn')
+        if(entry.isIntersecting){
+            scrollTopButton.classList.add('show-btn');
         }
         else{
-            scrollTopButton.classList.remove('show-btn')
-        }
+            scrollTopButton.classList.remove('show-btn');
+        };
     });
 };
