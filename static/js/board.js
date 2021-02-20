@@ -38,7 +38,7 @@ fetch('/board/boarddata')
  * lädt user und desk daten von dem boardData objekt in das Dokument
  * beide funktionen werden aufgerufen sobald: 
  * -- der server die daten geschickt hat
- * -- und einzeln wenn daten geupdated wurden ( username bearbeitet , desk erstellt)
+ * -- und einzeln wenn daten geupdated wurden ( username bearbeitet, profilbild geändert, desk erstellt)
  */
 function renderUsername(){
     newName = boardData.name;
@@ -122,7 +122,7 @@ function openDesk(deskID){
 
 /**
  *# INVITE HANDLIND ( W.I.P. )
- * @param {string} inviteID - Desk ID der Einaldung
+ * @param {string} inviteID - Desk ID der Einladung
  */
 function openInvite(inviteID){
     console.log(inviteID);
@@ -151,7 +151,7 @@ deskModal.addEventListener('hidden.bs.modal', () => {
 /**
  * Desk Data Validation
  * Error Handling
- * Speicher Desk in Datenbank
+ * Speichert Desk in Datenbank
  */
 deskForm.addEventListener('submit', e => {
     e.preventDefault();
@@ -249,7 +249,7 @@ document.addEventListener('click', e => {
 /**
  * INSTANT IMAGE DISPLAY
  * 
- * imageEdit ist der custom EDIT button, dieser leitet den click an den eigentlichen input weiter
+ * imageEdit ist der custom EDIT button, dieser leitet den click an den eigentlichen file-input weiter
  * wenn ein bild ausgewählt wurde wird das event vom eventListener erkannt
  * und das bild als dataURL in das element geladen
  */
