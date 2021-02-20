@@ -2,7 +2,7 @@ header{
 
     nav{
         padding: 20px;
-        width: 100%;
+        width: 100vw;
         @include flex(center,center);
 
         h3{
