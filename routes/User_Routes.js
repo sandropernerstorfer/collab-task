@@ -43,6 +43,7 @@ router.post('/signup', async (req, res) => {
             });
             const savedUser = await user.save();
             req.session.currentUser = savedUser;
+            req.session.currentUser.password = 'hidden';
             res.cookie('_taskID', sessionID, {httpOnly: false, maxAge: 1000*1000*1000*1000});
             res.end();
         }
@@ -66,7 +67,7 @@ router.post('/signin', async (req, res) => {
         try{
             if(await bcrypt.compare(req.body.password, userExists.password)){
                 const sessionID = uuidv4();
-                const updatedUser = await User.findOneAndUpdate({ email: req.body.email }, { $set: {sessionid: sessionID}}, {new: true});
+                const updatedUser = await User.findOneAndUpdate({ email: req.body.email }, { $set: {sessionid: sessionID}}, {new: true}).select('-password');
                 res.cookie('_taskID', sessionID, {httpOnly: false, maxAge: 1000*1000*1000*1000});
                 req.session.currentUser = updatedUser;
                 res.end();
@@ -82,7 +83,7 @@ router.post('/signin', async (req, res) => {
 });
 
 router.patch('/username', async (req, res) => {
-    const updatedUser = await User.findOneAndUpdate({ _id: req.session.currentUser._id }, { $set: {name: req.body.username}}, {new: true});
+    const updatedUser = await User.findOneAndUpdate({ _id: req.session.currentUser._id }, { $set: {name: req.body.username}}, {new: true}).select('-password');
     req.session.currentUser = updatedUser;
     res.end(JSON.stringify(req.session.currentUser.name));
 });
@@ -101,7 +102,7 @@ router.patch('/image', (req, res) => {
                 catch(err){
                     // if there is no image to delete just skip the error ( happens with new users )
                 }
-                const updatedUser = await User.findOneAndUpdate({ _id: req.session.currentUser._id }, { $set: {image: result.public_id}}, {new: true});
+                const updatedUser = await User.findOneAndUpdate({ _id: req.session.currentUser._id }, { $set: {image: result.public_id}}, {new: true}).select('-password');
                 req.session.currentUser = updatedUser;
                 res.end(JSON.stringify(req.session.currentUser.image));
             };

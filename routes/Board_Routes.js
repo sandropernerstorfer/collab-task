@@ -45,7 +45,7 @@ router.post('/desk', async (req, res) => {
         admin: req.body.admin
     });
     const savedDesk = await desk.save();
-    const updatedUser = await User.findOneAndUpdate({ _id: req.body.admin }, { $push: {desks: savedDesk._id}}, {new: true});
+    const updatedUser = await User.findOneAndUpdate({ _id: req.body.admin }, { $push: {desks: savedDesk._id}}, {new: true}).select('-password');
     req.session.currentUser = updatedUser;
     res.end(JSON.stringify(savedDesk));
 });
