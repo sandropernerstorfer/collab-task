@@ -97,15 +97,32 @@
 * **App-Work :**
     * Desk Auswahl
     * Weiterleitung auf Desk bereich
+
+#### 18.02 - 19.02.2021
+* **App-Work :**
     * alle nötigen daten von server und DB in den desk bereich laden
-    * Code- und allgemein- dokumentation
     * 404 Page + Routing
+
+#### 19.02 - 20.02.2021
+* **App-Work :**
     * User Image Funktionen erstellt
     * Dashboard UI updates
+* **Dokumentation :**
+    * Code- und allgemein- dokumentation
 
-#### 20.02 - 23.02
+#### 20.02 - 21.02.2021
 * **App-Work :**
-    * server.js umbau
+    * server.js update
     * routen aufteilen
+
+#### 21.02 - 22.02.2021
+* **App-Work :**
     * express-session package
     * von lokal zwischenspeicher auf session speicher
+    * unnötiges fetching von user passwort aus DB verhindert
+
+#### 22.02 - 23.02.2021
+* **Dokumentation :**
+    * Wireframes
+    * Flowcharts
+    * Code Dokumentation
