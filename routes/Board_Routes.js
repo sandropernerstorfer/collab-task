@@ -4,7 +4,7 @@ const Desk = require('../models/Desk');
 const User = require('../models/User');
 
 router.get('/', (req, res) => {
-    if(Object.keys(req.app.locals.currentUser).length == 0){
+    if(!req.session.currentUser){
         res.redirect('/login');
     }
     else{
@@ -17,20 +17,20 @@ router.get('/boarddata', async (req, res) => {
     let sharedDesks = [];
     let invites = [];
 
-    if(req.app.locals.currentUser.desks.length > 0){
-        desks = await Desk.find().where('_id').in(req.app.locals.currentUser.desks).exec();
+    if(req.session.currentUser.desks.length > 0){
+        desks = await Desk.find().where('_id').in(req.session.currentUser.desks).exec();
     }
-    if(req.app.locals.currentUser.sharedDesks.length > 0){
-        sharedDesks = await Desk.find().where('_id').in(req.app.locals.currentUser.sharedDesks).exec();
+    if(req.session.currentUser.sharedDesks.length > 0){
+        sharedDesks = await Desk.find().where('_id').in(req.session.currentUser.sharedDesks).exec();
     }
-    if(req.app.locals.currentUser.invites.length > 0){
-        invites = await Desk.find().where('_id').in(req.app.locals.currentUser.invites).exec();
+    if(req.session.currentUser.invites.length > 0){
+        invites = await Desk.find().where('_id').in(req.session.currentUser.invites).exec();
     }
 
     const boardData = {
-        _id: req.app.locals.currentUser._id,
-        name: req.app.locals.currentUser.name,
-        image: req.app.locals.currentUser.image,
+        _id: req.session.currentUser._id,
+        name: req.session.currentUser.name,
+        image: req.session.currentUser.image,
         desks: desks,
         sharedDesks: sharedDesks,
         invites: invites
@@ -46,7 +46,7 @@ router.post('/desk', async (req, res) => {
     });
     const savedDesk = await desk.save();
     const updatedUser = await User.findOneAndUpdate({ _id: req.body.admin }, { $push: {desks: savedDesk._id}}, {new: true});
-    req.app.locals.currentUser = updatedUser;
+    req.session.currentUser = updatedUser;
     res.end(JSON.stringify(savedDesk));
 });
 

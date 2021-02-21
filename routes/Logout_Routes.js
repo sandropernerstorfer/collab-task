@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-    req.app.locals.currentUser = {};
+    req.session.currentUser = undefined;
     res.clearCookie('_taskID');
     res.redirect('/login');
 });

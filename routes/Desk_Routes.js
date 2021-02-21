@@ -8,8 +8,8 @@ router.get('/', (req, res) => {
 });
 
 router.get('/deskdata', async (req, res) => {
-    const userData = { id : req.app.locals.currentUser.id, name : req.app.locals.currentUser.name };
-    const deskData = await Desk.findOne({ _id: req.app.locals.currentDesk });
+    const userData = { id : req.session.currentUser._id, name : req.session.currentUser.name };
+    const deskData = await Desk.findOne({ _id: req.session.currentDesk });
     const admin = await User.findOne({_id: deskData.admin})
         .select('-password -sessionid -invites -desks -sharedDesks');
     
@@ -34,19 +34,19 @@ router.get('/:deskID', (req, res) => {
     if(!req.cookies._taskID) res.redirect('/login')
     else{
         let desk;
-        desk = req.app.locals.currentUser.desks.find( desk => {
-            return desk._id == req.params.deskID;
+        desk = req.session.currentUser.desks.find( desk => {
+            return desk == req.params.deskID;
         });
         if(desk == undefined){
-            desk = req.app.locals.currentUser.sharedDesks.find( shared => {
-                return shared._id == req.params.deskID;
+            desk = req.session.currentUser.sharedDesks.find( shared => {
+                return shared == req.params.deskID;
             });    
         };   
         if(desk == undefined){
             res.redirect('/board');
         }
         else{
-            req.app.locals.currentDesk = desk;
+            req.session.currentDesk = desk;
             res.sendFile('desk.html', {root:'static'});
         }
     };

@@ -12,11 +12,11 @@ cloudinary.config({
 const User = require('../models/User');
 
 router.get('/username', (req, res) => {
-    if(Object.keys(req.app.locals.currentUser).length == 0){
+    if(!req.session.currentUser){
         res.end(JSON.stringify(false));
     }
     else{
-        res.end(JSON.stringify(req.app.locals.currentUser.name));
+        res.end(JSON.stringify(req.session.currentUser.name));
     }
 });
 
@@ -42,7 +42,7 @@ router.post('/signup', async (req, res) => {
                 sessionid: sessionID
             });
             const savedUser = await user.save();
-            req.app.locals.currentUser = savedUser;
+            req.session.currentUser = savedUser;
             res.cookie('_taskID', sessionID, {httpOnly: false, maxAge: 1000*1000*1000*1000});
             res.end();
         }
@@ -68,7 +68,7 @@ router.post('/signin', async (req, res) => {
                 const sessionID = uuidv4();
                 const updatedUser = await User.findOneAndUpdate({ email: req.body.email }, { $set: {sessionid: sessionID}}, {new: true});
                 res.cookie('_taskID', sessionID, {httpOnly: false, maxAge: 1000*1000*1000*1000});
-                req.app.locals.currentUser = updatedUser;
+                req.session.currentUser = updatedUser;
                 res.end();
             }
             else{
@@ -82,9 +82,9 @@ router.post('/signin', async (req, res) => {
 });
 
 router.patch('/username', async (req, res) => {
-    const updatedUser = await User.findOneAndUpdate({ _id: req.app.locals.currentUser._id }, { $set: {name: req.body.username}}, {new: true});
-    req.app.locals.currentUser = updatedUser;
-    res.end(JSON.stringify(req.app.locals.currentUser.name));
+    const updatedUser = await User.findOneAndUpdate({ _id: req.session.currentUser._id }, { $set: {name: req.body.username}}, {new: true});
+    req.session.currentUser = updatedUser;
+    res.end(JSON.stringify(req.session.currentUser.name));
 });
 
 router.patch('/image', (req, res) => {
@@ -96,14 +96,14 @@ router.patch('/image', (req, res) => {
             }
             else{
                 try{
-                    await cloudinary.v2.uploader.destroy(req.app.locals.currentUser.image, async(error, result) => {});
+                    await cloudinary.v2.uploader.destroy(req.session.currentUser.image, async(error, result) => {});
                 }
                 catch(err){
                     // if there is no image to delete just skip the error ( happens with new users )
                 }
-                const updatedUser = await User.findOneAndUpdate({ _id: req.app.locals.currentUser._id }, { $set: {image: result.public_id}}, {new: true});
-                req.app.locals.currentUser = updatedUser;
-                res.end(JSON.stringify(req.app.locals.currentUser.image));
+                const updatedUser = await User.findOneAndUpdate({ _id: req.session.currentUser._id }, { $set: {image: result.public_id}}, {new: true});
+                req.session.currentUser = updatedUser;
+                res.end(JSON.stringify(req.session.currentUser.image));
             };
         });
     });

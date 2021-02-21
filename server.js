@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const session = require('express-session');
 const mongoose = require('mongoose');
 mongoose.set('useFindAndModify', false);
 const cookieParser = require("cookie-parser");
@@ -14,21 +15,18 @@ Board_Routes = require('./routes/Board_Routes'),
 Desk_Routes = require('./routes/Desk_Routes'),
 NotFound_Routes = require('./routes/404_Routes');
 
-// Local Data Storing
-app.locals.currentUser = {};
-app.locals.currentDesk = '';
-
 // Middleware
 app.use(express.static('static'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(session({ secret : process.env.SESSION_SECRET, resave: false, saveUninitialized: false }));
 
 // Get and Save Userdata
 const User = require('./models/User');
 app.use(getUserDataLocal);
 async function getUserDataLocal(req, res, next){
-    if(req.cookies._taskID && Object.keys(req.app.locals.currentUser).length !== 0){
+    if(req.cookies._taskID && req.session.currentUser){
         next();
     }
     else{
@@ -40,11 +38,11 @@ async function getUserDataLocal(req, res, next){
                 };
             }).select('-password');
             if(user == null){
-                req.app.locals.currentUser = {};
+                req.session.currentUser = undefined;
                 res.clearCookie('_taskID');
             }
             else{
-                req.app.locals.currentUser = user;
+                req.session.currentUser = user;
             }
             next();
         }
