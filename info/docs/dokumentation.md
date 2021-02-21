@@ -103,8 +103,9 @@
     * User Image Funktionen erstellt
     * Dashboard UI updates
 
-#### 20.02 - ????????????????????
+#### 20.02 - 23.02
 * **App-Work :**
     * server.js umbau
     * routen aufteilen
-    * app.locals variablen verwenden
+    * express-session package
+    * von lokal zwischenspeicher auf session speicher

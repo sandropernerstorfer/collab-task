@@ -76,6 +76,7 @@ Der User-Chat ermöglicht den Live chat mit allen Desk Mitgliedern die sich zurz
 * bcrypt
 * cloudinary
 * formidable
+* express-session
 
 **Tools :**
 * Github Projects
