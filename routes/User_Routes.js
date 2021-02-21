@@ -1,0 +1,112 @@
+const express = require('express');
+const router = express.Router();
+const bcrypt = require('bcrypt');
+const { v4: uuidv4 } = require('uuid');
+const formidable = require('formidable');
+const cloudinary = require('cloudinary');
+cloudinary.config({
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.API_KEY,
+    api_secret: process.env.API_SECRET
+});
+const User = require('../models/User');
+
+router.get('/username', (req, res) => {
+    if(Object.keys(req.app.locals.currentUser).length == 0){
+        res.end(JSON.stringify(false));
+    }
+    else{
+        res.end(JSON.stringify(req.app.locals.currentUser.name));
+    }
+});
+
+router.post('/signup', async (req, res) => {
+
+    const userExists = await User.findOne({email: req.body.email}, (err, found) => {
+        if(err){
+            res.redirect('/login');
+        }
+    });
+
+    if(userExists != null){
+        res.end('user exists');
+    }
+    else{
+        try{
+            const sessionID = uuidv4();
+            const hashedPassword = await bcrypt.hash(req.body.password, 10);
+            const user = new User({
+                name: req.body.name,
+                email: req.body.email,
+                password: hashedPassword,
+                sessionid: sessionID
+            });
+            const savedUser = await user.save();
+            req.app.locals.currentUser = savedUser;
+            res.cookie('_taskID', sessionID, {httpOnly: false, maxAge: 1000*1000*1000*1000});
+            res.end();
+        }
+        catch(err){
+            res.json(err);
+        };
+    }
+});
+
+router.post('/signin', async (req, res) => {
+    const userExists = await User.findOne({email: req.body.email}, (err, found) => {
+        if(err){
+            res.redirect('/login');
+        }
+    });
+
+    if(userExists == null){
+        res.end('no user');
+    }
+    else{
+        try{
+            if(await bcrypt.compare(req.body.password, userExists.password)){
+                const sessionID = uuidv4();
+                const updatedUser = await User.findOneAndUpdate({ email: req.body.email }, { $set: {sessionid: sessionID}}, {new: true});
+                res.cookie('_taskID', sessionID, {httpOnly: false, maxAge: 1000*1000*1000*1000});
+                req.app.locals.currentUser = updatedUser;
+                res.end();
+            }
+            else{
+                res.end('wrong password');
+            }
+        }
+        catch(err){
+            res.json(err);
+        }
+    }
+});
+
+router.patch('/username', async (req, res) => {
+    const updatedUser = await User.findOneAndUpdate({ _id: req.app.locals.currentUser._id }, { $set: {name: req.body.username}}, {new: true});
+    req.app.locals.currentUser = updatedUser;
+    res.end(JSON.stringify(req.app.locals.currentUser.name));
+});
+
+router.patch('/image', (req, res) => {
+    const form = formidable();
+    form.parse(req, (err, fields, files) => {
+        cloudinary.v2.uploader.upload(files.image.path, {folder: 'taskapp'}, async (error,result) => {
+            if(error){
+                res.end(JSON.stringify(false));
+            }
+            else{
+                try{
+                    await cloudinary.v2.uploader.destroy(req.app.locals.currentUser.image, async(error, result) => {});
+                }
+                catch(err){
+                    // if there is no image to delete just skip the error ( happens with new users )
+                }
+                const updatedUser = await User.findOneAndUpdate({ _id: req.app.locals.currentUser._id }, { $set: {image: result.public_id}}, {new: true});
+                req.app.locals.currentUser = updatedUser;
+                res.end(JSON.stringify(req.app.locals.currentUser.image));
+            };
+        });
+    });
+});
+
+module.exports = router;
