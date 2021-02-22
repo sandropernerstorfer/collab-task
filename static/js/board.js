@@ -1,4 +1,5 @@
 import validation from './scripts/validation.js';
+import sortBoard from './scripts/sorting.js';
 /**
  * BOARD DATA FETCH
  * -- beim öffnen des Dashboards werden vom server die benötigten USER und DESK daten gefetcht
@@ -10,6 +11,13 @@ fetch('/board/boarddata')
 .then( response => response.json())
 .then( data => {
     boardData = data;
+    if(localStorage.getItem('task_boardSort')){
+        const {sortBy, sortOrder} = JSON.parse(localStorage.getItem('task_boardSort'));
+        document.querySelector(`select option[value=${sortBy}]`).setAttribute('selected','true');
+        document.querySelector(`select option[value=${sortOrder}]`).setAttribute('selected','true');
+        boardData.desks = sortBoard(boardData.desks, sortBy, sortOrder);
+        boardData.sharedDesks = sortBoard(boardData.sharedDesks, sortBy, sortOrder);
+    }
     renderUsername();
     renderUserImage();
     renderDeskData();
@@ -356,8 +364,26 @@ document.querySelector('#logoutButton').addEventListener('click', () => {
 });
 
 /**
- * BOARD SETTINGS
+ * SHOW SORT SETTINGS
  */
 document.querySelector('#menuOpen').addEventListener('click', () => {
     document.querySelector('#boardSettings').classList.toggle('hideSettings');
+});
+
+/**
+ * BOARD SORTING
+ * übernimmt die zwei werte der sorting form -> wonach sortieren & in welche richtung
+ * die werte werden als präferenz in den localStorage gespeichert damit nach app neustart wieder genau so sortiert wird
+ * die sortBoard() funktion sortiert die Desk Arrays, speichert sie in das haupt boardData objekt, und rendert die Desks
+ */
+const sortForm = document.querySelector('#sortForm');
+sortForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const sortBy = sortForm.sortBy.value;
+    const sortOrder = sortForm.sortOrder.value;
+    localStorage.setItem('task_boardSort', JSON.stringify({sortBy:sortBy, sortOrder:sortOrder}));
+    boardData.desks = sortBoard(boardData.desks,sortBy,sortOrder);
+    boardData.sharedDesks = sortBoard(boardData.sharedDesks,sortBy,sortOrder);
+    renderDeskData();
+    renderSharedData();
 });
