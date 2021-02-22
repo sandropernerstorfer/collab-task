@@ -1,21 +1,6 @@
 import validation from './scripts/validation.js';
-const deskModal = document.querySelector('#addDeskModal');
-const profileClose = document.querySelector('#profileClose');
-const profileSave = document.querySelector('#profileSave');
-const deskForm = document.querySelector('#createDeskForm');
-const deskError = document.querySelector('#desknameError');
-const userError = document.querySelector('#usernameError');
-const cancelBox = document.querySelector('#cancel-box');
-const editName = document.querySelector('#editName');
-const nameField = document.querySelector('#currentUsername');
-const imageEdit = document.querySelector('#imageEdit');
-const imageInput = document.querySelector('#imageInput');
-let newName;
-let editing = false;
-let newImage = false;
 /**
  * BOARD DATA FETCH
- * 
  * -- beim öffnen des Dashboards werden vom server die benötigten USER und DESK daten gefetcht
  * -- in 'boardData' als object gespeichert
  * -- und im client entsprechen angezeigt
@@ -31,6 +16,13 @@ fetch('/board/boarddata')
     renderSharedData();
     renderInvites();
 });
+
+/**
+ * Helper Variables
+ */
+let newName;
+let editing = false;
+let newImage = false;
 
 /**
  * DISPLAY DESK & USER DATA
@@ -134,6 +126,10 @@ function openInvite(inviteID){
  * 1.) nach dem öffnen -> Fokus auf Deskname Input
  * 2.) nach dem schließen -> Reset error und input
  */
+const deskModal = document.querySelector('#addDeskModal');
+const deskForm = document.querySelector('#createDeskForm');
+const deskError = document.querySelector('#desknameError');
+
 deskModal.addEventListener('shown.bs.modal', () => {
     try{
         let handPointer = document.querySelector('#handPointer');
@@ -209,6 +205,11 @@ document.addEventListener('click', e => {
  * editName Event Listener:
  * Übernimmt zwischenspeicherung, error handling und button + input wechsel
  */
+const editName = document.querySelector('#editName');
+const nameField = document.querySelector('#currentUsername');
+const cancelBox = document.querySelector('#cancel-box');
+const userError = document.querySelector('#usernameError');
+
 editName.addEventListener('click', e => {
     if(!editing){
         editing = true;
@@ -253,6 +254,9 @@ document.addEventListener('click', e => {
  * wenn ein bild ausgewählt wurde wird das event vom eventListener erkannt
  * und das bild als dataURL in das element geladen
  */
+const imageEdit = document.querySelector('#imageEdit');
+const imageInput = document.querySelector('#imageInput');
+
 imageEdit.addEventListener('click', () => {
     imageInput.click();
 });
@@ -276,6 +280,8 @@ imageInput.addEventListener('change', e => {
  * wenn der name neu ist Update in der Datenbank und update client mit response
  * kontrolliere ob ein neues bild gewählt wurde, wenn ja sende an server
  */
+const profileSave = document.querySelector('#profileSave');
+
 profileSave.addEventListener('click', async () => {
     if(newName !== boardData.name && newName !== undefined){
         await fetch('/user/username', {
@@ -319,6 +325,8 @@ profileSave.addEventListener('click', async () => {
  * resetProfile() setzt editing auf false , den zwischenspeicher auf den originalen username
  * und setzt die Profile Page auf standard zurück
  */
+const profileClose = document.querySelector('#profileClose');
+
 profileClose.addEventListener('click', () => {
     setTimeout(() => {
         newImage = false;
@@ -348,6 +356,7 @@ function resetProfile(){
  * danach redirect auf /login
  */
 const userLogout = document.querySelector('#logoutButton');
+
 userLogout.addEventListener('click', () => {
     fetch('/logout')
     .then( res => window.location.href = '/login');
