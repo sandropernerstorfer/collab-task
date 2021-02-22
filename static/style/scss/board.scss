@@ -37,8 +37,8 @@ nav{
     width: 150px;
     padding: 10px;
     background-color: #fff;
-    box-shadow: $boxShadow;
-    border-radius: $boxRadius;
+    border: 2px solid $primary;
+    border-radius: 15px;
     position: fixed;
     top: 60px;
     left: 20px;
@@ -52,6 +52,7 @@ nav{
         select{
             margin-bottom: 10px;
             border: 0;
+            color: $primaryText;
         }
         button{
             padding: 0 5px;
