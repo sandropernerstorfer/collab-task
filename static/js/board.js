@@ -60,7 +60,7 @@ function renderDeskData(){
         desksSection.innerHTML = '';
         for(let i = 0; boardData.desks.length > i; i++){
             deskCount++;
-            desksSection.innerHTML += `<div class="card col"><div id="desk${i}" class="${boardData.desks[i].color}-card">${boardData.desks[i].name}</div></div>`;
+            desksSection.innerHTML += `<div class="card col"><div id="desk${i}" class="${boardData.desks[i].color}-card desk-available">${boardData.desks[i].name}</div></div>`;
         };
         for(let i = 0; boardData.desks.length > i; i++){
             document.getElementById(`desk${i}`).addEventListener('click', () => { openDesk(boardData.desks[i]._id) });
@@ -77,7 +77,7 @@ function renderSharedData(){
     else{
         sharedSection.innerHTML = '';
         for(let i = 0; boardData.sharedDesks.length > i; i++){
-            sharedSection.innerHTML += `<div class="card col"><div id="shared${i}" class="${boardData.sharedDesks[i].color}-card">${boardData.sharedDesks[i].name}</div></div>`;
+            sharedSection.innerHTML += `<div class="card col"><div id="shared${i}" class="${boardData.sharedDesks[i].color}-card desk-available">${boardData.sharedDesks[i].name}</div></div>`;
         };
         for(let i = 0; boardData.sharedDesks.length > i; i++){
             document.getElementById(`shared${i}`).addEventListener('click', () => { openDesk(boardData.sharedDesks[i]._id) });
