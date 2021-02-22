@@ -130,4 +130,5 @@
 #### 22.02 - 23.02.2021
 * **App-Work :**
     * Dashboard Funktionen (UI + JavaScript)
-    * Sorting
+    * Board Sorting
+    * Sorting Präferenz in localStorage speichern

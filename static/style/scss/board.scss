@@ -9,17 +9,9 @@ section{
 nav{
     justify-content: space-between !important;
 
-    #menuOpen{
-        @include flex(center,center);
+    #leftSpacing{
         width: 33px;
         height: 33px;
-        border-radius: 50%;
-        border: 2px solid $primary;
-        cursor: pointer;
-        i{
-            color: $primary;
-            font-size: 1.2rem;
-        }
     }
     #profile{
         cursor: pointer;
@@ -31,43 +23,36 @@ nav{
     }
 }
 
-#boardSettings{
-    @include flex(flex-start,center);
-    flex-direction: column;
-    width: 150px;
-    padding: 10px;
-    background-color: #fff;
-    border: 2px solid $primary;
-    border-radius: 15px;
-    position: fixed;
-    top: 60px;
-    left: 20px;
-    z-index: 50;
-    transition: opacity .6s;
-
-    div{
-        width: 100%;
-        @include flex(center,center);
-        flex-direction: column;
+#sortBar{
+    width: 100%;
+    padding: 0 20px;
+    margin-bottom: 25px;
+    #sortForm{
+        @include flex(flex-start,center);
         select{
-            margin-bottom: 10px;
-            border: 0;
+            width: 90px;
+            height: 25px;
+            padding: 0 7px;
+            border-width: 1px;
+            border-radius: 15px;
+            border-color: $primaryText;
+            margin-right: 10px;
             color: $primaryText;
+            font-weight: 300;
+            &:nth-child(2){
+                width: 115px;
+            }
         }
         button{
             padding: 0 5px;
-            border-radius: 5px;
-            width: 100%;
+            width: 25px;
+            height: 25px;
+            border-radius: 20px;
             background-color: $primary;
-            &:hover{
-                color: #fff;
-            }
+            color: #fff;
+            border: none;
         }
     }
-}
-.hideSettings{
-    visibility: hidden;
-    opacity: 0;
 }
 
 .section-heading{

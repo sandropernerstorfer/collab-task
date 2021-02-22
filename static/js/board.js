@@ -364,13 +364,6 @@ document.querySelector('#logoutButton').addEventListener('click', () => {
 });
 
 /**
- * SHOW SORT SETTINGS
- */
-document.querySelector('#menuOpen').addEventListener('click', () => {
-    document.querySelector('#boardSettings').classList.toggle('hideSettings');
-});
-
-/**
  * BOARD SORTING
  * übernimmt die zwei werte der sorting form -> wonach sortieren & in welche richtung
  * die werte werden als präferenz in den localStorage gespeichert damit nach app neustart wieder genau so sortiert wird
