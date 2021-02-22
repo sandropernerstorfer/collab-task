@@ -1,8 +1,3 @@
-const dynamicHeading = document.querySelector('#dynamic-heading');
-const dynamicRoutes = document.querySelectorAll('.dynamic-route');
-const aboutButton = document.querySelector('#about-button');
-const scrollTopButton = document.querySelector('#scroll-to-top');
-
 /**
  * Versuche Session-Cookie zu lesen und rufe renderBannerContent() auf
  * wird ein cookie gefunden werden per GET request die passenden user daten an den client geschickt
@@ -26,11 +21,9 @@ catch(err){
 };
 
 /**
- * 
  * @param {STRING} username Enthält den Username des eingeloggten Users
  * wird kein parameter an die funktion übergeben, beudetet das dass keine passende session gefunden wurde
  * und eine allgemeine begrüßung + Login/SignUp button werden gerendert
- * 
  * ansonsten wird eine begrüßung mit username + Dashboard button eingeblendet
  */
 function renderBannerContent(username){
@@ -45,8 +38,8 @@ function renderBannerContent(username){
         html = `Dashboard <i class="fas fa-clipboard-list"></i>`;
         route = '/board';
     };
-    dynamicHeading.innerHTML = heading;
-    dynamicRoutes.forEach( element => {
+    document.querySelector('#dynamic-heading').innerHTML = heading;
+    document.querySelectorAll('.dynamic-route').forEach( element => {
         element.innerHTML = `<button class="btn btn-outline-success button shadow-none">${html}</button>`;
         element.setAttribute('href',route);
     });
@@ -56,6 +49,8 @@ function renderBannerContent(username){
  * LEARN MORE BUTTON
  * wird der learn more button geklickt wird automatisch zur App Info gescrollt (main-section)
  */
+const aboutButton = document.querySelector('#about-button');
+
 aboutButton.addEventListener('click', e => {
     const mainSection = document.querySelector('#main-content');
     mainSection.scrollIntoView({ left: 0, block: 'start', behavior: 'smooth' });
@@ -65,6 +60,8 @@ aboutButton.addEventListener('click', e => {
  * SCROLL TO TOP BUTTON
  * wird der TopScroll button geklickt wird automatisch zum oberen ende des Dokuments gescrollt
  */
+const scrollTopButton = document.querySelector('#scroll-to-top');
+
 scrollTopButton.addEventListener('click', e => {
     document.documentElement.scroll({ top: 0, behavior: 'smooth' });
 });
