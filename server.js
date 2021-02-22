@@ -22,7 +22,15 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(session({ secret : process.env.SESSION_SECRET, resave: false, saveUninitialized: false }));
 
-// Get and Save Userdata
+/**
+ * Check Status, Get and Save User Data (Middleware)
+ * 
+ * kontrolliert den User status und speichert user daten in das session objekt
+ * .) ist der session cookie & session data vorhanden wird die middleware übersprungen
+ * .) ist nur der session cookie vorhanden wird damit der passende user in der Datenbank gesucht
+ *    wird kein User gefunden (zB. wegen flascher cookieID) wird der cookie gelöscht und session data zurückgesetzt
+ *    ansonsten speichere die nötigen user daten in das session objekt
+ */
 const User = require('./models/User');
 app.use(getUserDataLocal);
 async function getUserDataLocal(req, res, next){

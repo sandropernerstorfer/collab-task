@@ -205,7 +205,7 @@ document.addEventListener('click', e => {
 // ---- USER PROFILE
 /**
  * newName; zwischenspeichert lokal den neu gewählten namen ( wenn validierung OK )
- * editing; boolean -> ändert den dataflow anhängig davon ob der name gerade bearbeitet wird oder nicht
+ * editing; boolean -> ändert die button funktion abhängig davon ob der name gerade bearbeitet wird oder nicht
  * editName Event Listener:
  * Übernimmt zwischenspeicherung, error handling und button + input wechsel
  */
@@ -272,8 +272,9 @@ imageInput.addEventListener('change', e => {
  * PROFIL ÄNDERUNG SPEICHERN
  * 
  * wenn der SAVE button im Profil bereich geklickt wird
- * vergleiche den neuen namen mit dem originalen -> wenn identisch call close event (resetProfile)
+ * vergleiche den neuen namen mit dem originalen
  * wenn der name neu ist Update in der Datenbank und update client mit response
+ * kontrolliere ob ein neues bild gewählt wurde, wenn ja sende an server
  */
 profileSave.addEventListener('click', async () => {
     if(newName !== boardData.name && newName !== undefined){
