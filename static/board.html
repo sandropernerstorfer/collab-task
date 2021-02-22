@@ -27,16 +27,18 @@
 <!-- Board Settings -->
     <aside id="boardSettings" class="hideSettings">
         <div>
-            <select class="form-select form-select-sm shadow-none" aria-label=".form-select-sm example">
-                <option value="created">Created</option>
-                <option value="abc">A-Z</option>
-                <option value="color">Color</option>
-            </select>
-            <select class="form-select form-select-sm shadow-none" aria-label=".form-select-sm example">
-                <option value="ascending">Ascending</option>
-                <option value="descending">Descending</option>
-            </select>
-            <button class="btn button shadow-none"><i class="fas fa-sort"></i> Sort</button>
+            <form id="sortForm">
+                <select name="sortBy" class="form-select form-select-sm shadow-none" aria-label=".form-select-sm example">
+                    <option value="created">Created</option>
+                    <option value="abc">A-Z</option>
+                    <option value="color">Color</option>
+                </select>
+                <select name="sortOrder" class="form-select form-select-sm shadow-none" aria-label=".form-select-sm example">
+                    <option value="ascending">Ascending</option>
+                    <option value="descending">Descending</option>
+                </select>
+                <button class="btn button shadow-none"><i class="fas fa-sort"></i> Sort</button>
+            </form>
         </div>
     </aside>
     <main class="container mt-4">
