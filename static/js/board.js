@@ -254,10 +254,9 @@ document.addEventListener('click', e => {
  * wenn ein bild ausgewählt wurde wird das event vom eventListener erkannt
  * und das bild als dataURL in das element geladen
  */
-const imageEdit = document.querySelector('#imageEdit');
 const imageInput = document.querySelector('#imageInput');
 
-imageEdit.addEventListener('click', () => {
+document.querySelector('#imageEdit').addEventListener('click', () => {
     imageInput.click();
 });
 imageInput.addEventListener('change', e => {
@@ -280,9 +279,7 @@ imageInput.addEventListener('change', e => {
  * wenn der name neu ist Update in der Datenbank und update client mit response
  * kontrolliere ob ein neues bild gewählt wurde, wenn ja sende an server
  */
-const profileSave = document.querySelector('#profileSave');
-
-profileSave.addEventListener('click', async () => {
+document.querySelector('#profileSave').addEventListener('click', async () => {
     if(newName !== boardData.name && newName !== undefined){
         await fetch('/user/username', {
             method: 'PATCH',
@@ -325,9 +322,7 @@ profileSave.addEventListener('click', async () => {
  * resetProfile() setzt editing auf false , den zwischenspeicher auf den originalen username
  * und setzt die Profile Page auf standard zurück
  */
-const profileClose = document.querySelector('#profileClose');
-
-profileClose.addEventListener('click', () => {
+document.querySelector('#profileClose').addEventListener('click', () => {
     setTimeout(() => {
         newImage = false;
         renderUserImage();
@@ -355,9 +350,14 @@ function resetProfile(){
  * server call auf /logout -> setzt lokal den user zurück und löscht session
  * danach redirect auf /login
  */
-const userLogout = document.querySelector('#logoutButton');
-
-userLogout.addEventListener('click', () => {
+document.querySelector('#logoutButton').addEventListener('click', () => {
     fetch('/logout')
     .then( res => window.location.href = '/login');
+});
+
+/**
+ * BOARD SETTINGS
+ */
+document.querySelector('#menuOpen').addEventListener('click', () => {
+    document.querySelector('#boardSettings').classList.toggle('hideSettings');
 });

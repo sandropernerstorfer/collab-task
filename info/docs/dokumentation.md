@@ -126,3 +126,8 @@
     * Wireframes
     * Flowcharts
     * Code Dokumentation
+
+#### 22.02 - 23.02.2021
+* **App-Work :**
+    * Dashboard Funktionen (UI + JavaScript)
+    * Sorting

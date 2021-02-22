@@ -9,9 +9,17 @@ section{
 nav{
     justify-content: space-between !important;
 
-    #left-spacing{
+    #menuOpen{
+        @include flex(center,center);
         width: 33px;
         height: 33px;
+        border-radius: 50%;
+        border: 2px solid $primary;
+        cursor: pointer;
+        i{
+            color: $primary;
+            font-size: 1.2rem;
+        }
     }
     #profile{
         cursor: pointer;
@@ -21,6 +29,44 @@ nav{
         width: 33px;
         height: 33px;
     }
+}
+
+#boardSettings{
+    @include flex(flex-start,center);
+    flex-direction: column;
+    width: 150px;
+    padding: 10px;
+    background-color: #fff;
+    box-shadow: $boxShadow;
+    border-radius: $boxRadius;
+    position: fixed;
+    top: 60px;
+    left: 20px;
+    z-index: 50;
+    transition: opacity .6s;
+
+    div{
+        width: 100%;
+        @include flex(center,center);
+        flex-direction: column;
+        select{
+            margin-bottom: 10px;
+            border: 0;
+        }
+        button{
+            padding: 0 5px;
+            border-radius: 5px;
+            width: 100%;
+            background-color: $primary;
+            &:hover{
+                color: #fff;
+            }
+        }
+    }
+}
+.hideSettings{
+    visibility: hidden;
+    opacity: 0;
 }
 
 .section-heading{
@@ -61,6 +107,7 @@ nav{
     padding: 10px 20px;
     height: 130px;
     border: 0;
+    background-color: transparent;
 
     div.desk-available{
         @include flex(flex-start, flex-end);
