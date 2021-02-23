@@ -374,7 +374,7 @@ document.querySelector('#logoutButton').addEventListener('click', () => {
  * die sortBoard() funktion sortiert die Desk Arrays, speichert sie in das haupt boardData objekt, und rendert die Desks
  */
 const sortForm = document.querySelector('#sortForm');
-sortForm.addEventListener('submit', e => {
+sortForm.addEventListener('change', e => {
     e.preventDefault();
     const sortBy = sortForm.sortBy.value;
     const sortOrder = sortForm.sortOrder.value;

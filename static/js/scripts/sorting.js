@@ -5,8 +5,14 @@
  */
 function sortBoard(array, sortBy, sortOrder){
     array.sort((a,b) => {
-        if(a[sortBy] < b[sortBy]) return -1;
-        if(a[sortBy] > b[sortBy]) return 1;
+        if(sortBy == 'name'){
+            if(a[sortBy].toLowerCase() < b[sortBy].toLowerCase()) return -1;
+            if(a[sortBy].toLowerCase() > b[sortBy].toLowerCase()) return 1;    
+        }
+        else{
+            if(a[sortBy] < b[sortBy]) return -1;
+            if(a[sortBy] > b[sortBy]) return 1;
+        }
         return 0;
     });
     if(sortOrder == 'descending') return array.reverse();
