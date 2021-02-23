@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
 
 router.get('/deskdata', async (req, res) => {
     const userData = { id : req.session.currentUser._id, name : req.session.currentUser.name };
-    let deskData = await Desk.findOne({ _id: req.session.currentDesk });
+    let deskData = await Desk.findOne({ _id: req.session.currentDesk }).select('-date');
     const admin = await User.findOne({_id: deskData.admin})
         .select('-password -sessionid -invites -desks -sharedDesks');
     
@@ -20,6 +20,7 @@ router.get('/deskdata', async (req, res) => {
     };
     deskData = deskData.toObject();
     delete deskData.members;
+    delete deskData.admin;
 
     const fullDeskData = {
         user : userData,
