@@ -25,7 +25,7 @@ nav{
 
 #sortBar{
     width: 100%;
-    padding: 0 16px;
+    padding: 0 20px;
     margin-bottom: 25px;
     #sortForm{
         @include flex(flex-end,center);
@@ -87,7 +87,8 @@ nav{
         background-color: #fff;
         color: $primary;
         padding: 0px 10px;
-        font-weight: 500;
+        font-weight: 400;
+        border-radius: 5px;
     }
     #deskCount{
         color: $primary;
