@@ -25,22 +25,29 @@ nav{
 
 #sortBar{
     width: 100%;
-    padding: 0 20px;
+    padding: 0 16px;
     margin-bottom: 25px;
     #sortForm{
         @include flex(flex-start,center);
         select{
             width: 90px;
             height: 25px;
-            padding: 0 7px;
-            border-width: 1px;
-            border-radius: 15px;
-            border-color: $primaryText;
-            margin-right: 10px;
+            padding: 0 8px;
+            border-color: #ccc;
+            margin-right: 0;
             color: $primaryText;
             font-weight: 300;
+            &:nth-child(1){
+                border-width: 1px;
+                border-right: 0;
+                border-radius: 15px 0 0 15px;
+            }
             &:nth-child(2){
                 width: 115px;
+                margin-right: 10px;
+                border-width: 1px;
+                border-left: 0;
+                border-radius: 0 15px 15px 0;
             }
         }
         button{
@@ -78,6 +85,8 @@ nav{
     button{
         background-color: #fff;
         color: $primary;
+        padding: 0px 10px;
+        font-weight: 500;
     }
     #deskCount{
         color: $primary;

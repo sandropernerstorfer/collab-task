@@ -11,13 +11,7 @@ fetch('/board/boarddata')
 .then( response => response.json())
 .then( data => {
     boardData = data;
-    if(localStorage.getItem('task_boardSort')){
-        const {sortBy, sortOrder} = JSON.parse(localStorage.getItem('task_boardSort'));
-        document.querySelector(`select option[value=${sortBy}]`).setAttribute('selected','true');
-        document.querySelector(`select option[value=${sortOrder}]`).setAttribute('selected','true');
-        boardData.desks = sortBoard(boardData.desks, sortBy, sortOrder);
-        boardData.sharedDesks = sortBoard(boardData.sharedDesks, sortBy, sortOrder);
-    }
+    sortHandling();
     renderUsername();
     renderUserImage();
     renderDeskData();
@@ -25,6 +19,15 @@ fetch('/board/boarddata')
     renderInvites();
 });
 
+function sortHandling(){
+    if(localStorage.getItem('task_boardSort')){
+        const {sortBy, sortOrder} = JSON.parse(localStorage.getItem('task_boardSort'));
+        document.querySelector(`select option[value=${sortBy}]`).setAttribute('selected','true');
+        document.querySelector(`select option[value=${sortOrder}]`).setAttribute('selected','true');
+        boardData.desks = sortBoard(boardData.desks, sortBy, sortOrder);
+        boardData.sharedDesks = sortBoard(boardData.sharedDesks, sortBy, sortOrder);
+    };    
+}
 /**
  * Helper Variables
  */
@@ -185,6 +188,7 @@ deskForm.addEventListener('submit', e => {
         .then(response => response.json())
         .then( newDesk => {
             boardData.desks.push(newDesk);
+            sortHandling();
             renderDeskData();
             document.querySelector('#deskModalClose').click();
         });
