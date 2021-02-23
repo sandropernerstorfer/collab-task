@@ -122,13 +122,14 @@
     * unnötiges fetching von user passwort aus DB verhindert
 
 #### 22.02 - 23.02.2021
-* **Dokumentation :**
-    * Wireframes
-    * Flowcharts
-    * Code Dokumentation
-
-#### 22.02 - 23.02.2021
 * **App-Work :**
     * Dashboard Funktionen (UI + JavaScript)
     * Board Sorting
     * Sorting Präferenz in localStorage speichern
+
+#### 23.02 - 24.02.2021
+* **App-Work :**
+    * Board Sorting Bug Fix
+* **Dokumentation :**
+    * Wireframes aktualisiert
+    * Docs update
