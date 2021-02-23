@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
 
 router.get('/deskdata', async (req, res) => {
     const userData = { id : req.session.currentUser._id, name : req.session.currentUser.name };
-    const deskData = await Desk.findOne({ _id: req.session.currentDesk });
+    let deskData = await Desk.findOne({ _id: req.session.currentDesk });
     const admin = await User.findOne({_id: deskData.admin})
         .select('-password -sessionid -invites -desks -sharedDesks');
     
@@ -17,7 +17,9 @@ router.get('/deskdata', async (req, res) => {
     if(deskData.members.length > 0){
         members = await User.find().where('_id').in(deskData.members)
             .select('-password -sessionid -invites -desks -sharedDesks').exec();
-    }; 
+    };
+    deskData = deskData.toObject();
+    delete deskData.members;
 
     const fullDeskData = {
         user : userData,
