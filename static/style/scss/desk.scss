@@ -21,9 +21,7 @@ nav{
     @include flex(space-between,center);
     padding: 8px;
     height: 60px;
-    border-width: 0 0 1px 0;
-    border-style: solid;
-    border-color: #ccc;
+    border-bottom: 1px solid #ccc;
     #topControl{
         button{
             border: 0;
@@ -49,7 +47,7 @@ nav{
     #topMembers{
         @include flex(flex-end,center);
         margin-right: 7px;
-        button{
+        #inviteBtn{
             height: 30px;
             border: 0;
             color: #fff;

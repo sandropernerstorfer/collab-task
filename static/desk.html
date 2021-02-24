@@ -13,9 +13,10 @@
     <link rel="stylesheet" href="./style/desk.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
     <script defer src="./js/desk.js"></script>
-    <title>Task-App</title>
+    <title>Task-App | ####</title> <!--# DESKNAME ###################-->
 </head>
 <body>
+<!-- Top Navbar -->
     <nav>
         <div id="topControl">
             <button><i class="fas fa-caret-left"></i> Dashboard</button>
@@ -23,34 +24,37 @@
             <span id="topDeskname">Desknamemmmmmm</span>
         </div>
         <div id="topMembers">
-            <button>Invite</button>
-            <div id="admin" class="member-card">
-                <i class="fas fa-crown"></i>
-            </div>
-            <div class="member-card member"></div>
-            <div class="member-card member"></div>
-            <div class="member-card member"></div>
+            <button id="inviteBtn">Invite</button>
+            <div id="admin" class="member-card"><i class="fas fa-crown"></i></div>
+            <div class="member-card"></div>
+            <div class="member-card"></div>
+            <div class="member-card"></div>
         </div>
     </nav>
     <main>
+<!-- Small Sub Top Bar -->
         <div id="deskMenuBar">
             <div id="topSearch">
                 <input id="searchbar" type="text">
                 <button id="clearSearch"><i class="fas fa-backspace"></i></button>
             </div>
             <div>
-                <button><i class="fas fa-comment"></i> Chat</button>
-                <button><i class="fas fa-bars"></i> Menu</button>
+                <button id="chatBtn"><i class="fas fa-comment"></i> Chat</button>
+                <button id="menuBtn"><i class="fas fa-bars"></i> Menu</button>
             </div>
         </div>
         <section id="deskSpace">
-            <aside>MENU</aside>
+<!-- List Container -->
             <div id="listContainer">
                 <div class="list">Card</div>
                 <div class="list">Card</div>
                 <div class="list">Card</div>
                 <div class="list">Card</div>
             </div>
+<!-- Side Menu -->
+            <aside>
+                MENU
+            </aside>
         </section>
     </main>
 </body>
