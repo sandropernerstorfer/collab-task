@@ -134,7 +134,8 @@
     * Wireframes aktualisiert
     * Docs update
 
-#### 24.02 - ....
+#### 24.02 - 26.02.2021
 * **App-Work :**
-    * Desk UI start
-    * Top Navbar UI
+    * Desk UI :
+    * Top Navbar
+    * Sub Actionbar
