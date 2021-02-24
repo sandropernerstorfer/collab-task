@@ -1,0 +1,104 @@
+@import 'base';
+
+// Dynamic Coloring
+.top-division,#topDeskname, #clearSearch{
+    color: $primary;
+}
+#admin i, #topMembers button{
+    background-color: $primary;
+}
+#searchbar, #clearSearch{
+    border-color: $primary;
+}
+
+// Top Navbar
+nav{
+    @include flex(space-between,center);
+    padding: 8px;
+    border-width: 0 0 1px 0;
+    border-style: solid;
+    border-color: #ccc;
+    #topControl,#topMembers,#topSearch{
+        width: 33.33%;
+    }
+    #topControl{
+        button{
+            border: 0;
+            background-color: #fff;
+            color: $primaryText;
+            outline: none;
+            i{
+                margin-right: 5px;
+            }
+            &:focus-visible{
+                outline: 2px solid blue;
+            }
+        }
+        .top-division{
+            margin: 0 0px 0 10px;
+        }
+        #topDeskname{
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-weight: 600;
+        }
+    }
+    #topMembers{
+        @include flex(flex-start,center);
+        button{
+            height: 30px;
+            border: 0;
+            color: #fff;
+            margin-right: 10px;
+            padding: 0 5px;
+            border-radius: 5px;
+            outline: none;
+            &:focus-visible{
+                outline: 2px solid blue;
+            }
+        }
+        .member-card{
+            height: 33px;
+            width: 33px;
+            background-image: url('../../assets/img/user-default.png');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+        }
+        #admin{
+            position: relative;
+            i{
+                font-size: .6rem;
+                position: absolute;
+                top: -3px;
+                right: -3px;
+                color: #fff;
+                border-radius: 20px;
+                padding: 3px;
+            }
+        }
+    }
+    #topSearch{
+        @include flex(flex-end,center);
+        #searchbar, #clearSearch{
+            border-style: solid;
+            outline: 0;
+        }
+        #searchbar{
+            border-width: 2px 0 2px 2px;
+            border-radius: 5px 0 0 5px;
+            padding-left: 5px;
+            color: $primaryText;
+        }
+        #clearSearch{
+            border-width: 2px 2px 2px 0;
+            border-radius: 0 5px 5px 0;
+            padding: 0 5px;
+            background-color: #fff;
+            margin-right: 10px;
+            &:focus-visible{
+                outline: 1px solid blue;
+            }
+        }
+    }
+}
