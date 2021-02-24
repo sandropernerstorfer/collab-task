@@ -133,3 +133,8 @@
 * **Dokumentation :**
     * Wireframes aktualisiert
     * Docs update
+
+#### 24.02 - ....
+* **App-Work :**
+    * Desk UI start
+    * Top Navbar UI
