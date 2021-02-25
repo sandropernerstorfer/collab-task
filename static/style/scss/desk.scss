@@ -6,7 +6,7 @@ body{
 }
 
 // Dynamic Coloring
-.top-division,#topDeskname, #clearSearch{
+.top-division,#topDeskname, #clearSearch, #deskMenuBar i{
     color: $primary !important;
 }
 #admin i, #topMembers button{
@@ -108,9 +108,6 @@ main{
         &:focus-visible{
             outline: 2px solid blue;
         }
-        i{
-            color: $primary;
-        }
     }
 
     #topSearch{
@@ -140,15 +137,82 @@ main{
 
 // Side Menu
 aside{
-    width: 250px;
+    width: 350px;
     max-width: 100%;
-    height: 100%;
+    height: 500px;
+    max-height: 100%;
     position: absolute;
     top: 0;
-    right: 0px;
+    right: 0;
     background-color: #fff;
-    border-left: 1px solid #ccc;
+    border: 1px solid #ccc;
+    border-top-width: 0;
+    border-bottom-left-radius: 5px;
+    z-index: 50;
     transition: right 1s;
+}
+
+// Chat
+#chatWindow{
+    padding-bottom: 10px;
+    position: absolute;
+    bottom: 0px;
+    right: 0;
+    height: 300px;
+    max-height: 100%;
+    width: 350px;
+    max-width: 100%;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    border-radius: 5px 5px 0 0;
+
+    #messageWindow{
+        width: 100%;
+        height: 90%;
+        overflow-y: scroll;
+        overflow-wrap: break-word;
+
+        ul{
+            padding: 10px;
+        }
+        li{
+            border-bottom: 1px solid rgba(204, 204, 204, 0.753);
+            margin-bottom: 8px;
+            color: $primaryText;
+
+            small{
+                color: purple;
+                font-weight: 500;
+                font-size: small;
+            }
+        }
+    }
+    form{
+        @include flex(space-between,center);
+        height: auto;
+        width: 100%;
+        padding: 0 20px 0 10px;
+
+        input{
+            width: 100%;
+            border: 1px solid #ccc;
+            border-right: 0;
+            outline: none;
+            border-radius: 5px 0 0 5px;
+        }
+        button{
+            background-color: $primary;
+            color: #fff;
+            border: 1px solid $primary;
+            border-left: 0;
+            padding: 0 10px;
+            border-radius: 0 5px 5px 0;
+            outline: none;
+            &:focus-visible{
+                outline: 2px solid blue;
+            }
+        }
+    }
 }
 
 // Desk Space
@@ -162,7 +226,7 @@ aside{
         @include flex(flex-start, flex-start);
         width: 100%;
         height: 100%;
-        overflow-x: auto;
+        overflow-x: scroll;
     }
     .list{
         height: 100%;
