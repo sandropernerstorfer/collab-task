@@ -44,9 +44,7 @@ nav{
             font-weight: 700;
         }
     }
-}
-
-#topMembers{
+    #topMembers{
     @include flex(flex-end,center);
     margin-right: 7px;
     #inviteBtn{
@@ -83,6 +81,7 @@ nav{
             padding: 3px;
         }
     }
+    }
 }
 
 // Main
@@ -99,6 +98,7 @@ main{
     padding: 0 5px;
     background-color: #fff;
     border-bottom: 1px solid #ccc;
+
     button{
         border: 0;
         background-color: #fff;
@@ -111,29 +111,29 @@ main{
             outline: 2px solid blue;
         }
     }
-}
 
-#topSearch{
-    @include flex(flex-end,center);
-    #searchbar, #clearSearch{
-        width: auto;
-        border-style: solid;
-        outline: 0;
-    }
-    #searchbar{
-        border-width: 2px 0 2px 2px;
-        border-radius: 5px 0 0 5px;
-        padding-left: 5px;
-        color: $primaryText;
-    }
-    #clearSearch{
-        border-width: 2px 2px 2px 0;
-        border-radius: 0 5px 5px 0;
-        padding: 0 5px;
-        background-color: #fff;
-        margin-right: 10px;
-        &:focus-visible{
-            outline: 1px solid blue;
+    #topSearch{
+        @include flex(flex-end,center);
+        #searchbar, #clearSearch{
+            width: auto;
+            border-style: solid;
+            outline: 0;
+        }
+        #searchbar{
+            border-width: 2px 0 2px 2px;
+            border-radius: 5px 0 0 5px;
+            padding-left: 5px;
+            color: $primaryText;
+        }
+        #clearSearch{
+            border-width: 2px 2px 2px 0;
+            border-radius: 0 5px 5px 0;
+            padding: 0 5px;
+            background-color: #fff;
+            margin-right: 10px;
+            &:focus-visible{
+                outline: 1px solid blue;
+            }
         }
     }
 }
@@ -240,15 +240,20 @@ aside{
 }
 
 // Media Queries
-@media screen and (max-width: 461px){
+// Hide Member Cards & Searchbar
+@media screen and (max-width: 551px){
     #topMembers{
-        display: none;
+        #inviteBtn{
+            margin-right: 0;
+        }
+        .member-card{
+            display: none;    
+        } 
     }
 }
-
 @media screen and (max-width: 391px){
     #topSearch{
-        display: none;
+        display: none !important;
     }
     #deskMenuBar{
         justify-content: flex-end;
