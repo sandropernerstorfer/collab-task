@@ -43,6 +43,7 @@
                 <button id="menuBtn"><i class="fas fa-bars"></i> Menu</button>
             </div>
         </div>
+<!-- Desk -->
         <section id="deskSpace">
 <!-- List Container -->
             <div id="listContainer">
@@ -53,7 +54,22 @@
             </div>
 <!-- Side Menu -->
             <aside>
-                MENU
+                <div class="menuSection">
+                    <span>Column Align</span>
+                    <div class="form-check form-switch">
+                        <input id="alignSwitch" class="form-check-input shadow-none" type="checkbox" id="flexSwitchCheckDefault">
+                    </div>
+                </div>
+                <div class="menuSection">
+                    <span>Rename Desk</span>
+                    <div>
+                        <input id="renameInput" maxlength="15" type="text"><button id="renameBtn"><i class="fas fa-check"></i></button>
+                    </div>
+                </div>
+                <div class="menuSection">
+                    <span>Delete Desk</span>
+                    <button id="deskActionBtn">Delete Desk</button>    
+                </div>    
             </aside>
 <!-- Chat Window -->
             <div id="chatWindow">

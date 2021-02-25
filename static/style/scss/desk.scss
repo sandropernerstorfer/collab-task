@@ -140,9 +140,11 @@ main{
 
 // Side Menu
 aside{
-    width: 350px;
+    @include flex(space-evenly,center);
+    flex-direction: column;
+    width: 400px;
     max-width: 100%;
-    height: 500px;
+    height: 200px;
     max-height: 100%;
     position: absolute;
     top: 0;
@@ -154,6 +156,54 @@ aside{
     border-bottom-left-radius: 5px;
     z-index: 50;
     transition: right 1s;
+    padding: 10px;
+
+    .menuSection{
+        @include flex(space-between,center);
+        width: 100%;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 10px;
+        color: $primaryText;
+        font-size: .9rem;
+
+        #deskActionBtn{
+            background-color: #fff;
+            border: 2px solid $error;
+            color: $error;
+            padding: 2px 4px;
+            border-radius: 5px;
+        }
+
+        #alignSwitch{
+            margin-top: 7px;
+            cursor: pointer;
+        }
+
+        #renameInput{
+            border-radius: 5px 0 0 5px;
+            border: 1px solid #ccc;
+            outline: none;
+
+           @media screen and (max-width:360px) {
+               width: 110px;
+           } 
+        }
+        #renameBtn{
+            border-radius: 0 5px 5px 0;
+            border: 1px solid #0E6EFD;
+            border-left: 0;
+            padding: 0 3px;
+            color: #fff;
+            background-color: #0E6EFD;
+        }
+        button{
+            outline: none;
+            &:focus-visible{
+                outline: 2px solid blue;
+            }
+        }
+    }
 }
 
 // Chat
@@ -162,9 +212,9 @@ aside{
     position: absolute;
     bottom: 0px;
     right: 0;
-    height: 300px;
+    height: 320px;
     max-height: 100%;
-    width: 350px;
+    width: 400px;
     max-width: 100%;
     border: 1px solid #ccc;
     background-color: #fff;
