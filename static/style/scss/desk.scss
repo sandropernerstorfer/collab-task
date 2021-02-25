@@ -6,10 +6,10 @@ body{
 }
 
 // Dynamic Coloring
-.top-division,#topDeskname, #clearSearch, #deskMenuBar i{
+.top-division,#topDeskname, #clearSearch, #deskMenuBar i, #inviteBtn i{
     color: $primary !important;
 }
-#admin i, #topMembers button{
+#admin i{
     background-color: $primary !important;
 }
 #searchbar, #clearSearch{
@@ -44,40 +44,43 @@ nav{
             font-weight: 700;
         }
     }
-    #topMembers{
-        @include flex(flex-end,center);
-        margin-right: 7px;
-        #inviteBtn{
-            height: 30px;
-            border: 0;
+}
+
+#topMembers{
+    @include flex(flex-end,center);
+    margin-right: 7px;
+    #inviteBtn{
+        height: 30px;
+        width: 70px;
+        border: 0;
+        color: $primaryText;
+        background-color: #fff;
+        margin-right: 10px;
+        padding: 0 5px;
+        border-radius: 5px;
+        outline: none;
+        &:focus-visible{
+            outline: 2px solid blue;
+        }
+    }
+    .member-card{
+        height: 29px;
+        width: 29px;
+        background-image: url('../../assets/img/user-default.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+    }
+    #admin{
+        position: relative;
+        i{
+            font-size: .6rem;
+            position: absolute;
+            top: -3px;
+            right: -3px;
             color: #fff;
-            margin-right: 10px;
-            padding: 0 5px;
-            border-radius: 5px;
-            outline: none;
-            &:focus-visible{
-                outline: 2px solid blue;
-            }
-        }
-        .member-card{
-            height: 33px;
-            width: 33px;
-            background-image: url('../../assets/img/user-default.png');
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-position: center;
-        }
-        #admin{
-            position: relative;
-            i{
-                font-size: .6rem;
-                position: absolute;
-                top: -3px;
-                right: -3px;
-                color: #fff;
-                border-radius: 20px;
-                padding: 3px;
-            }
+            border-radius: 20px;
+            padding: 3px;
         }
     }
 }
@@ -96,7 +99,6 @@ main{
     padding: 0 5px;
     background-color: #fff;
     border-bottom: 1px solid #ccc;
-
     button{
         border: 0;
         background-color: #fff;
@@ -109,28 +111,29 @@ main{
             outline: 2px solid blue;
         }
     }
+}
 
-    #topSearch{
-        @include flex(flex-end,center);
-        #searchbar, #clearSearch{
-            border-style: solid;
-            outline: 0;
-        }
-        #searchbar{
-            border-width: 2px 0 2px 2px;
-            border-radius: 5px 0 0 5px;
-            padding-left: 5px;
-            color: $primaryText;
-        }
-        #clearSearch{
-            border-width: 2px 2px 2px 0;
-            border-radius: 0 5px 5px 0;
-            padding: 0 5px;
-            background-color: #fff;
-            margin-right: 10px;
-            &:focus-visible{
-                outline: 1px solid blue;
-            }
+#topSearch{
+    @include flex(flex-end,center);
+    #searchbar, #clearSearch{
+        width: auto;
+        border-style: solid;
+        outline: 0;
+    }
+    #searchbar{
+        border-width: 2px 0 2px 2px;
+        border-radius: 5px 0 0 5px;
+        padding-left: 5px;
+        color: $primaryText;
+    }
+    #clearSearch{
+        border-width: 2px 2px 2px 0;
+        border-radius: 0 5px 5px 0;
+        padding: 0 5px;
+        background-color: #fff;
+        margin-right: 10px;
+        &:focus-visible{
+            outline: 1px solid blue;
         }
     }
 }
@@ -144,6 +147,7 @@ aside{
     position: absolute;
     top: 0;
     right: 0;
+    overflow-y: auto;
     background-color: #fff;
     border: 1px solid #ccc;
     border-top-width: 0;
@@ -232,5 +236,21 @@ aside{
         height: 100%;
         width: 300px;
         min-width: 300px;
+    }
+}
+
+// Media Queries
+@media screen and (max-width: 461px){
+    #topMembers{
+        display: none;
+    }
+}
+
+@media screen and (max-width: 391px){
+    #topSearch{
+        display: none;
+    }
+    #deskMenuBar{
+        justify-content: flex-end;
     }
 }

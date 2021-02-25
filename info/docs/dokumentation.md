@@ -137,5 +137,7 @@
 #### 24.02 - 26.02.2021
 * **App-Work :**
     * Desk UI :
-    * Top Navbar
-    * Sub Actionbar
+        * Top Navbar
+        * Sub Actionbar
+        * Side Menu
+        * Chat Fenster
