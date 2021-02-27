@@ -149,14 +149,13 @@ main{
     max-height: 100%;
     position: absolute;
     top: 0;
-    right: -400px;
+    right: 0;
     overflow-y: auto;
     background-color: #fff;
     border: 1px solid #ccc;
     border-top-width: 0;
     border-bottom-left-radius: 5px;
     z-index: 50;
-    transition: right 1s;
 
     .menuSection{
         @include flex(space-between,center);
@@ -210,15 +209,12 @@ main{
         }
     }
 }
-.showMenu{
-    right: 0 !important;
-}
 
 // Chat
 #chatWindow{
     padding-bottom: 10px;
     position: absolute;
-    bottom: -320px;
+    bottom: 0;
     right: 0;
     height: 320px;
     max-height: 100%;
@@ -227,7 +223,6 @@ main{
     border: 1px solid #ccc;
     background-color: #fff;
     border-radius: 5px 5px 0 0;
-    transition: bottom 1s;
 
     #messageWindow{
         width: 100%;
@@ -276,9 +271,6 @@ main{
             }
         }
     }
-}
-.showChat{
-    bottom: 0 !important;
 }
 
 // Desk Space

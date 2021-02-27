@@ -19,8 +19,8 @@ function logTables(){
 const openMenu = document.querySelector('#menuBtn');
 const openChat = document.querySelector('#chatBtn');
 openMenu.addEventListener('click', () => {
-    document.querySelector('#sideMenu').classList.toggle('showMenu');
+    document.querySelector('#sideMenu').classList.toggle('d-none');
 });
 openChat.addEventListener('click', () => {
-    document.querySelector('#chatWindow').classList.toggle('showChat');
+    document.querySelector('#chatWindow').classList.toggle('d-none');
 });
