@@ -14,3 +14,13 @@ function logTables(){
     console.table(adminData);
     console.table(memberData);
 };
+
+// CHAT & MENU show/hide
+const openMenu = document.querySelector('#menuBtn');
+const openChat = document.querySelector('#chatBtn');
+openMenu.addEventListener('click', () => {
+    document.querySelector('#sideMenu').classList.toggle('showMenu');
+});
+openChat.addEventListener('click', () => {
+    document.querySelector('#chatWindow').classList.toggle('showChat');
+});
