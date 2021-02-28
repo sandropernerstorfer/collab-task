@@ -53,7 +53,7 @@ nav{
         border: 0;
         color: $primaryText;
         background-color: #fff;
-        margin-right: 10px;
+        margin-right: 0px;
         padding: 0 5px;
         border-radius: 5px;
         outline: none;
@@ -283,6 +283,17 @@ main{
     width: 100%;
     height: 100%;
     overflow-x: scroll;
+    overflow-y: auto;
+    padding-top: 10px;
+    background-color: rgba(22, 155, 51, 0.872);
+    &::-webkit-scrollbar{
+        background-color: rgba(22, 155, 51, 0.872);
+        height: 10px;
+    }
+    &::-webkit-scrollbar-thumb{
+        background-color: #ccc;
+        border-radius: 10px;
+    }
 }
 
 // Add List Row
@@ -293,11 +304,11 @@ main{
     min-width: 250px;
     border-radius: 5px;
     border: 1px solid #ccc;
-    background-color: #fff;
+    background-color: #F5F5F5;
     margin: 5px;
 
     button{
-        background-color: #fff;
+        background-color: transparent;
         border: 0;
         outline: 0;
         &:focus-visible{
@@ -344,6 +355,7 @@ main{
 .list-cell{
     height: 100%;
     width: 300px;
+    min-width: 280px;
     max-width: 100%;
     padding: 5px;
 }
@@ -357,7 +369,7 @@ main{
     border-radius: 5px;
     width: 100%;
     height: auto;
-    padding: 5px 10px 10px 10px;
+    padding: 5px 10px 20px 10px;
 
     .list-head{
         @include flex(space-between,center);
@@ -371,6 +383,10 @@ main{
             color: $error;
             background-color: transparent;
             border: 0;
+            outline: 0;
+            &:focus-visible{
+                outline: 2px solid blue;
+            }
         }
     }
 
@@ -383,7 +399,9 @@ main{
         
         li{
             margin: 3px 0;
-            border: 1px solid #ccc;
+            border-color: #ccc;
+            border-style: solid;
+            border-width: 0 1px 2px 0;
             background-color: #fff;
             padding: 5px;
             border-radius: 5px;
@@ -398,15 +416,50 @@ main{
 .addTask{
     @include flex(center,center);
     width: 100%;
-    border-radius: 5px;
     background-color: transparent;
     height: 30px;
+    border-top: 1px solid #ccc;
+    padding-top: 20px;
+    margin-top: 10px;
+
+    button{
+        background-color: transparent;
+        border: 0;
+        outline: 0;
+        &:focus-visible{
+            outline: 2px solid blue;
+        }
+    }
 
     .addTaskBtn{
         width: 100%;
         border: 0;
         border-radius: 5px;
         background-color: transparent;
+    }
+
+    form{
+        @include flex(center,center);
+        width: 100%;
+        height: 100%;
+
+        input{
+            width: 85%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: 0;
+            padding-left: 5px;
+            color: $primaryText;
+        }
+        button{
+            width: 15%;
+        }
+        .fa-check-circle{
+            color: $primary;
+        }
+        .fa-times-circle{
+            color: $error;
+        }
     }
 }
 
