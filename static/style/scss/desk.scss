@@ -6,7 +6,7 @@ body{
 }
 
 // Dynamic Coloring
-.top-division,#topDeskname, #clearSearch, #deskMenuBar i, #inviteBtn i, .menuSection .menuIcon{
+.top-division,#topDeskname, #clearSearch, #deskMenuBar i, #inviteBtn i, .menuSection .menuIcon, #addListBtn, .addTaskBtn{
     color: $primary !important;
 }
 #admin i{
@@ -139,6 +139,14 @@ main{
     }
 }
 
+// Entire Desk Space (minus top bars)
+#deskSpace{
+    width: 100%;
+    height: calc(100% - 37px);
+    background-color: rgb(247, 247, 247);
+    position: relative;
+}
+
 // Side Menu
 #sideMenu{
     @include flex(space-evenly,center);
@@ -163,10 +171,6 @@ main{
         padding: 10px;
         color: $primaryText;
         font-size: .9rem;
-        transition: background-color .2s;
-        &:hover{
-            background-color: rgba(228, 228, 228, 0.589);
-        }
 
         #deskActionBtn{
             background-color: #fff;
@@ -273,23 +277,136 @@ main{
     }
 }
 
-// Desk Space
-#deskSpace{
+// Entire List Cell Container
+#listContainer{
+    @include flex(flex-start, flex-start);
     width: 100%;
-    height: calc(100% - 37px);
-    background-color: rgb(247, 247, 247);
-    position: relative;
+    height: 100%;
+    overflow-x: scroll;
+}
 
-    #listContainer{
-        @include flex(flex-start, flex-start);
+// Add List Row
+#addList{
+    @include flex(center,center);
+    width: 300px;
+    height: 45px;
+    min-width: 250px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    margin: 5px;
+
+    button{
+        background-color: #fff;
+        border: 0;
+        outline: 0;
+        &:focus-visible{
+            outline: 2px solid blue;
+        }
+    }
+
+    #addListBtn{
         width: 100%;
         height: 100%;
-        overflow-x: scroll;
+        border-radius: 5px;
+        &:hover{
+            background-color: rgba(241, 241, 241, 0.486);
+        }
     }
-    .list{
+
+    form{
+        @include flex(center,center);
+        width: 100%;
         height: 100%;
-        width: 300px;
-        min-width: 300px;
+        padding: 0 5px;
+
+        input{
+            width: 85%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: 0;
+            padding-left: 5px;
+            color: $primaryText;
+        }
+        button{
+            width: 15%;
+        }
+        .fa-check-circle{
+            color: $primary;
+        }
+        .fa-times-circle{
+            color: $error;
+        }
+    }
+}
+
+// Full Height list cell (column)
+.list-cell{
+    height: 100%;
+    width: 300px;
+    max-width: 100%;
+    padding: 5px;
+}
+
+// List Card
+.list{
+    @include flex(center,flex-start);
+    flex-direction: column;
+    border: 1px solid #ccc;
+    background-color: rgb(245, 245, 245);
+    border-radius: 5px;
+    width: 100%;
+    height: auto;
+    padding: 5px 10px 10px 10px;
+
+    .list-head{
+        @include flex(space-between,center);
+        width: 100%;
+        span{
+            color: $primaryText;
+            font-weight: 600;
+            margin-left: 2px;
+        }
+        button{
+            color: $error;
+            background-color: transparent;
+            border: 0;
+        }
+    }
+
+    .list-tasks{
+        @include flex(flex-start,flex-start);
+        flex-direction: column;
+        padding-left: 0;
+        margin: 5px 0;
+        width: 100%;
+        
+        li{
+            margin: 3px 0;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            padding: 5px;
+            border-radius: 5px;
+            width: 100%;
+            word-wrap: break-word;
+            font-size: .9rem;
+            color: $primaryText;
+        }
+    }
+}
+
+.addTask{
+    @include flex(center,center);
+    width: 100%;
+    border-radius: 5px;
+    background-color: transparent;
+    height: 30px;
+
+    .addTaskBtn{
+        width: 100%;
+        border: 0;
+        border-radius: 5px;
+        background-color: transparent;
     }
 }
 

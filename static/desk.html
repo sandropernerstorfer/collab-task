@@ -47,10 +47,30 @@
         <section id="deskSpace">
 <!-- List Container -->
             <div id="listContainer">
-                <div class="list">Card</div>
-                <div class="list">Card</div>
-                <div class="list">Card</div>
-                <div class="list">Card</div>
+                <div class="list-cell">
+                    <div class="list">
+                        <div class="list-head">
+                            <span>listname</span>
+                            <button><i class="far fa-trash-alt"></i></button>
+                        </div>
+                        <ul class="list-tasks">
+                            <li class="task">Task1</li>
+                            <li class="task">Task2</li>
+                            <li class="task">Task3Task3Task3Task3Task3Task3Task3Task3Task3Task3</li>
+                        </ul>
+                        <div class="addTask">
+                            <button class="addTaskBtn"><i class="fas fa-plus"></i> Add Task</button>    
+                        </div>
+                    </div>
+                </div>
+                <div id="addList">
+                    <button id="addListBtn"><i class="fas fa-plus"></i> Add List</button>
+                    <!-- <form id="listForm">
+                        <input type="text" name="listName" placeholder="Listname...">
+                        <button type="submit"><i class="far fa-check-circle"></i></button>
+                        <button type="button" id="cancelList"><i class="far fa-times-circle"></i></button>
+                    </form> -->
+                </div>
             </div>
 <!-- Side Menu -->
             <aside id="sideMenu" class="d-none">
