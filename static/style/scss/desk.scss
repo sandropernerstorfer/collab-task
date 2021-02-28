@@ -143,7 +143,6 @@ main{
 #deskSpace{
     width: 100%;
     height: calc(100% - 37px);
-    background-color: rgb(247, 247, 247);
     position: relative;
 }
 
@@ -286,6 +285,11 @@ main{
     overflow-y: auto;
     padding-top: 10px;
     background-color: rgba(22, 155, 51, 0.872);
+    #cellContainer{
+        @include flex(flex-start,flex-start);
+        height: 100%;
+        width: auto;
+    }
     &::-webkit-scrollbar{
         background-color: rgba(22, 155, 51, 0.872);
         height: 10px;
@@ -311,6 +315,7 @@ main{
         background-color: transparent;
         border: 0;
         outline: 0;
+        font-weight: 500;
         &:focus-visible{
             outline: 2px solid blue;
         }
@@ -356,8 +361,10 @@ main{
     height: 100%;
     width: 300px;
     min-width: 280px;
-    max-width: 100%;
     padding: 5px;
+    @media screen and(max-width:300px){
+        width: 280px;
+    }
 }
 
 // List Card
@@ -426,6 +433,7 @@ main{
         background-color: transparent;
         border: 0;
         outline: 0;
+        font-weight: 500;
         &:focus-visible{
             outline: 2px solid blue;
         }
