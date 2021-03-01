@@ -24,7 +24,7 @@
             <span id="topDeskname"></span>
         </div>
         <div id="topMembers">
-            <button id="inviteBtn" data-bs-toggle="modal" data-bs-target="#inviteModal"><i class="fas fa-envelope"></i> Invite</button>
+            <button id="inviteBtn" class="accessDisabled"><i class="fas fa-envelope"></i> Invite</button>
             <div id="admin" class="member-card"><i class="fas fa-crown"></i></div>
         </div>
     </nav>
@@ -87,7 +87,7 @@
                 <div class="menuSection">
                     <span><i class="menuIcon fas fa-pencil-alt"></i> Rename Desk</span>
                     <div>
-                        <input id="renameInput" maxlength="15" type="text"><button id="renameBtn"><i class="fas fa-check"></i></button>
+                        <input id="renameInput" class="accessDisabled" maxlength="15" type="text"><button id="renameBtn" class="accessDisabled"><i class="fas fa-check"></i></button>
                     </div>
                 </div>
                 <div class="menuSection">
@@ -122,8 +122,8 @@
                 <div class="modal-body">
                     <small>&nbsp;Error</small>
                     <form id="inviteForm">
-                        <input name="inviteEmail" type="text" placeholder="Email...">
-                        <button type="submit"><i class="far fa-paper-plane"></i> Send</button>
+                        <input name="inviteEmail" type="text" placeholder="Email-Address">
+                        <button type="submit"><i class="far fa-paper-plane"></i></button>
                     </form>
                 </div>
             </div>

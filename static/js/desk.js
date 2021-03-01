@@ -9,6 +9,7 @@ fetch('/desk/deskdata')
     logTables();
     renderDeskname();
     renderMembers();
+    checkAccess();
     // renderLists();
 });
 
@@ -39,6 +40,31 @@ function renderMembers(){
         currentMember.style.backgroundImage = `url(${url})`;
         currentMember.setAttribute('title', member.name);
     });
+};
+
+function checkAccess(){
+    if(userData._id == adminData._id){
+        const elements = document.querySelectorAll('.accessDisabled');
+
+        // Remove disabling classes
+        elements.forEach( element => {
+            element.classList.remove('accessDisabled');
+        });
+        
+        // Add events only accessible by ADMIN
+        elements[0].addEventListener('click', openInviteModal);
+        elements[2].addEventListener('click', renameDesk);
+    };
+};
+
+function openInviteModal(){
+    const modal = new bootstrap.Modal(document.getElementById('inviteModal'));
+    modal.show();    
+};
+function renameDesk(){                                                                              //# TODO rename desk
+    const newName = document.querySelector('#renameInput').value.trim();
+    if(newName == deskData.name) return;
+    console.log(newName);
 };
 
 // CHAT & MENU show/hide
