@@ -141,3 +141,11 @@
         * Sub Actionbar
         * Side Menu
         * Chat Fenster
+
+#### 26.02 - 2.03.2021
+* **App-Work :**
+    * Desk UI :
+        * Haupt Deskbereich
+        * Listen
+        * Buttons
+        * Invite Modal

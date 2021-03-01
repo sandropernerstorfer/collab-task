@@ -9,7 +9,7 @@ body{
 .top-division,#topDeskname, #clearSearch, #deskMenuBar i, #inviteBtn i, .menuSection .menuIcon, #addListBtn, .addTaskBtn{
     color: $primary !important;
 }
-#admin i{
+#admin i, #inviteModal form button{
     background-color: $primary !important;
 }
 #searchbar, #clearSearch{
@@ -428,6 +428,39 @@ main{
         }
         .fa-times-circle{
             color: $error;
+        }
+    }
+}
+
+#inviteModal{
+    .modal-header{
+        height: 50px;
+        color: $primaryText;
+    }
+    .modal-body{
+        @include flex(flex-start,flex-start);
+        flex-direction: column;
+        width: 100%;
+        height: 100px;
+    }
+    small{
+        color: $error;
+    }
+    form{
+        @include flex(space-between,center);
+        margin-top: 10px;
+        width: 100%;
+        input{
+            width: 80%;
+            border-width: 0 0 1px 0;
+            color: $primaryText;
+        }
+        button{
+            width: 15%;
+            border: 0;
+            background-color: $primary;
+            color: #fff;
+            border-radius: 5px;
         }
     }
 }
