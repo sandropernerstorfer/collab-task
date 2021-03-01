@@ -22,29 +22,26 @@ nav{
     padding: 8px;
     height: 60px;
     border-bottom: 1px solid #ccc;
-    #topControl{
-        button{
-            border: 0;
-            background-color: #fff;
-            color: $primaryText;
-            outline: none;
-            i{
-                margin-right: 5px;
-            }
-            &:focus-visible{
-                outline: 2px solid blue;
-            }
-        }
-        .top-division{
-            margin: 0 0px 0 10px;
-        }
-        #topDeskname{
-            padding: 3px 8px;
-            border-radius: 5px;
-            font-weight: 700;
+}
+#topControl{
+    button{
+        border: 0;
+        background-color: #fff;
+        color: $primaryText;
+        i{
+            margin-right: 5px;
         }
     }
-    #topMembers{
+    .top-division{
+        margin: 0 0px 0 10px;
+    }
+    #topDeskname{
+        padding: 3px 8px;
+        border-radius: 5px;
+        font-weight: 700;
+    }
+}
+#topMembers{
     @include flex(flex-end,center);
     margin-right: 7px;
     #inviteBtn{
@@ -56,10 +53,6 @@ nav{
         margin-right: 0px;
         padding: 0 5px;
         border-radius: 5px;
-        outline: none;
-        &:focus-visible{
-            outline: 2px solid blue;
-        }
     }
     .member-card{
         height: 29px;
@@ -81,7 +74,6 @@ nav{
             padding: 3px;
         }
     }
-    }
 }
 
 // Main
@@ -98,7 +90,6 @@ main{
     width: 100%;
     padding: 0 5px;
     background-color: #fff;
-    border-bottom: 1px solid #ccc;
 
     button{
         border: 0;
@@ -107,10 +98,6 @@ main{
         margin-right: 10px;
         border-radius: 5px;
         padding: 0 5px;
-        outline: none;
-        &:focus-visible{
-            outline: 2px solid blue;
-        }
     }
 
     #topSearch{
@@ -118,7 +105,6 @@ main{
         #searchbar, #clearSearch{
             width: auto;
             border-style: solid;
-            outline: 0;
         }
         #searchbar{
             border-width: 2px 0 2px 2px;
@@ -132,9 +118,6 @@ main{
             padding: 0 5px;
             background-color: #fff;
             margin-right: 10px;
-            &:focus-visible{
-                outline: 1px solid blue;
-            }
         }
     }
 }
@@ -170,46 +153,43 @@ main{
         padding: 10px;
         color: $primaryText;
         font-size: .9rem;
+    }
 
-        #deskActionBtn{
-            background-color: #fff;
-            border: 2px solid $error;
-            color: $error;
-            padding: 2px 4px;
-            border-radius: 5px;
-        }
+    #deskActionBtn{
+        background-color: #fff;
+        border: 2px solid $error;
+        color: $error;
+        padding: 2px 4px;
+        border-radius: 5px;
+    }
 
-        #alignSwitch{
-            margin-top: 7px;
-            cursor: pointer;
-        }
+    #alignSwitch{
+        margin-top: 7px;
+        cursor: pointer;
+    }
 
-        #renameInput{
-            border-radius: 5px 0 0 5px;
-            border: 1px solid #ccc;
-            outline: none;
+    #renameInput{
+        border-radius: 5px 0 0 5px;
+        border: 1px solid #ccc;
+        padding-left: 5px;
+        color: $primaryText;
 
-           @media screen and (max-width:360px) {
-               width: 110px;
-           } 
-        }
-        #renameBtn{
-            border-radius: 0 5px 5px 0;
-            border: 1px solid #0e6efdb7;
-            border-left: 0;
-            padding: 0 3px;
-            color: #fff;
-            background-color: #0e6efdb7;
-        }
-        button{
-            outline: none;
-            &:focus-visible{
-                outline: 2px solid blue;
-            }
-        }
-        #dangerIcon{
-            color: $error;
-        }
+       @media screen and (max-width:360px) {
+           width: 110px;
+       } 
+    }
+
+    #renameBtn{
+        border-radius: 0 5px 5px 0;
+        border: 1px solid #0e6efdb7;
+        border-left: 0;
+        padding: 0 3px;
+        color: #fff;
+        background-color: #0e6efdb7;
+    }
+
+    #dangerIcon{
+        color: $error;
     }
 }
 
@@ -258,7 +238,6 @@ main{
             width: 100%;
             border: 1px solid #ccc;
             border-right: 0;
-            outline: none;
             border-radius: 5px 0 0 5px;
         }
         button{
@@ -268,10 +247,6 @@ main{
             border-left: 0;
             padding: 0 10px;
             border-radius: 0 5px 5px 0;
-            outline: none;
-            &:focus-visible{
-                outline: 2px solid blue;
-            }
         }
     }
 }
@@ -285,11 +260,6 @@ main{
     overflow-y: auto;
     padding-top: 10px;
     background-color: rgba(22, 155, 51, 0.872);
-    #cellContainer{
-        @include flex(flex-start,flex-start);
-        height: 100%;
-        width: auto;
-    }
     &::-webkit-scrollbar{
         background-color: rgba(22, 155, 51, 0.872);
         height: 10px;
@@ -298,6 +268,11 @@ main{
         background-color: #ccc;
         border-radius: 10px;
     }
+}
+#cellContainer{
+    @include flex(flex-start,flex-start);
+    height: 100%;
+    width: auto;
 }
 
 // Add List Row
@@ -314,11 +289,7 @@ main{
     button{
         background-color: transparent;
         border: 0;
-        outline: 0;
         font-weight: 500;
-        &:focus-visible{
-            outline: 2px solid blue;
-        }
     }
 
     #addListBtn{
@@ -340,7 +311,6 @@ main{
             width: 85%;
             border: 1px solid #ccc;
             border-radius: 5px;
-            outline: 0;
             padding-left: 5px;
             color: $primaryText;
         }
@@ -390,10 +360,6 @@ main{
             color: $error;
             background-color: transparent;
             border: 0;
-            outline: 0;
-            &:focus-visible{
-                outline: 2px solid blue;
-            }
         }
     }
 
@@ -432,11 +398,7 @@ main{
     button{
         background-color: transparent;
         border: 0;
-        outline: 0;
         font-weight: 500;
-        &:focus-visible{
-            outline: 2px solid blue;
-        }
     }
 
     .addTaskBtn{
@@ -455,7 +417,6 @@ main{
             width: 85%;
             border: 1px solid #ccc;
             border-radius: 5px;
-            outline: 0;
             padding-left: 5px;
             color: $primaryText;
         }
