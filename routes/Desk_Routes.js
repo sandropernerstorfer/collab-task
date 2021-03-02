@@ -55,4 +55,9 @@ router.get('/:deskID', (req, res) => {
     };
 });
 
+router.patch('/deskname', async (req, res) => {
+    const updatedDesk = await Desk.findOneAndUpdate({_id : req.session.currentDesk}, { $set: {name: req.body.deskname}}, {new: true}).select('name');
+    res.end(JSON.stringify(updatedDesk.name));
+});
+
 module.exports = router;

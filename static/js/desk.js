@@ -57,14 +57,24 @@ function checkAccess(){
     };
 };
 
+// ADMIN ONLY ACTIONS
 function openInviteModal(){
     const modal = new bootstrap.Modal(document.getElementById('inviteModal'));
     modal.show();    
 };
-function renameDesk(){                                                                              //# TODO rename desk
+function renameDesk(){
     const newName = document.querySelector('#renameInput').value.trim();
     if(newName == deskData.name) return;
-    console.log(newName);
+    fetch('/desk/deskname', {
+        method: 'PATCH',
+        body: JSON.stringify({deskname : newName}),
+        headers: {'Content-type' : 'application/json; charset=UTF-8'}
+    })
+    .then(res => res.json())
+    .then(deskname => {
+        deskData.name = deskname;
+        renderDeskname();
+    });
 };
 
 // CHAT & MENU show/hide

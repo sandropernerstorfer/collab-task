@@ -151,3 +151,5 @@
         * Invite Modal
     * Deskname laden
     * Admin und Members laden
+    * Check Admin-Rechte
+    * Deskname ändern
