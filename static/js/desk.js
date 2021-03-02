@@ -43,38 +43,47 @@ function renderMembers(){
 };
 
 function checkAccess(){
-    if(userData._id == adminData._id){
-        const elements = document.querySelectorAll('.accessDisabled');
+    const deskActionText = document.querySelector('#deskActionText');
+    const deskActionBtn = document.querySelector('#deskActionBtn');
 
+    if(userData._id == adminData._id){
+        deskActionText.innerHTML = '<i id="dangerIcon" class="fas fa-exclamation-triangle"></i> Delete Desk';
+        deskActionBtn.textContent = 'Delete';
+        deskActionBtn.addEventListener('click', () => {
+            alert('deleting desk');
+        });
+        const elements = document.querySelectorAll('.accessDisabled');
         // Remove disabling classes
         elements.forEach( element => {
             element.classList.remove('accessDisabled');
         });
-        
         // Add events only accessible by ADMIN
-        elements[0].addEventListener('click', openInviteModal);
-        elements[2].addEventListener('click', renameDesk);
+        elements[0].addEventListener('click', () => {
+            const modal = new bootstrap.Modal(document.getElementById('inviteModal'));
+            modal.show();
+        });
+        elements[2].addEventListener('click', () => {
+            const newName = document.querySelector('#renameInput').value.trim();
+            if(newName == deskData.name) return;
+            fetch('/desk/deskname', {
+                method: 'PATCH',
+                body: JSON.stringify({deskname : newName}),
+                headers: {'Content-type' : 'application/json; charset=UTF-8'}
+            })
+            .then(res => res.json())
+            .then(deskname => {
+                deskData.name = deskname;
+                renderDeskname();
+            });
+        });
+    }
+    else{
+        deskActionText.innerHTML = '<i id="dangerIcon" class="fas fa-exclamation-triangle"></i> Leave Desk';
+        deskActionBtn.textContent = 'Leave';
+        deskActionBtn.addEventListener('click', () => {
+            alert('leaving desk');    
+        });
     };
-};
-
-// ADMIN ONLY ACTIONS
-function openInviteModal(){
-    const modal = new bootstrap.Modal(document.getElementById('inviteModal'));
-    modal.show();    
-};
-function renameDesk(){
-    const newName = document.querySelector('#renameInput').value.trim();
-    if(newName == deskData.name) return;
-    fetch('/desk/deskname', {
-        method: 'PATCH',
-        body: JSON.stringify({deskname : newName}),
-        headers: {'Content-type' : 'application/json; charset=UTF-8'}
-    })
-    .then(res => res.json())
-    .then(deskname => {
-        deskData.name = deskname;
-        renderDeskname();
-    });
 };
 
 // CHAT & MENU show/hide
