@@ -1,3 +1,4 @@
+import validation from './scripts/validation.js';
 let userData, deskData, adminData, memberData;
 fetch('/desk/deskdata')
 .then(res => res.json())
@@ -49,18 +50,44 @@ function checkAccess(){
     if(userData._id == adminData._id){
         deskActionText.innerHTML = '<i id="dangerIcon" class="fas fa-exclamation-triangle"></i> Delete Desk';
         deskActionBtn.textContent = 'Delete';
-        deskActionBtn.addEventListener('click', () => {
-            alert('deleting desk');
-        });
         const elements = document.querySelectorAll('.accessDisabled');
-        // Remove disabling classes
+
         elements.forEach( element => {
             element.classList.remove('accessDisabled');
         });
-        // Add events only accessible by ADMIN
-        elements[0].addEventListener('click', () => {
-            const modal = new bootstrap.Modal(document.getElementById('inviteModal'));
-            modal.show();
+
+        elements[0].setAttribute('data-bs-toggle', 'modal');
+        elements[0].setAttribute('data-bs-target', '#inviteModal');
+
+        const inviteForm = document.querySelector('#inviteForm');
+        inviteForm.addEventListener('submit', e => {
+            e.preventDefault();
+            const mail = inviteForm.inviteEmail.value.trim();
+            const error = validation.mail(mail);
+            const errorField = document.querySelector('#inviteError');
+            if(error != ''){
+                errorField.textContent = error;
+                return;
+            }
+            errorField.innerHTML = '&nbsp;';
+            fetch('/user/invite', {
+                method : 'POST',
+                body : JSON.stringify({
+                    mail : mail,
+                    deskID : deskData._id
+                }),
+                headers : {'Content-type' : 'application/json; charset=UTF-8'}
+            })
+            .then(res => res.json())
+            .then(status => {
+                if(!status){
+                    errorField.textContent = 'No user with this Email found';
+                }
+                else{
+                    errorField.innerHTML = `<span style="color: #23CE6B;">${status.name} invited !</span>`;
+                    inviteForm.reset();
+                }
+            });
         });
         elements[2].addEventListener('click', () => {
             const newName = document.querySelector('#renameInput').value.trim();
@@ -76,6 +103,9 @@ function checkAccess(){
                 renderDeskname();
             });
         });
+        deskActionBtn.addEventListener('click', () => {
+            alert('deleting desk');
+        });
     }
     else{
         deskActionText.innerHTML = '<i id="dangerIcon" class="fas fa-exclamation-triangle"></i> Leave Desk';
@@ -85,6 +115,15 @@ function checkAccess(){
         });
     };
 };
+
+// Invite Modal - Input focus und Error Reset
+const inviteModal = document.querySelector('#inviteModal');
+inviteModal.addEventListener('shown.bs.modal', () => {
+    document.querySelector('input[name="inviteEmail"]').focus();
+});
+inviteModal.addEventListener('hidden.bs.modal', () => {
+    document.querySelector('#inviteError').innerHTML = '&nbsp;';
+});
 
 // CHAT & MENU show/hide
 const openMenu = document.querySelector('#menuBtn');

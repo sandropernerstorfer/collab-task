@@ -110,4 +110,9 @@ router.patch('/image', (req, res) => {
     });
 });
 
+router.post('/invite', async (req, res) => {
+    const updatedUser = await User.findOneAndUpdate({ email: req.body.mail }, { $addToSet: {invites: req.body.deskID}}, {new:true}).select('name');
+    res.end(JSON.stringify(updatedUser));
+});
+
 module.exports = router;
