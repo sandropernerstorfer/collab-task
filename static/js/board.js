@@ -107,10 +107,20 @@ function renderInvites(){
         invitesSection.innerHTML = '';
         for(let i = 0; boardData.invites.length > i; i++){
             inviteCount++;
-            invitesSection.innerHTML += `<div class="card col"><div id="invite${i}" class="${boardData.invites[i].color}-card">${boardData.invites[i].name}</div></div>`;
+            invitesSection.innerHTML += `
+                <div class="card col">
+                    <div class="invite-available">
+                        ${boardData.invites[i].name}
+                        <div class="invite-buttons">
+                            <button class="accept-button" id="accept${i}"><i class="far fa-check-circle"></i> Accept</button>
+                            <button class="discard-button" id="discard${i}"><i class="far fa-trash-alt"></i> Discard</button>
+                        </div>
+                    </div>
+                </div>`;
         };
         for(let i = 0; boardData.invites.length > i; i++){
-            document.getElementById(`invite${i}`).addEventListener('click', () => { openInvite(boardData.invites[i]._id) });
+            document.getElementById(`accept${i}`).addEventListener('click', () => { acceptInvite(boardData.invites[i]._id) });
+            document.getElementById(`discard${i}`).addEventListener('click', () => { discardInvite(boardData.invites[i]._id) });
         };
     };
     document.querySelector('#inviteCount').textContent = inviteCount.toString();
@@ -129,8 +139,13 @@ function openDesk(deskID){
  *# INVITE HANDLIND ( W.I.P. )
  * @param {string} inviteID - Desk ID der Einladung
  */
-function openInvite(inviteID){
-    console.log(inviteID);
+function acceptInvite(inviteID){
+    console.log('accepted '+inviteID);
+    // pop from invites and push into shared + database actions
+};
+function discardInvite(inviteID){
+    console.log('discarded '+inviteID);
+    // pop from invites + database action
 };
 
 //---- DESK CREATION

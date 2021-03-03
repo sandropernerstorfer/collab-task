@@ -166,6 +166,51 @@ nav{
     }
 }
 
+.invite-available{
+    @include flex(space-evenly,center);
+    flex-direction: column;
+    height: 100%;
+    color: $primaryText;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    transition: border-color .3s;
+    &:hover{
+        border-color: $secondary2;
+    }
+    button{
+        margin-top: 5px;
+        background-color: #fff;
+        border-width: 0px;
+        border-style: solid;
+        border-radius: 5px;
+        padding: 0px 5px;
+    }
+    .invite-buttons{
+        @include flex(space-around,center);
+        width: 100%;
+    }
+    .accept-button{
+        border-color: $primary;
+        background-color: #fff;
+        color: $primary;
+        transition: background-color .2s, color .2s;
+        &:hover{
+            background-color: $primary;
+            color: #fff;
+        }
+    }
+    .discard-button{
+        border-color: $error;
+        color: $error;
+        transition: background-color .2s, color .2s;
+        &:hover{
+            background-color: $error;
+            color: #fff;
+        }
+    }
+}
+
 .modal.modal-static .modal-dialog{
     transform: none !important;
 }
