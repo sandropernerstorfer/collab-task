@@ -140,12 +140,33 @@ function openDesk(deskID){
  * @param {string} inviteID - Desk ID der Einladung
  */
 function acceptInvite(inviteID){
-    console.log('accepted '+inviteID);
-    // pop from invites and push into shared + database actions
+    fetch('/board/invite', {
+        method: 'PATCH',
+        body: JSON.stringify({inviteID : inviteID}),
+        headers : {'Content-type' : 'application/json; charset=UTF-8'}
+    })
+    .then(res => res.json())
+    .then(status => {
+        const desk = boardData.invites.find( desk => desk._id == inviteID);
+        boardData.sharedDesks.push(desk);
+        const filteredInvites = boardData.invites.filter( desk => desk._id !== inviteID );
+        boardData.invites = filteredInvites;
+        renderSharedData();
+        renderInvites();
+    });
 };
 function discardInvite(inviteID){
-    console.log('discarded '+inviteID);
-    // pop from invites + database action
+    fetch('/board/invite', {
+        method: 'DELETE',
+        body: JSON.stringify({inviteID : inviteID}),
+        headers : {'Content-type' : 'application/json; charset=UTF-8'}
+    })
+    .then(res => res.json())
+    .then(status => {
+        const filteredInvites = boardData.invites.filter( desk => desk._id !== inviteID);
+        boardData.invites = filteredInvites;
+        renderInvites();
+    });
 };
 
 //---- DESK CREATION

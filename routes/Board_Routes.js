@@ -16,7 +16,8 @@ router.get('/boarddata', async (req, res) => {
     let desks = [];
     let sharedDesks = [];
     let invites = [];
-
+    const actualUser = await User.findOne({_id: req.session.currentUser._id});
+    req.session.currentUser = actualUser;
     if(req.session.currentUser.desks.length > 0){
         desks = await Desk.find().where('_id').in(req.session.currentUser.desks).exec();
     }
@@ -48,6 +49,22 @@ router.post('/desk', async (req, res) => {
     const updatedUser = await User.findOneAndUpdate({ _id: req.body.admin }, { $push: {desks: savedDesk._id}}, {new: true}).select('-password');
     req.session.currentUser = updatedUser;
     res.end(JSON.stringify(savedDesk));
+});
+
+router.patch('/invite', async (req, res) => {
+    const inviteID = req.body.inviteID;
+    const moveToShared = await User.updateOne({_id: req.session.currentUser._id}, { $push: {sharedDesks: inviteID}});
+    const updatedUser = await User.findOneAndUpdate({_id: req.session.currentUser._id}, { $pull: {invites: inviteID}}, {new: true}).select('-password');
+    req.session.currentUser = updatedUser;
+    const updatedDesk = await Desk.findOneAndUpdate({_id: inviteID}, { $push: {members: req.session.currentUser._id}}, {new: true});
+    res.end(JSON.stringify(true));
+});
+
+router.delete('/invite', async (req, res) => {
+    const inviteID = req.body.inviteID;
+    const updatedUser = await User.findOneAndUpdate({_id: req.session.currentUser._id}, { $pull: {invites: inviteID}}, {new: true}).select('-password');
+    req.session.currentUser = updatedUser;
+    res.end(JSON.stringify(true));
 });
 
 module.exports = router;
