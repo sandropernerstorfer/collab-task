@@ -65,7 +65,7 @@ function renderDeskData(){
     let deskCount = 0;
     const desksSection = document.querySelector('#desksContainer');
     if(boardData.desks.length == 0){
-        desksSection.innerHTML = `<div class="card col no-card no-desk"><div><h4>Start by creating your first Desk</h4><small>You can use your own Deskname and pick a color you like</small><i id="handPointer" class="far fa-hand-point-up"></i></div></div>`;
+        desksSection.innerHTML = `<div class="card col no-card no-desk"><div><h4>Start by creating your first Desk</h4><small>You can use your own Deskname and pick a color you like</small></div></div>`;
     }
     else{
         desksSection.innerHTML = '';
@@ -88,6 +88,7 @@ function renderSharedData(){
     else{
         sharedSection.innerHTML = '';
         for(let i = 0; boardData.sharedDesks.length > i; i++){
+            deskCount++;
             sharedSection.innerHTML += `<div class="card col"><div id="shared${i}" class="${boardData.sharedDesks[i].color}-card desk-available">${boardData.sharedDesks[i].name}</div></div>`;
         };
         for(let i = 0; boardData.sharedDesks.length > i; i++){
@@ -105,6 +106,7 @@ function renderInvites(){
     else{
         invitesSection.innerHTML = '';
         for(let i = 0; boardData.invites.length > i; i++){
+            inviteCount++;
             invitesSection.innerHTML += `<div class="card col"><div id="invite${i}" class="${boardData.invites[i].color}-card">${boardData.invites[i].name}</div></div>`;
         };
         for(let i = 0; boardData.invites.length > i; i++){
@@ -142,12 +144,6 @@ const deskForm = document.querySelector('#createDeskForm');
 const deskError = document.querySelector('#desknameError');
 
 deskModal.addEventListener('shown.bs.modal', () => {
-    try{
-        let handPointer = document.querySelector('#handPointer');
-        handPointer.style.opacity = '0';
-        setTimeout(() => { handPointer.remove(); }, 410);
-    }
-    catch(err){}
     deskForm.deskname.focus();
 });
 deskModal.addEventListener('hidden.bs.modal', () => {

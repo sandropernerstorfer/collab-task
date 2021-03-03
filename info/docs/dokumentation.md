@@ -142,7 +142,7 @@
         * Side Menu
         * Chat Fenster
 
-#### 26.02 - 2.03.2021
+#### 26.02 - 02.03.2021
 * **App-Work :**
     * Desk UI :
         * Haupt Deskbereich
@@ -153,3 +153,8 @@
     * Admin und Members laden
     * Check Admin-Rechte
     * Deskname ändern
+
+#### 02.03.2021 - 03.03.2021
+* **App-Work :**
+    * User einladen funktionalität
+    * Board : einladungen annehmen oder ablehnen

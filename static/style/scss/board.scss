@@ -159,27 +159,6 @@ nav{
     small{
         color: $primary;
     }
-    i{
-        position: absolute;
-        top: 20%;
-        right: 40px;
-        transform: translateY(-50%);
-        font-size: 1.7rem;
-        color: rgb(128, 128, 128);
-        transition: opacity .6s;
-        animation: MoveUpDown 1.1s linear infinite;
-        @media screen and (max-width: 767px){
-            display: none;
-        }
-    }
-    @keyframes MoveUpDown {
-        0%, 100% {
-            top: 20%;
-        }
-        50% {
-            top: 30%;
-        }
-    }
 }
 .no-shared, .no-invites{
     small{
