@@ -69,6 +69,13 @@ function checkAccess(){
                 errorField.textContent = error;
                 return;
             }
+            const checkMembers = memberData.find( member => {
+                return member.email == mail;
+            });
+            if(checkMembers){
+                errorField.textContent = 'User is already a Member';
+                return;
+            }
             errorField.innerHTML = '&nbsp;';
             fetch('/user/invite', {
                 method : 'POST',

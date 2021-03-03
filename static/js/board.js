@@ -136,7 +136,7 @@ function openDesk(deskID){
 };
 
 /**
- *# INVITE HANDLIND ( W.I.P. )
+ * INVITE HANDLIND
  * @param {string} inviteID - Desk ID der Einladung
  */
 function acceptInvite(inviteID){
