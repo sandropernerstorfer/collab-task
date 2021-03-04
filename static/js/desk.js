@@ -10,7 +10,7 @@ fetch('/desk/deskdata')
     logTables();
     renderDeskname();
     renderMembers();
-    checkAccess();
+    addRoleDependingEvents();
     // renderLists();
 });
 
@@ -43,7 +43,7 @@ function renderMembers(){
     });
 };
 
-function checkAccess(){
+function addRoleDependingEvents(){
     const deskActionText = document.querySelector('#deskActionText');
     const deskActionBtn = document.querySelector('#deskActionBtn');
 
