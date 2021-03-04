@@ -60,4 +60,11 @@ router.patch('/deskname', async (req, res) => {
     res.end(JSON.stringify(updatedDesk.name));
 });
 
+router.delete('/leave/:userID/:deskID', async (req, res) => {
+    const updatedUser = await User.findOneAndUpdate({_id: req.session.currentUser._id}, {$pull: {sharedDesks: req.params.deskID}}, {new: true}).select('-password');
+    await Desk.updateOne({_id: req.params.deskID}, {$pull: {members: req.params.userID}});
+    req.session.currentUser = updatedUser;
+    res.end(JSON.stringify(true));
+});
+
 module.exports = router;

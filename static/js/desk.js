@@ -118,7 +118,16 @@ function checkAccess(){
         deskActionText.innerHTML = '<i id="dangerIcon" class="fas fa-exclamation-triangle"></i> Leave Desk';
         deskActionBtn.textContent = 'Leave';
         deskActionBtn.addEventListener('click', () => {
-            alert('leaving desk');    
+            const confirmed = confirm('You will no longer be a Member on this Desk\n\nContinue ?');
+            if(confirmed){
+                fetch(`/desk/leave/${userData._id}/${deskData._id}`, {
+                    method: 'DELETE',
+                })
+                .then(res => res.json())
+                .then(res => {
+                    if(res) location.href = '/board';
+                });
+            };
         });
     };
 };

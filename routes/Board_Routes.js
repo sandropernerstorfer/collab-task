@@ -53,10 +53,10 @@ router.post('/desk', async (req, res) => {
 
 router.patch('/invite', async (req, res) => {
     const inviteID = req.body.inviteID;
-    const moveToShared = await User.updateOne({_id: req.session.currentUser._id}, { $push: {sharedDesks: inviteID}});
+    await User.updateOne({_id: req.session.currentUser._id}, { $push: {sharedDesks: inviteID}});
     const updatedUser = await User.findOneAndUpdate({_id: req.session.currentUser._id}, { $pull: {invites: inviteID}}, {new: true}).select('-password');
     req.session.currentUser = updatedUser;
-    const updatedDesk = await Desk.findOneAndUpdate({_id: inviteID}, { $push: {members: req.session.currentUser._id}}, {new: true});
+    await Desk.updateOne({_id: inviteID}, { $push: {members: req.session.currentUser._id}});
     res.end(JSON.stringify(true));
 });
 
