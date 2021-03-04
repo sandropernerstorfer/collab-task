@@ -60,9 +60,9 @@ router.patch('/deskname', async (req, res) => {
     res.end(JSON.stringify(updatedDesk.name));
 });
 
-router.delete('/leave/:userID/:deskID', async (req, res) => {
-    const updatedUser = await User.findOneAndUpdate({_id: req.session.currentUser._id}, {$pull: {sharedDesks: req.params.deskID}}, {new: true}).select('-password');
-    await Desk.updateOne({_id: req.params.deskID}, {$pull: {members: req.params.userID}});
+router.delete('/leave', async (req, res) => {
+    const updatedUser = await User.findOneAndUpdate({_id: req.session.currentUser._id}, {$pull: {sharedDesks: req.session.currentDesk}}, {new: true}).select('-password');
+    await Desk.updateOne({_id: req.session.currentDesk}, {$pull: {members: req.session.currentUser._id}});
     req.session.currentUser = updatedUser;
     res.end(JSON.stringify(true));
 });

@@ -120,7 +120,7 @@ function checkAccess(){
         deskActionBtn.addEventListener('click', () => {
             const confirmed = confirm('You will no longer be a Member on this Desk\n\nContinue ?');
             if(confirmed){
-                fetch(`/desk/leave/${userData._id}/${deskData._id}`, {
+                fetch(`/desk/leave`, {
                     method: 'DELETE',
                 })
                 .then(res => res.json())
