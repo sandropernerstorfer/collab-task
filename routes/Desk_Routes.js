@@ -67,4 +67,21 @@ router.delete('/leave', async (req, res) => {
     res.end(JSON.stringify(true));
 });
 
+router.delete('/delete', async (req, res) => {
+    const targetDesk = await Desk.findOneAndDelete({_id: req.session.currentDesk});
+    if(!targetDesk){
+        res.status(404).end();
+    };
+    await User.updateOne({_id : targetDesk.admin}, {$pull: {desks: req.session.currentDesk}});
+
+    function updateMember(i = 0){
+        if(!targetDesk.members[i]) return;
+        User.updateOne({_id : targetDesk.members[i]}, { $pull: {sharedDesks: req.session.currentDesk}}, {}, (err, data) => {
+            return updateMember(i+1);    
+        });
+    };
+    updateMember();
+    res.end();
+});
+
 module.exports = router;

@@ -111,7 +111,13 @@ function checkAccess(){
             });
         });
         deskActionBtn.addEventListener('click', () => {
-            alert('deleting desk');
+            const confirmed = confirm(`Are you sure you want to delete this desk:\n"${deskData.name}"`);
+            if(confirmed){
+                fetch(`/desk/delete`, {
+                    method: 'DELETE'
+                })
+                .then(location.href = '/board');
+            };
         });
     }
     else{

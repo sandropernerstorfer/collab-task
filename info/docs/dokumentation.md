@@ -154,7 +154,17 @@
     * Check Admin-Rechte
     * Deskname ändern
 
-#### 02.03.2021 - 03.03.2021
+#### 02.03 - 03.03.2021
 * **App-Work :**
     * User einladen funktionalität
     * Board : einladungen annehmen oder ablehnen
+
+#### 03.03 - 04.03.2021
+* **App-Work :**
+    * Desk verlassen (member):
+        * member von desk löschen
+        * Desk ref von user löschen
+    * Desk löschen (admin):
+        * ganzen desk löschen
+        * Desk ref von admin user löschen
+        * Desk ref von jedem member löschen
