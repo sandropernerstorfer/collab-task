@@ -13,14 +13,12 @@ const DeskSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    members: {
-        type: Array,
-        default: []
-    },
-    lists: {
-        type: Array,
-        default: []
-    },
+    members: 
+        [String]
+    ,
+    lists: 
+        [Object]
+    ,
     date: {
         type: Date,
         default: Date.now

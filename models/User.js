@@ -17,18 +17,15 @@ const UserSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    desks: {
-        type: Array,
-        default: []
-    },
-    sharedDesks: {
-        type: Array,
-        default: []
-    },
-    invites: {
-        type: Array,
-        default: []
-    },
+    desks: 
+        [String]
+    ,
+    sharedDesks:
+        [String]
+    ,
+    invites: 
+        [String]
+    ,
     image: {
         type: String,
         default: null
