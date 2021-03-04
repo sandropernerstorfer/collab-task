@@ -5,15 +5,15 @@ body{
     height: 100vh;
 }
 
-// Dynamic Coloring
-.top-division,#topDeskname, #clearSearch, #deskMenuBar i, #inviteBtn i, .menuSection .menuIcon, #addListBtn, .addTaskBtn{
-    color: $primary !important;
+// Coloring
+.top-division, #topDeskname, #clearSearch, #deskMenuBar i, #inviteBtn i, .menuSection .menuIcon, #addListBtn i, .addTaskBtn i{
+    color: $secondary2 !important;
 }
 #admin i, #inviteModal form button{
-    background-color: $primary !important;
+    background-color: $secondary2 !important;
 }
 #searchbar, #clearSearch, #inviteModal form button{
-    border-color: $primary !important;
+    border-color: $secondary2 !important;
 }
 
 // Top Navbar
@@ -88,13 +88,14 @@ main{
     @include flex(space-between, center);
     height: 37px;
     width: 100%;
-    padding: 0 5px;
+    padding: 8px 5px 0 5px;
     background-color: #fff;
 
     button{
         border: 0;
-        background-color: #fff;
+        background-color: transparent;
         color: $primaryText;
+        font-weight: 500;
         margin-right: 10px;
         border-radius: 5px;
         padding: 0 5px;
@@ -138,7 +139,7 @@ main{
     height: 220px;
     max-height: 100%;
     position: absolute;
-    top: 0;
+    top: 10px;
     right: 0;
     overflow-y: auto;
     background-color: #fff;
@@ -256,9 +257,9 @@ main{
     overflow-x: scroll;
     overflow-y: auto;
     padding-top: 10px;
-    background-color: rgba(22, 155, 51, 0.872);
+    background-color: #fff;
     &::-webkit-scrollbar{
-        background-color: rgba(22, 155, 51, 0.872);
+        background-color: #fff;
         height: 10px;
     }
     &::-webkit-scrollbar-thumb{
@@ -293,9 +294,7 @@ main{
         width: 100%;
         height: 100%;
         border-radius: 5px;
-        &:hover{
-            background-color: rgba(241, 241, 241, 0.486);
-        }
+        color: $primaryText;
     }
 
     form{
@@ -403,6 +402,7 @@ main{
         border: 0;
         border-radius: 5px;
         background-color: transparent;
+        color: $primaryText;
     }
 
     form{
