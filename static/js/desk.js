@@ -11,7 +11,7 @@ fetch('/desk/deskdata')
     renderDeskname();
     renderMembers();
     addRoleDependingEvents();
-    // renderLists();
+    renderLists();
 });
 
 function logTables(){
@@ -138,6 +138,26 @@ function addRoleDependingEvents(){
     };
 };
 
+function renderLists(){
+    const cellContainer = document.querySelector('#cellContainer');
+    cellContainer.innerHTML = '';
+    const lists = deskData.lists;
+    const template = document.querySelector('#listTemplate');
+
+    lists.forEach( list => {
+        const final = template.content.cloneNode(true);
+        final.querySelector('.list').id = list._id;
+        final.querySelector('.list-name').textContent = list.name; 
+
+        const taskContainer = final.querySelector('.list-tasks');
+        list.tasks.forEach( task => {
+            taskContainer.innerHTML += `<li id=${task._id} class="task">${task.name}</li>`;
+        });
+
+        cellContainer.appendChild(final);
+    });
+};
+
 // Invite Modal - Input focus und Error Reset
 const inviteModal = document.querySelector('#inviteModal');
 inviteModal.addEventListener('shown.bs.modal', () => {
@@ -181,8 +201,9 @@ listForm.addEventListener('submit', e => {
         headers: {'Content-type' : 'application/json; charset=UTF-8'}
     })
     .then(res => res.json())
-    .then(list => {
-        console.log(list);
+    .then(newLists => {
+        deskData.lists = newLists;
         toggleListCreation();
+        renderLists();
     });
 });

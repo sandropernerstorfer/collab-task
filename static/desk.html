@@ -42,31 +42,11 @@
         </div>
 <!-- Desk -->
         <section id="deskSpace">
-<!-- List Container -->
+            <!-- Main Container -->
             <div id="listContainer">
-                <div id="cellContainer">
-                    <div class="list-cell">
-                        <div class="list">
-                            <div class="list-head">
-                                <span>listname</span>
-                                <button><i class="far fa-trash-alt"></i></button>
-                            </div>
-                            <ul class="list-tasks">
-                                <li class="task">Task1</li>
-                                <li class="task">Task2</li>
-                                <li class="task">Task3</li>
-                            </ul>
-                            <div class="addTask">
-                                <button class="addTaskBtn"><i class="fas fa-plus"></i> Add Task</button>    
-                                <!-- <form id="taskForm">
-                                    <input type="text" name="taskName" placeholder="Taskname...">
-                                    <button type="submit"><i class="far fa-check-circle"></i></button>
-                                    <button type="button" id="cancelTask"><i class="far fa-times-circle"></i></button>
-                                </form> -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <!-- List Cell Container -->
+                <div id="cellContainer"></div>
+                <!-- Add new list -->
                 <div id="addList">
                     <button id="addListBtn"><i class="fas fa-plus"></i> Add List</button>
                     <form id="listForm" class="d-none">
@@ -76,7 +56,7 @@
                     </form>
                 </div>
             </div>
-<!-- Side Menu -->
+            <!-- Side Menu -->
             <aside id="sideMenu" class="d-none">
                 <div class="menuSection">
                     <span><i class="menuIcon fas fa-align-left"></i> Column Align</span>
@@ -95,7 +75,7 @@
                     <button id="deskActionBtn"></button>    
                 </div>    
             </aside>
-<!-- Chat Window -->
+            <!-- Chat Window -->
             <div id="chatWindow" class="d-none">
                 <div id="messageWindow">
                     <ul>
@@ -130,5 +110,24 @@
             </div>
         </div>
     </div>
+    <template id="listTemplate">
+        <div class="list-cell">
+            <div class="list">
+                <div class="list-head">
+                    <span class="list-name"></span>
+                    <button class="delete-list"><i class="far fa-trash-alt"></i></button>
+                </div>
+                <ul class="list-tasks"></ul>
+                <div class="addTask">
+                    <button class="addTaskBtn"><i class="fas fa-plus"></i> Add Task</button>
+                </div>
+            </div>
+        </div>
+    </template>
+    <!-- <form id="taskForm">
+        <input type="text" name="taskName" placeholder="Taskname...">
+        <button type="submit"><i class="far fa-check-circle"></i></button>
+        <button type="button" id="cancelTask"><i class="far fa-times-circle"></i></button>
+    </form> -->
 </body>
 </html>
