@@ -92,4 +92,14 @@ router.post('/list', async (req, res) => {
     res.end(JSON.stringify(updatedLists.lists));
 });
 
+router.post('/task', async (req, res) => {
+    const newTask = {
+        name: req.body.name
+    };
+
+    //# Finde liste mit req.body.deskID und füge newTask ein
+    
+    res.end(JSON.stringify(newTask));
+});
+
 module.exports = router;

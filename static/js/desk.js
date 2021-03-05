@@ -185,7 +185,9 @@ function toggleListCreation(){
 }
 
 openListForm.addEventListener('click', () => {
+    closeOpenForms();
     toggleListCreation();
+    listForm.querySelector('#newListname').focus();
 });
 
 listForm.addEventListener('reset', () => {
@@ -206,4 +208,54 @@ listForm.addEventListener('submit', e => {
         toggleListCreation();
         renderLists();
     });
+});
+
+const cellContainer = document.querySelector('#cellContainer');
+function toggleTaskCreation(element){
+    element.closest('.addTask').innerHTML = `
+    <form id="taskForm">
+    <input id="newTaskname" type="text" placeholder="Taskname...">
+    <button type="submit" id="saveTask" IsTabStop="false"><i class="far fa-check-circle"></i></button>
+    <button type="button" id="cancelTask" IsTabStop="false"><i class="far fa-times-circle"></i></button>
+    </form>`;
+    document.getElementById('newTaskname').focus();
+};
+function closeOpenForms(){
+    try{
+        document.querySelector('#cancelTask').click();
+    }
+    catch(err){}
+    if(!listForm.classList.contains('d-none')){
+        document.querySelector('#cancelList').click();
+    }
+};
+
+cellContainer.addEventListener('click', e => {
+    if(e.target.matches('.addTaskBtn')){
+        closeOpenForms();
+        toggleTaskCreation(e.target);
+    }
+    else if(e.target.matches('#cancelTask')){
+        e.target.closest('.addTask').innerHTML = `
+        <button class="addTaskBtn"><i class="fas fa-plus"></i> Add Task</button>`;
+    }
+    else if(e.target.matches('#saveTask')){
+        e.preventDefault();
+        const taskName = e.target.previousElementSibling.value.trim();
+        const listID = e.target.closest('.list').id;
+        fetch('/desk/task', {
+            method: 'POST',
+            body: JSON.stringify(
+                {
+                    name: taskName,
+                    listID: listID
+                }
+            ),
+            headers: {'Content-Type' : 'Application/json; charset=UTF-8'}
+        })
+        .then(res => res.json())
+        .then(newList => {
+            console.log(newList);
+        });
+    }
 });
