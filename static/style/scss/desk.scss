@@ -363,6 +363,9 @@ main{
             background-color: transparent;
             border: 0;
         }
+        i{
+            pointer-events: none;
+        }
     }
 
     .list-tasks{

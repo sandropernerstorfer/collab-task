@@ -199,6 +199,7 @@ listForm.addEventListener('submit', e => {
         deskData.lists = newLists;
         toggleListCreation();
         renderLists();
+        listForm.listName.value = '';
     });
 });
 
@@ -223,7 +224,19 @@ function closeOpenForms(){
 };
 
 cellContainer.addEventListener('click', e => {
-    if(e.target.matches('.addTaskBtn')){
+    if(e.target.matches('.delete-list')){
+        const listID = e.target.closest('.list').id;
+        console.log(listID);
+        fetch(`/desk/list/${listID}`, {
+            method: 'DELETE'
+        })
+        .then(res => res.json())
+        .then(newLists => {
+            deskData.lists = newLists;
+            renderLists();
+        });
+    }
+    else if(e.target.matches('.addTaskBtn')){
         closeOpenForms();
         toggleTaskCreation(e.target);
     }
