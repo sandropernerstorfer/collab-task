@@ -156,3 +156,33 @@ openMenu.addEventListener('click', () => {
 openChat.addEventListener('click', () => {
     document.querySelector('#chatWindow').classList.toggle('d-none');
 });
+
+const openListForm = document.querySelector('#addListBtn');
+const listForm = document.querySelector('#listForm');
+function toggleListCreation(){
+    openListForm.classList.toggle('d-none');
+    listForm.classList.toggle('d-none');    
+}
+
+openListForm.addEventListener('click', () => {
+    toggleListCreation();
+});
+
+listForm.addEventListener('reset', () => {
+    toggleListCreation();
+});
+
+listForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const listName = listForm.listName.value.trim();
+    fetch('/desk/list', {
+        method: 'POST',
+        body: JSON.stringify({name: listName}),
+        headers: {'Content-type' : 'application/json; charset=UTF-8'}
+    })
+    .then(res => res.json())
+    .then(list => {
+        console.log(list);
+        toggleListCreation();
+    });
+});

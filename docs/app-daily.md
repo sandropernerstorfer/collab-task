@@ -168,3 +168,10 @@
         * ganzen desk löschen
         * Desk ref von admin user löschen
         * Desk ref von jedem member löschen
+
+#### 04.03 - 05.03.2021
+* **App-Work :**
+    * Neue MongoDB schemas erstellt (List, Task)
+    * Task Schema in List Schema integriert
+    * List Schema in Desk Schema integriert
+    * Funktionen um neue liste zu erstellen

@@ -84,4 +84,12 @@ router.delete('/delete', async (req, res) => {
     res.end();
 });
 
+router.post('/list', async (req, res) => {
+    const newList = {
+        name: req.body.name
+    }
+    const updatedLists = await Desk.findOneAndUpdate({_id: req.session.currentDesk}, {$push: {lists: newList}}, {new: true}).select('lists');
+    res.end(JSON.stringify(updatedLists.lists));
+});
+
 module.exports = router;
