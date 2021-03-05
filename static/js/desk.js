@@ -143,7 +143,7 @@ function renderLists(){
 
         const taskContainer = final.querySelector('.list-tasks');
         list.tasks.forEach( task => {
-            taskContainer.innerHTML += `<li id=${task._id} class="task">${task.name}</li>`;
+            taskContainer.innerHTML += `<li id=${task._id} class="task"><span>${task.name}</span><div class="task-buttons task-closed"><button class="taskComplete"><i class="far fa-calendar-check"></i> Done</button><button class="taskInfo"><i class="fas fa-info"></i> Info</button></div></li>`;
         });
 
         cellContainer.appendChild(final);
@@ -178,6 +178,7 @@ function toggleListCreation(){
 
 openListForm.addEventListener('click', () => {
     closeOpenForms();
+    closeOpenTasks();
     toggleListCreation();
     listForm.querySelector('#newListname').focus();
 });
@@ -263,5 +264,45 @@ cellContainer.addEventListener('click', e => {
             deskData.lists = newLists;
             renderLists();
         });
+    }
+});
+
+cellContainer.addEventListener('click', e => {
+    if(!e.target.matches('.task')) return;
+    closeOpenForms();
+    if(!e.target.classList.contains('task-expand')){
+        closeOpenTasks();
+    }
+    toggleTaskField(e.target);
+});
+
+function toggleTaskField(element){
+    const taskButtons = element.querySelector('.task-buttons');
+    element.classList.toggle('task-expand');
+    setTimeout(() => {
+        taskButtons.classList.toggle('task-closed');    
+    }, 85); 
+};
+
+function closeOpenTasks(){
+    try{
+        document.querySelectorAll('.task-expand').forEach(element => {
+            element.classList.remove('task-expand');
+        });
+        document.querySelectorAll('.task-buttons').forEach(element => {
+            element.classList.add('task-closed');
+        });
+    }
+    catch(err){}
+};
+
+cellContainer.addEventListener('click', e => {
+    if(e.target.matches('.taskComplete')){
+        const taskID = e.target.closest('.task').id;
+        console.log('COMPLETE '+taskID);
+    }
+    else if(e.target.matches('.taskInfo')){
+        const taskID = e.target.closest('.task').id;
+        console.log('INFO FOR '+taskID);
     }
 });

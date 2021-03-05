@@ -177,3 +177,4 @@
     * Funktionen um neue liste zu erstellen
     * Funktionen um neuen Task zu erstellen
     * Liste löschen
+    * Tasks ausklappen

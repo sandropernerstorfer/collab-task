@@ -382,8 +382,10 @@ main{
         padding-left: 0;
         margin: 5px 0;
         width: 100%;
+        padding-bottom: 5px;
         
         li{
+            position: relative;
             margin: 3px 0;
             border-color: #ccc;
             border-style: solid;
@@ -395,7 +397,57 @@ main{
             word-wrap: break-word;
             font-size: .9rem;
             color: $primaryText;
+            transition: padding .3s;
         }
+    }
+}
+
+.task{
+    cursor: pointer;
+
+    span{
+        pointer-events: none;
+    }
+}
+
+.task-expand{
+    padding-bottom: 40px !important;
+}
+
+.task-closed{
+    display: none !important;
+}
+
+.task-buttons{
+    @include flex(flex-start,center);
+    width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    padding: 7px 5px;
+    pointer-events: none;
+
+    button{
+        border-radius: 5px;
+        padding: 0 5px;
+        border: 0;
+        color: #fff;
+        background-color: transparent;
+        font-size: .8rem;
+        margin-right: 10px;
+        pointer-events: all;
+        font-weight: 600;
+        z-index: 100;
+        &::selection{
+            background-color: initial;
+            color: inherit;
+        }
+    }
+    .taskComplete{
+        background-color: $primary;
+    }
+    .taskInfo{
+        background-color: #5BC1DE;
     }
 }
 
@@ -403,10 +455,10 @@ main{
     @include flex(center,center);
     width: 100%;
     background-color: transparent;
-    height: 30px;
+    height: 100%;
     border-top: 1px solid #ccc;
     padding-top: 20px;
-    margin-top: 10px;
+    margin-top: 0px;
 
     button{
         background-color: transparent;
@@ -428,6 +480,7 @@ main{
         height: 100%;
 
         input{
+            height: 100%;
             width: 85%;
             border: 2px solid #ccc;
             border-radius: 5px;
