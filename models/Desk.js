@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const List = require('./List');
 
 const DeskSchema = mongoose.Schema({
     name: {
@@ -17,7 +18,7 @@ const DeskSchema = mongoose.Schema({
         [String]
     ,
     lists: 
-        [Object]
+        [List]
     ,
     date: {
         type: Date,

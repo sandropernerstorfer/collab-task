@@ -5,21 +5,27 @@
         "email": "REQUIRED STRING",
         "password": "REQUIRED STRING",
         "sessionid": "REQUIRED STRING",
-        "desks": "ARRAY / default []",
-        "sharedDesks": "ARRAY / default []",
-        "invites": "ARRAY / default []",
+        "desks": "ARRAY of STRINGS",
+        "sharedDesks": "ARRAY of STRINGS",
+        "invites": "ARRAY of STRINGS",
         "image": "STRING / default NULL"
     },
     "desk": {
         "name": "REQUIRED STRING",
         "color": "REQUIRED STRING",
         "admin": "REQUIRED STRING",
-        "members": "ARRAY / default []",
-        "lists": "ARRAY / default []"
+        "members": "ARRAY of STRINGS",
+        "lists": "ARRAY of SCHEMA(List)",
+        "date": "DATE.now"
     },
-    "list( OBJECT in ARRAY located in 'desk collection' lists-field)": {
+    "list": {
         "name": "REQUIRED STRING",
-        "tasks": "ARRAY / default []",
-        "order": "INT / default 0"
+        "tasks": "ARRAY of SCHEMA(Task)",
+        "order": "Number / default 0"
+    },
+    "task": {
+        "name": "REQUIRED STRING",
+        "description": "STRING / default ''",
+        "location": "STRING / default NULL"    
     }
 }
