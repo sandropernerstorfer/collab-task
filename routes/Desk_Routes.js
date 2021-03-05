@@ -96,10 +96,14 @@ router.post('/task', async (req, res) => {
     const newTask = {
         name: req.body.name
     };
-
-    //# Finde liste mit req.body.deskID und füge newTask ein
-    
-    res.end(JSON.stringify(newTask));
+    const desk = await Desk.findOne({_id: req.session.currentDesk});
+    desk.lists.forEach( list => {
+        if(list._id == req.body.listID){
+            list.tasks.push(newTask);
+        };
+    });
+    const updated = await desk.save();
+    res.end(JSON.stringify(updated.lists));
 });
 
 module.exports = router;

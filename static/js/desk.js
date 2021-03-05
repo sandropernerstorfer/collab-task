@@ -7,19 +7,11 @@ fetch('/desk/deskdata')
     deskData = data.desk;       // OBJECT - DESK:               _id, name, color, lists
     adminData = data.admin;     // OBJECT - ADMIN:              _id, name, email, image
     memberData = data.members;  // ARRAY OF OBJECTS - MEMBERS:  _id, name, email, image
-    logTables();
     renderDeskname();
     renderMembers();
     addRoleDependingEvents();
     renderLists();
 });
-
-function logTables(){
-    console.table(userData);
-    console.table(deskData);
-    console.table(adminData);
-    console.table(memberData);
-};
 
 function renderDeskname(){
     document.querySelector('#topDeskname').textContent = deskData.name;
@@ -254,8 +246,9 @@ cellContainer.addEventListener('click', e => {
             headers: {'Content-Type' : 'Application/json; charset=UTF-8'}
         })
         .then(res => res.json())
-        .then(newList => {
-            console.log(newList);
+        .then(newLists => {
+            deskData.lists = newLists;
+            renderLists();
         });
     }
 });
