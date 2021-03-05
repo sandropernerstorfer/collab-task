@@ -94,7 +94,11 @@ router.post('/list', async (req, res) => {
 
 router.delete('/list/:listID', async (req, res) => {
     const listID = req.params.listID;
-    const desk = await Desk.findOne({_id: req.session.currentDesk});
+    const desk = await Desk.findOne({_id: req.session.currentDesk}, (err, doc) => {
+        if(err || !doc){
+            res.end(JSON.stringify(false));
+        }
+    });
     desk.lists = desk.lists.filter( list => list._id != listID);
     const updated = await desk.save();
     res.end(JSON.stringify(updated.lists));
