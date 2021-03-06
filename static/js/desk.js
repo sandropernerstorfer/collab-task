@@ -329,8 +329,6 @@ function openTaskModal(listID, taskID){
     const {name, description, location, date} = deskData.lists[listIndex].tasks.find( task => task._id == taskID);
     // Get Time that passed since creation
     const timeSinceCreation = calculatePassedTime(new Date(date).getTime());
-
-    document.querySelector('#timePassed').textContent = timeSinceCreation;
 };
 /**
  * Rechnet die vergangene Zeit zwischen 2 Zeitpunkten und gibt die Anzahl in Tagen, Stunden, Minuten oder Sekunden zurück.
