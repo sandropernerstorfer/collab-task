@@ -1,5 +1,10 @@
 @import 'base';
 
+*::selection{
+    background-color: $secondary2;
+    color: #fff;
+}
+
 body{
     width: 100vw;
     height: 100vh;
@@ -417,6 +422,10 @@ main{
 
     span{
         pointer-events: none;
+        &::selection{
+            background-color: initial;
+            color: inherit;
+        }
     }
 }
 
