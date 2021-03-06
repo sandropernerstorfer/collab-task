@@ -118,4 +118,20 @@ router.post('/task', async (req, res) => {
     res.end(JSON.stringify(updated.lists));
 });
 
+router.delete('/task/:listID/:taskID', async (req, res) => {
+    const {listID, taskID} = req.params;
+    const desk = await Desk.findOne({_id: req.session.currentDesk}, (err, doc) => {
+        if(err || !doc){
+            res.end(JSON.stringify(false));
+        }
+    });
+
+    const getIndexWithID = list => list._id == listID;
+    const listIndex = desk.lists.findIndex(getIndexWithID);
+
+    desk.lists[listIndex].tasks = desk.lists[listIndex].tasks.filter( task => task._id != taskID);
+    const updated = await desk.save();
+    res.end(JSON.stringify(updated.lists));
+});
+
 module.exports = router;

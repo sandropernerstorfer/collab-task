@@ -178,3 +178,6 @@
     * Funktionen um neuen Task zu erstellen
     * Liste löschen
     * Tasks ausklappen
+    * HTML <template> für List und Task
+    * Task löschen
+    * Task Info öffnen

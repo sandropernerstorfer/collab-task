@@ -162,8 +162,9 @@ function renderLists(){
             button.addEventListener('click', () => {openTaskModal(taskID)});
         });
         document.querySelectorAll('.taskComplete').forEach( button => {
+            const listID = button.closest('.list').id;
             const taskID = button.closest('.task').id;
-            button.addEventListener('click', () => {deleteTask(taskID)});
+            button.addEventListener('click', () => {deleteTask(listID, taskID)});
         });
     }
     
@@ -323,6 +324,14 @@ function openTaskModal(taskID){
 };
 
 // DELETE SPECIFIC TASK
-function deleteTask(taskID){
-    console.log('deleting '+taskID);
+function deleteTask(listID, taskID){
+    fetch(`/desk/task/${listID}/${taskID}`, {
+        method: 'DELETE'
+    })
+    .then(res => res.json())
+    .then(newLists => {
+        if(!newLists) return;
+        deskData.lists = newLists;
+        renderLists();
+    });
 };
