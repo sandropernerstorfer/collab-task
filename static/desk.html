@@ -111,6 +111,24 @@
             </div>
         </div>
     </div>
+<!-- Task Modal -->
+    <div class="modal fade" id="taskModal" tabindex="-1" aria-labelledby="taskModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="taskModalLabel">Modal title</h5>
+                    <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Understood</button>
+                </div>
+            </div>
+        </div>
+    </div>
 <!-- Templates -->
     <!-- List Template -->
     <template id="listTemplate">
@@ -126,6 +144,16 @@
                 </div>
             </div>
         </div>
+    </template>
+    <!-- Task Template -->
+    <template id="taskTemplate">
+        <li class="task">
+            <span class="taskName"></span>
+            <div class="task-buttons task-closed">
+                <button class="taskComplete"><i class="far fa-calendar-check"></i> Done</button>
+                <button class="taskInfo" data-bs-toggle="modal" data-bs-target="#taskModal"><i class="fas fa-info"></i> Info</button>
+            </div>
+        </li>
     </template>
 </body>
 </html>

@@ -134,23 +134,39 @@ function renderLists(){
     const cellContainer = document.querySelector('#cellContainer');
     cellContainer.innerHTML = '';
     const lists = deskData.lists;
-    const template = document.querySelector('#listTemplate');
 
     lists.forEach( list => {
-        const final = template.content.cloneNode(true);
-        final.querySelector('.list').id = list._id;
-        final.querySelector('.list-name').textContent = list.name; 
+        const listTemplate = document.querySelector('#listTemplate').content.cloneNode(true);
+        listTemplate.querySelector('.list').id = list._id;
+        listTemplate.querySelector('.list-name').textContent = list.name; 
 
         // DELETE LIST EVENT
-        final.querySelector('.delete-list').addEventListener('click', () => { deleteList(list._id)});
+        listTemplate.querySelector('.delete-list').addEventListener('click', () => { deleteList(list._id)});
 
-        const taskContainer = final.querySelector('.list-tasks');
+        // RENDER TASKS
+        const taskContainer = listTemplate.querySelector('.list-tasks');
         list.tasks.forEach( task => {
-            taskContainer.innerHTML += `<li id=${task._id} class="task"><span>${task.name}</span><div class="task-buttons task-closed"><button class="taskComplete"><i class="far fa-calendar-check"></i> Done</button><button class="taskInfo"><i class="fas fa-info"></i> Info</button></div></li>`;
+            const taskTemplate = document.querySelector('#taskTemplate').content.cloneNode(true);
+            taskTemplate.querySelector('.task').id = task._id;
+            taskTemplate.querySelector('.taskName').textContent = task.name;
+            taskContainer.appendChild(taskTemplate);
         });
 
-        cellContainer.appendChild(final);
+        // APPEND FINAL LIST
+        cellContainer.appendChild(listTemplate);
     });
+    
+    if(lists.length > 0){
+        document.querySelectorAll('.taskInfo').forEach( button => {
+            const taskID = button.closest('.task').id;
+            button.addEventListener('click', () => {openTaskModal(taskID)});
+        });
+        document.querySelectorAll('.taskComplete').forEach( button => {
+            const taskID = button.closest('.task').id;
+            button.addEventListener('click', () => {deleteTask(taskID)});
+        });
+    }
+    
 };
 
 // Invite Modal - Input focus und Error Reset
@@ -288,18 +304,6 @@ cellContainer.addEventListener('click', e => {
     }, 85);
 });
 
-// COMPLETE TASK / SHOW TASK INFO
-cellContainer.addEventListener('click', e => {
-    if(e.target.matches('.taskComplete')){
-        const taskID = e.target.closest('.task').id;
-        console.log('COMPLETE '+taskID);
-    }
-    else if(e.target.matches('.taskInfo')){
-        const taskID = e.target.closest('.task').id;
-        console.log('INFO FOR '+taskID);
-    }
-});
-
 // DELETE LIST
 function deleteList(id){
     fetch(`/desk/list/${id}`, {
@@ -311,4 +315,14 @@ function deleteList(id){
         deskData.lists = newLists;
         renderLists();
     });
+};
+
+// LOAD SPECIFIC TASK INFO
+function openTaskModal(taskID){
+    console.log('info '+ taskID);
+};
+
+// DELETE SPECIFIC TASK
+function deleteTask(taskID){
+    console.log('deleting '+taskID);
 };
