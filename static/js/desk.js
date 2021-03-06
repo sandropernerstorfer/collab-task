@@ -158,8 +158,9 @@ function renderLists(){
     
     if(lists.length > 0){
         document.querySelectorAll('.taskInfo').forEach( button => {
+            const listID = button.closest('.list').id;
             const taskID = button.closest('.task').id;
-            button.addEventListener('click', () => {openTaskModal(taskID)});
+            button.addEventListener('click', () => {openTaskModal(listID, taskID)});
         });
         document.querySelectorAll('.taskComplete').forEach( button => {
             const listID = button.closest('.list').id;
@@ -319,8 +320,11 @@ function deleteList(id){
 };
 
 // LOAD SPECIFIC TASK INFO
-function openTaskModal(taskID){
-    console.log('info '+ taskID);
+function openTaskModal(listID, taskID){
+    const getIndexWithID = list => list._id == listID;
+    const listIndex = deskData.lists.findIndex(getIndexWithID);
+    // Task Data
+    const {name, description, location} = deskData.lists[listIndex].tasks.find( task => task._id == taskID);
 };
 
 // DELETE SPECIFIC TASK
