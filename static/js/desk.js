@@ -11,7 +11,7 @@ fetch('/desk/deskdata')
     renderMembers();
     addRoleDependingEvents();
     renderLists();
-    document.querySelector('.taskInfo').click();
+    // document.querySelector('.taskInfo').click();
 });
 
 function renderDeskname(){
