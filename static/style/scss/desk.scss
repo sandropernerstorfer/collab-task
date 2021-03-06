@@ -464,6 +464,9 @@ main{
         background-color: transparent;
         border: 0;
         font-weight: 500;
+        i{
+            pointer-events: none;
+        }
     }
 
     .addTaskBtn{

@@ -172,31 +172,13 @@ openChat.addEventListener('click', () => {
     document.querySelector('#chatWindow').classList.toggle('d-none');
 });
 
-// LIST & TASK ACTIONS
-const cellContainer = document.querySelector('#cellContainer');
-const openListForm = document.querySelector('#addListBtn');
-const listForm = document.querySelector('#listForm');
-
+// CREATE LIST: BUTTON / FORM TOGGLE
 function toggleListCreation(){
     openListForm.classList.toggle('d-none');
     listForm.classList.toggle('d-none');    
 };
-function toggleTaskCreation(element){
-    element.closest('.addTask').innerHTML = `
-    <form id="taskForm">
-        <input id="newTaskname" type="text" placeholder="Taskname...">
-        <button type="submit" id="saveTask" IsTabStop="false"><i class="far fa-check-circle"></i></button>
-        <button type="button" id="cancelTask" IsTabStop="false"><i class="far fa-times-circle"></i></button>
-    </form>`;
-    document.getElementById('newTaskname').focus();
-};
-function toggleTaskField(element){
-    const taskButtons = element.querySelector('.task-buttons');
-    element.classList.toggle('task-expand');
-    setTimeout(() => {
-        taskButtons.classList.toggle('task-closed');    
-    }, 85); 
-};
+
+// TRY TO CLOSE OPEN FORMS OR TASKS
 function closeOpenForms(){
     try{
         document.querySelector('#cancelTask').click();
@@ -217,6 +199,10 @@ function closeOpenTasks(){
     }
     catch(err){}
 };
+
+// ADD NEW LIST
+const openListForm = document.querySelector('#addListBtn');
+const listForm = document.querySelector('#listForm');
 
 openListForm.addEventListener('click', () => {
     closeOpenForms();
@@ -246,46 +232,63 @@ listForm.addEventListener('submit', e => {
     });
 });
 
+// LIST ACTIONS
+const cellContainer = document.querySelector('#cellContainer');
+// ADD TASK BUTTON / SAVE TASK / CANCEL TASK
 cellContainer.addEventListener('click', e => {
     if(e.target.matches('.addTaskBtn')){
         closeOpenForms();
-        toggleTaskCreation(e.target);
+        e.target.closest('.addTask').innerHTML = `
+        <form id="taskForm">
+            <input id="newTaskname" type="text" placeholder="Taskname...">
+            <button type="submit" id="saveTask" IsTabStop="false"><i class="far fa-check-circle"></i></button>
+            <button type="button" id="cancelTask" IsTabStop="false"><i class="far fa-times-circle"></i></button>
+        </form>`;
+        document.getElementById('newTaskname').focus();
+        document.getElementById('saveTask').addEventListener('click', e => {
+            e.preventDefault();
+            const taskName = e.target.previousElementSibling.value.trim();
+            const listID = e.target.closest('.list').id;
+            fetch('/desk/task', {
+                method: 'POST',
+                body: JSON.stringify(
+                    {
+                        name: taskName,
+                        listID: listID
+                    }
+                ),
+                headers: {'Content-Type' : 'Application/json; charset=UTF-8'}
+            })
+            .then(res => res.json())
+            .then(newLists => {
+                deskData.lists = newLists;
+                renderLists();
+                const currentList = document.getElementById(listID);
+                currentList.querySelector('.addTaskBtn').click();
+            });
+        });
     }
-    else if(e.target.matches('#cancelTask')){
+    if(e.target.matches('#cancelTask')){
         e.target.closest('.addTask').innerHTML = `
         <button class="addTaskBtn"><i class="fas fa-plus"></i> Add Task</button>`;
     }
-    else if(e.target.matches('#saveTask')){
-        e.preventDefault();
-        const taskName = e.target.previousElementSibling.value.trim();
-        const listID = e.target.closest('.list').id;
-        fetch('/desk/task', {
-            method: 'POST',
-            body: JSON.stringify(
-                {
-                    name: taskName,
-                    listID: listID
-                }
-            ),
-            headers: {'Content-Type' : 'Application/json; charset=UTF-8'}
-        })
-        .then(res => res.json())
-        .then(newLists => {
-            deskData.lists = newLists;
-            renderLists();
-        });
-    }
 });
 
+// EXPAND / COLLAPSE TASK FIELD
 cellContainer.addEventListener('click', e => {
     if(!e.target.matches('.task')) return;
     closeOpenForms();
     if(!e.target.classList.contains('task-expand')){
         closeOpenTasks();
     }
-    toggleTaskField(e.target);
+    const taskButtons = e.target.querySelector('.task-buttons');
+    e.target.classList.toggle('task-expand');
+    setTimeout(() => {
+        taskButtons.classList.toggle('task-closed');    
+    }, 85);
 });
 
+// COMPLETE TASK / SHOW TASK INFO
 cellContainer.addEventListener('click', e => {
     if(e.target.matches('.taskComplete')){
         const taskID = e.target.closest('.task').id;
