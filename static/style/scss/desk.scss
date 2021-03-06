@@ -529,6 +529,21 @@ main{
     }
 }
 
+#taskModal{             //## ToDo - Task Modal UI
+    #taskHead{
+        width: 100%;
+    }
+    #taskName{
+        font-size: 1.1rem;
+        cursor: pointer;
+    }
+    #taskNameInput{
+        border-radius: 5px;
+        border: 2px solid $secondary2;
+        width: 90%;
+    }
+}
+
 #inviteModal{
     .modal-header{
         height: 50px;

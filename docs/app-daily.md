@@ -98,36 +98,36 @@
     * Desk Auswahl
     * Weiterleitung auf Desk bereich
 
-#### 18.02 - 19.02.2021
+#### 19.02.2021
 * **App-Work :**
     * alle nötigen daten von server und DB in den desk bereich laden
     * 404 Page + Routing
 
-#### 19.02 - 20.02.2021
+#### 20.02.2021
 * **App-Work :**
     * User Image Funktionen erstellt
     * Dashboard UI updates
 * **Dokumentation :**
     * Code- und allgemein- dokumentation
 
-#### 20.02 - 21.02.2021
+#### 21.02.2021
 * **App-Work :**
     * server.js update
     * routen aufteilen
 
-#### 21.02 - 22.02.2021
+#### 22.02.2021
 * **App-Work :**
     * express-session package
     * von lokal zwischenspeicher auf session speicher
     * unnötiges fetching von user passwort aus DB verhindert
 
-#### 22.02 - 23.02.2021
+#### 23.02.2021
 * **App-Work :**
     * Dashboard Funktionen (UI + JavaScript)
     * Board Sorting
     * Sorting Präferenz in localStorage speichern
 
-#### 23.02 - 24.02.2021
+#### 24.02.2021
 * **App-Work :**
     * Board Sorting Bug Fix
 * **Dokumentation :**
@@ -154,12 +154,12 @@
     * Check Admin-Rechte
     * Deskname ändern
 
-#### 02.03 - 03.03.2021
+#### 03.03.2021
 * **App-Work :**
     * User einladen funktionalität
     * Board : einladungen annehmen oder ablehnen
 
-#### 03.03 - 04.03.2021
+#### 04.03.2021
 * **App-Work :**
     * Desk verlassen (member):
         * member von desk löschen
@@ -169,15 +169,22 @@
         * Desk ref von admin user löschen
         * Desk ref von jedem member löschen
 
-#### 04.03 - 05.03.2021
+#### 05.03.2021
 * **App-Work :**
     * Neue MongoDB schemas erstellt (List, Task)
     * Task Schema in List Schema integriert
     * List Schema in Desk Schema integriert
+
+#### 06.03.2021
+* **App-Work :**
     * Funktionen um neue liste zu erstellen
     * Funktionen um neuen Task zu erstellen
     * Liste löschen
     * Tasks ausklappen
+
+#### 07.03.2021
+* **App-Work :**
     * HTML <template> für List und Task
     * Task löschen
     * Task Info öffnen
+    * Vergangene Zeit errechnen seit Task erstellt wurde

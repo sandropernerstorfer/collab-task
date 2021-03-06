@@ -12,6 +12,10 @@ const TaskSchema = mongoose.Schema({
     location: {
         type: String,
         default: null
+    },
+    date: {
+        type: Date,
+        default: Date.now
     }
 });
 

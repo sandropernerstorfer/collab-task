@@ -11,6 +11,7 @@ fetch('/desk/deskdata')
     renderMembers();
     addRoleDependingEvents();
     renderLists();
+    document.querySelector('.taskInfo').click();
 });
 
 function renderDeskname(){
@@ -321,10 +322,46 @@ function deleteList(id){
 
 // LOAD SPECIFIC TASK INFO
 function openTaskModal(listID, taskID){
+    // Find index of list
     const getIndexWithID = list => list._id == listID;
     const listIndex = deskData.lists.findIndex(getIndexWithID);
-    // Task Data
-    const {name, description, location} = deskData.lists[listIndex].tasks.find( task => task._id == taskID);
+    // Find and Deconstruct Task in List
+    const {name, description, location, date} = deskData.lists[listIndex].tasks.find( task => task._id == taskID);
+    // Get Time that passed since creation
+    const timeSinceCreation = calculatePassedTime(new Date(date).getTime());
+
+    document.querySelector('#timePassed').textContent = timeSinceCreation;
+};
+/**
+ * Rechnet die vergangene Zeit zwischen 2 Zeitpunkten und gibt die Anzahl in Tagen, Stunden, Minuten oder Sekunden zurück.
+ * @param {STRING} earlierMS Earlier Time in milliseconds.
+ * @param {STRING} laterMS Optional. Time after in milliseconds.
+ * @default Date.now()
+ * @returns Depending on calculation the return value will be the time passed in: Days, Hours, Minutes or Seconds.
+ */
+function calculatePassedTime(earlierMS, laterMS = Date.now()){
+    // if minimum 1 Day: return Days
+    let msBetween = (laterMS - earlierMS) / (1000*3600*24);
+    if(msBetween >= 1){
+        const days = Math.floor(msBetween);
+        return days == 1 ? days+' day' : days+' days';
+    }
+    // if minimum 1 Hour: return Hours
+    msBetween = (laterMS - earlierMS) / (1000*3600);
+    if(msBetween >= 1){
+        const hours = Math.floor(msBetween);
+        return hours == 1 ? hours+' hour' : hours+' hours';
+    }
+    // if minimum 1 Minute: return Minutes
+    msBetween = (laterMS - earlierMS) / 60000;
+    if(msBetween >= 1){
+        const minutes = Math.floor(msBetween);
+        return minutes == 1 ? minutes+' minute' : minutes+' minutes';
+    }
+    // if below 1 Minute: return Seconds
+    msBetween = (laterMS - earlierMS) / 1000;
+    const seconds = Math.floor(msBetween);
+    return seconds == 1 ? seconds+' second' : seconds+' seconds';
 };
 
 // DELETE SPECIFIC TASK

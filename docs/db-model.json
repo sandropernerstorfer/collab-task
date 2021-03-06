@@ -16,7 +16,7 @@
         "admin": "REQUIRED STRING",
         "members": "ARRAY of STRINGS",
         "lists": "ARRAY of SCHEMA(List)",
-        "date": "DATE.now"
+        "date": "Date.now"
     },
     "list": {
         "name": "REQUIRED STRING",
@@ -26,6 +26,7 @@
     "task": {
         "name": "REQUIRED STRING",
         "description": "STRING / default ''",
-        "location": "STRING / default NULL"    
+        "location": "STRING / default NULL",
+        "date": "Date.now"
     }
 }
