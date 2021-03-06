@@ -141,6 +141,9 @@ function renderLists(){
         final.querySelector('.list').id = list._id;
         final.querySelector('.list-name').textContent = list.name; 
 
+        // DELETE LIST EVENT
+        final.querySelector('.delete-list').addEventListener('click', () => { deleteList(list._id)});
+
         const taskContainer = final.querySelector('.list-tasks');
         list.tasks.forEach( task => {
             taskContainer.innerHTML += `<li id=${task._id} class="task"><span>${task.name}</span><div class="task-buttons task-closed"><button class="taskComplete"><i class="far fa-calendar-check"></i> Done</button><button class="taskInfo"><i class="fas fa-info"></i> Info</button></div></li>`;
@@ -169,12 +172,51 @@ openChat.addEventListener('click', () => {
     document.querySelector('#chatWindow').classList.toggle('d-none');
 });
 
+// LIST & TASK ACTIONS
+const cellContainer = document.querySelector('#cellContainer');
 const openListForm = document.querySelector('#addListBtn');
 const listForm = document.querySelector('#listForm');
+
 function toggleListCreation(){
     openListForm.classList.toggle('d-none');
     listForm.classList.toggle('d-none');    
-}
+};
+function toggleTaskCreation(element){
+    element.closest('.addTask').innerHTML = `
+    <form id="taskForm">
+        <input id="newTaskname" type="text" placeholder="Taskname...">
+        <button type="submit" id="saveTask" IsTabStop="false"><i class="far fa-check-circle"></i></button>
+        <button type="button" id="cancelTask" IsTabStop="false"><i class="far fa-times-circle"></i></button>
+    </form>`;
+    document.getElementById('newTaskname').focus();
+};
+function toggleTaskField(element){
+    const taskButtons = element.querySelector('.task-buttons');
+    element.classList.toggle('task-expand');
+    setTimeout(() => {
+        taskButtons.classList.toggle('task-closed');    
+    }, 85); 
+};
+function closeOpenForms(){
+    try{
+        document.querySelector('#cancelTask').click();
+    }
+    catch(err){}
+    if(!listForm.classList.contains('d-none')){
+        document.querySelector('#cancelList').click();
+    }
+};
+function closeOpenTasks(){
+    try{
+        document.querySelectorAll('.task-expand').forEach(element => {
+            element.classList.remove('task-expand');
+        });
+        document.querySelectorAll('.task-buttons').forEach(element => {
+            element.classList.add('task-closed');
+        });
+    }
+    catch(err){}
+};
 
 openListForm.addEventListener('click', () => {
     closeOpenForms();
@@ -204,40 +246,8 @@ listForm.addEventListener('submit', e => {
     });
 });
 
-const cellContainer = document.querySelector('#cellContainer');
-function toggleTaskCreation(element){
-    element.closest('.addTask').innerHTML = `
-    <form id="taskForm">
-    <input id="newTaskname" type="text" placeholder="Taskname...">
-    <button type="submit" id="saveTask" IsTabStop="false"><i class="far fa-check-circle"></i></button>
-    <button type="button" id="cancelTask" IsTabStop="false"><i class="far fa-times-circle"></i></button>
-    </form>`;
-    document.getElementById('newTaskname').focus();
-};
-function closeOpenForms(){
-    try{
-        document.querySelector('#cancelTask').click();
-    }
-    catch(err){}
-    if(!listForm.classList.contains('d-none')){
-        document.querySelector('#cancelList').click();
-    }
-};
-
 cellContainer.addEventListener('click', e => {
-    if(e.target.matches('.delete-list')){
-        const listID = e.target.closest('.list').id;
-        fetch(`/desk/list/${listID}`, {
-            method: 'DELETE'
-        })
-        .then(res => res.json())
-        .then(newLists => {
-            if(!newLists) return;
-            deskData.lists = newLists;
-            renderLists();
-        });
-    }
-    else if(e.target.matches('.addTaskBtn')){
+    if(e.target.matches('.addTaskBtn')){
         closeOpenForms();
         toggleTaskCreation(e.target);
     }
@@ -276,26 +286,6 @@ cellContainer.addEventListener('click', e => {
     toggleTaskField(e.target);
 });
 
-function toggleTaskField(element){
-    const taskButtons = element.querySelector('.task-buttons');
-    element.classList.toggle('task-expand');
-    setTimeout(() => {
-        taskButtons.classList.toggle('task-closed');    
-    }, 85); 
-};
-
-function closeOpenTasks(){
-    try{
-        document.querySelectorAll('.task-expand').forEach(element => {
-            element.classList.remove('task-expand');
-        });
-        document.querySelectorAll('.task-buttons').forEach(element => {
-            element.classList.add('task-closed');
-        });
-    }
-    catch(err){}
-};
-
 cellContainer.addEventListener('click', e => {
     if(e.target.matches('.taskComplete')){
         const taskID = e.target.closest('.task').id;
@@ -306,3 +296,16 @@ cellContainer.addEventListener('click', e => {
         console.log('INFO FOR '+taskID);
     }
 });
+
+// DELETE LIST
+function deleteList(id){
+    fetch(`/desk/list/${id}`, {
+        method: 'DELETE'
+    })
+    .then(res => res.json())
+    .then(newLists => {
+        if(!newLists) return;
+        deskData.lists = newLists;
+        renderLists();
+    });
+};
