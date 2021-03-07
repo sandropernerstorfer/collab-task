@@ -109,10 +109,9 @@ router.post('/task', async (req, res) => {
         name: req.body.name
     };
     const desk = await Desk.findOne({_id: req.session.currentDesk}, (err, doc) => {
-        if(err || !doc){
-            res.end(JSON.stringify(false));
-        }
+        if(err) res.end(JSON.stringify(false));
     });
+    if(!desk){ res.end(JSON.stringify(false))};
     desk.lists.forEach( list => {
         if(list._id == req.body.listID){
             list.tasks.push(newTask);
@@ -125,11 +124,9 @@ router.post('/task', async (req, res) => {
 router.delete('/task/:listID/:taskID', async (req, res) => {
     const {listID, taskID} = req.params;
     const desk = await Desk.findOne({_id: req.session.currentDesk}, (err, doc) => {
-        if(err || !doc){
-            res.end(JSON.stringify(false));
-        }
+        if(err) res.end(JSON.stringify(false));
     });
-
+    if(!desk){ res.end(JSON.stringify(false))};
     const getIndexWithID = list => list._id == listID;
     const listIndex = desk.lists.findIndex(getIndexWithID);
 

@@ -321,7 +321,15 @@ function deleteList(id){
 };
 
 // LOAD SPECIFIC TASK INFO
+const taskNameTextarea = document.querySelector('#taskNameTextarea');
+const taskDescTextarea = document.querySelector('#taskDescriptionTextarea');
+
 function openTaskModal(listID, taskID){
+    // When modal open Auto set Textarea Height to content size
+    setTimeout(() => {
+        autoSetTextareaHeight(taskNameTextarea);
+        autoSetTextareaHeight(taskDescTextarea);
+    }, 170);
     // Find index of list
     const getIndexWithID = list => list._id == listID;
     const listIndex = deskData.lists.findIndex(getIndexWithID);
@@ -329,7 +337,10 @@ function openTaskModal(listID, taskID){
     const {name, description, location, date} = deskData.lists[listIndex].tasks.find( task => task._id == taskID);
     // Get Time that passed since creation
     const timeSinceCreation = calculatePassedTime(new Date(date).getTime());
+    taskNameTextarea.value = name;
+    taskDescTextarea.value = description;
 };
+
 /**
  * ## calculatePassedTime()
  * Rechnet die vergangene Zeit zwischen 2 Zeitpunkten und gibt die Anzahl in Tagen, Stunden, Minuten oder Sekunden zurück.
@@ -362,6 +373,23 @@ function calculatePassedTime(earlierMS, laterMS = Date.now()){
     const seconds = Math.floor(msBetween);
     return seconds == 1 ? seconds+' second' : seconds+' seconds';
 };
+
+// Keep resizing textarea on input
+taskNameTextarea.addEventListener('input', e => {
+    autoSetTextareaHeight(taskNameTextarea); 
+});
+taskDescTextarea.addEventListener('input', e => {
+    autoSetTextareaHeight(taskDescTextarea);
+});
+
+/**
+ * #### Auto Set height of textare to content size
+ * @param {HTML ELEMENT} textarea html textarea
+ */
+function autoSetTextareaHeight(textarea){
+    textarea.style.height = "5px";
+    textarea.style.height = (textarea.scrollHeight)+"px";
+}
 
 // DELETE SPECIFIC TASK
 function deleteTask(listID, taskID){

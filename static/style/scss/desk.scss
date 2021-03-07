@@ -529,18 +529,47 @@ main{
     }
 }
 
-#taskModal{             //## ToDo - Task Modal UI
-    #taskHead{
-        width: 100%;
-    }
-    #taskName{
-        font-size: 1.1rem;
+#taskModal{
+    #taskNameTextarea{
+        margin-top: 6px;
+        overflow-y: hidden;
+        font-size: 1rem;
+        padding-left: 6px;
+        color: #182B4D;
+        font-weight: 600;
         cursor: pointer;
-    }
-    #taskNameInput{
-        border-radius: 5px;
-        border: 2px solid $secondary2;
         width: 90%;
+        height: auto;
+        resize: none;
+        border: 0;
+        &:focus{
+            outline: none !important;
+        }
+    }
+    .modal-body{
+        label{
+            color: $primaryText;
+            font-size: .9rem;
+            margin-bottom: 5px;
+            i{
+                color: $secondary2;
+            }    
+        }
+    }
+    #taskDescriptionTextarea{
+        width: 100%;
+        resize: none;
+        overflow-y: hidden;
+        color: $primaryText;
+        font-size: .96rem;
+        min-height: 150px;
+        padding: 5px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        &:focus{
+            outline: none !important;
+        }
     }
 }
 
