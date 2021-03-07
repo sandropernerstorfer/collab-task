@@ -334,7 +334,7 @@ function openTaskModal(listID, taskID){
     const getIndexWithID = list => list._id == listID;
     const listIndex = deskData.lists.findIndex(getIndexWithID);
     // Find and Deconstruct Task in List
-    const {name, description, location, date} = deskData.lists[listIndex].tasks.find( task => task._id == taskID);
+    const {name, description, members, date} = deskData.lists[listIndex].tasks.find( task => task._id == taskID);
 
     taskNameTextarea.value = name;
     taskDescTextarea.value = description;
@@ -382,6 +382,15 @@ taskNameTextarea.addEventListener('input', e => {
 });
 taskDescTextarea.addEventListener('input', e => {
     autoSetTextareaHeight(taskDescTextarea);
+});
+
+// Update Task-Name & Description
+taskNameTextarea.addEventListener('change', () => {
+    console.log(taskNameTextarea.value);
+});
+
+taskDescTextarea.addEventListener('change', () => {
+    console.log(taskDescTextarea.value);
 });
 
 /**

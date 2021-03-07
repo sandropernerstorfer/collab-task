@@ -533,17 +533,20 @@ main{
     #taskNameTextarea{
         margin-top: 6px;
         overflow-y: hidden;
-        font-size: 1rem;
+        font-size: 1.1rem;
         padding-left: 6px;
-        color: #182B4D;
+        color: $primaryText;
         font-weight: 600;
         cursor: pointer;
         width: 90%;
         height: auto;
         resize: none;
-        border: 0;
+        border-radius: 5px;
+        border: 2px solid transparent;
         &:focus{
-            outline: none !important;
+            outline: none;
+            cursor: text;
+            border-color: $secondary2;
         }
     }
     .modal-body{
@@ -571,14 +574,23 @@ main{
         resize: none;
         overflow-y: hidden;
         color: $primaryText;
-        font-size: .96rem;
-        min-height: 150px;
+        font-size: .88rem;
+        font-weight: 300;
+        min-height: 120px;
         padding: 5px;
         margin-bottom: 10px;
-        border: 1px solid #ccc;
+        border: 1px solid rgba(204, 204, 204, 0.664);
+        cursor: pointer;
         border-radius: 5px;
         &:focus{
-            outline: none !important;
+            outline: none;
+            border-color: $secondary2;
+            color: rgba(34, 34, 34, 0.89);
+            cursor: text;
+        }
+        &::placeholder{
+            color: $placeholder;
+            font-weight: 300;
         }
     }
     #taskForceChoice{

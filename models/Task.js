@@ -9,10 +9,7 @@ const TaskSchema = mongoose.Schema({
         type: String,
         default: ''
     },
-    location: {
-        type: String,
-        default: null
-    },
+    members: [String],
     date: {
         type: Date,
         default: Date.now
