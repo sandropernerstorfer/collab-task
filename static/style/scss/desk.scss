@@ -547,6 +547,7 @@ main{
         }
     }
     .modal-body{
+        padding-bottom: 5px;
         label{
             color: $primaryText;
             font-size: .9rem;
@@ -554,6 +555,15 @@ main{
             i{
                 color: $secondary2;
             }    
+        }
+        small{
+            color: rgb(150, 150, 150);
+            font-size: .8rem;
+            cursor: default;
+            margin-top: 5px;
+        }
+        #passedTime{
+            color: $secondary2;
         }
     }
     #taskDescriptionTextarea{
@@ -583,7 +593,7 @@ main{
         border: 1px solid #ccc;
         border-radius: 5px;
         padding: 10px;
-        margin-top: 10px;
+        margin: 10px 0;
     }
 
     .member-choice{

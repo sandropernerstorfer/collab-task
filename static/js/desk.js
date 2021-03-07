@@ -335,10 +335,12 @@ function openTaskModal(listID, taskID){
     const listIndex = deskData.lists.findIndex(getIndexWithID);
     // Find and Deconstruct Task in List
     const {name, description, location, date} = deskData.lists[listIndex].tasks.find( task => task._id == taskID);
-    // Get Time that passed since creation
-    const timeSinceCreation = calculatePassedTime(new Date(date).getTime());
+
     taskNameTextarea.value = name;
     taskDescTextarea.value = description;
+    // Get Time that passed since creation
+    const timeSinceCreation = calculatePassedTime(new Date(date).getTime());
+    document.querySelector('#passedTime').textContent = timeSinceCreation;
 };
 
 /**
