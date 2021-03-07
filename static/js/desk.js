@@ -331,11 +331,12 @@ function openTaskModal(listID, taskID){
     const timeSinceCreation = calculatePassedTime(new Date(date).getTime());
 };
 /**
+ * ## calculatePassedTime()
  * Rechnet die vergangene Zeit zwischen 2 Zeitpunkten und gibt die Anzahl in Tagen, Stunden, Minuten oder Sekunden zurück.
- * @param {STRING} earlierMS Earlier Time in milliseconds.
- * @param {STRING} laterMS Optional. Time after in milliseconds.
+ * @param {STRING} earlierMS Früherer Zeitpunkt in ms.
+ * @param {STRING} laterMS   Späterer Zeitpunkt in ms. <- (Optional)
  * @default Date.now()
- * @returns Depending on calculation the return value will be the time passed in: Days, Hours, Minutes or Seconds.
+ * @returns Nach dem Errechnen der vergangenen Zeit wird der Wert je nach Ergebnis in: Days, Hours, Minutes or Seconds zurück gegeben.
  */
 function calculatePassedTime(earlierMS, laterMS = Date.now()){
     // if minimum 1 Day: return Days
