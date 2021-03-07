@@ -108,7 +108,11 @@ router.post('/task', async (req, res) => {
     const newTask = {
         name: req.body.name
     };
-    const desk = await Desk.findOne({_id: req.session.currentDesk});
+    const desk = await Desk.findOne({_id: req.session.currentDesk}, (err, doc) => {
+        if(err || !doc){
+            res.end(JSON.stringify(false));
+        }
+    });
     desk.lists.forEach( list => {
         if(list._id == req.body.listID){
             list.tasks.push(newTask);
