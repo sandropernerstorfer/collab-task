@@ -153,4 +153,22 @@ router.patch('/task/name', async (req, res) => {
     res.end(JSON.stringify(updated.lists));
 });
 
+router.patch('/task/description', async (req, res) => {
+    const {desc, listID, taskID} = req.body;
+    const desk = await Desk.findOne({_id: req.session.currentDesk}, (err, doc) => {
+        if(err) res.end(JSON.stringify(false));
+    });
+    if(!desk){ res.end(JSON.stringify(false)) };
+    const getIndexWithID = list => list._id == listID;
+    const listIndex = desk.lists.findIndex(getIndexWithID);
+
+    desk.lists[listIndex].tasks.forEach( task => {
+        if(task._id == taskID){
+            task.description = desc;
+        };
+    });
+    const updated = await desk.save();
+    res.end(JSON.stringify(updated.lists));
+});
+
 module.exports = router;

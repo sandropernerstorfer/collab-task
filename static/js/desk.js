@@ -387,7 +387,7 @@ taskDescTextarea.addEventListener('input', e => {
     autoSetTextareaHeight(taskDescTextarea);
 });
 
-// Update Task-Name & Description
+// Update Task-Name
 taskNameTextarea.addEventListener('change', () => {
     const newName = taskNameTextarea.value;
     fetch(`/desk/task/name`, {
@@ -407,8 +407,23 @@ taskNameTextarea.addEventListener('change', () => {
     });
 });
 
+// Update Task-Description
 taskDescTextarea.addEventListener('change', () => {
     const newDesc = taskDescTextarea.value;
+    fetch(`/desk/task/description`, {
+        method: 'PATCH',
+        body: JSON.stringify({
+            desc: newDesc,
+            listID: currentList,
+            taskID: currentTask
+        }),
+        headers: {'Content-Type' : 'application/json; charset=UTF-8'}
+    })
+    .then(res => res.json())
+    .then(newLists => {
+        if(!newLists) return;
+        deskData.lists = newLists;
+    });
 });
 
 /**
@@ -418,7 +433,7 @@ taskDescTextarea.addEventListener('change', () => {
 function autoSetTextareaHeight(textarea){
     textarea.style.height = "5px";
     textarea.style.height = (textarea.scrollHeight)+"px";
-}
+};
 
 // DELETE SPECIFIC TASK
 function deleteTask(listID, taskID){

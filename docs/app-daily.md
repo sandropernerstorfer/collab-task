@@ -196,3 +196,4 @@
     * Editable Textareas (Task Name + Description)
     * Statt Task Location -> Task Members/Team
     * Update Task-Name
+    * Update Task-Description
