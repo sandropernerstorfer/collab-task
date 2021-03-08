@@ -188,3 +188,11 @@
     * Task löschen
     * Task Info öffnen
     * Vergangene Zeit errechnen seit Task erstellt wurde
+
+#### 08.03.2021
+* **App-Work :**
+    * Task Modal ( More Info ) UI
+    * Dynamic Task Data
+    * Editable Textareas (Task Name + Description)
+    * Statt Task Location -> Task Members/Team
+    * Update Task-Name

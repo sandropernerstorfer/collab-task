@@ -323,8 +323,11 @@ function deleteList(id){
 // LOAD SPECIFIC TASK INFO
 const taskNameTextarea = document.querySelector('#taskNameTextarea');
 const taskDescTextarea = document.querySelector('#taskDescriptionTextarea');
+let currentList, currentTask;
 
 function openTaskModal(listID, taskID){
+    currentList = listID;
+    currentTask = taskID;
     // When modal open Auto set Textarea Height to content size
     setTimeout(() => {
         autoSetTextareaHeight(taskNameTextarea);
@@ -335,7 +338,7 @@ function openTaskModal(listID, taskID){
     const listIndex = deskData.lists.findIndex(getIndexWithID);
     // Find and Deconstruct Task in List
     const {name, description, members, date} = deskData.lists[listIndex].tasks.find( task => task._id == taskID);
-
+    // Display Taskname + Task Description
     taskNameTextarea.value = name;
     taskDescTextarea.value = description;
     // Get Time that passed since creation
@@ -386,11 +389,26 @@ taskDescTextarea.addEventListener('input', e => {
 
 // Update Task-Name & Description
 taskNameTextarea.addEventListener('change', () => {
-    console.log(taskNameTextarea.value);
+    const newName = taskNameTextarea.value;
+    fetch(`/desk/task/name`, {
+        method: 'PATCH',
+        body: JSON.stringify({
+            name: newName,
+            listID: currentList,
+            taskID: currentTask
+        }),
+        headers: {'Content-Type' : 'application/json; charset=UTF-8'}
+    })
+    .then(res => res.json())
+    .then(newLists => {
+        if(!newLists) return;
+        deskData.lists = newLists;
+        document.getElementById(currentTask).querySelector('.taskName').textContent = newName;
+    });
 });
 
 taskDescTextarea.addEventListener('change', () => {
-    console.log(taskDescTextarea.value);
+    const newDesc = taskDescTextarea.value;
 });
 
 /**
