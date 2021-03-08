@@ -28,8 +28,8 @@ function renderMembers(){
     const membersDiv = document.querySelector('#topMembers');
     memberData.forEach(member => {
         const url = member.image == null ? '../../assets/img/user-default.png' : `https://res.cloudinary.com/sandrocloud/image/upload/w_50,c_scale/${member.image}`;
-        membersDiv.innerHTML += `<div id="${member._id}" class="member-card"></div>`;
-        const currentMember = document.getElementById(`${member._id}`);
+        membersDiv.innerHTML += `<div id="topMember${member._id}" class="member-card"></div>`;
+        const currentMember = document.getElementById(`topMember${member._id}`);
         currentMember.style.backgroundImage = `url(${url})`;
         currentMember.setAttribute('title', member.name);
     });
@@ -347,6 +347,26 @@ function openTaskModal(listID, taskID){
     document.querySelector('#passedTime').textContent = timeSinceCreation;
     // Display Members to add and already added members
     const {available, assigned} = filterTaskMembers(task.members);
+
+    const availableRow = document.querySelector('#availableRow');
+    availableRow.innerHTML = '';
+    available.forEach( user => {
+        const url = user.image == null ? '../../assets/img/user-default.png' : `https://res.cloudinary.com/sandrocloud/image/upload/w_40,c_scale/${user.image}`;
+        availableRow.innerHTML += `<div id="${user._id}" class="task-member"><i class="fas fa-plus-circle"></i></div>`;
+        const div = document.getElementById(`${user._id}`);
+        div.style.backgroundImage = `url(${url})`;
+        div.setAttribute('title', user.name);
+    });
+
+    const assignedRow = document.querySelector('#assignedRow');
+    assignedRow.innerHTML = '';
+    assigned.forEach( user => {
+        const url = user.image == null ? '../../assets/img/user-default.png' : `https://res.cloudinary.com/sandrocloud/image/upload/w_40,c_scale/${user.image}`;
+        assignedRow.innerHTML += `<div id="${user._id}" class="task-member"><i class="fas fa-minus-circle"></i></div>`;
+        const div = document.getElementById(`${user._id}`);
+        div.style.backgroundImage = `url(${url})`;
+        div.setAttribute('title', user.name);
+    });
 };
 
 /**

@@ -593,34 +593,43 @@ main{
             font-weight: 300;
         }
     }
-    #assignRow{
+    #availableRow{
         @include flex(flex-start,center);
         width: 100%;
         height: auto;
         padding-left: 6px;
+        i{
+            color: $primary;
+        }
     }
 
-    #assignedMembers{
-        @include flex(space-evenly,center);
+    #assignedRow{
+        @include flex(flex-start,center);
         border: 1px solid #ccc;
         border-radius: 5px;
         padding: 10px;
         margin: 10px 0;
+        height: 57px;
+        i{
+            color: $error;
+        }
     }
 
     .task-member{
         position: relative;
         width: 35px;
         height: 35px;
-        border: 1px solid #ccc;
         border-radius: 50%;
         margin-right: 8px;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        background-color: transparent;
 
         i{
             position: absolute;
             bottom: 0;
             left: -5px;
-            color: $primary;
             background-color: #fff;
             border-radius: 50%;
         }
