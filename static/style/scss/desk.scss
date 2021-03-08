@@ -202,11 +202,11 @@ main{
 
     #renameBtn{
         border-radius: 0 5px 5px 0;
-        border: 1px solid #0e6efdb7;
+        border: 1px solid $secondary2;
         border-left: 0;
         padding: 0 3px;
         color: #fff;
-        background-color: #0e6efdb7;
+        background-color: $secondary2;
     }
 
     #dangerIcon{
@@ -608,7 +608,7 @@ main{
     #availableRow{
         @include flex(flex-start,center);
         width: 100%;
-        height: 57px;
+        min-height: 57px;
         padding-left: 10px;
         span{
             text-align: center;
@@ -627,7 +627,7 @@ main{
         border-radius: 5px;
         padding: 10px;
         margin: 10px 0;
-        height: 57px;
+        min-height: 57px;
         span{
             text-align: center;
             width: 100%;
@@ -679,7 +679,7 @@ main{
     }
     form{
         @include flex(space-between,center);
-        margin-top: 10px;
+        margin-top: 4px;
         width: 100%;
         input{
             width: 85%;
