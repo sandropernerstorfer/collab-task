@@ -1,5 +1,18 @@
 @import 'base';
 
+[data-theme="dark"]{
+    --theme-bg : #373f47;
+    --theme-txt: #F5F5F5;
+    --theme-border: 1px solid transparent;
+    --border-color: #fff;
+}
+[data-theme="light"]{
+    --theme-bg : #fff;
+    --theme-txt: $primaryText;
+    --theme-border: 1px solid #ccc;
+    --border-color: rgb(231, 231, 231);
+}
+
 *::selection{
     background-color: $secondary2;
     color: #fff;
@@ -97,12 +110,12 @@ main{
     height: 37px;
     width: 100%;
     padding: 10px 5px 0 5px;
-    background-color: #373f47;
+    background-color: var(--theme-bg);
 
     button{
         border: 0;
         background-color: transparent;
-        color: #F5F5F5;
+        color: var(--theme-txt);
         font-weight: 300;
         margin-right: 10px;
         border-radius: 5px;
@@ -120,7 +133,7 @@ main{
         #searchbar, #clearSearch{
             width: auto;
             border-style: solid;
-            border-color: #fff;
+            border-color: var(--border-color);
             font-size: .9rem;
             transition: border-color .3s;
         }
@@ -168,6 +181,7 @@ main{
     overflow-y: auto;
     background-color: #fff;
     z-index: 50;
+    border: var(--theme-border);
 
     .menuSection{
         @include flex(space-between,center);
@@ -185,7 +199,9 @@ main{
         border-radius: 5px;
     }
 
-    #alignSwitch{
+    #darkModeSwitch{
+        position: relative;
+        right: -6px;
         margin-top: 7px;
         cursor: pointer;
     }
@@ -280,10 +296,9 @@ main{
     overflow-x: scroll;
     overflow-y: auto;
     padding-top: 10px;
-    // background-color: #fff;
-    background-color: #373f47;
+    background-color: var(--theme-bg);
     &::-webkit-scrollbar{
-        background-color: #373f47;;
+        background-color: var(--theme-bg);
         height: 10px;
     }
     &::-webkit-scrollbar-thumb{

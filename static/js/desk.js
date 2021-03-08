@@ -588,3 +588,24 @@ function deleteTask(listID, taskID){
         renderLists();
     });
 };
+
+// COLOR THEME
+const theme = localStorage.getItem('task_deskDarkTheme');
+const themeSwitch = document.querySelector('#darkModeSwitch');
+
+theme ? applyDarkTheme() : applyLightTheme();
+
+themeSwitch.addEventListener('click', () => {
+    themeSwitch.checked ? applyDarkTheme() : applyLightTheme();
+});
+
+function applyDarkTheme(){
+    localStorage.setItem('task_deskDarkTheme', true);
+    document.body.setAttribute('data-theme', 'dark');
+    themeSwitch.checked = true;
+    themeSwitch.setAttribute('checked', true);
+};
+function applyLightTheme(){
+    localStorage.removeItem('task_deskDarkTheme');
+    document.body.setAttribute('data-theme', 'light');
+};

@@ -202,3 +202,4 @@
     * Füge Member zu task hinzu
     * Entferne Member von task
     * Task kennzeichnung wenn selbst task member
+    * Desk Theme auswahl
