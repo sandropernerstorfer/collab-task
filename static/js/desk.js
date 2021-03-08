@@ -322,6 +322,8 @@ function deleteList(id){
 // LOAD SPECIFIC TASK INFO
 const taskNameTextarea = document.querySelector('#taskNameTextarea');
 const taskDescTextarea = document.querySelector('#taskDescriptionTextarea');
+const availableRow = document.querySelector('#availableRow');
+const assignedRow = document.querySelector('#assignedRow');
 let currentList, currentTask;
 
 function openTaskModal(listID, taskID){
@@ -332,11 +334,8 @@ function openTaskModal(listID, taskID){
         autoSetTextareaHeight(taskNameTextarea);
         autoSetTextareaHeight(taskDescTextarea);
     }, 170);
-    // Find index of list
-    const getIndexWithID = list => list._id == listID;
-    const listIndex = deskData.lists.findIndex(getIndexWithID);
-    const list = deskData.lists[listIndex];
-    const task = list.tasks.find( task => task._id == taskID);
+    // Find specific Task
+    const task = findSpecificTask(listID, taskID);
     // Find and Deconstruct Task in List
     const {name, description, members, date} = task;
     // Display Taskname + Task Description
@@ -346,10 +345,8 @@ function openTaskModal(listID, taskID){
     const timeSinceCreation = calculatePassedTime(new Date(date).getTime());
     document.querySelector('#passedTime').textContent = timeSinceCreation;
     // Display Members to add and already added members
-    const {available, assigned} = filterTaskMembers(task.members);
+    const {available, assigned} = filterTaskMembers(members);
 
-    const availableRow = document.querySelector('#availableRow');
-    const assignedRow = document.querySelector('#assignedRow');
     availableRow.innerHTML = '';
     assignedRow.innerHTML = '';
 
@@ -362,6 +359,13 @@ function openTaskModal(listID, taskID){
         assignedRow.innerHTML = `<span>Add members that are working on this Task</span>`;
     }
     else renderTaskMembers(assignedRow, assigned);
+};
+
+function findSpecificTask(listID, taskID){
+    const getIndexWithID = list => list._id == listID;
+    const listIndex = deskData.lists.findIndex(getIndexWithID);
+    const list = deskData.lists[listIndex];
+    return list.tasks.find( task => task._id == taskID);
 };
 
 /**
@@ -403,21 +407,26 @@ function calculatePassedTime(earlierMS, laterMS = Date.now()){
  * @returns {OBJECT} Objekt mit zwei Arrays. eines für die zugewiesenen und eines für die verfügbaren member
  */
 function filterTaskMembers(taskMembers){
-    let available = [], assigned = [];
     let allMembers = [...memberData];
     allMembers.unshift(adminData);
+    let available = [], assigned = [];
 
     if(taskMembers.length == 0){
         available = allMembers;
     }
     else{
-        allMembers.forEach( deskMember => {
-            taskMembers.forEach( taskMember => {
-                deskMember._id == taskMember ? assigned.push(deskMember) : available.push(deskMember);
-            });    
+        taskMembers.forEach( member => {
+            let found = allMembers.find( deskMember => {
+                if(deskMember._id == member){
+                    const index = allMembers.indexOf(deskMember);
+                    allMembers.splice(index,1);
+                    return deskMember;
+                }
+            });
+            assigned.push(found);
         });
+        available = allMembers;
     };
-
     return { available: available, assigned: assigned };
 };
 
@@ -435,7 +444,34 @@ function renderTaskMembers(element, array){
 document.querySelector('#availableRow').addEventListener('click', e => {
     if(!e.target.matches('.task-member')) return;
     const userID = e.target.id;
-    console.log('add '+userID);
+    fetch(`/desk/${currentList}/${currentTask}/member`, {
+        method: 'POST',
+        body: JSON.stringify({
+            userID: userID
+        }),
+        headers: {'Content-Type':'application/json; charset=UTF-8'}
+    })
+    .then(res => res.json())
+    .then(newLists => {
+        if(!newLists) return;
+        deskData.lists = newLists;
+        const task = findSpecificTask(currentList, currentTask);
+        const {members} = task;
+        const {available, assigned} = filterTaskMembers(members);
+
+        availableRow.innerHTML = '';
+        assignedRow.innerHTML = '';
+
+        if(available.length == 0){
+            availableRow.innerHTML = `<span>All members are working on this Task</span>`;
+        }
+        else renderTaskMembers(availableRow, available);
+        
+        if(assigned.length == 0){
+            assignedRow.innerHTML = `<span>Add members that are working on this Task</span>`;
+        }
+        else renderTaskMembers(assignedRow, assigned);
+    });
 });
 
 // Remove member from task

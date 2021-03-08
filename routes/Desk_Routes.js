@@ -181,4 +181,28 @@ router.patch('/task/description', async (req, res) => {
     }
 });
 
+router.post('/:listID/:taskID/member', async (req, res) => {
+    const userID = req.body.userID;
+    const listID = req.params.listID;
+    const taskID = req.params.taskID;
+    const desk = await Desk.findOne({_id: req.session.currentDesk}, (err, doc) => {
+        if(err) res.end(JSON.stringify(false));
+    });
+    if(desk){
+        const getIndexWithID = list => list._id == listID;
+        const listIndex = desk.lists.findIndex(getIndexWithID);
+
+        desk.lists[listIndex].tasks.forEach( task => {
+            if(task._id == taskID){
+                task.members.push(userID);
+            };
+        });
+        const updated = await desk.save();
+        res.end(JSON.stringify(updated.lists));
+    }
+    else{
+        res.end(JSON.stringify(false));
+    };
+});
+
 module.exports = router;

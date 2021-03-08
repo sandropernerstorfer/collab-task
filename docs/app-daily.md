@@ -199,3 +199,4 @@
     * Update Task-Description
     * Filter alle member und task member ( available, assigned)
     * Dynamic Task Members
+    * Füge Member zu task hinzu
