@@ -149,6 +149,9 @@ function renderLists(){
             const taskTemplate = document.querySelector('#taskTemplate').content.cloneNode(true);
             taskTemplate.querySelector('.task').id = task._id;
             taskTemplate.querySelector('.taskName').textContent = task.name;
+            if(task.members.includes(userData._id)){
+                taskTemplate.querySelector('.taskMarker').classList.remove('d-none');
+            };
             taskContainer.appendChild(taskTemplate);
         });
 
@@ -476,6 +479,10 @@ document.querySelector('#availableRow').addEventListener('click', e => {
             assignedRow.innerHTML = `<span>Add members that are working on this Task</span>`;
         }
         else renderTaskMembers(assignedRow, assigned);
+
+        if(userID == userData._id){
+            document.getElementById(currentTask).querySelector('.taskMarker').classList.remove('d-none');
+        };
     });
 });
 
@@ -506,6 +513,10 @@ document.querySelector('#assignedRow').addEventListener('click', e => {
             assignedRow.innerHTML = `<span>Add members that are working on this Task</span>`;
         }
         else renderTaskMembers(assignedRow, assigned);
+
+        if(userID == userData._id){
+            document.getElementById(currentTask).querySelector('.taskMarker').classList.add('d-none');
+        };
     });
 });
 

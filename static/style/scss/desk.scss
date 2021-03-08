@@ -419,6 +419,18 @@ main{
 
 .task{
     cursor: pointer;
+    position: relative;
+
+    .taskMarker{
+        position: absolute;
+        top: 3px;
+        right: 3px;
+        width: 6px;
+        height: 6px;
+        border: 1px solid $secondary2;
+        background-color: rgba(28, 191, 202, 0.603);
+        border-radius: 50%;
+    }
 
     span{
         pointer-events: none;
