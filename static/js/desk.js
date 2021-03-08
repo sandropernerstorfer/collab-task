@@ -11,7 +11,6 @@ fetch('/desk/deskdata')
     renderMembers();
     addRoleDependingEvents();
     renderLists();
-    // document.querySelector('.taskInfo').click();
 });
 
 function renderDeskname(){
@@ -336,14 +335,18 @@ function openTaskModal(listID, taskID){
     // Find index of list
     const getIndexWithID = list => list._id == listID;
     const listIndex = deskData.lists.findIndex(getIndexWithID);
+    const list = deskData.lists[listIndex];
+    const task = list.tasks.find( task => task._id == taskID);
     // Find and Deconstruct Task in List
-    const {name, description, members, date} = deskData.lists[listIndex].tasks.find( task => task._id == taskID);
+    const {name, description, members, date} = task;
     // Display Taskname + Task Description
     taskNameTextarea.value = name;
     taskDescTextarea.value = description;
     // Get Time that passed since creation
     const timeSinceCreation = calculatePassedTime(new Date(date).getTime());
     document.querySelector('#passedTime').textContent = timeSinceCreation;
+    // Display Members to add and already added members
+    const {available, assigned} = filterTaskMembers(task.members);
 };
 
 /**
@@ -377,6 +380,30 @@ function calculatePassedTime(earlierMS, laterMS = Date.now()){
     msBetween = (laterMS - earlierMS) / 1000;
     const seconds = Math.floor(msBetween);
     return seconds == 1 ? seconds+' second' : seconds+' seconds';
+};
+
+/**
+ * 
+ * @param {ARRAY} taskMembers Array von member ID's die dem task zugewiesen sind.
+ * @returns {OBJECT} Objekt mit zwei Arrays. eines für die zugewiesenen und eines für die verfügbaren member
+ */
+function filterTaskMembers(taskMembers){
+    let available = [], assigned = [];
+    let allMembers = [...memberData];
+    allMembers.unshift(adminData);
+
+    if(taskMembers.length == 0){
+        available = allMembers;
+    }
+    else{
+        allMembers.forEach( deskMember => {
+            taskMembers.forEach( taskMember => {
+                deskMember._id == taskMember ? assigned.push(deskMember) : available.push(deskMember);
+            });    
+        });
+    };
+
+    return { available: available, assigned: assigned };
 };
 
 // Keep resizing textarea on input

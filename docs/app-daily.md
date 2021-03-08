@@ -197,3 +197,4 @@
     * Statt Task Location -> Task Members/Team
     * Update Task-Name
     * Update Task-Description
+    * Filter alle member und task member ( available, assigned)
