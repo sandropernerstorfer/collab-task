@@ -126,13 +126,16 @@ router.delete('/task/:listID/:taskID', async (req, res) => {
     const desk = await Desk.findOne({_id: req.session.currentDesk}, (err, doc) => {
         if(err) res.end(JSON.stringify(false));
     });
-    if(!desk){ res.end(JSON.stringify(false))};
-    const getIndexWithID = list => list._id == listID;
-    const listIndex = desk.lists.findIndex(getIndexWithID);
-
-    desk.lists[listIndex].tasks = desk.lists[listIndex].tasks.filter( task => task._id != taskID);
-    const updated = await desk.save();
-    res.end(JSON.stringify(updated.lists));
+    if(desk){
+        const getIndexWithID = list => list._id == listID;
+        const listIndex = desk.lists.findIndex(getIndexWithID);
+        desk.lists[listIndex].tasks = desk.lists[listIndex].tasks.filter( task => task._id != taskID);
+        const updated = await desk.save();
+        res.end(JSON.stringify(updated.lists));
+    }
+    else{
+        res.end(JSON.stringify(false));
+    }
 });
 
 router.patch('/task/name', async (req, res) => {
@@ -140,17 +143,20 @@ router.patch('/task/name', async (req, res) => {
     const desk = await Desk.findOne({_id: req.session.currentDesk}, (err, doc) => {
         if(err) res.end(JSON.stringify(false));
     });
-    if(!desk){ res.end(JSON.stringify(false)) };
-    const getIndexWithID = list => list._id == listID;
-    const listIndex = desk.lists.findIndex(getIndexWithID);
-
-    desk.lists[listIndex].tasks.forEach( task => {
-        if(task._id == taskID){
-            task.name = name;
-        };
-    });
-    const updated = await desk.save();
-    res.end(JSON.stringify(updated.lists));
+    if(desk){
+        const getIndexWithID = list => list._id == listID;
+        const listIndex = desk.lists.findIndex(getIndexWithID);
+        desk.lists[listIndex].tasks.forEach( task => {
+            if(task._id == taskID){
+                task.name = name;
+            };
+        });
+        const updated = await desk.save();
+        res.end(JSON.stringify(updated.lists));
+    }
+    else{
+        res.end(JSON.stringify(false));    
+    }
 });
 
 router.patch('/task/description', async (req, res) => {
@@ -158,17 +164,21 @@ router.patch('/task/description', async (req, res) => {
     const desk = await Desk.findOne({_id: req.session.currentDesk}, (err, doc) => {
         if(err) res.end(JSON.stringify(false));
     });
-    if(!desk){ res.end(JSON.stringify(false)) };
-    const getIndexWithID = list => list._id == listID;
-    const listIndex = desk.lists.findIndex(getIndexWithID);
+    if(desk){
+        const getIndexWithID = list => list._id == listID;
+        const listIndex = desk.lists.findIndex(getIndexWithID);
 
-    desk.lists[listIndex].tasks.forEach( task => {
-        if(task._id == taskID){
-            task.description = desc;
-        };
-    });
-    const updated = await desk.save();
-    res.end(JSON.stringify(updated.lists));
+        desk.lists[listIndex].tasks.forEach( task => {
+            if(task._id == taskID){
+                task.description = desc;
+            };
+        });
+        const updated = await desk.save();
+        res.end(JSON.stringify(updated.lists));
+    }
+    else{
+        res.end(JSON.stringify(false));
+    }
 });
 
 module.exports = router;
