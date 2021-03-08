@@ -593,14 +593,14 @@ main{
             font-weight: 300;
         }
     }
-    #taskForceChoice{
+    #assignRow{
         @include flex(flex-start,center);
         width: 100%;
         height: auto;
         padding-left: 6px;
     }
 
-    #choosenMembers{
+    #assignedMembers{
         @include flex(space-evenly,center);
         border: 1px solid #ccc;
         border-radius: 5px;
@@ -608,7 +608,7 @@ main{
         margin: 10px 0;
     }
 
-    .member-choice{
+    .task-member{
         position: relative;
         width: 35px;
         height: 35px;
