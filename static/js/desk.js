@@ -349,24 +349,19 @@ function openTaskModal(listID, taskID){
     const {available, assigned} = filterTaskMembers(task.members);
 
     const availableRow = document.querySelector('#availableRow');
-    availableRow.innerHTML = '';
-    available.forEach( user => {
-        const url = user.image == null ? '../../assets/img/user-default.png' : `https://res.cloudinary.com/sandrocloud/image/upload/w_40,c_scale/${user.image}`;
-        availableRow.innerHTML += `<div id="${user._id}" class="task-member"><i class="fas fa-plus-circle"></i></div>`;
-        const div = document.getElementById(`${user._id}`);
-        div.style.backgroundImage = `url(${url})`;
-        div.setAttribute('title', user.name);
-    });
-
     const assignedRow = document.querySelector('#assignedRow');
+    availableRow.innerHTML = '';
     assignedRow.innerHTML = '';
-    assigned.forEach( user => {
-        const url = user.image == null ? '../../assets/img/user-default.png' : `https://res.cloudinary.com/sandrocloud/image/upload/w_40,c_scale/${user.image}`;
-        assignedRow.innerHTML += `<div id="${user._id}" class="task-member"><i class="fas fa-minus-circle"></i></div>`;
-        const div = document.getElementById(`${user._id}`);
-        div.style.backgroundImage = `url(${url})`;
-        div.setAttribute('title', user.name);
-    });
+
+    if(available.length == 0){
+        availableRow.innerHTML = `<span>All members are working on this Task</span>`;
+    }
+    else renderTaskMembers(availableRow, available);
+    
+    if(assigned.length == 0){
+        assignedRow.innerHTML = `<span>Add members that are working on this Task</span>`;
+    }
+    else renderTaskMembers(assignedRow, assigned);
 };
 
 /**
@@ -425,6 +420,30 @@ function filterTaskMembers(taskMembers){
 
     return { available: available, assigned: assigned };
 };
+
+function renderTaskMembers(element, array){
+    array.forEach( user => {
+        const url = user.image == null ? '../../assets/img/user-default.png' : `https://res.cloudinary.com/sandrocloud/image/upload/w_40,c_scale/${user.image}`;
+        element.innerHTML += `<div id="${user._id}" class="task-member"><i class="fas fa-plus-circle"></i></div>`;
+        const div = document.getElementById(`${user._id}`);
+        div.style.backgroundImage = `url(${url})`;
+        div.setAttribute('title', user.name);
+    });   
+};
+
+// Assign member to task
+document.querySelector('#availableRow').addEventListener('click', e => {
+    if(!e.target.matches('.task-member')) return;
+    const userID = e.target.id;
+    console.log('add '+userID);
+});
+
+// Remove member from task
+document.querySelector('#assignedRow').addEventListener('click', e => {
+    if(!e.target.matches('.task-member')) return;
+    const userID = e.target.id;
+    console.log('remove '+userID);
+});
 
 // Keep resizing textarea on input
 taskNameTextarea.addEventListener('input', e => {
