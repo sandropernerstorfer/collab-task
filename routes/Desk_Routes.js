@@ -205,4 +205,29 @@ router.post('/:listID/:taskID/member', async (req, res) => {
     };
 });
 
+router.delete('/:listID/:taskID/:userID', async (req, res) => {
+    const listID = req.params.listID;
+    const taskID = req.params.taskID;
+    const userID = req.params.userID;
+
+    const desk = await Desk.findOne({_id: req.session.currentDesk}, (err, doc) => {
+        if(err) res.end(JSON.stringify(false));
+    });
+    if(desk){
+        const getIndexWithID = list => list._id == listID;
+        const listIndex = desk.lists.findIndex(getIndexWithID);
+
+        desk.lists[listIndex].tasks.forEach( task => {
+            if(task._id == taskID){
+                task.members = task.members.filter( member => member != userID);
+            };
+        });
+        const updated = await desk.save();
+        res.end(JSON.stringify(updated.lists));
+    }
+    else{
+        res.end(JSON.stringify(false));
+    };
+});
+
 module.exports = router;

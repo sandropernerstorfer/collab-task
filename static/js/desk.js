@@ -433,7 +433,12 @@ function filterTaskMembers(taskMembers){
 function renderTaskMembers(element, array){
     array.forEach( user => {
         const url = user.image == null ? '../../assets/img/user-default.png' : `https://res.cloudinary.com/sandrocloud/image/upload/w_40,c_scale/${user.image}`;
-        element.innerHTML += `<div id="${user._id}" class="task-member"><i class="fas fa-plus-circle"></i></div>`;
+        if(element.matches('#availableRow')){
+            element.innerHTML += `<div id="${user._id}" class="task-member"><i class="fas fa-plus-circle"></i></div>`;
+        }
+        else{
+            element.innerHTML += `<div id="${user._id}" class="task-member"><i class="fas fa-minus-circle"></i></div>`;
+        }
         const div = document.getElementById(`${user._id}`);
         div.style.backgroundImage = `url(${url})`;
         div.setAttribute('title', user.name);
@@ -478,7 +483,30 @@ document.querySelector('#availableRow').addEventListener('click', e => {
 document.querySelector('#assignedRow').addEventListener('click', e => {
     if(!e.target.matches('.task-member')) return;
     const userID = e.target.id;
-    console.log('remove '+userID);
+    fetch(`/desk/${currentList}/${currentTask}/${userID}`, {
+        method: 'DELETE'
+    })
+    .then(res => res.json())
+    .then(newLists => {
+        if(!newLists) return;
+        deskData.lists = newLists;
+        const task = findSpecificTask(currentList, currentTask);
+        const {members} = task;
+        const {available, assigned} = filterTaskMembers(members);
+
+        availableRow.innerHTML = '';
+        assignedRow.innerHTML = '';
+
+        if(available.length == 0){
+            availableRow.innerHTML = `<span>All members are working on this Task</span>`;
+        }
+        else renderTaskMembers(availableRow, available);
+        
+        if(assigned.length == 0){
+            assignedRow.innerHTML = `<span>Add members that are working on this Task</span>`;
+        }
+        else renderTaskMembers(assignedRow, assigned);
+    });
 });
 
 // Keep resizing textarea on input
