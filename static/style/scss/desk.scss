@@ -303,6 +303,7 @@ main{
     overflow-y: auto;
     padding-top: 10px;
     background-color: var(--theme-bg);
+    scrollbar-color: #ccc var(--theme-bg);
     &::-webkit-scrollbar{
         background-color: var(--theme-bg);
         height: 10px;
