@@ -1,9 +1,11 @@
-const express = require('express');
-const app = express();
-const session = require('express-session');
-const mongoose = require('mongoose');
-mongoose.set('useFindAndModify', false);
-const cookieParser = require("cookie-parser");
+const 
+express = require('express'),
+app = express(),
+socket = require('socket.io'),
+session = require('express-session'),
+cookieParser = require("cookie-parser"),
+mongoose = require('mongoose');
+
 require('dotenv/config');
 
 // Import Routes
@@ -16,6 +18,7 @@ Desk_Routes = require('./routes/Desk_Routes'),
 NotFound_Routes = require('./routes/404_Routes');
 
 // Middleware
+mongoose.set('useFindAndModify', false);
 app.use(express.static('static'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -70,9 +73,11 @@ app.use('/*?', NotFound_Routes);
 
 // PORT & DB Connection
 const PORT = process.env.PORT || 5400;
-app.listen(PORT);
+const server = app.listen(PORT);
 mongoose.connect(
     process.env.DB_CONNECTION, {useNewUrlParser: true, useUnifiedTopology: true}, () => {
         console.log('DB Connected');
     }
 );
+
+const io = socket(server);
