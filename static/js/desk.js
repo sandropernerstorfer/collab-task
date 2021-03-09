@@ -609,3 +609,37 @@ function applyLightTheme(){
     localStorage.removeItem('task_deskDarkTheme');
     document.body.setAttribute('data-theme', 'light');
 };
+
+
+// TASK SEARCHBAR
+const searchbar = document.querySelector('#searchbar');
+let searchReady = true;
+searchbar.addEventListener('keydown', e => {
+    if(e.key != 'Enter' || !searchReady) return;
+    const query = searchbar.value.toLowerCase();
+    if(query == '') return;
+    searchReady = false;
+    const allTasks = Array.from(document.querySelectorAll('.task'));
+    const found = allTasks.find( task => {
+        if (task.innerText.toLowerCase().indexOf(query) > -1) {
+            return task;
+        };
+    });
+    if(found){
+        markFoundUser(found);
+    };
+});
+document.querySelector('#clearSearch').addEventListener('click', () => {
+    searchbar.value = '';
+});
+
+// Mark user after Search
+function markFoundUser(found){
+    found.scrollIntoView({behavior:'smooth', block: 'center', inline: 'center'});
+    found.scrollTop += 20;
+    found.classList.toggle('task-found');
+    setTimeout(() => {
+        found.classList.toggle('task-found');
+        searchReady = true;
+    }, 1000);
+};

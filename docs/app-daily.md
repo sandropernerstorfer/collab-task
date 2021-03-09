@@ -203,3 +203,4 @@
     * Entferne Member von task
     * Task kennzeichnung wenn selbst task member
     * Desk Theme auswahl
+    * Searchbar ( Task Suche )

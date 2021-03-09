@@ -149,6 +149,10 @@ main{
             &:focus + #clearSearch{
                 border-color: $secondary2;
             }
+            &::placeholder{
+                color: $placeholder;
+                font-size: .85rem;
+            }
         }
         #clearSearch{
             border-width: 2px 2px 2px 0;
@@ -179,7 +183,9 @@ main{
     top: 15px;
     right: 0;
     overflow-y: auto;
-    background-color: #fff;
+    background-color: rgb(245, 245, 245);
+    border-radius: 5px;
+    box-shadow: $boxShadow;
     z-index: 50;
     border: var(--theme-border);
 
@@ -428,7 +434,7 @@ main{
             word-wrap: break-word;
             font-size: .9rem;
             color: $primaryText;
-            transition: padding .3s;
+            transition: padding .3s, background-color .8s, color .7s;
         }
     }
 }
@@ -436,6 +442,10 @@ main{
 .task{
     cursor: pointer;
     position: relative;
+    outline: none;
+    &:focus-visible{
+        outline: 2px solid blue;
+    }
 
     .taskMarker{
         position: absolute;
@@ -496,6 +506,11 @@ main{
     .taskInfo{
         background-color: #5BC1DE;
     }
+}
+
+.task-found{
+    background-color: $secondary2 !important;
+    color: #fff !important;
 }
 
 .addTask{
