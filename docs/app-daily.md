@@ -205,3 +205,4 @@
     * Desk Theme auswahl
     * Searchbar ( Task Suche )
     * Bei task delete und list delete, nur elemente löschen statt neu rendern
+    * Task Member UI update

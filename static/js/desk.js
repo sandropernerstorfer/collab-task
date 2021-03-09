@@ -354,12 +354,12 @@ function openTaskModal(listID, taskID){
     assignedRow.innerHTML = '';
 
     if(available.length == 0){
-        availableRow.innerHTML = `<span>All members are working on this Task</span>`;
+        availableRow.innerHTML = `<span class="no-members">All members are working on this Task</span>`;
     }
     else renderTaskMembers(availableRow, available);
     
     if(assigned.length == 0){
-        assignedRow.innerHTML = `<span>Add members that are working on this Task</span>`;
+        assignedRow.innerHTML = `<span class="no-members">Add members that are working on this Task</span>`;
     }
     else renderTaskMembers(assignedRow, assigned);
 };
@@ -437,10 +437,10 @@ function renderTaskMembers(element, array){
     array.forEach( user => {
         const url = user.image == null ? '../../assets/img/user-default.png' : `https://res.cloudinary.com/sandrocloud/image/upload/w_40,c_scale/${user.image}`;
         if(element.matches('#availableRow')){
-            element.innerHTML += `<div id="${user._id}" class="task-member"><i class="fas fa-plus-circle"></i></div>`;
+            element.innerHTML += `<div class="member-box"><div id="${user._id}" class="task-member"><i class="fas fa-plus-circle"></i></div><span>${user.name}</span></div>`;
         }
         else{
-            element.innerHTML += `<div id="${user._id}" class="task-member"><i class="fas fa-minus-circle"></i></div>`;
+            element.innerHTML += `<div class="member-box"><div id="${user._id}" class="task-member"><i class="fas fa-minus-circle"></i></div><span>${user.name}</span></div>`;
         }
         const div = document.getElementById(`${user._id}`);
         div.style.backgroundImage = `url(${url})`;
@@ -471,12 +471,12 @@ document.querySelector('#availableRow').addEventListener('click', e => {
         assignedRow.innerHTML = '';
 
         if(available.length == 0){
-            availableRow.innerHTML = `<span>All members are working on this Task</span>`;
+            availableRow.innerHTML = `<span class="no-members">All members are working on this Task</span>`;
         }
         else renderTaskMembers(availableRow, available);
         
         if(assigned.length == 0){
-            assignedRow.innerHTML = `<span>Add members that are working on this Task</span>`;
+            assignedRow.innerHTML = `<span class="no-members">Add members that are working on this Task</span>`;
         }
         else renderTaskMembers(assignedRow, assigned);
 
@@ -505,12 +505,12 @@ document.querySelector('#assignedRow').addEventListener('click', e => {
         assignedRow.innerHTML = '';
 
         if(available.length == 0){
-            availableRow.innerHTML = `<span>All members are working on this Task</span>`;
+            availableRow.innerHTML = `<span class="no-members">All members are working on this Task</span>`;
         }
         else renderTaskMembers(availableRow, available);
         
         if(assigned.length == 0){
-            assignedRow.innerHTML = `<span>Add members that are working on this Task</span>`;
+            assignedRow.innerHTML = `<span class="no-members">Add members that are working on this Task</span>`;
         }
         else renderTaskMembers(assignedRow, assigned);
 
