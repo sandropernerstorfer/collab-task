@@ -626,15 +626,15 @@ searchbar.addEventListener('keydown', e => {
         };
     });
     if(found){
-        markFoundUser(found);
+        markFoundTask(found);
     };
 });
 document.querySelector('#clearSearch').addEventListener('click', () => {
     searchbar.value = '';
 });
 
-// Mark user after Search
-function markFoundUser(found){
+// Mark task after Search
+function markFoundTask(found){
     found.scrollIntoView({behavior:'smooth', block: 'center', inline: 'center'});
     found.scrollTop += 20;
     found.classList.toggle('task-found');
