@@ -81,3 +81,27 @@ mongoose.connect(
 );
 
 const io = socket(server);
+
+io.on('connection', socket => {       // hier landen ALLE user sockets
+
+    // console.log('new client connected', socket.id);
+
+    socket.on('chat-send', msg => {
+
+        // io.emit('chat-receive', msg);   // send to all connected sockets      
+        socket.broadcast.emit('chat-receive', msg); // send to all connected sockets except mine
+
+        //## Session object verwenden SENDE UND checke CURRENT DESK
+        //## Speichere bei connect die ID in session object und suche dadurch
+    });
+
+    socket.on('chat-here', data => {
+
+        socket.broadcast.emit('chat-otherHere', data);
+        
+    });
+
+    socket.on('disconnect', ()=>{     // at socket disconnect
+
+    });
+});

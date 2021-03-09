@@ -1,4 +1,5 @@
 import validation from './scripts/validation.js';
+const socket = io();
 let userData, deskData, adminData, memberData;
 fetch('/desk/deskdata')
 .then(res => res.json())
@@ -11,11 +12,13 @@ fetch('/desk/deskdata')
     renderMembers();
     addRoleDependingEvents();
     renderLists();
+    setupSocket();
 });
 
 function renderDeskname(){
     document.querySelector('#topDeskname').textContent = deskData.name;
     document.querySelector('#renameInput').value = deskData.name;
+    document.querySelector('#chatDeskname').textContent = deskData.name;
     document.title = `Task-App | ${deskData.name}`;
 };
 
@@ -643,3 +646,41 @@ function markFoundTask(found){
         searchReady = true;
     }, 1000);
 };
+
+// Desk Chat
+const chatForm = document.querySelector('#chatForm');
+chatForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const message = chatForm.message.value;
+
+    socket.emit('chat-send', message);    // trigger server event   //# SENDE DESK ID MIT UND VERGLEICHE AM SERVER MIT req.session.currentDesk
+    buildMessage(message);
+    chatForm.reset();
+});
+
+function buildMessage(msg, identifier = userData.name){
+    document.querySelector('#messages').innerHTML += `<li><small>${identifier}</small><div>${msg}</div></li>`;
+};
+
+function buildChatInfo(msg){
+    document.querySelector('#messages').innerHTML += `<li class="chat-info"><div></div><span>${msg}</span></li>`;
+};
+
+function setupSocket(){
+
+    socket.on('chat-receive', msg => {
+        buildMessage(msg, 'someone');                   // server triggers this event
+    });
+
+    socket.on('chat-otherHere', name => {                // server triggers this event
+        const info = `${name} is online`;
+        buildChatInfo(info);
+    });
+
+
+    socket.emit('chat-here', userData.name);            // trigger server event    
+
+
+};
+
+

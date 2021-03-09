@@ -199,6 +199,9 @@
     * Update Task-Description
     * Filter alle member und task member ( available, assigned)
     * Dynamic Task Members
+    
+#### 09.03.2021
+* **App-Work :**
     * Füge Member zu task hinzu
     * Entferne Member von task
     * Task kennzeichnung wenn selbst task member
@@ -206,3 +209,5 @@
     * Searchbar ( Task Suche )
     * Bei task delete und list delete, nur elemente löschen statt neu rendern
     * Task Member UI update
+    * socket.io base setup
+    * chat UI work

@@ -239,43 +239,88 @@ main{
 
 // Chat
 #chatWindow{
-    padding-bottom: 10px;
+
     position: absolute;
     bottom: 0;
     right: 0;
-    height: 320px;
+    height: 430px;
     max-height: 100%;
     width: 400px;
     max-width: 100%;
     border: 1px solid #ccc;
-    background-color: #fff;
+    border-radius: 5px 5px 0 0;
+    background-color: rgb(245, 245, 245);
+
+    #chatHeading{
+        @include flex(flex-start, center);
+        height: 10%;
+        padding-left: 12px;
+        border-bottom: 1px solid #ccc;
+        color: $secondary2;
+        span{
+            color: $primaryText;
+            margin-left: 5px;
+            font-weight: 600;
+        }
+    }
 
     #messageWindow{
         width: 100%;
-        height: 90%;
+        height: 78%;
+        padding: 5px;
         overflow-y: scroll;
         overflow-wrap: break-word;
 
         ul{
             padding: 10px;
+            margin: 0;
         }
         li{
-            border-bottom: 1px solid rgba(204, 204, 204, 0.753);
             margin-bottom: 8px;
+            width: 100%;
             color: $primaryText;
 
             small{
-                color: purple;
+                color: coral;
                 font-weight: 500;
                 font-size: small;
+            }
+
+            div{
+                padding: 5px;
+                width: 100%;
+                border-radius: 10px;
+                background-color: $secondary2;
+                color: #F5F5F5;
+                font-weight: 300;
+            }
+        }
+        .chat-info{
+            @include flex(flex-start,center);
+
+            span{
+                font-weight: 300;
+                font-size: .9rem;
+                text-align: center;
+                display: inline-block;
+                line-height: 100%;
+            }
+
+            div{
+                width: 3px;
+                height: 3px;
+                background-color: limegreen;
+                margin-right: 5px;
             }
         }
     }
     form{
         @include flex(space-between,center);
-        height: auto;
+        height: 12%;
         width: 100%;
-        padding: 0 20px 0 10px;
+        padding: 4px 10px;
+        background-color: #fff;
+        border-top: 1px solid #ccc;
 
         input{
             width: 100%;
