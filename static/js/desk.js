@@ -278,7 +278,7 @@ cellContainer.addEventListener('click', e => {
                         listID: listID
                     }
                 ),
-                headers: {'Content-Type' : 'Application/json; charset=UTF-8'}
+                headers: {'Content-Type' : 'application/json; charset=UTF-8'}
             })
             .then(res => res.json())
             .then(newLists => {
@@ -310,15 +310,15 @@ cellContainer.addEventListener('click', e => {
 });
 
 // DELETE LIST
-function deleteList(id){
-    fetch(`/desk/list/${id}`, {
+function deleteList(listID){
+    fetch(`/desk/list/${listID}`, {
         method: 'DELETE'
     })
     .then(res => res.json())
     .then(newLists => {
         if(!newLists) return;
         deskData.lists = newLists;
-        renderLists();
+        document.getElementById(listID).closest('.list-cell').remove();
     });
 };
 
@@ -585,7 +585,7 @@ function deleteTask(listID, taskID){
     .then(newLists => {
         if(!newLists) return;
         deskData.lists = newLists;
-        renderLists();
+        document.getElementById(taskID).remove();
     });
 };
 
