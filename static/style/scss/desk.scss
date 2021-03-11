@@ -329,9 +329,9 @@ main{
             border-radius: 5px 0 0 5px;
         }
         button{
-            background-color: $primary;
+            background-color: $secondary2;
             color: #fff;
-            border: 1px solid $primary;
+            border: 1px solid $secondary2;
             border-left: 0;
             padding: 0 10px;
             border-radius: 0 5px 5px 0;
@@ -771,8 +771,8 @@ main{
         @include flex(flex-start,flex-start);
         flex-direction: column;
         width: 100%;
-        height: 100px;
-        padding-top: 10px;
+        height: 88px;
+        padding-top: 5px;
     }
     small{
         color: $error;
