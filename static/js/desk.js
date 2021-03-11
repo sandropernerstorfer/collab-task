@@ -196,6 +196,7 @@ openChat.addEventListener('click', () => {
     document.querySelector('#chatWindow').classList.toggle('d-none');
     chatForm.reset();
     chatForm.querySelector('input').focus();
+    scrollWindow.scrollTop = scrollWindow.scrollHeight;
 });
 
 // CREATE LIST: BUTTON / FORM TOGGLE
@@ -693,10 +694,10 @@ const scrollWindow = document.querySelector('#messageWindow');
 let lastMessageBy;
 
 function buildMessage(msg, identifier = 'You'){
-    const msgHead = lastMessageBy == identifier ? '' : `<small>${identifier}</small>`;
-    lastMessageBy = identifier;
+    const {alignment, color} = identifier == 'You' ? {alignment: 'left', color: '#777'} : {alignment: 'right', color: 'coral'};
+    const msgHead = lastMessageBy == identifier ? '' : `<small style="color:${color}">${identifier}</small>`;
 
-    const alignment = identifier == 'You' ? 'left' : 'right';
+    lastMessageBy = identifier;
     document.querySelector('#messages').innerHTML += `<li class="msg-align-${alignment}">${msgHead}<div>${msg}</div></li>`;
     scrollWindow.scrollTop = scrollWindow.scrollHeight;
 };
