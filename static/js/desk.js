@@ -186,17 +186,10 @@ inviteModal.addEventListener('hidden.bs.modal', () => {
     document.querySelector('#inviteError').innerHTML = '&nbsp;';
 });
 
-// CHAT & MENU show/hide
+// MENU show/hide
 const openMenu = document.querySelector('#menuBtn');
-const openChat = document.querySelector('#chatBtn');
 openMenu.addEventListener('click', () => {
     document.querySelector('#sideMenu').classList.toggle('d-none');
-});
-openChat.addEventListener('click', () => {
-    document.querySelector('#chatWindow').classList.toggle('d-none');
-    chatForm.reset();
-    chatForm.querySelector('input').focus();
-    scrollWindow.scrollTop = scrollWindow.scrollHeight;
 });
 
 // CREATE LIST: BUTTON / FORM TOGGLE
@@ -651,7 +644,18 @@ function markFoundTask(found){
 };
 
 // Desk Chat
+const openChat = document.querySelector('#chatBtn');
 const chatForm = document.querySelector('#chatForm');
+const chatWindow = document.querySelector('#chatWindow');
+const messageIndicator = document.querySelector('#messageIndicator');
+
+openChat.addEventListener('click', () => {
+    chatWindow.classList.toggle('d-none');
+    chatForm.reset();
+    chatForm.querySelector('input').focus();
+    scrollWindow.scrollTop = scrollWindow.scrollHeight;
+    messageIndicator.classList.add('d-none');
+});
 
 // Sending Message ( chat form )
 chatForm.addEventListener('submit', e => {
@@ -700,6 +704,10 @@ function buildMessage(msg, identifier = 'You'){
     lastMessageBy = identifier;
     document.querySelector('#messages').innerHTML += `<li class="msg-align-${alignment}">${msgHead}<div>${msg}</div></li>`;
     scrollWindow.scrollTop = scrollWindow.scrollHeight;
+
+    if(chatWindow.classList.contains('d-none')){
+        messageIndicator.classList.remove('d-none');
+    };
 };
 
 // Build Chat-Info List Element
