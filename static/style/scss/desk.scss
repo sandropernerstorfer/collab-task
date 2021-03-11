@@ -272,45 +272,50 @@ main{
         overflow-wrap: break-word;
 
         ul{
-            padding: 10px;
+            padding: 3px 10px 10px 10px;
             margin: 0;
+            cursor: default;
         }
         li{
-            margin-bottom: 8px;
+            margin-bottom: 2px;
             width: 100%;
             color: $primaryText;
+            font-size: .9rem;
 
             small{
                 color: coral;
-                font-weight: 500;
-                font-size: small;
+                font-weight: 400;
+                font-size: .8rem;
+                display: inline-block;
+                margin-top: 8px;
             }
 
             div{
                 padding: 5px;
-                width: 100%;
                 border-radius: 10px;
                 background-color: $secondary2;
                 color: #F5F5F5;
                 font-weight: 300;
+                display: inline-block;
             }
         }
         .chat-info{
-            @include flex(flex-start,center);
+            @include flex(flex-end,center);
+            padding-top: 10px;
+            padding-bottom: 8px;
 
             span{
                 font-weight: 300;
-                font-size: .9rem;
+                font-size: .8rem;
                 text-align: center;
                 display: inline-block;
                 line-height: 100%;
+                margin-right: 5px;
             }
 
             div{
                 width: 3px;
                 height: 3px;
-                background-color: limegreen;
-                margin-right: 5px;
             }
         }
     }
@@ -324,6 +329,10 @@ main{
 
         input{
             width: 100%;
+            font-size: .9rem;
+            padding: 2px 5px;
+            color: $primaryText;
+            font-weight: 400;
             border: 1px solid #ccc;
             border-right: 0;
             border-radius: 5px 0 0 5px;
@@ -331,9 +340,10 @@ main{
         button{
             background-color: $secondary2;
             color: #fff;
+            font-size: .9rem;
             border: 1px solid $secondary2;
             border-left: 0;
-            padding: 0 10px;
+            padding: 2px 10px;
             border-radius: 0 5px 5px 0;
         }
     }
@@ -686,7 +696,8 @@ main{
         @include flex(flex-start,center);
         width: 100%;
         min-height: 81px;
-        padding-left: 10px;
+        padding: 0 10px;
+        overflow-x: auto;
         .no-members{
             text-align: center;
             width: 100%;
@@ -705,6 +716,7 @@ main{
         padding: 0 10px;
         margin: 10px 0;
         min-height: 81px;
+        overflow-x: auto;
         .no-members{
             text-align: center;
             width: 100%;

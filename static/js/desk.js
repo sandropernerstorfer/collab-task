@@ -673,21 +673,26 @@ function setupSocket(){
 
     socket.on('chat-otherHere', name => {
         const info = `${name} is online`;
-        buildChatInfo(info);
+        buildChatInfo(info, 'online');
     });
 
     socket.on('desk-leave', name => {
         const info = `${name} left`;
-        buildChatInfo(info);
+        buildChatInfo(info, 'leave');
     });
 };
 
 // Build Chat-Message List Element
+let lastMessageBy;
 function buildMessage(msg, identifier = 'You'){
-    document.querySelector('#messages').innerHTML += `<li><small>${identifier}</small><div>${msg}</div></li>`;
+    const msgHead = lastMessageBy == identifier ? '' : `<small>${identifier}</small><br>`;
+    lastMessageBy = identifier;
+    document.querySelector('#messages').innerHTML += `<li>${msgHead}<div>${msg}</div></li>`;
 };
 
 // Build Chat-Info List Element
-function buildChatInfo(msg){
-    document.querySelector('#messages').innerHTML += `<li class="chat-info"><div></div><span>${msg}</span></li>`;
+function buildChatInfo(msg, type){
+    lastMessageBy = undefined;
+    const statusColor = type == 'online' ? 'limegreen' : 'rgba(220, 20, 60, 0.699)';
+    document.querySelector('#messages').innerHTML += `<li class="chat-info"><span>${msg}</span><div style="background-color: ${statusColor};"></div></li>`;
 };
