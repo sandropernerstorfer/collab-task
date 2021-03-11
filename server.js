@@ -81,27 +81,29 @@ mongoose.connect(
 );
 
 const io = socket(server);
+io.on('connection', socket => {
 
-io.on('connection', socket => {       // hier landen ALLE user sockets
-
-    // console.log('new client connected', socket.id);
-
-    socket.on('chat-send', msg => {
-
-        // io.emit('chat-receive', msg);   // send to all connected sockets      
-        socket.broadcast.emit('chat-receive', msg); // send to all connected sockets except mine
-
-        //## Session object verwenden SENDE UND checke CURRENT DESK
-        //## Speichere bei connect die ID in session object und suche dadurch
+    // join wird von client ausgelöst wenn ein user einen desk öffnet
+    // client schickt: url-path und username. Welche im socket gespeichert werden
+    // socket tritt raum bei welcher den namen der url-location hat
+    socket.on('join', obj => {
+        socket.join( obj.room );
+        socket.name = obj.name;
+        socket.desk = obj.room;
     });
 
-    socket.on('chat-here', data => {
+    // chat-send wird von client ausgelöst wenn eine nachricht verschickt wird
+    // server löst dann chat-receive in den anderen clients im selben raum aus
+    // schickt username und nachricht mit
+    socket.on('chat-send', obj => socket.broadcast.to( socket.desk ).emit( 'chat-receive', obj ));
 
-        socket.broadcast.emit('chat-otherHere', data);
-        
-    });
+    // chat-here wird von client ausgelöst wenn ein user einen desk öffnet
+    // server löst dann chat-otherHere in den anderen clients im selben raum aus
+    // schickt username mit
+    socket.on('chat-here', obj => socket.broadcast.to( socket.desk ).emit( 'chat-otherHere', obj ));
 
-    socket.on('disconnect', ()=>{     // at socket disconnect
-
-    });
+    // disconnect wird ausgelöst wenn die socket verbindung vom client getrennt wird
+    // server löst dann desk-leave in den anderen clients im selben raum aus
+    // schickt username mit
+    socket.on('disconnect', () => socket.broadcast.to( socket.desk ).emit( 'desk-leave', socket.name ));
 });

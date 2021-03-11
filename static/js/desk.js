@@ -649,38 +649,45 @@ function markFoundTask(found){
 
 // Desk Chat
 const chatForm = document.querySelector('#chatForm');
+
+// Sending Message ( chat form )
 chatForm.addEventListener('submit', e => {
     e.preventDefault();
     const message = chatForm.message.value;
-
-    socket.emit('chat-send', message);    // trigger server event   //# SENDE DESK ID MIT UND VERGLEICHE AM SERVER MIT req.session.currentDesk
+    const msgOut = { message: message, name: userData.name };
+    socket.emit('chat-send', msgOut);
     buildMessage(message);
     chatForm.reset();
 });
 
-function buildMessage(msg, identifier = userData.name){
-    document.querySelector('#messages').innerHTML += `<li><small>${identifier}</small><div>${msg}</div></li>`;
-};
-
-function buildChatInfo(msg){
-    document.querySelector('#messages').innerHTML += `<li class="chat-info"><div></div><span>${msg}</span></li>`;
-};
-
+// Sets up socket events after desk data load
 function setupSocket(){
+    socket.emit('join', { name: userData.name, room: location.pathname });
 
-    socket.on('chat-receive', msg => {
-        buildMessage(msg, 'someone');                   // server triggers this event
+    socket.emit('chat-here', userData.name);
+
+    socket.on('chat-receive', msgIn => {
+        const {message, name} = msgIn;
+        buildMessage(message, name);
     });
 
-    socket.on('chat-otherHere', name => {                // server triggers this event
+    socket.on('chat-otherHere', name => {
         const info = `${name} is online`;
         buildChatInfo(info);
     });
 
-
-    socket.emit('chat-here', userData.name);            // trigger server event    
-
-
+    socket.on('desk-leave', name => {
+        const info = `${name} left`;
+        buildChatInfo(info);
+    });
 };
 
+// Build Chat-Message List Element
+function buildMessage(msg, identifier = 'You'){
+    document.querySelector('#messages').innerHTML += `<li><small>${identifier}</small><div>${msg}</div></li>`;
+};
 
+// Build Chat-Info List Element
+function buildChatInfo(msg){
+    document.querySelector('#messages').innerHTML += `<li class="chat-info"><div></div><span>${msg}</span></li>`;
+};

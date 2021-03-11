@@ -206,8 +206,17 @@
     * Entferne Member von task
     * Task kennzeichnung wenn selbst task member
     * Desk Theme auswahl
+
+#### 10.03.2021
+* **App-Work :**
     * Searchbar ( Task Suche )
     * Bei task delete und list delete, nur elemente löschen statt neu rendern
     * Task Member UI update
     * socket.io base setup
     * chat UI work
+
+#### 11.03.2021
+* **App-Work :**
+    * Chat Räume auf Desk bezogen
+    * Socket Events
+    * Desk Chat funktionen
