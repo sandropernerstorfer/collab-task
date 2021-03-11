@@ -222,3 +222,4 @@
     * Desk Chat funktionen
     * Chat UI work
     * Side Menu UI work
+    * Msg Indicator hinzugefügt
