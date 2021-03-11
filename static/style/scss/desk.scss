@@ -183,7 +183,7 @@ main{
     top: 15px;
     right: 0;
     overflow-y: auto;
-    background-color: rgb(245, 245, 245);
+    background-color: rgb(252, 252, 252);
     border-radius: 5px;
     box-shadow: $boxShadow;
     z-index: 50;
@@ -249,7 +249,7 @@ main{
     max-width: 100%;
     border: 1px solid #ccc;
     border-radius: 5px 5px 0 0;
-    background-color: rgb(245, 245, 245);
+    background-color: rgb(252, 252, 252);
 
     #chatHeading{
         @include flex(flex-start, center);

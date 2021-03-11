@@ -194,6 +194,8 @@ openMenu.addEventListener('click', () => {
 });
 openChat.addEventListener('click', () => {
     document.querySelector('#chatWindow').classList.toggle('d-none');
+    chatForm.reset();
+    chatForm.querySelector('input').focus();
 });
 
 // CREATE LIST: BUTTON / FORM TOGGLE
@@ -653,7 +655,11 @@ const chatForm = document.querySelector('#chatForm');
 // Sending Message ( chat form )
 chatForm.addEventListener('submit', e => {
     e.preventDefault();
-    const message = chatForm.message.value;
+    if(chatForm.message.value.trim().length == 0){
+        chatForm.reset();
+        return;
+    };
+    const message = chatForm.message.value.trim();
     const msgOut = { message: message, name: userData.name };
     socket.emit('chat-send', msgOut);
     buildMessage(message);
