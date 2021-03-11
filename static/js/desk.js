@@ -683,16 +683,22 @@ function setupSocket(){
 };
 
 // Build Chat-Message List Element
+const scrollWindow = document.querySelector('#messageWindow');
 let lastMessageBy;
+
 function buildMessage(msg, identifier = 'You'){
-    const msgHead = lastMessageBy == identifier ? '' : `<small>${identifier}</small><br>`;
+    const msgHead = lastMessageBy == identifier ? '' : `<small>${identifier}</small>`;
     lastMessageBy = identifier;
-    document.querySelector('#messages').innerHTML += `<li>${msgHead}<div>${msg}</div></li>`;
+
+    const alignment = identifier == 'You' ? 'left' : 'right';
+    document.querySelector('#messages').innerHTML += `<li class="msg-align-${alignment}">${msgHead}<div>${msg}</div></li>`;
+    scrollWindow.scrollTop = scrollWindow.scrollHeight;
 };
 
 // Build Chat-Info List Element
 function buildChatInfo(msg, type){
     lastMessageBy = undefined;
     const statusColor = type == 'online' ? 'limegreen' : 'rgba(220, 20, 60, 0.699)';
-    document.querySelector('#messages').innerHTML += `<li class="chat-info"><span>${msg}</span><div style="background-color: ${statusColor};"></div></li>`;
+    document.querySelector('#messages').innerHTML += `<li class="chat-info"><div style="background-color: ${statusColor};"></div><span>${msg}</span></li>`;
+    scrollWindow.scrollTop = scrollWindow.scrollHeight;
 };

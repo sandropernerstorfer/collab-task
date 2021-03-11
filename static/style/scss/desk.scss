@@ -264,12 +264,24 @@ main{
         }
     }
 
+    .msg-align-right{
+        @include flex(flex-end, flex-end);
+        text-align: left;
+        flex-direction: column;
+    }
+    .msg-align-left{
+        @include flex(flex-start, flex-start);
+        text-align: left;
+        flex-direction: column;
+    }
+
     #messageWindow{
         width: 100%;
         height: 78%;
         padding: 5px;
         overflow-y: scroll;
         overflow-wrap: break-word;
+        max-width: 100%;
 
         ul{
             padding: 3px 10px 10px 10px;
@@ -288,19 +300,25 @@ main{
                 font-size: .8rem;
                 display: inline-block;
                 margin-top: 8px;
+                margin-left: 2px;
+                margin-right: 2px;
             }
 
             div{
-                padding: 5px;
+                padding: 3px 8px;
                 border-radius: 10px;
                 background-color: $secondary2;
                 color: #F5F5F5;
                 font-weight: 300;
                 display: inline-block;
+                width: auto;
+                word-wrap: break-word;
+                max-width: 100%;
+                max-width: 94%;
             }
         }
         .chat-info{
-            @include flex(flex-end,center);
+            @include flex(center,center);
             padding-top: 10px;
             padding-bottom: 8px;
 
@@ -310,12 +328,13 @@ main{
                 text-align: center;
                 display: inline-block;
                 line-height: 100%;
-                margin-right: 5px;
             }
 
             div{
                 width: 3px;
                 height: 3px;
+                padding: 4px;
+                margin-right: 5px;
             }
         }
     }
