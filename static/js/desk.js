@@ -613,10 +613,17 @@ function applyLightTheme(){
 // TASK SEARCHBAR
 const searchbar = document.querySelector('#searchbar');
 const searchBtn = document.querySelector('#clearSearch');
-const searchIcon = document.querySelector('#searchIcon');
 let searchReady = true;
 searchbar.addEventListener('keydown', e => {
     if(e.key != 'Enter' || !searchReady) return;
+    processSearchQuery();
+});
+searchBtn.addEventListener('click', () => {
+    if(!searchReady) return;
+    processSearchQuery();
+});
+
+function processSearchQuery(){
     const query = searchbar.value.toLowerCase();
     if(query == '') return;
     searchReady = false;
@@ -632,10 +639,7 @@ searchbar.addEventListener('keydown', e => {
     else{
         markNotFound();
     }
-});
-searchBtn.addEventListener('click', () => {
-    searchbar.value = '';
-});
+};
 
 // Mark task after Search
 function markFoundTask(found){
@@ -652,11 +656,9 @@ function markFoundTask(found){
 function markNotFound(){
     searchbar.classList.add('task-not-found');
     searchBtn.classList.add('task-not-found');
-    searchIcon.classList.add('task-not-found');
     setTimeout(() => {
         searchbar.classList.remove('task-not-found');
         searchBtn.classList.remove('task-not-found');
-        searchIcon.classList.remove('task-not-found');
         searchReady = true;
     }, 1000);
 };

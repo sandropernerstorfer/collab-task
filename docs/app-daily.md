@@ -227,3 +227,4 @@
 #### 11.03.2021
 * **App-Work :**
     * Markiere Searchbar wenn suche kein treffer
+    * Searchbar small UI updates

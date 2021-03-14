@@ -131,13 +131,6 @@ main{
     #topSearch{
         @include flex(flex-end,center);
         position: relative;
-        #searchIcon{
-            position: absolute;
-            top: 4px;
-            left: 5px;
-            color: $secondary2;
-            transition: color .3s;
-        }
         #searchbar, #clearSearch{
             width: auto;
             border-style: solid;
@@ -149,7 +142,7 @@ main{
             width: 180px;
             border-width: 2px 0 2px 2px;
             border-radius: 5px 0 0 5px;
-            padding-left: 22px;
+            padding-left: 5px;
             color: $primaryText;
             &:focus{
                 border-color: $secondary2;
@@ -545,7 +538,7 @@ main{
             word-wrap: break-word;
             font-size: .9rem;
             color: $primaryText;
-            transition: padding .3s, background-color .8s, color .7s;
+            transition: padding .3s, background-color .8s, color .5s;
         }
     }
 }
