@@ -81,11 +81,15 @@
             <div id="chatWindow" class="d-none">
                 <div id="chatHeading"><i class="far fa-comments"></i><span id="chatDeskname"></span></div>
                 <div id="messageWindow">
-                    <ul id="messages"></ul>
+                    <ul id="messages">
+                        <li class="msg-align-left"><small style="color: rgb(255, 170, 13)">Task-App</small><div>This is your Desk-Chat</div></li>
+                        <li class="msg-align-left"><div>Invite friends or colleagues to use this live chat feature</div></li>
+                        <li class="msg-align-right"><small style="color: rgb(255, 170, 13)">Task-App</small><div>Have fun and good luck with your tasks !</div></li>
+                    </ul>
                 </div>
                 <form id="chatForm">
-                    <input type="text" name="message" spellcheck="false">
-                    <button type="submit"><i class="far fa-paper-plane"></i></button>
+                    <input type="text" name="message" spellcheck="false" disabled>
+                    <button type="submit" disabled><i class="far fa-paper-plane"></i></button>
                 </form>
             </div>
         </section>

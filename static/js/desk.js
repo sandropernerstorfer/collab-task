@@ -1,5 +1,4 @@
 import validation from './scripts/validation.js';
-const socket = io();
 let userData, deskData, adminData, memberData;
 fetch('/desk/deskdata')
 .then(res => res.json())
@@ -12,7 +11,8 @@ fetch('/desk/deskdata')
     renderMembers();
     addRoleDependingEvents();
     renderLists();
-    setupSocket();
+
+    if(memberData.length > 0) setupSocket();
 });
 
 function renderDeskname(){
@@ -667,32 +667,13 @@ function markNotFound(){
 const openChat = document.querySelector('#chatBtn');
 const chatForm = document.querySelector('#chatForm');
 const chatWindow = document.querySelector('#chatWindow');
+const messages = document.querySelector('#messages');
 const messageIndicator = document.querySelector('#messageIndicator');
-
-openChat.addEventListener('click', () => {
-    chatWindow.classList.toggle('d-none');
-    chatForm.reset();
-    chatForm.querySelector('input').focus();
-    scrollWindow.scrollTop = scrollWindow.scrollHeight;
-    messageIndicator.classList.add('d-none');
-});
-
-// Sending Message ( chat form )
-chatForm.addEventListener('submit', e => {
-    e.preventDefault();
-    if(chatForm.message.value.trim().length == 0){
-        chatForm.reset();
-        return;
-    };
-    const message = chatForm.message.value.trim();
-    const msgOut = { message: message, name: userData.name };
-    socket.emit('chat-send', msgOut);
-    buildMessage(message);
-    chatForm.reset();
-});
 
 // Sets up socket events after desk data load
 function setupSocket(){
+    const socket = io();
+
     socket.emit('join', { name: userData.name, room: location.pathname });
 
     socket.emit('chat-here', userData.name);
@@ -711,7 +692,33 @@ function setupSocket(){
         const info = `${name} left`;
         buildChatInfo(info, 'leave');
     });
+
+    // Clear Default Chat Messages
+    messages.innerHTML = '';
+    chatForm.querySelector('button').removeAttribute('disabled');
+    chatForm.querySelector('input').removeAttribute('disabled');
+    // Chat Form - Send Msg event
+    chatForm.addEventListener('submit', e => {
+        e.preventDefault();
+        if(chatForm.message.value.trim().length == 0){
+            chatForm.reset();
+            return;
+        };
+        const message = chatForm.message.value.trim();
+        const msgOut = { message: message, name: userData.name };
+        socket.emit('chat-send', msgOut);
+        buildMessage(message);
+        chatForm.reset();
+    });
 };
+
+openChat.addEventListener('click', () => {
+    chatWindow.classList.toggle('d-none');
+    chatForm.reset();
+    chatForm.querySelector('input').focus();
+    scrollWindow.scrollTop = scrollWindow.scrollHeight;
+    messageIndicator.classList.add('d-none');
+});
 
 // Build Chat-Message List Element
 const scrollWindow = document.querySelector('#messageWindow');
@@ -722,7 +729,7 @@ function buildMessage(msg, identifier = 'You'){
     const msgHead = lastMessageBy == identifier ? '' : `<small style="color:${color}">${identifier}</small>`;
 
     lastMessageBy = identifier;
-    document.querySelector('#messages').innerHTML += `<li class="msg-align-${alignment}">${msgHead}<div>${msg}</div></li>`;
+    messages.innerHTML += `<li class="msg-align-${alignment}">${msgHead}<div>${msg}</div></li>`;
     scrollWindow.scrollTop = scrollWindow.scrollHeight;
 
     if(chatWindow.classList.contains('d-none')){
@@ -734,6 +741,6 @@ function buildMessage(msg, identifier = 'You'){
 function buildChatInfo(msg, type){
     lastMessageBy = undefined;
     const statusColor = type == 'online' ? 'limegreen' : 'rgba(220, 20, 60, 0.699)';
-    document.querySelector('#messages').innerHTML += `<li class="chat-info"><div style="background-color: ${statusColor};"></div><span>${msg}</span></li>`;
+    messages.innerHTML += `<li class="chat-info"><div style="background-color: ${statusColor};"></div><span>${msg}</span></li>`;
     scrollWindow.scrollTop = scrollWindow.scrollHeight;
 };

@@ -228,3 +228,5 @@
 * **App-Work :**
     * Markiere Searchbar wenn suche kein treffer
     * Searchbar small UI updates
+    * Socket Connection nur verfügbar wenn mindestens 2 leute am desk
+    * chat default view hinzugefügt
