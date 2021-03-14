@@ -612,6 +612,8 @@ function applyLightTheme(){
 
 // TASK SEARCHBAR
 const searchbar = document.querySelector('#searchbar');
+const searchBtn = document.querySelector('#clearSearch');
+const searchIcon = document.querySelector('#searchIcon');
 let searchReady = true;
 searchbar.addEventListener('keydown', e => {
     if(e.key != 'Enter' || !searchReady) return;
@@ -626,9 +628,12 @@ searchbar.addEventListener('keydown', e => {
     });
     if(found){
         markFoundTask(found);
-    };
+    }
+    else{
+        markNotFound();
+    }
 });
-document.querySelector('#clearSearch').addEventListener('click', () => {
+searchBtn.addEventListener('click', () => {
     searchbar.value = '';
 });
 
@@ -639,6 +644,19 @@ function markFoundTask(found){
     found.classList.toggle('task-found');
     setTimeout(() => {
         found.classList.toggle('task-found');
+        searchReady = true;
+    }, 1000);
+};
+
+// Mark Searchbar if not found
+function markNotFound(){
+    searchbar.classList.add('task-not-found');
+    searchBtn.classList.add('task-not-found');
+    searchIcon.classList.add('task-not-found');
+    setTimeout(() => {
+        searchbar.classList.remove('task-not-found');
+        searchBtn.classList.remove('task-not-found');
+        searchIcon.classList.remove('task-not-found');
         searchReady = true;
     }, 1000);
 };

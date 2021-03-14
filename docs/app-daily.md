@@ -223,3 +223,7 @@
     * Chat UI work
     * Side Menu UI work
     * Msg Indicator hinzugefügt
+
+#### 11.03.2021
+* **App-Work :**
+    * Markiere Searchbar wenn suche kein treffer

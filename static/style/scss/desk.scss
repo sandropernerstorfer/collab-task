@@ -24,7 +24,7 @@ body{
 }
 
 // Coloring
-.top-division, #topDeskname, #clearSearch, #deskMenuBar i, #inviteBtn i, .menuSection .menuIcon, #addListBtn i, .addTaskBtn i{
+.top-division, #topDeskname, #inviteBtn i, .menuSection .menuIcon, #addListBtn i, .addTaskBtn i{
     color: $secondary2 !important;
 }
 #admin i, #inviteModal form button{
@@ -124,6 +124,10 @@ main{
         position: relative;
     }
 
+    #chatBtn i, #menuBtn i{
+        color: $secondary2;
+    }
+
     #topSearch{
         @include flex(flex-end,center);
         position: relative;
@@ -131,13 +135,15 @@ main{
             position: absolute;
             top: 4px;
             left: 5px;
+            color: $secondary2;
+            transition: color .3s;
         }
         #searchbar, #clearSearch{
             width: auto;
             border-style: solid;
             border-color: var(--border-color);
             font-size: .9rem;
-            transition: border-color .3s;
+            transition: border-color .3s, color .3s;
         }
         #searchbar{
             width: 180px;
@@ -162,6 +168,7 @@ main{
             padding: 0 5px;
             background-color: #fff;
             margin-right: 10px;
+            color: $secondary2;
         }
     }
 }
@@ -615,6 +622,11 @@ main{
 .task-found{
     background-color: $secondary2 !important;
     color: #fff !important;
+}
+
+.task-not-found{
+    color: rgb(255, 71, 71) !important;
+    border-color: rgb(255, 71, 71) !important;
 }
 
 .addTask{
