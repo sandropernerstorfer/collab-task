@@ -146,8 +146,10 @@ function renderLists(){
         // DELETE LIST EVENT
         listTemplate.querySelector('.delete-list').addEventListener('click', () => { deleteList(list._id)});
 
-        // RENDER TASKS
         const taskContainer = listTemplate.querySelector('.list-tasks');
+        addDragOverListener(taskContainer);
+
+        // RENDER TASKS
         list.tasks.forEach( task => {
             const taskTemplate = document.querySelector('#taskTemplate').content.cloneNode(true);
             taskTemplate.querySelector('.task').id = task._id;
@@ -155,6 +157,10 @@ function renderLists(){
             if(task.members.includes(userData._id)){
                 taskTemplate.querySelector('.taskMarker').classList.remove('d-none');
             };
+
+            addDragStartListener(taskTemplate.querySelector('.task'));
+            addDragEndListener(taskTemplate.querySelector('.task'));
+
             taskContainer.appendChild(taskTemplate);
         });
 
@@ -175,6 +181,46 @@ function renderLists(){
         });
     }
     
+};
+
+function addDragStartListener(element){
+    element.addEventListener('dragstart', () => {
+        element.classList.add('dragging');
+    });    
+};
+
+function addDragEndListener(element){
+    element.addEventListener('dragend', () => {
+        element.classList.remove('dragging');
+    });
+};
+
+function addDragOverListener(container){
+    container.addEventListener('dragover', e => {
+        e.preventDefault();
+        const afterElement = getDragAfterElement(container, e.clientY);
+        const draggable = document.querySelector('.dragging');
+        if(afterElement == null){
+            container.appendChild(draggable);
+        }
+        else{
+            container.insertBefore(draggable, afterElement);
+        };
+    });
+};
+
+function getDragAfterElement(container, axis){
+    const draggableElements = [...container.querySelectorAll('.draggable:not(.dragging)')];
+    return draggableElements.reduce( (closest, child) => {
+        const box = child.getBoundingClientRect();
+        const offset = axis - box.top - box.height/2;
+        if(offset < 0 && offset > closest.offset){
+            return { offset: offset, element: child};
+        }
+        else{
+            return closest;
+        };
+    }, { offset: Number.NEGATIVE_INFINITY }).element;
 };
 
 // Invite Modal - Input focus und Error Reset

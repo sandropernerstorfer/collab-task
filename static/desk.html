@@ -135,7 +135,7 @@
     <!-- List Template -->
     <template id="listTemplate">
         <div class="list-cell">
-            <div class="list">
+            <div class="list draggable" draggable="true">
                 <div class="list-head">
                     <span class="list-name"></span>
                     <button class="delete-list"><i class="far fa-trash-alt"></i></button>
@@ -149,7 +149,7 @@
     </template>
     <!-- Task Template -->
     <template id="taskTemplate">
-        <li class="task" tabindex="0">
+        <li class="task draggable" tabindex="0" draggable="true">
             <div class="taskMarker d-none"></div>
             <span class="taskName"></span>
             <div class="task-buttons task-closed">

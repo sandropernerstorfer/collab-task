@@ -870,6 +870,10 @@ main{
     pointer-events: none;
 }
 
+.draggable.dragging{
+    opacity: .4;
+}
+
 // Media Queries
 // Hide Member Cards & Searchbar
 @media screen and (max-width: 551px){
