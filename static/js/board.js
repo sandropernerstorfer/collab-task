@@ -1,5 +1,5 @@
 import validation from './scripts/validation.js';
-import sortBoard from './scripts/sorting.js';
+import sortBoard from './scripts/boardSorting.js';
 /**
  * BOARD DATA FETCH
  * -- beim öffnen des Dashboards werden vom server die benötigten USER und DESK daten gefetcht
