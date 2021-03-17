@@ -111,14 +111,18 @@ router.post('/task', async (req, res) => {
     const desk = await Desk.findOne({_id: req.session.currentDesk}, (err, doc) => {
         if(err) res.end(JSON.stringify(false));
     });
-    if(!desk){ res.end(JSON.stringify(false))};
-    desk.lists.forEach( list => {
-        if(list._id == req.body.listID){
-            list.tasks.push(newTask);
-        };
-    });
-    const updated = await desk.save();
-    res.end(JSON.stringify(updated.lists));
+    if(desk){
+        desk.lists.forEach( list => {
+            if(list._id == req.body.listID){
+                list.tasks.push(newTask);
+            };
+        });
+        const updated = await desk.save();
+        res.end(JSON.stringify(updated.lists));
+    }
+    else{
+        res.end(JSON.stringify(false));
+    }
 });
 
 router.delete('/task/:listID/:taskID', async (req, res) => {
