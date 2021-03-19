@@ -233,5 +233,6 @@
 
 #### 14.03.2021
 * **App-Work :**
-    * Task Dragging
+    * Task Dragging (wird noch nicht gespeichert)
     * Task Schema (order default value update)
+    * Task innerhalb gleicher liste verschieben ( wird in db gespeichert )
