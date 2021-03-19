@@ -13,6 +13,10 @@ const TaskSchema = mongoose.Schema({
     date: {
         type: Date,
         default: Date.now
+    },
+    order: {
+        type: Number,
+        default: Number.MAX_SAFE_INTEGER
     }
 });
 
