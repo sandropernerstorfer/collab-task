@@ -149,6 +149,13 @@ function renderLists(){
         const taskContainer = listTemplate.querySelector('.list-tasks');
         addDragOverListener(taskContainer);
 
+        // SORT TASKS BY ORDER
+        list.tasks.sort((a,b) => {
+            if(a.order < b.order) return -1;
+            if(a.order > b.order) return 1;
+            return 0;
+        });
+
         // RENDER TASKS
         list.tasks.forEach( task => {
             const taskTemplate = document.querySelector('#taskTemplate').content.cloneNode(true);
@@ -183,15 +190,46 @@ function renderLists(){
     
 };
 
+let draggedTask, oldList, newList;
+
 function addDragStartListener(element){
     element.addEventListener('dragstart', () => {
         element.classList.add('dragging');
+        draggedTask = element.id;
+        oldList = element.closest('.list').id;
     });    
 };
 
 function addDragEndListener(element){
     element.addEventListener('dragend', () => {
         element.classList.remove('dragging');
+        newList = element.closest('.list').id;
+        const list1 = createTaskOrderArray(oldList);
+        const list2 = newList === oldList ? undefined : createTaskOrderArray(newList);
+
+        saveNewTaskOrder(list1,list2);
+    });
+};
+
+function createTaskOrderArray(listID){
+    const tasks = document.getElementById(listID).querySelectorAll('.task');
+    let array = [listID];
+    tasks.forEach( (task, i) => {
+        array.push({id: task.id, order: i});
+    });
+    return array;
+};
+
+function saveNewTaskOrder(list1,list2){
+    fetch('/desk/task/order', {
+        method: 'PATCH',
+        body: JSON.stringify({list1: list1, list2: list2}),
+        headers: {'Content-type' : 'application/json; charset=UTF-8'}
+    })
+    .then(res => res.json())
+    .then(newLists => {
+        if(!newLists) return;
+        deskData.lists = newLists;
     });
 };
 

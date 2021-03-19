@@ -1,4 +1,5 @@
 const express = require('express');
+const { find } = require('../models/Desk');
 const router = express.Router();
 const Desk = require('../models/Desk');
 const User = require('../models/User');
@@ -183,6 +184,52 @@ router.patch('/task/description', async (req, res) => {
     else{
         res.end(JSON.stringify(false));
     }
+});
+
+router.patch('/task/order', async (req, res) => {
+    const {list1, list2} = req.body;
+
+    const desk = await Desk.findOne({_id: req.session.currentDesk}, (err, doc) => {
+        if(err) res.end(JSON.stringify(false));
+    });
+    if(desk){
+
+        updateTasks(list1);
+        updateTasks(list2);
+
+        function updateTasks(taskArray){
+            if(taskArray == undefined) return;
+            listID = taskArray.shift();
+
+            const getIndexWithID = list => list._id == listID;
+            const listIndex = desk.lists.findIndex(getIndexWithID);
+
+            desk.lists[listIndex].tasks.forEach( task => {
+
+                const foundOrder = taskArray.find( newTask => {
+                    if(task._id == newTask.id){
+                        const index = taskArray.indexOf(newTask);
+                        taskArray.splice(index,1);
+                        return newTask;
+                    };
+                });
+
+                if(foundOrder){
+                    task.order = foundOrder.order;
+                }
+                else{
+                    const index = desk.lists[listIndex].tasks.indexOf(task);
+                    desk.lists[listIndex].tasks.splice(index,1);
+                };
+            });
+        };
+
+        const updated = await desk.save();
+        res.end(JSON.stringify(updated.lists));
+    }
+    else{
+        res.end(JSON.stringify(false));
+    };
 });
 
 router.post('/:listID/:taskID/member', async (req, res) => {
