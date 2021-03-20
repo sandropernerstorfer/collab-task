@@ -190,7 +190,7 @@ function renderLists(){
     
 };
 
-let draggedTask, oldList, newList;
+let oldList, newList;
 
 function addDragStartListener(element){
     element.addEventListener('dragstart', () => {
