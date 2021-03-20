@@ -352,6 +352,7 @@ cellContainer.addEventListener('click', e => {
         document.getElementById('saveTask').addEventListener('click', e => {
             e.preventDefault();
             const taskName = e.target.previousElementSibling.value.trim();
+            if(taskName.length == 0) return;
             const listID = e.target.closest('.list').id;
             fetch('/desk/task', {
                 method: 'POST',
