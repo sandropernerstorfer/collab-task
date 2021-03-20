@@ -236,3 +236,4 @@
     * Task Dragging (wird noch nicht gespeichert)
     * Task Schema (order default value update)
     * Task innerhalb gleicher liste verschieben ( wird in db gespeichert )
+    * Task zwischen zwei listen verschieben ( wird in db gespeichert )

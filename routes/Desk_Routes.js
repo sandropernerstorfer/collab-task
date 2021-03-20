@@ -192,7 +192,7 @@ router.patch('/task/order', async (req, res) => {
         if(err) res.end(JSON.stringify(false));
     });
     if(desk){
-
+        let iteration = 1, targetTask;
         updateTasks(list1);
         updateTasks(list2);
 
@@ -217,10 +217,19 @@ router.patch('/task/order', async (req, res) => {
                     task.order = foundOrder.order;
                 }
                 else{
+                    targetTask = task;
                     const index = desk.lists[listIndex].tasks.indexOf(task);
                     desk.lists[listIndex].tasks.splice(index,1);
                 };
             });
+
+            if(taskArray.length > 0){
+                if(iteration == 2){
+                    targetTask.order = taskArray[0].order;
+                    desk.lists[listIndex].tasks.push(targetTask);
+                };
+            };
+            iteration++;
         };
 
         const updated = await desk.save();
