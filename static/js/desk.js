@@ -197,12 +197,12 @@ function renderLists(){
     
 };
 
-let draggedTask, oldList, newList;
+let oldList, newList;
 
 function addDragStartListener(element){
-    element.addEventListener('dragstart', () => {
+    element.addEventListener('dragstart', e => {
+        e.stopPropagation();
         element.classList.add('dragging');
-        draggedTask = element.id;
         oldList = element.closest('.list').id;
     });    
 };
@@ -255,7 +255,7 @@ function addDragOverListener(container){
 };
 
 function getDragAfterElement(container, axis){
-    const draggableElements = [...container.querySelectorAll('.draggable:not(.dragging)')];
+    const draggableElements = [...container.querySelectorAll('.task:not(.dragging)')];
     return draggableElements.reduce( (closest, child) => {
         const box = child.getBoundingClientRect();
         const offset = axis - box.top - box.height/2;
