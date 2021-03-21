@@ -138,6 +138,13 @@ function renderLists(){
     cellContainer.innerHTML = '';
     const lists = deskData.lists;
 
+    // SORT LISTS BY ORDER
+    lists.sort((a,b) => {
+        if(a.order < b.order) return -1;
+        if(a.order > b.order) return 1;
+        return 0;
+    });
+
     lists.forEach( list => {
         const listTemplate = document.querySelector('#listTemplate').content.cloneNode(true);
         listTemplate.querySelector('.list').id = list._id;

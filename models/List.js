@@ -11,7 +11,7 @@ const ListSchema = mongoose.Schema({
     ,
     order: {
         type: Number,
-        default: 0
+        default: Number.MAX_SAFE_INTEGER
     }
 });
 

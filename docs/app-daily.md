@@ -235,5 +235,14 @@
 * **App-Work :**
     * Task Dragging (wird noch nicht gespeichert)
     * Task Schema (order default value update)
+
+#### 19.03.2021
+* **App-Work :**
     * Task innerhalb gleicher liste verschieben ( wird in db gespeichert )
     * Task zwischen zwei listen verschieben ( wird in db gespeichert )
+    * Sortiere Tasks nach order bei render
+    
+#### 21.03.2021
+* **App-Work :**
+    * List Schema (order default value update)
+    * Sortiere Listen nach order bei render
