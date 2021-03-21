@@ -240,6 +240,7 @@ function saveNewTaskOrder(list1,list2){
     });
 };
 
+// Fires when drag cursor is over CONTAINER
 function addDragOverListener(container){
     container.addEventListener('dragover', e => {
         e.preventDefault();
@@ -254,6 +255,7 @@ function addDragOverListener(container){
     });
 };
 
+// Fires everytime dragover event fires. And RETURNS VALUE
 function getDragAfterElement(container, axis){
     const draggableElements = [...container.querySelectorAll('.task:not(.dragging)')];
     return draggableElements.reduce( (closest, child) => {
