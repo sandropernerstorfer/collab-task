@@ -135,6 +135,7 @@ function addRoleDependingEvents(){
 
 function renderLists(){
     const cellContainer = document.querySelector('#cellContainer');
+    addDragOverList(cellContainer);
     cellContainer.innerHTML = '';
     const lists = deskData.lists;
 
@@ -154,9 +155,9 @@ function renderLists(){
         listTemplate.querySelector('.delete-list').addEventListener('click', () => { deleteList(list._id)});
 
         const taskContainer = listTemplate.querySelector('.list-tasks');
-        addDragOverListener(taskContainer);
-        addDragStartList(listTemplate.querySelector('.list'));
-        addDragEndList(listTemplate.querySelector('.list'));
+        addDragOverTask(taskContainer);
+        addDragStartEvent(listTemplate.querySelector('.list-cell'));
+        addDragEndEvent(listTemplate.querySelector('.list-cell'));
 
         // SORT TASKS BY ORDER
         list.tasks.sort((a,b) => {
@@ -174,8 +175,8 @@ function renderLists(){
                 taskTemplate.querySelector('.taskMarker').classList.remove('d-none');
             };
 
-            addDragStartTask(taskTemplate.querySelector('.task'));
-            addDragEndTask(taskTemplate.querySelector('.task'));
+            addDragStartEvent(taskTemplate.querySelector('.task'));
+            addDragEndEvent(taskTemplate.querySelector('.task'));
 
             taskContainer.appendChild(taskTemplate);
         });
@@ -199,48 +200,44 @@ function renderLists(){
     
 };
 
-let draggedElement;
+// LIST AND TASK DRAGGING
+let draggedElement, oldList, newList;
 
-// LIST DRAGGING
-function addDragStartList(element){
+// Add .dragging class
+function addDragStartEvent(element){
     element.addEventListener('dragstart', e => {
         e.stopPropagation();
-        draggedElement = 'list';
         element.classList.add('dragging');
+        if(element.classList.contains('task')){
+            draggedElement = 'task';
+            oldList = element.closest('.list').id;
+        }
+        else if(element.classList.contains('list-cell')){
+            draggedElement = 'list';
+        };
     });    
 };
 
-function addDragEndList(element){
-    element.addEventListener('dragend', () => {
+// Remove .dragging class and handle new Order
+function addDragEndEvent(element){
+    element.addEventListener('dragend', e => {
+        e.stopPropagation();
         draggedElement = undefined;
         element.classList.remove('dragging');
+
+        if(element.classList.contains('task')){
+            newList = element.closest('.list').id;
+            const list1 = createOrderArray(oldList);
+            const list2 = newList === oldList ? undefined : createOrderArray(newList);
+            saveNewTaskOrder(list1,list2);
+        }
+        else if(element.classList.contains('list-cell')){
+            
+        };
     });
 };
 
-// TASK DRAGGING
-let oldList, newList;
-
-// ADD DRAGGING CLASS
-function addDragStartTask(element){
-    element.addEventListener('dragstart', e => {
-        e.stopPropagation();
-        element.classList.add('dragging');
-        oldList = element.closest('.list').id;
-    });    
-};
-
-// REMOVE DRAGGING CLASS AND HANDLE NEW ORDER
-function addDragEndTask(element){
-    element.addEventListener('dragend', () => {
-        element.classList.remove('dragging');
-        newList = element.closest('.list').id;
-        const list1 = createOrderArray(oldList);
-        const list2 = newList === oldList ? undefined : createOrderArray(newList);
-        saveNewTaskOrder(list1,list2);
-    });
-};
-
-// CREATE ARRAY CONTAINING ID's AND ORDER(INDEX)
+// Create Array containing ID's and Order(index)
 function createOrderArray(listID){
     const tasks = document.getElementById(listID).querySelectorAll('.task');
     let array = [listID];
@@ -250,7 +247,7 @@ function createOrderArray(listID){
     return array;
 };
 
-// TASK ORDER SAVE FETCH
+// Save new Task Order (fetch request)
 function saveNewTaskOrder(list1,list2){
     fetch('/desk/task/order', {
         method: 'PATCH',
@@ -265,7 +262,21 @@ function saveNewTaskOrder(list1,list2){
 };
 
 // Fires when drag cursor is over CONTAINER
-function addDragOverListener(container){
+function addDragOverList(container){
+    container.addEventListener('dragover', e => {
+        if(draggedElement == 'task') return;
+        e.preventDefault();
+        const afterTask = getDragAfterList(container, e.clientX);
+        const draggable = document.querySelector('.dragging');
+        if(afterTask == null){
+            container.appendChild(draggable);
+        }
+        else{
+            container.insertBefore(draggable, afterTask);
+        };
+    });
+};
+function addDragOverTask(container){
     container.addEventListener('dragover', e => {
         if(draggedElement == 'list') return;
         e.preventDefault();
@@ -281,6 +292,19 @@ function addDragOverListener(container){
 };
 
 // Fires everytime dragover event fires. And RETURNS THE AFTER ELEMENT
+function getDragAfterList(container, axis){
+    const draggableElements = [...container.querySelectorAll('.list-cell:not(.dragging)')];
+    return draggableElements.reduce( (closest, child) => {
+        const box = child.getBoundingClientRect();
+        const offset = axis - box.left - box.width/2;
+        if(offset < 0 && offset > closest.offset){
+            return { offset: offset, element: child};
+        }
+        else{
+            return closest;
+        };
+    }, { offset: Number.NEGATIVE_INFINITY }).element;
+};
 function getDragAfterTask(container, axis){
     const draggableElements = [...container.querySelectorAll('.task:not(.dragging)')];
     return draggableElements.reduce( (closest, child) => {

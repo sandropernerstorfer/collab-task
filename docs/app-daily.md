@@ -247,3 +247,7 @@
     * List Schema (order default value update)
     * Sortiere Listen nach order bei render
     * Create List und Create Task Buttons UI update
+
+#### 22.03.2021
+* **App-Work :**
+    * Listen untereinander verschieben. Client-Seite funktioniert ( wird noch nicht gespeichert )
