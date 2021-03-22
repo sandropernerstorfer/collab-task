@@ -92,6 +92,32 @@ router.post('/list', async (req, res) => {
     res.end(JSON.stringify(updatedLists.lists));
 });
 
+router.patch('/list/order', async (req, res) => {
+    const listArray = req.body;
+    const desk = await Desk.findOne({_id: req.session.currentDesk}, (err, doc) => {
+        if(err) res.end(JSON.stringify(false));
+    });
+    if(desk){
+        desk.lists.forEach( list => {
+            const foundOrder = listArray.find( newList => {
+                if(list._id == newList.id){
+                    const index = listArray.indexOf(newList);
+                    listArray.splice(index,1);
+                    return newList;
+                };
+            });
+            if(foundOrder){
+                list.order = foundOrder.order;
+            };
+        });
+        const updated = await desk.save();
+        res.end(JSON.stringify(updated.lists));
+    }
+    else{
+        res.end(JSON.stringify(false));
+    };
+});
+
 router.delete('/list/:listID', async (req, res) => {
     const listID = req.params.listID;
     const desk = await Desk.findOne({_id: req.session.currentDesk}, (err, doc) => {

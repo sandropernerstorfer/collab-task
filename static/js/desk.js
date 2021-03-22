@@ -227,18 +227,19 @@ function addDragEndEvent(element){
 
         if(element.classList.contains('task')){
             newList = element.closest('.list').id;
-            const list1 = createOrderArray(oldList);
-            const list2 = newList === oldList ? undefined : createOrderArray(newList);
+            const list1 = createTaskOrderArray(oldList);
+            const list2 = newList === oldList ? undefined : createTaskOrderArray(newList);
             saveNewTaskOrder(list1,list2);
         }
         else if(element.classList.contains('list-cell')){
-            
+            const array = createListOrderArray();
+            saveNewListOrder(array);
         };
     });
 };
 
 // Create Array containing ID's and Order(index)
-function createOrderArray(listID){
+function createTaskOrderArray(listID){
     const tasks = document.getElementById(listID).querySelectorAll('.task');
     let array = [listID];
     tasks.forEach( (task, i) => {
@@ -246,13 +247,33 @@ function createOrderArray(listID){
     });
     return array;
 };
+function createListOrderArray(){
+    const lists = document.querySelectorAll('.list');
+    let array = [];
+    lists.forEach( (list, i) => {
+        array.push({id: list.id, order: i});
+    });
+    return array;
+};
 
-// Save new Task Order (fetch request)
+// Save new Lists or Tasks Order (fetch request)
 function saveNewTaskOrder(list1,list2){
     fetch('/desk/task/order', {
         method: 'PATCH',
         body: JSON.stringify({list1: list1, list2: list2}),
-        headers: {'Content-type' : 'application/json; charset=UTF-8'}
+        headers: {'Content-Type' : 'application/json; charset=UTF-8'}
+    })
+    .then(res => res.json())
+    .then(newLists => {
+        if(!newLists) return;
+        deskData.lists = newLists;
+    });
+};
+function saveNewListOrder(array){
+    fetch('/desk/list/order', {
+        method: 'PATCH',
+        body: JSON.stringify(array),
+        headers: {'Content-Type' : 'application/json; charset=UTF-8'}
     })
     .then(res => res.json())
     .then(newLists => {
