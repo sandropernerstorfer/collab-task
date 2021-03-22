@@ -252,3 +252,5 @@
 * **App-Work :**
     * Listen untereinander verschieben. Client-Seite funktioniert ( wird noch nicht gespeichert )
     * Neue Listen Order wird gespeichert
+    * Drag Icon für liste hinzugefügt
+    * liste nur draggable wenn maus zeiger über drag icon

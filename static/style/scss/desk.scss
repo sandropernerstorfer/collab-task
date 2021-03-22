@@ -484,7 +484,7 @@ main{
 
 // Full Height list cell (column)
 .list-cell{
-    height: 100%;
+    height: auto;
     width: 300px;
     min-width: 280px;
     padding: 5px;
@@ -507,18 +507,32 @@ main{
     .list-head{
         @include flex(space-between,center);
         width: 100%;
+        position: relative;
         span{
             color: $primaryText;
             font-weight: 600;
             margin-left: 2px;
+            width: 85%;
+        }
+        div{
+            @include flex(space-between,center);
+            position: absolute;
+        top: 0;
+        right: 0;
         }
         button{
             color: $error;
             background-color: transparent;
             border: 0;
+            i{
+                pointer-events: none;
+            }
         }
-        i{
-            pointer-events: none;
+        .grab-icon{
+            cursor: grab;
+            color: #14badbb9;
+            margin-left: 10px;
+            font-size: 1.1rem;
         }
     }
 

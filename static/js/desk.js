@@ -133,9 +133,11 @@ function addRoleDependingEvents(){
     };
 };
 
+const cellContainer = document.querySelector('#cellContainer');
+addDragOverList(cellContainer);
+
 function renderLists(){
-    const cellContainer = document.querySelector('#cellContainer');
-    addDragOverList(cellContainer);
+
     cellContainer.innerHTML = '';
     const lists = deskData.lists;
 
@@ -201,6 +203,19 @@ function renderLists(){
 };
 
 // LIST AND TASK DRAGGING
+
+// Make list only draggable when mouse over drag icon
+cellContainer.addEventListener('mouseover', e => {
+    if(e.target.matches('.grab-icon')){
+        e.target.closest('.list-cell').setAttribute('draggable', 'true');
+    }
+});
+cellContainer.addEventListener('mouseout', e => {
+    if(e.target.matches('.grab-icon')){
+        e.target.closest('.list-cell').setAttribute('draggable', 'false');
+    }
+});
+
 let draggedElement, oldList, newList;
 
 // Add .dragging class
@@ -317,7 +332,7 @@ function getDragAfterList(container, axis){
     const draggableElements = [...container.querySelectorAll('.list-cell:not(.dragging)')];
     return draggableElements.reduce( (closest, child) => {
         const box = child.getBoundingClientRect();
-        const offset = axis - box.left - box.width/2;
+        const offset = axis - box.left - box.width/1.2;
         if(offset < 0 && offset > closest.offset){
             return { offset: offset, element: child};
         }
@@ -416,7 +431,6 @@ listForm.addEventListener('submit', e => {
 });
 
 // LIST ACTIONS
-const cellContainer = document.querySelector('#cellContainer');
 // ADD TASK BUTTON / SAVE TASK / CANCEL TASK
 cellContainer.addEventListener('click', e => {
     if(e.target.matches('.addTaskBtn')){
