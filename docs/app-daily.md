@@ -258,3 +258,4 @@
 #### 23.03.2021
 * **App-Work :**
     * Wenn bei drag order gleich bleibt kein fetch request
+    * List Name Text overflow bug behoben

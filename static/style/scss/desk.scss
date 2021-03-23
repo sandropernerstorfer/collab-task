@@ -508,17 +508,21 @@ main{
         @include flex(space-between,center);
         width: 100%;
         position: relative;
+        white-space: wrap;
+        word-wrap: break-word;
         span{
             color: $primaryText;
             font-weight: 600;
             margin-left: 2px;
-            width: 85%;
+            width: 82%;
         }
         div{
             @include flex(space-between,center);
+            width: 17%;
             position: absolute;
-        top: 0;
-        right: 0;
+            top: 0;
+            right: 0;
+            padding-left: 10px;
         }
         button{
             color: $error;
@@ -531,7 +535,7 @@ main{
         .grab-icon{
             cursor: grab;
             color: #14badbb9;
-            margin-left: 10px;
+            padding-left: 10px;
             font-size: 1.1rem;
         }
     }
@@ -894,7 +898,7 @@ main{
 }
 
 .dragging{
-    opacity: .4;
+    opacity: .01;
 }
 
 // Media Queries
