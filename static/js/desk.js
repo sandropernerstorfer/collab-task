@@ -216,7 +216,7 @@ cellContainer.addEventListener('mouseout', e => {
     }
 });
 
-let draggedElement, oldList, newList;
+let draggedElement, oldList, newList, oldOrder, newOrder;
 
 // Add .dragging class
 function addDragStartEvent(element){
@@ -226,9 +226,11 @@ function addDragStartEvent(element){
         if(element.classList.contains('task')){
             draggedElement = 'task';
             oldList = element.closest('.list').id;
+            oldOrder = getCurrentTaskIndex(element.id);
         }
         else if(element.classList.contains('list-cell')){
             draggedElement = 'list';
+            oldOrder = getCurrentListIndex(element.querySelector('.list').id);
         };
     });    
 };
@@ -242,15 +244,35 @@ function addDragEndEvent(element){
 
         if(element.classList.contains('task')){
             newList = element.closest('.list').id;
+            newOrder = getCurrentTaskIndex(element.id);
+
+            if(oldList == newList && oldOrder == newOrder) return;
+
             const list1 = createTaskOrderArray(oldList);
             const list2 = newList === oldList ? undefined : createTaskOrderArray(newList);
             saveNewTaskOrder(list1,list2);
         }
         else if(element.classList.contains('list-cell')){
+            newOrder = getCurrentListIndex(element.querySelector('.list').id);
+
+            if(oldOrder == newOrder) return;
+
             const array = createListOrderArray();
             saveNewListOrder(array);
         };
     });
+};
+
+// Get current List or Task index to check if any order changed (prevent useless fetch)
+function getCurrentListIndex(listID){
+    const lists = Array.from(document.querySelectorAll('.list'));
+    const getIndexWithID = list => list.id == listID;
+    return lists.findIndex(getIndexWithID);
+};
+function getCurrentTaskIndex(taskID){
+    const tasks = Array.from(document.getElementById(taskID).closest('.list-tasks').querySelectorAll('.task'));
+    const getIndexWithID = task => task.id == taskID;
+    return tasks.findIndex(getIndexWithID);
 };
 
 // Create Array containing ID's and Order(index)

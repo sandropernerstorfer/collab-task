@@ -254,3 +254,7 @@
     * Neue Listen Order wird gespeichert
     * Drag Icon für liste hinzugefügt
     * liste nur draggable wenn maus zeiger über drag icon
+
+#### 23.03.2021
+* **App-Work :**
+    * Wenn bei drag order gleich bleibt kein fetch request
