@@ -462,12 +462,13 @@ main{
             padding-bottom: 2px;
             font-size: .9rem;
             color: $primaryText;
+            font-weight: 600;
             &:focus{
                 border-color: #11d2f8;
             }
             &::placeholder{
-                color: $placeholder;
-                font-weight: 300;
+                color: rgb(204, 204, 204);
+                font-weight: 400;
             }
         }
         button{
@@ -526,7 +527,6 @@ main{
             &:focus{
                 outline: none;
                 border-color: #13c7ebb9;
-                color: rgba(34, 34, 34, 0.89);
                 cursor: text;
             }
         }
@@ -695,17 +695,17 @@ main{
             width: 85%;
             border: 2px solid #ccc;
             border-radius: 5px;
-            padding-left: 3px;
+            padding-left: 5px;
             padding-top: 1px;
             padding-bottom: 1px;
             color: $primaryText;
             font-size: .9rem;
+            font-weight: 400;
             &:focus{
                 border-color: #11d2f8;
             }
             &::placeholder{
-                color: $placeholder;
-                font-weight: 300;
+                color: rgb(204, 204, 204);
             }
         }
         button{

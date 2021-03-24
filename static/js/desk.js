@@ -501,7 +501,7 @@ cellContainer.addEventListener('click', e => {
         closeOpenForms();
         e.target.closest('.addTask').innerHTML = `
         <form id="taskForm">
-            <input id="newTaskname" type="text" placeholder="New taskname ...">
+            <input id="newTaskname" type="text" placeholder="New Task-Name">
             <button type="submit" id="saveTask" IsTabStop="false"><i class="far fa-check-circle"></i></button>
             <button type="button" id="cancelTask" IsTabStop="false"><i class="far fa-times-circle"></i></button>
         </form>`;

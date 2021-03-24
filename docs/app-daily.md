@@ -275,3 +275,4 @@
     * Task Member bereich: remove und add auch möglich wenn klick auf äußere member box
     * z-index bug bei chat und side menu behoben
     * task-modal close-button position angepasst
+    * addTask & addList font weight angepasst
