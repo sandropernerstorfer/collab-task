@@ -203,6 +203,9 @@ function renderLists(){
             textarea.addEventListener('input', () => {
                 autoSetTextareaHeight(textarea); 
             });
+            textarea.addEventListener('change', () => {
+                console.log(textarea.value);
+            });
         });
     }
     
@@ -532,7 +535,7 @@ const taskNameTextarea = document.querySelector('#taskNameTextarea');
 const taskDescTextarea = document.querySelector('#taskDescriptionTextarea');
 const availableRow = document.querySelector('#availableRow');
 const assignedRow = document.querySelector('#assignedRow');
-let currentList, currentTask;
+let currentList, currentTask, currentTaskName;
 
 function openTaskModal(listID, taskID){
     currentList = listID;
@@ -549,6 +552,7 @@ function openTaskModal(listID, taskID){
     // Display Taskname + Task Description
     taskNameTextarea.value = name;
     taskDescTextarea.value = description;
+    currentTaskName = name;
     // Get Time that passed since creation
     const timeSinceCreation = calculatePassedTime(new Date(date).getTime());
     document.querySelector('#passedTime').textContent = timeSinceCreation;
@@ -726,16 +730,20 @@ document.querySelector('#assignedRow').addEventListener('click', e => {
 });
 
 // Keep resizing textarea on input
-taskNameTextarea.addEventListener('input', e => {
+taskNameTextarea.addEventListener('input', () => {
     autoSetTextareaHeight(taskNameTextarea); 
 });
-taskDescTextarea.addEventListener('input', e => {
+taskDescTextarea.addEventListener('input', () => {
     autoSetTextareaHeight(taskDescTextarea);
 });
 
 // Update Task-Name
 taskNameTextarea.addEventListener('change', () => {
-    const newName = taskNameTextarea.value;
+    const newName = taskNameTextarea.value.trim();
+    if(newName.length == 0){
+        taskNameTextarea.value = currentTaskName;
+        return;
+    };
     fetch(`/desk/task/name`, {
         method: 'PATCH',
         body: JSON.stringify({
@@ -755,7 +763,7 @@ taskNameTextarea.addEventListener('change', () => {
 
 // Update Task-Description
 taskDescTextarea.addEventListener('change', () => {
-    const newDesc = taskDescTextarea.value;
+    const newDesc = taskDescTextarea.value.trim();
     fetch(`/desk/task/description`, {
         method: 'PATCH',
         body: JSON.stringify({

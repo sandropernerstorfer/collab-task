@@ -262,4 +262,5 @@
 
 #### 24.03.2021
 * **App-Work :**
-    * Listen Name veränderbar ( auto sizing textarea )
+    * Listen Name veränderbar ( nur Client Seitig ) ( auto sizing textarea )
+    * Wenn Taskname nach bearbeitung leer: reset zu alten namen
