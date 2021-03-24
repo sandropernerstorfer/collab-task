@@ -271,3 +271,4 @@
     * Bestätige neuen task-name mit enter key und value change
     * Bestätige neue task-description mit enter key und value change
     * Bestätige neuen list-name mit enter key und value change
+    * Textarea Borders angepasst und transitions implementiert

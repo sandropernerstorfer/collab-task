@@ -522,9 +522,10 @@ main{
             background-color: transparent;
             cursor: pointer;
             border-radius: 5px;
+            transition: border-color .2s;
             &:focus{
                 outline: none;
-                border-color: #14badbb9;
+                border-color: #13c7ebb9;
                 color: rgba(34, 34, 34, 0.89);
                 cursor: text;
             }
@@ -736,10 +737,11 @@ main{
         resize: none;
         border-radius: 5px;
         border: 2px solid transparent;
+        transition: border-color .2s;
         &:focus{
             outline: none;
             cursor: text;
-            border-color: $secondary2;
+            border-color: #13c7ebb9;
         }
     }
     .modal-body{
@@ -767,17 +769,20 @@ main{
         resize: none;
         overflow-y: hidden;
         color: $primaryText;
+        box-shadow: inset 0px 0px 50px -48px rgb(75, 75, 75);
         font-size: .88rem;
         font-weight: 300;
         min-height: 120px;
         padding: 5px;
         margin-bottom: 10px;
-        border: 1px solid rgba(204, 204, 204, 0.664);
+        border: 2px solid transparent;
         cursor: pointer;
         border-radius: 5px;
+        transition: border-color .2s, box-shadow .2s;
         &:focus{
             outline: none;
-            border-color: $secondary2;
+            box-shadow: none;
+            border-color: #13c7ebb9;
             color: rgba(34, 34, 34, 0.89);
             cursor: text;
         }
