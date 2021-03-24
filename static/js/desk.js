@@ -756,21 +756,29 @@ document.querySelector('#assignedRow').addEventListener('click', e => {
     });
 });
 
+// TASK NAME TEXTAREA ( EDIT )
 // Keep resizing textarea on input
 taskNameTextarea.addEventListener('input', () => {
     autoSetTextareaHeight(taskNameTextarea); 
 });
-taskDescTextarea.addEventListener('input', () => {
-    autoSetTextareaHeight(taskDescTextarea);
+// Check if enter key is pressed on task-name textarea
+taskNameTextarea.addEventListener('keydown', e => {
+    if(e.which === 13 && !e.shiftKey){
+        e.preventDefault();
+        taskNameTextarea.blur()
+    };
 });
-
-// Update Task-Name
+// Listen for change on task-name textarea
 taskNameTextarea.addEventListener('change', () => {
     const newName = taskNameTextarea.value.trim();
-    if(newName.length == 0){
-        taskNameTextarea.value = currentTaskName;
+    if(!newName || newName == currentTaskName){
+        taskNameTextarea.value = currentTaskName.trim();
         return;
     };
+    updateTaskName(newName);
+});
+// Update Task-Name
+function updateTaskName(newName){
     fetch(`/desk/task/name`, {
         method: 'PATCH',
         body: JSON.stringify({
@@ -786,8 +794,13 @@ taskNameTextarea.addEventListener('change', () => {
         deskData.lists = newLists;
         document.getElementById(currentTask).querySelector('.taskName').textContent = newName;
     });
-});
+};
 
+// TASK DESCRIPTION TEXTAREA ( EDIT )
+// Keep resizing textarea on input
+taskDescTextarea.addEventListener('input', () => {
+    autoSetTextareaHeight(taskDescTextarea);
+});
 // Update Task-Description
 taskDescTextarea.addEventListener('change', () => {
     const newDesc = taskDescTextarea.value.trim();
