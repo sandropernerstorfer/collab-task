@@ -203,6 +203,12 @@ function renderLists(){
             textarea.addEventListener('input', () => {
                 autoSetTextareaHeight(textarea); 
             });
+            textarea.addEventListener('keydown', e => {
+                if(e.which === 13 && !e.shiftKey){
+                    e.preventDefault();
+                    textarea.blur();
+                };
+            });
             textarea.addEventListener('change', () => {
                 const newListName = textarea.value.trim();
                 if(newListName == currentListName || !newListName){
@@ -210,10 +216,10 @@ function renderLists(){
                     return;
                 };
                 const listID = textarea.closest('.list').id;
-                saveNewListName(listID, newListName);
+                updateListName(listID, newListName);
             });
             textarea.addEventListener('click', () => {
-                currentListName = textarea.value;
+                currentListName = textarea.value.trim();
             });
         });
     }
@@ -221,7 +227,7 @@ function renderLists(){
 };
 
 let currentListName;
-function saveNewListName(listID, newName){
+function updateListName(listID, newName){
     fetch('/desk/list/name', {
         method: 'PATCH',
         body: JSON.stringify({
