@@ -267,3 +267,4 @@
     * Beim erstellen einer liste darf der name nicht leer sein
     * Beim ändern des list name darf der name nicht leer sein
     * Speichere neuen list name in Database
+    * Task name bearbeiten 'textarea string jump' bug behoben
