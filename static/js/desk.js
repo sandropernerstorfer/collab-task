@@ -693,6 +693,10 @@ function renderTaskMembers(element, array){
 
 // Assign member to task
 document.querySelector('#availableRow').addEventListener('click', e => {
+    if(e.target.matches('.member-box')){
+        e.target.querySelector('.task-member').click();
+        return;
+    };
     if(!e.target.matches('.task-member')) return;
     const userID = e.target.id;
     fetch(`/desk/${currentList}/${currentTask}/member`, {
@@ -731,6 +735,10 @@ document.querySelector('#availableRow').addEventListener('click', e => {
 
 // Remove member from task
 document.querySelector('#assignedRow').addEventListener('click', e => {
+    if(e.target.matches('.member-box')){
+        e.target.querySelector('.task-member').click();
+        return;
+    };
     if(!e.target.matches('.task-member')) return;
     const userID = e.target.id;
     fetch(`/desk/${currentList}/${currentTask}/${userID}`, {
