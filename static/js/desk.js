@@ -562,7 +562,7 @@ const taskNameTextarea = document.querySelector('#taskNameTextarea');
 const taskDescTextarea = document.querySelector('#taskDescriptionTextarea');
 const availableRow = document.querySelector('#availableRow');
 const assignedRow = document.querySelector('#assignedRow');
-let currentList, currentTask, currentTaskName;
+let currentList, currentTask, currentTaskName, currentDescription;
 
 function openTaskModal(listID, taskID){
     currentList = listID;
@@ -580,6 +580,7 @@ function openTaskModal(listID, taskID){
     taskNameTextarea.value = name;
     taskDescTextarea.value = description;
     currentTaskName = name;
+    currentDescription = description;
     // Get Time that passed since creation
     const timeSinceCreation = calculatePassedTime(new Date(date).getTime());
     document.querySelector('#passedTime').textContent = timeSinceCreation;
@@ -765,7 +766,7 @@ taskNameTextarea.addEventListener('input', () => {
 taskNameTextarea.addEventListener('keydown', e => {
     if(e.which === 13 && !e.shiftKey){
         e.preventDefault();
-        taskNameTextarea.blur()
+        taskNameTextarea.blur();
     };
 });
 // Listen for change on task-name textarea
@@ -801,9 +802,24 @@ function updateTaskName(newName){
 taskDescTextarea.addEventListener('input', () => {
     autoSetTextareaHeight(taskDescTextarea);
 });
-// Update Task-Description
+// Check if enter key is pressed on task-description textarea
+taskDescTextarea.addEventListener('keydown', e => {
+    if(e.which === 13 && !e.shiftKey){
+        e.preventDefault();
+        taskDescTextarea.blur();
+    };
+});
+// Listen for change in task-description textarea
 taskDescTextarea.addEventListener('change', () => {
     const newDesc = taskDescTextarea.value.trim();
+    if(!newDesc || newDesc == currentDescription){
+        taskDescTextarea.value = currentDescription;
+        return;
+    };
+    updateTaskDescription(newDesc);
+});
+// Update Task-Description
+function updateTaskDescription(newDesc){
     fetch(`/desk/task/description`, {
         method: 'PATCH',
         body: JSON.stringify({
@@ -818,7 +834,7 @@ taskDescTextarea.addEventListener('change', () => {
         if(!newLists) return;
         deskData.lists = newLists;
     });
-});
+};
 
 /**
  * #### Auto Set height of textare to content size
