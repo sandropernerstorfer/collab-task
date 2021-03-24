@@ -447,6 +447,7 @@ listForm.addEventListener('reset', () => {
 listForm.addEventListener('submit', e => {
     e.preventDefault();
     const listName = listForm.listName.value.trim();
+    if(listName.length == 0) return;
     fetch('/desk/list', {
         method: 'POST',
         body: JSON.stringify({name: listName}),
@@ -468,7 +469,7 @@ cellContainer.addEventListener('click', e => {
         closeOpenForms();
         e.target.closest('.addTask').innerHTML = `
         <form id="taskForm">
-            <input id="newTaskname" type="text" placeholder="Taskname...">
+            <input id="newTaskname" type="text" placeholder="New taskname ...">
             <button type="submit" id="saveTask" IsTabStop="false"><i class="far fa-check-circle"></i></button>
             <button type="button" id="cancelTask" IsTabStop="false"><i class="far fa-times-circle"></i></button>
         </form>`;

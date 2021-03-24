@@ -264,3 +264,4 @@
 * **App-Work :**
     * Listen Name veränderbar ( nur Client Seitig ) ( auto sizing textarea )
     * Wenn Taskname nach bearbeitung leer: reset zu alten namen
+    * Beim erstellen einer liste darf der name nicht leer sein
