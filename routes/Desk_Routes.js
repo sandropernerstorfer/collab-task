@@ -118,6 +118,26 @@ router.patch('/list/order', async (req, res) => {
     };
 });
 
+router.patch('/list/name', async (req, res) => {
+    const { listID, newName } = req.body;
+
+    const desk = await Desk.findOne({_id: req.session.currentDesk}, (err, doc) => {
+        if(err) res.end(JSON.stringify(false));
+    });
+    if(desk){
+        const getIndexWithID = list => list._id == listID;
+        const listIndex = desk.lists.findIndex(getIndexWithID);
+
+        desk.lists[listIndex].name = newName;
+
+        const updated = await desk.save();
+        res.end(JSON.stringify(updated.lists));
+    }
+    else{
+        res.end(JSON.stringify(false));
+    };
+});
+
 router.delete('/list/:listID', async (req, res) => {
     const listID = req.params.listID;
     const desk = await Desk.findOne({_id: req.session.currentDesk}, (err, doc) => {

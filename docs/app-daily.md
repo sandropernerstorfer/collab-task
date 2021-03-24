@@ -265,3 +265,5 @@
     * Listen Name veränderbar ( nur Client Seitig ) ( auto sizing textarea )
     * Wenn Taskname nach bearbeitung leer: reset zu alten namen
     * Beim erstellen einer liste darf der name nicht leer sein
+    * Beim ändern des list name darf der name nicht leer sein
+    * Speichere neuen list name in Database

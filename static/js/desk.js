@@ -204,11 +204,37 @@ function renderLists(){
                 autoSetTextareaHeight(textarea); 
             });
             textarea.addEventListener('change', () => {
-                console.log(textarea.value);
+                const newListName = textarea.value.trim();
+                if(newListName == currentListName || !newListName){
+                    textarea.value = currentListName;
+                    return;
+                };
+                const listID = textarea.closest('.list').id;
+                saveNewListName(listID, newListName);
+            });
+            textarea.addEventListener('click', () => {
+                currentListName = textarea.value;
             });
         });
     }
     
+};
+
+let currentListName;
+function saveNewListName(listID, newName){
+    fetch('/desk/list/name', {
+        method: 'PATCH',
+        body: JSON.stringify({
+            listID: listID,
+            newName: newName
+        }),
+        headers: {'Content-Type' : 'application/json; charset=UTF-8'}
+    })
+    .then(res => res.json())
+    .then(newLists => {
+        if(!newLists) return;
+        deskData.lists = newLists;
+    });
 };
 
 // LIST AND TASK DRAGGING
