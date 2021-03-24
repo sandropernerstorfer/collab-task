@@ -151,7 +151,7 @@ function renderLists(){
     lists.forEach( list => {
         const listTemplate = document.querySelector('#listTemplate').content.cloneNode(true);
         listTemplate.querySelector('.list').id = list._id;
-        listTemplate.querySelector('.list-name').textContent = list.name; 
+        listTemplate.querySelector('.list-name-textarea').textContent = list.name; 
 
         // DELETE LIST EVENT
         listTemplate.querySelector('.delete-list').addEventListener('click', () => { deleteList(list._id)});
@@ -197,6 +197,12 @@ function renderLists(){
             const listID = button.closest('.list').id;
             const taskID = button.closest('.task').id;
             button.addEventListener('click', () => {deleteTask(listID, taskID)});
+        });
+        document.querySelectorAll('.list-name-textarea').forEach( textarea => {
+            autoSetTextareaHeight(textarea);
+            textarea.addEventListener('input', () => {
+                autoSetTextareaHeight(textarea); 
+            });
         });
     }
     

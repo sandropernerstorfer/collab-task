@@ -510,11 +510,24 @@ main{
         position: relative;
         white-space: wrap;
         word-wrap: break-word;
-        span{
+        textarea{
+            width: 82%;
+            padding: 0px 0 2px 1px;
+            height: fit-content;
+            resize: none;
+            overflow-y: hidden;
             color: $primaryText;
             font-weight: 600;
-            margin-left: 2px;
-            width: 82%;
+            border: 2px solid transparent;
+            background-color: transparent;
+            cursor: pointer;
+            border-radius: 5px;
+            &:focus{
+                outline: none;
+                border-color: #14badbb9;
+                color: rgba(34, 34, 34, 0.89);
+                cursor: text;
+            }
         }
         div{
             @include flex(space-between,center);
@@ -533,7 +546,7 @@ main{
             }
         }
         .grab-icon{
-            cursor: grab;
+            cursor: ew-resize;
             color: #14badbb9;
             padding-left: 10px;
             font-size: 1.1rem;
