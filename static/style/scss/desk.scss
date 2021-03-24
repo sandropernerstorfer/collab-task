@@ -187,7 +187,7 @@ main{
     background-color: rgb(252, 252, 252);
     border-radius: 5px;
     box-shadow: $boxShadow;
-    z-index: 50;
+    z-index: 150;
     border: var(--theme-border);
 
     #sideMenuHeading{
@@ -269,7 +269,7 @@ main{
 
 // Chat
 #chatWindow{
-
+    z-index: 140;
     position: absolute;
     bottom: 0;
     right: 0;
@@ -732,7 +732,7 @@ main{
         color: $primaryText;
         font-weight: 600;
         cursor: pointer;
-        width: 90%;
+        width: 87%;
         height: auto;
         resize: none;
         border-radius: 5px;
@@ -743,6 +743,9 @@ main{
             cursor: text;
             border-color: #13c7ebb9;
         }
+    }
+    .modal-header button{
+        margin-right: 5px;
     }
     .modal-body{
         padding-bottom: 5px;
