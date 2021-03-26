@@ -909,7 +909,7 @@ searchBtn.addEventListener('click', () => {
 
 function processSearchQuery(){
     const query = searchbar.value.toLowerCase();
-    if(query == '') return;
+    if(query == '') return markNotFound();
     searchReady = false;
     const allTasks = Array.from(document.querySelectorAll('.task'));
     const found = allTasks.find( task => {
