@@ -276,3 +276,7 @@
     * z-index bug bei chat und side menu behoben
     * task-modal close-button position angepasst
     * addTask & addList font weight angepasst
+
+#### 29.03.2021
+* **App-Work :**
+    * Homepage Dynamischer BottomBtn Font-Size angepasst
