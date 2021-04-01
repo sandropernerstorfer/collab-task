@@ -155,10 +155,10 @@ main{
         .product-image{
             height: 400px;
             width: 50%;
-            background-image: url('../../assets/img/placeholder.png');
             background-size: cover;
-            background-position: center;
             background-repeat: no-repeat;
+            box-shadow: 1px 1px 13px -5px rgba(102,102,102,1);
+            border-radius: 5px;
         }
 
         @media screen and (max-width: 990px){
@@ -170,6 +170,23 @@ main{
             }
         }
     }
+}
+
+#board-image{
+    background-image: url('../../assets/img/prod-img-board.jpeg');
+    background-position: -15px center;
+}
+#desk-image{
+    background-image: url('../../assets/img/prod-img-desk.jpeg');
+    background-position: left;
+}
+#collab-image{
+    background-image: url('../../assets/img/prod-img-collab.png');
+    background-position: center;
+}
+#chat-image{
+    background-image: url('../../assets/img/prod-img-chat.png');
+    background-position: -16px center;
 }
 
 #dynamic-bottom{

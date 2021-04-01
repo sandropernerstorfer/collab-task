@@ -826,7 +826,7 @@ taskDescTextarea.addEventListener('keydown', e => {
 // Listen for change in task-description textarea
 taskDescTextarea.addEventListener('change', () => {
     const newDesc = taskDescTextarea.value.trim();
-    if(!newDesc || newDesc == currentDescription){
+    if(newDesc == currentDescription){
         taskDescTextarea.value = currentDescription;
         return;
     };

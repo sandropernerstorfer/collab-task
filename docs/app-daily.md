@@ -280,3 +280,8 @@
 #### 29.03.2021
 * **App-Work :**
     * Homepage Dynamischer BottomBtn Font-Size angepasst
+
+#### 01.04.2021
+* **App-Work :**
+    * Homepage App Bilder hinzugefügt
+    * Bilder positioniert
