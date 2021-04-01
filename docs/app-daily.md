@@ -285,3 +285,4 @@
 * **App-Work :**
     * Homepage App Bilder hinzugefügt
     * Bilder positioniert
+    * Bug-Fix bei löschen eines desk

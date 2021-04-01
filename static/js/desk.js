@@ -111,7 +111,9 @@ function addRoleDependingEvents(){
                 fetch(`/desk/delete`, {
                     method: 'DELETE'
                 })
-                .then(location.href = '/board');
+                .then( res => {
+                    location.href = '/board';
+                });
             };
         });
     }
