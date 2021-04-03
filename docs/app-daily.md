@@ -297,3 +297,4 @@
     * Beim öffnen von desk, status von allen membern die bereits online sind auf online schalten
     * Board h4 mediaquery
     * Bei invite annahme, member liste in anderen clients auf diesem desk updaten
+    * Cookies sameSite attribute update auf 'strict'

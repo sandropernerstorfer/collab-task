@@ -44,7 +44,7 @@ router.post('/signup', async (req, res) => {
             const savedUser = await user.save();
             req.session.currentUser = savedUser;
             req.session.currentUser.password = 'hidden';
-            res.cookie('_taskID', sessionID, {httpOnly: false, maxAge: 1000*1000*1000*1000});
+            res.cookie('_taskID', sessionID, {httpOnly: false, maxAge: 1000*1000*1000*1000, sameSite: 'strict'});
             res.end();
         }
         catch(err){
@@ -68,7 +68,7 @@ router.post('/signin', async (req, res) => {
             if(await bcrypt.compare(req.body.password, userExists.password)){
                 const sessionID = uuidv4();
                 const updatedUser = await User.findOneAndUpdate({ email: req.body.email }, { $set: {sessionid: sessionID}}, {new: true}).select('-password');
-                res.cookie('_taskID', sessionID, {httpOnly: false, maxAge: 1000*1000*1000*1000});
+                res.cookie('_taskID', sessionID, {httpOnly: false, maxAge: 1000*1000*1000*1000, sameSite: 'strict'});
                 req.session.currentUser = updatedUser;
                 res.end();
             }

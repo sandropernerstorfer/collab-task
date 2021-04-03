@@ -23,7 +23,7 @@ app.use(express.static('static'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(session({ secret : process.env.SESSION_SECRET, resave: false, saveUninitialized: false }));
+app.use(session({ secret : process.env.SESSION_SECRET, resave: false, saveUninitialized: false, cookie: {sameSite: true} }));
 
 /**
  * Check Status, Get and Save User Data (Middleware)
