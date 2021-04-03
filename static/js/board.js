@@ -18,6 +18,8 @@ fetch('/board/boarddata')
     renderDeskData();
     renderSharedData();
     renderInvites();
+
+    setupSocket();
 });
 
 function sortHandling(){
@@ -456,6 +458,20 @@ document.querySelector('#invitesContainer').addEventListener('mouseout', e => {
         }
     }
 });
+
+function setupSocket(){
+
+    socket.emit('board-join', boardData._id);
+
+    socket.on('new-invite', () => {
+        fetch('/board/invites')
+        .then(res => res.json())
+        .then(invites => {
+            boardData.invites = invites;
+            renderInvites();
+        });
+    });    
+};
 
 function updateOtherClients(inviteID){
     socket.emit('invite-accepted', '/desk/'+inviteID);

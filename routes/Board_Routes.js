@@ -39,6 +39,14 @@ router.get('/boarddata', async (req, res) => {
     res.end(JSON.stringify(boardData));
 });
 
+router.get('/invites', async (req, res) => {
+    let invites = [];
+    const actualUser = await User.findOne({_id: req.session.currentUser._id});
+    req.session.currentUser = actualUser;
+    invites = await Desk.find().where('_id').in(req.session.currentUser.invites).exec();
+    res.end(JSON.stringify(invites));
+});
+
 router.post('/desk', async (req, res) => {
     const desk = new Desk({
         name: req.body.name,

@@ -1,4 +1,5 @@
 import validation from './scripts/validation.js';
+const socket = io();
 let userData, deskData, adminData, memberData;
 fetch('/desk/deskdata')
 .then(res => res.json())
@@ -83,13 +84,14 @@ function addRoleDependingEvents(){
                 headers : {'Content-type' : 'application/json; charset=UTF-8'}
             })
             .then(res => res.json())
-            .then(status => {
-                if(!status){
+            .then(user => {
+                if(!user){
                     errorField.textContent = 'No user with this Email found';
                 }
                 else{
-                    errorField.innerHTML = `<span style="color: #23CE6B;">${status.name} invited !</span>`;
+                    errorField.innerHTML = `<span style="color: #23CE6B;">${user.name} invited !</span>`;
                     inviteForm.reset();
+                    socket.emit('sent-invite', user._id);
                 }
             });
         });
@@ -960,7 +962,6 @@ const messageIndicator = document.querySelector('#messageIndicator');
 
 // Sets up socket events after desk data load
 function setupSocket(){
-    const socket = io();
 
     socket.emit('join', { id: userData._id, name: userData.name, room: location.pathname });
 

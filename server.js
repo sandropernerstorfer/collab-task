@@ -93,6 +93,14 @@ io.on('connection', socket => {
         socket.desk = obj.room;
     });
 
+    // board-join wird von client ausgelöst wenn ein user sein dashboard öffnet
+    // tritt einem privaten raum bei welcher dann live invites empfangen kann
+    socket.on('board-join', id => socket.join( id ));
+
+    // sent-invite wird von client im desk ausgelöst wenn eine einladung verschickt wird
+    // server löst dann new-invite im client des eingeladenen users aus
+    socket.on('sent-invite', id => socket.broadcast.to( id ).emit( 'new-invite' ));
+
     // invite-accepted wird von client im dashboard ausgelöst wenn eine einladung angenommen wird
     // client schickt: deskID (von einladung / als socket room) und löst new-member in den clients aus
     // lädt die neue member liste mit dem neuzugang im client
