@@ -167,14 +167,18 @@ nav{
     }
 }
 
+.no-desk small{
+    color: $primary;
+}
+
 .invite-available{
     @include flex(space-evenly,center);
     flex-direction: column;
     height: 100%;
-    color: $primaryText;
+    color: rgb(100, 100, 100);
     padding: 10px;
-    border-radius: 5px;
-    border: 2px solid #ccc;
+    border-radius: 12px;
+    box-shadow: 0px 0px 10px -5px rgba(125,125,125,.8);
     transition: border-color .3s, color .3s;
     button{
         margin-top: 5px;

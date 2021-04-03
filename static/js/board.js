@@ -429,7 +429,6 @@ document.querySelector('#invitesContainer').addEventListener('mouseover', e => {
     const parent = e.target.closest('.invite-available');
     const sibling = e.target.nextElementSibling;
 
-    parent.style.borderColor = '#23CE6B';
     parent.style.color = '#23CE6B';
     sibling.style.color = '#ccc';
 });
@@ -438,15 +437,14 @@ document.querySelector('#invitesContainer').addEventListener('mouseover', e => {
     const parent = e.target.closest('.invite-available');
     const sibling = e.target.previousElementSibling;
 
-    parent.style.borderColor = 'rgba(220, 20, 60, 0.699)';
     parent.style.color = 'rgba(220, 20, 60, 0.699)';
     sibling.style.color = '#ccc';
 });
 document.querySelector('#invitesContainer').addEventListener('mouseout', e => {
     if(e.target.matches('.accept-button') || e.target.matches('.discard-button')){
         const parent = e.target.closest('.invite-available');
-        parent.style.borderColor = '#ccc';
-        parent.style.color = '#575757';
+
+        parent.style.color = 'rgb(100, 100, 100)';
         
         if(e.target.matches('.accept-button')){
             const sibling = e.target.nextElementSibling;

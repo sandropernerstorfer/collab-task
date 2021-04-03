@@ -299,3 +299,4 @@
     * Bei invite annahme, member liste in anderen clients auf diesem desk updaten
     * Cookies sameSite attribute update auf 'strict'
     * Neue Invite im Dashboards werden live angezeigt
+    * Board Invite card UI update
