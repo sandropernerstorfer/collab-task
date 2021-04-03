@@ -31,6 +31,13 @@ router.get('/deskdata', async (req, res) => {
     res.status(200).end(JSON.stringify(fullDeskData));
 });
 
+router.get('/members', async (req, res) => {
+    const deskData = await Desk.findOne({ _id: req.session.currentDesk }).select('members');
+    const members = await User.find().where('_id').in(deskData.members)
+    .select('-password -sessionid -invites -desks -sharedDesks').exec();
+    res.end(JSON.stringify(members));
+});
+
 router.use('/', express.static('static'));
 
 router.get('/:deskID', (req, res) => {

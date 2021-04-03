@@ -93,6 +93,11 @@ io.on('connection', socket => {
         socket.desk = obj.room;
     });
 
+    // invite-accepted wird von client im dashboard ausgelöst wenn eine einladung angenommen wird
+    // client schickt: deskID (von einladung / als socket room) und löst new-member in den clients aus
+    // lädt die neue member liste mit dem neuzugang im client
+    socket.on('invite-accepted', room => socket.broadcast.to( room ).emit( 'new-member' ));
+
     // chat-send wird von client ausgelöst wenn eine nachricht verschickt wird
     // server löst dann chat-receive in den anderen clients im selben raum aus
     // schickt username und nachricht mit

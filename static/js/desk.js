@@ -966,6 +966,15 @@ function setupSocket(){
 
     socket.emit('chat-here', userData.name);
 
+    socket.on('new-member', () => {
+        fetch('/desk/members')
+        .then(res => res.json())
+        .then(members => {
+            memberData = members;
+            renderMembers();
+        });
+    });
+
     socket.on('chat-receive', msgIn => {
         const {message, name} = msgIn;
         buildMessage(message, name);

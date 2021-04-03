@@ -1,5 +1,6 @@
 import validation from './scripts/validation.js';
 import sortBoard from './scripts/boardSorting.js';
+const socket = io();
 /**
  * BOARD DATA FETCH
  * -- beim öffnen des Dashboards werden vom server die benötigten USER und DESK daten gefetcht
@@ -153,6 +154,7 @@ function acceptInvite(inviteID){
         boardData.invites = filteredInvites;
         renderSharedData();
         renderInvites();
+        updateOtherClients(inviteID);
     });
 };
 function discardInvite(inviteID){
@@ -454,3 +456,7 @@ document.querySelector('#invitesContainer').addEventListener('mouseout', e => {
         }
     }
 });
+
+function updateOtherClients(inviteID){
+    socket.emit('invite-accepted', '/desk/'+inviteID);
+};
