@@ -12,7 +12,8 @@ fetch('/desk/deskdata')
     addRoleDependingEvents();
     renderLists();
 
-    if(memberData.length > 0) setupSocket();
+    addOnlineStatus(userData._id);
+    setupSocket();
 });
 
 function renderDeskname(){
@@ -27,11 +28,12 @@ function renderMembers(){
     const url = adminData.image == null ? '../../assets/img/user-default.png' : `https://res.cloudinary.com/sandrocloud/image/upload/w_50,c_scale/${adminData.image}`;
     admin.style.backgroundImage = `url(${url})`;
     admin.setAttribute('title', adminData.name);
+    admin.setAttribute('data-id', adminData._id);
 
     const membersDiv = document.querySelector('#topMembers');
     memberData.forEach(member => {
         const url = member.image == null ? '../../assets/img/user-default.png' : `https://res.cloudinary.com/sandrocloud/image/upload/w_50,c_scale/${member.image}`;
-        membersDiv.innerHTML += `<div id="topMember${member._id}" class="member-card"></div>`;
+        membersDiv.innerHTML += `<div id="topMember${member._id}" class="member-card" data-id="${member._id}"></div>`;
         const currentMember = document.getElementById(`topMember${member._id}`);
         currentMember.style.backgroundImage = `url(${url})`;
         currentMember.setAttribute('title', member.name);
@@ -960,7 +962,7 @@ const messageIndicator = document.querySelector('#messageIndicator');
 function setupSocket(){
     const socket = io();
 
-    socket.emit('join', { name: userData.name, room: location.pathname });
+    socket.emit('join', { id: userData._id, name: userData.name, room: location.pathname });
 
     socket.emit('chat-here', userData.name);
 
@@ -969,20 +971,18 @@ function setupSocket(){
         buildMessage(message, name);
     });
 
-    socket.on('chat-otherHere', name => {
-        const info = `${name} is online`;
+    socket.on('chat-otherHere', data => {
+        const info = `${data.name} is online`;
         buildChatInfo(info, 'online');
+        addOnlineStatus(data.id);
     });
 
-    socket.on('desk-leave', name => {
-        const info = `${name} left`;
+    socket.on('desk-leave', data => {
+        const info = `${data.name} left`;
         buildChatInfo(info, 'leave');
+        removeOnlineStatus(data.id);
     });
 
-    // Clear Default Chat Messages
-    messages.innerHTML = '';
-    chatForm.querySelector('button').removeAttribute('disabled');
-    chatForm.querySelector('input').removeAttribute('disabled');
     // Chat Form - Send Msg event
     chatForm.addEventListener('submit', e => {
         e.preventDefault();
@@ -1029,4 +1029,11 @@ function buildChatInfo(msg, type){
     const statusColor = type == 'online' ? 'limegreen' : 'rgba(220, 20, 60, 0.699)';
     messages.innerHTML += `<li class="chat-info"><div style="background-color: ${statusColor};"></div><span>${msg}</span></li>`;
     scrollWindow.scrollTop = scrollWindow.scrollHeight;
+};
+
+function addOnlineStatus(userID){
+    document.querySelector('.member-card[data-id="'+userID+'"]').classList.add('member-online');
+};
+function removeOnlineStatus(userID){
+    document.querySelector('.member-card[data-id="'+userID+'"]').classList.remove('member-online');
 };

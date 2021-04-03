@@ -287,3 +287,10 @@
     * Bilder positioniert
     * Bug-Fix bei löschen eines desk
     * Favicons hinzugefügt
+
+#### 03.04.2021
+* **App-Work :**
+    * Default Chat Text entfernt
+    * Socket verbindung immer aufbauen
+    * Online status anzeige für user
+    * Basis für dynamisches online status update

@@ -88,6 +88,7 @@ io.on('connection', socket => {
     // socket tritt raum bei welcher den namen der url-location hat
     socket.on('join', obj => {
         socket.join( obj.room );
+        socket.userID = obj.id;
         socket.name = obj.name;
         socket.desk = obj.room;
     });
@@ -100,10 +101,10 @@ io.on('connection', socket => {
     // chat-here wird von client ausgelöst wenn ein user einen desk öffnet
     // server löst dann chat-otherHere in den anderen clients im selben raum aus
     // schickt username mit
-    socket.on('chat-here', obj => socket.broadcast.to( socket.desk ).emit( 'chat-otherHere', obj ));
+    socket.on('chat-here', name => socket.broadcast.to( socket.desk ).emit( 'chat-otherHere', { id: socket.userID, name: name }));
 
     // disconnect wird ausgelöst wenn die socket verbindung vom client getrennt wird
     // server löst dann desk-leave in den anderen clients im selben raum aus
     // schickt username mit
-    socket.on('disconnect', () => socket.broadcast.to( socket.desk ).emit( 'desk-leave', socket.name ));
+    socket.on('disconnect', () => socket.broadcast.to( socket.desk ).emit( 'desk-leave', { id: socket.userID, name: socket.name }));
 });
