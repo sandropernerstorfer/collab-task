@@ -975,6 +975,11 @@ function setupSocket(){
         const info = `${data.name} is online`;
         buildChatInfo(info, 'online');
         addOnlineStatus(data.id);
+        socket.emit('status-here', userData._id);
+    });
+
+    socket.on('status-otherHere', id => {
+        addOnlineStatus(id);
     });
 
     socket.on('desk-leave', data => {

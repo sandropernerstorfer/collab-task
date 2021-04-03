@@ -103,6 +103,10 @@ io.on('connection', socket => {
     // schickt username mit
     socket.on('chat-here', name => socket.broadcast.to( socket.desk ).emit( 'chat-otherHere', { id: socket.userID, name: name }));
 
+    // status-here wird von client ausgelöst wenn ein anderer user auf den desk kommt
+    // server löst status-otherHere in den anderen clients aus um dem neuzugang anzuzeigen wer bereits online ist
+    socket.on('status-here', id => socket.broadcast.to( socket.desk ).emit( 'status-otherHere', id ));
+
     // disconnect wird ausgelöst wenn die socket verbindung vom client getrennt wird
     // server löst dann desk-leave in den anderen clients im selben raum aus
     // schickt username mit
