@@ -67,7 +67,7 @@ function addRoleDependingEvents(){
                 errorField.innerHTML = '<i class="fas fa-exclamation-circle"></i> '+error;
                 return;
             }
-            const checkMembers = memberData.find( member => {
+            const checkMembers = [...memberData, adminData].find( member => {
                 return member.email == mail;
             });
             if(checkMembers){
