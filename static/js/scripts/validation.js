@@ -7,7 +7,7 @@ const validation = {
     },
     mail: (mail) => {
         mail = mail.trim();
-        return mail.includes('@') && mail.includes('.') ? '' : 'Enter a valid Email-Address';
+        return mail.includes('@') && mail.includes('.') ? '' : 'Enter a valid email-address';
     },
     pass: (pass) => {
         pass = pass.trim();

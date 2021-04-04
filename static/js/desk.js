@@ -64,14 +64,14 @@ function addRoleDependingEvents(){
             const error = validation.mail(mail);
             const errorField = document.querySelector('#inviteError');
             if(error != ''){
-                errorField.textContent = error;
+                errorField.innerHTML = '<i class="fas fa-exclamation-circle"></i> '+error;
                 return;
             }
             const checkMembers = memberData.find( member => {
                 return member.email == mail;
             });
             if(checkMembers){
-                errorField.textContent = 'User is already a Member';
+                errorField.innerHTML = '<i class="fas fa-exclamation-circle"></i> User is already a Member';
                 return;
             }
             errorField.innerHTML = '&nbsp;';
@@ -86,10 +86,10 @@ function addRoleDependingEvents(){
             .then(res => res.json())
             .then(user => {
                 if(!user){
-                    errorField.textContent = 'No user with this Email found';
+                    errorField.innerHTML = '<i class="fas fa-exclamation-circle"></i> User / Email not found';
                 }
                 else{
-                    errorField.innerHTML = `<span style="color: #23CE6B;">${user.name} invited !</span>`;
+                    errorField.innerHTML = `<span style="color: #23CE6B;"><i class="fas fa-check-circle"></i> ${user.name} invited</span>`;
                     inviteForm.reset();
                     socket.emit('sent-invite', user._id);
                 }

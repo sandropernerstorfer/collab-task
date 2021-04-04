@@ -300,3 +300,4 @@
     * Cookies sameSite attribute update auf 'strict'
     * Neue Invite im Dashboards werden live angezeigt
     * Board Invite card UI update
+    * Desk Invite modal UI update
