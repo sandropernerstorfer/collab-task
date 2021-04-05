@@ -301,3 +301,7 @@
     * Neue Invite im Dashboards werden live angezeigt
     * Board Invite card UI update
     * Desk Invite modal UI update
+
+#### 05.04.2021
+* **App-Work :**
+    * Dashboard box-shadows hinzugefügt und row-info text angepasst
