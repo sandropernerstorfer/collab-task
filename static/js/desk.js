@@ -136,7 +136,10 @@ function addRoleDependingEvents(){
                 })
                 .then(res => res.json())
                 .then(res => {
-                    if(res) location.href = '/board';
+                    if(res){
+                        socket.emit('member-leaving', userData._id);
+                        location.href = '/board';
+                    }
                 });
             };
         });
@@ -979,6 +982,13 @@ function setupSocket(){
             memberData = members;
             renderMembers();
         });
+    });
+
+    socket.on('left-member', userID => {
+        memberData = memberData.filter( member => member._id != userID);
+        setTimeout(() => {
+            document.querySelector('.member-card[data-id="'+userID+'"]').remove();    
+        }, 1);
     });
 
     socket.on('chat-receive', msgIn => {

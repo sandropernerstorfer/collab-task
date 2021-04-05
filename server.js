@@ -106,6 +106,11 @@ io.on('connection', socket => {
     // lädt die neue member liste mit dem neuzugang im client
     socket.on('invite-accepted', room => socket.broadcast.to( room ).emit( 'new-member' ));
 
+    // member-leaving wird von client ausgelöst wenn dieser user den desk verlässt
+    // client schickt die userID an server und löst in den anderen clients left-member aus
+    // entfernt den user aus den clients
+    socket.on('member-leaving', id => socket.broadcast.to( socket.desk ).emit( 'left-member', id ));
+
     // chat-send wird von client ausgelöst wenn eine nachricht verschickt wird
     // server löst dann chat-receive in den anderen clients im selben raum aus
     // schickt username und nachricht mit

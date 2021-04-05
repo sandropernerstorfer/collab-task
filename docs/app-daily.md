@@ -307,3 +307,4 @@
     * Dashboard box-shadows hinzugefügt und row-info text angepasst
     * 404.html update
     * Bug Fix bei Task-Name änderung
+    * Socket events bei desk leave
