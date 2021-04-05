@@ -468,7 +468,16 @@ function setupSocket(){
             boardData.invites = invites;
             renderInvites();
         });
-    });    
+    });
+
+    socket.on('board-deleted', () => {
+        fetch('/board/shared')
+        .then(res => res.json())
+        .then(shared => {
+            boardData.sharedDesks = shared;
+            renderSharedData();
+        });
+    });
 };
 
 function updateOtherClients(inviteID){

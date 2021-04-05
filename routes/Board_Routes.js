@@ -47,6 +47,14 @@ router.get('/invites', async (req, res) => {
     res.end(JSON.stringify(invites));
 });
 
+router.get('/shared', async (req, res) => {
+    let shared = [];
+    const actualUser = await User.findOne({_id: req.session.currentUser._id});
+    req.session.currentUser = actualUser;
+    shared = await Desk.find().where('_id').in(req.session.currentUser.sharedDesks).exec();
+    res.end(JSON.stringify(shared));
+});
+
 router.post('/desk', async (req, res) => {
     const desk = new Desk({
         name: req.body.name,

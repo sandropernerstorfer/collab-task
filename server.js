@@ -113,7 +113,13 @@ io.on('connection', socket => {
 
     // desk-deletion wird von client ausgelöst wenn admin den desk löscht
     // löst in den anderen clients desk-deleted aus und bringt sie zurück zu ihren dashboards
-    socket.on('desk-deletion', () => socket.broadcast.to( socket.desk ).emit( 'desk-deleted' ));
+    // löst in den member boards board-deleted aus und entfernt den desk vom board
+    socket.on('desk-deletion', members => {
+        socket.broadcast.to( socket.desk ).emit( 'desk-deleted' );
+        members.forEach( board => {
+            socket.broadcast.to( board ).emit( 'board-deleted' );
+        });
+    });
 
     // chat-send wird von client ausgelöst wenn eine nachricht verschickt wird
     // server löst dann chat-receive in den anderen clients im selben raum aus

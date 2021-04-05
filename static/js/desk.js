@@ -120,7 +120,8 @@ function addRoleDependingEvents(){
                     method: 'DELETE'
                 })
                 .then( res => {
-                    socket.emit('desk-deletion');
+                    const memberIds = memberData.map( member => member._id);
+                    socket.emit('desk-deletion', memberIds);
                     location.href = '/board';
                 });
             };
