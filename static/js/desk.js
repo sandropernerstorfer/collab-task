@@ -817,6 +817,7 @@ function updateTaskName(newName){
     .then(newLists => {
         if(!newLists) return;
         deskData.lists = newLists;
+        currentTaskName = newName;
         document.getElementById(currentTask).querySelector('.taskName').textContent = newName;
     });
 };
