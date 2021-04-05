@@ -120,6 +120,7 @@ function addRoleDependingEvents(){
                     method: 'DELETE'
                 })
                 .then( res => {
+                    socket.emit('desk-deletion');
                     location.href = '/board';
                 });
             };
@@ -989,6 +990,17 @@ function setupSocket(){
         setTimeout(() => {
             document.querySelector('.member-card[data-id="'+userID+'"]').remove();    
         }, 1);
+    });
+
+    socket.on('desk-deleted', () => {
+        let count = 5
+        setInterval(() => {
+            console.log(count);
+            count--;
+        }, 1000);
+        setTimeout(() => {
+            location.href = '/board';
+        }, 5000);
     });
 
     socket.on('chat-receive', msgIn => {
