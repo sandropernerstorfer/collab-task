@@ -597,9 +597,6 @@ main{
     cursor: pointer;
     position: relative;
     outline: none;
-    &:focus-visible{
-        outline: 2px solid blue;
-    }
 
     .taskMarker{
         position: absolute;
