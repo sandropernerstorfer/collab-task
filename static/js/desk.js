@@ -46,7 +46,7 @@ function addRoleDependingEvents(){
     const deskActionBtn = document.querySelector('#deskActionBtn');
 
     if(userData._id == adminData._id){
-        deskActionText.innerHTML = '<i id="dangerIcon" class="fas fa-exclamation-triangle"></i> Delete Desk';
+        deskActionText.innerHTML = 'Delete Desk';
         deskActionBtn.textContent = 'Delete';
         const elements = document.querySelectorAll('.accessDisabled');
 
@@ -128,7 +128,7 @@ function addRoleDependingEvents(){
         });
     }
     else{
-        deskActionText.innerHTML = '<i id="dangerIcon" class="fas fa-exclamation-triangle"></i> Leave Desk';
+        deskActionText.innerHTML = 'Leave Desk';
         deskActionBtn.textContent = 'Leave';
         deskActionBtn.addEventListener('click', () => {
             const confirmed = confirm('You will no longer be a Member on this Desk\n\nContinue ?');

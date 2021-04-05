@@ -309,3 +309,4 @@
     * Bug Fix bei Task-Name änderung
     * Socket events bei desk leave
     * Socket events bei desk delete
+    * Desk Menu UI Update
