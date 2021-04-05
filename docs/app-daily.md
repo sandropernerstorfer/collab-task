@@ -305,3 +305,4 @@
 #### 05.04.2021
 * **App-Work :**
     * Dashboard box-shadows hinzugefügt und row-info text angepasst
+    * 404.html update

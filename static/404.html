@@ -16,11 +16,10 @@
     <link rel="apple-touch-icon" sizes="180x180" href="./assets/img/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="./assets/img/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="./assets/img/favicon/favicon-16x16.png">
-    <link rel="manifest" href="./assets/img/favicon/site.webmanifest">
     <title>Task-App | Not Found</title>
     <style>
         html{
-            overflow-y: scroll;
+            overflow-y: auto;
         }
         body{
             height: 100vh;
@@ -53,6 +52,10 @@
             justify-content: center;
             align-items: center;
             flex-direction: column;
+            text-align: center;
+        }
+        main h1{
+            color: rgb(71, 71, 71);
         }
         .button{
             border-radius: 13px;
@@ -60,6 +63,8 @@
             border-color: #23CE6B;
             border-width: 2px;
             margin: 0 20px;
+            margin-bottom: 7px;
+            font-weight: 500;
             color: #fff;
         }
         .button:hover{
@@ -97,7 +102,7 @@
         </nav>
     </header>
     <main>
-        <h1>Sorry we cant find the requested page</h1>
+        <h1>Sorry we couldn't find the requested page</h1>
         <div class="mt-5">
             <a href="/"><button class="btn button shadow-none">Homepage <i class="fas fa-tasks"></i></button></a>
             <a id="dynamicLink" href=""><button id="dynamicButton" class="btn button shadow-none"></button></a>
