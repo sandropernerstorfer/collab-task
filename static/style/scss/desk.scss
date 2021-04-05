@@ -250,9 +250,9 @@ main{
         padding-left: 5px;
         color: $primaryText;
 
-       @media screen and (max-width:320px) {
+        @media screen and (max-width:320px) {
            width: 110px;
-       } 
+        }
     }
 
     #renameBtn{
@@ -912,7 +912,7 @@ main{
             color: rgb(155, 155, 155);
         }
         i{
-            color: orange;
+            color: $secondary2;
         }
     }
     #inviteError{
@@ -938,9 +938,6 @@ main{
             transition: border-color .2s;
             &::placeholder{
                 color: $placeholder;
-            }
-            &:focus{
-                border-color: $secondary2;
             }
         }
         button{
