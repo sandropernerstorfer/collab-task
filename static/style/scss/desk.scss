@@ -899,7 +899,7 @@ main{
     #inviteInfo{
         width: 100%;
         padding: 5px;
-        margin: 10px 0;
+        margin-top: 15px;
         font-weight: 300;
         border-radius: 5px;
         text-align: center;
@@ -919,28 +919,31 @@ main{
     }
     form{
         @include flex(space-between,center);
-        flex-direction: column;
-        margin: 5px 0 2px 0;
+        margin: 5px 0 10px 0;
         width: 100%;
         input{
-            width: 100%;
+            width: 85%;
             font-size: .9rem;
+            font-weight: 300;
             padding: 3px;
             padding-left: 5px;
             border-radius: 5px;
-            border: 1px solid $secondary2;
+            border: 2px solid #ccc;
             color: $primaryText;
-            margin-bottom: 5px;
+            transition: border-color .2s;
             &::placeholder{
                 color: $placeholder;
-                font-weight: 300;
+            }
+            &:focus{
+                border-color: $secondary2;
             }
         }
         button{
-            width: 100%;
+            width: 15%;
+            margin-left: 7px;
             font-size: .9rem;
-            font-weight: 300;
-            border: 1px solid transparent;
+            font-weight: 600;
+            border: 2px solid $secondary2;
             color: #fff;
             border-radius: 5px;
             padding: 3px;

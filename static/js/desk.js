@@ -65,6 +65,7 @@ function addRoleDependingEvents(){
             const errorField = document.querySelector('#inviteError');
             if(error != ''){
                 errorField.innerHTML = '<i class="fas fa-exclamation-circle"></i> '+error;
+                inviteForm.inviteEmail.focus();
                 return;
             }
             const checkMembers = [...memberData, adminData].find( member => {
@@ -72,6 +73,7 @@ function addRoleDependingEvents(){
             });
             if(checkMembers){
                 errorField.innerHTML = '<i class="fas fa-exclamation-circle"></i> User is already a Member';
+                inviteForm.inviteEmail.focus();
                 return;
             }
             errorField.innerHTML = '&nbsp;';
@@ -87,10 +89,12 @@ function addRoleDependingEvents(){
             .then(user => {
                 if(!user){
                     errorField.innerHTML = '<i class="fas fa-exclamation-circle"></i> User / Email not found';
+                    inviteForm.inviteEmail.focus();
                 }
                 else{
                     errorField.innerHTML = `<span style="color: #23CE6B;"><i class="fas fa-check-circle"></i> ${user.name} invited</span>`;
                     inviteForm.reset();
+                    inviteForm.inviteEmail.focus();
                     socket.emit('sent-invite', user._id);
                 }
             });
