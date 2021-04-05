@@ -993,14 +993,21 @@ function setupSocket(){
     });
 
     socket.on('desk-deleted', () => {
-        let count = 5
-        setInterval(() => {
-            console.log(count);
-            count--;
-        }, 1000);
-        setTimeout(() => {
-            location.href = '/board';
-        }, 5000);
+        const modalElement = document.getElementById('redirectionModal');
+        let count = 5;
+        let countElement = document.querySelector('#redirectionCount');
+        modalElement.addEventListener('shown.bs.modal', () =>{
+            setInterval(() => {
+                if(count <= 0){
+                    location.href = '/board';
+                    return;
+                }
+                countElement.textContent = count;
+                count--;
+            }, 1000);
+        });
+        const modal = new bootstrap.Modal(modalElement);
+        modal.show();
     });
 
     socket.on('chat-receive', msgIn => {

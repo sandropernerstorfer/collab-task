@@ -951,6 +951,39 @@ main{
     }
 }
 
+#redirectionModal{
+    pointer-events: none;
+
+    .modal-content{
+        margin: auto;
+        width: 280px !important;
+    }
+
+    .modal-body{
+        @include flex(center,center);
+        flex-direction: column;
+        text-align: center;
+
+        div{
+            width: 50px;
+            height: 50px;
+            border: 4px solid $secondary2;
+            color: $primaryText;
+            border-radius: 50%;
+            font-weight: 300;
+            @include flex(center,center);
+            font-size: 1.7rem;
+            margin-bottom: 10px;
+        }
+
+        span{
+            font-size: .85rem;
+            font-weight: 300;
+            color: $primaryText;
+        }
+    }
+}
+
 .accessDisabled{
     opacity: .4;
     cursor: default !important;
