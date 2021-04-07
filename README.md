@@ -1,26 +1,26 @@
-# 📚 Collaborative Task Management App 📚
+<h1 style="text-align: center">📚 Collaborative Task Management App 📚</h1>
 
-## 🚀 Built with :
+<h2 style="text-align: center;">🚀 Built with :</h2>
 
-##### HTML / CSS ( SCSS, Bootstrap 5 ) / JavaScript
-<br>
-<img style="float: left;" src="./static/assets/img/readme/html5.png" width="50" height="50">
-<img style="float: left;" src="./static/assets/img/readme/css3.png" width="50" height="50">
-<img style="float: left;" src="./static/assets/img/readme/scss.png" width="50" height="50">
-<img style="float: left;" src="./static/assets/img/readme/bootstrap5.png" width="60" height="50">
-<img style="float: left;" src="./static/assets/img/readme/javascript.png" width="50" height="50">
+<h5 style="text-align: center; color: #444;">HTML / CSS ( SCSS, Bootstrap 5 ) / JavaScript</h5>
+<div style="display: flex; justify-content: space-evenly; align-items: center; padding: 30px 0; border: 1px solid #ccc; border-radius: 20px;">
+    <img src="./static/assets/img/readme/html5.png" width="50" height="50">
+    <img src="./static/assets/img/readme/css3.png" width="50" height="50">
+    <img src="./static/assets/img/readme/scss.png" width="50" height="50">
+    <img src="./static/assets/img/readme/bootstrap5.png" width="60" height="50">
+    <img src="./static/assets/img/readme/javascript.png" width="50" height="50">
+</div>
 
-<br><br><br>
+<h5 style="text-align: center; color: #444;">NodeJS ( ExpressJS ) / MongoDB</h5>
+<div style="display: flex; justify-content: space-evenly; align-items: center; border: 1px solid #ccc; border-radius: 20px;">
+<img src="./static/assets/img/readme/nodejs.png" width="100" height="98">
+<img src="./static/assets/img/readme/express.png" width="100" height="105">
+<img src="./static/assets/img/readme/mongodb.png" width="100" height="98">
+</div>
 
-##### NodeJS ( ExpressJS ) / MongoDB
-<img style="float: left;" src="./static/assets/img/readme/nodejs.png" width="100" height="98">
-<img style="float: left;" src="./static/assets/img/readme/express.png" width="100" height="105">
-<img style="float: left;" src="./static/assets/img/readme/mongodb.png" width="100" height="98">
-
-<br><br><br>
 ***
 
-## 🚀 Packages, Tools, API's :
+<h2>🚀 Packages, Tools, API's :</h2>
 
 **Packages :**
 * express
@@ -45,7 +45,7 @@
 
 **API's :**
 * Cloudinary
-
+</div>
 ***
 
 ## 🚀 Main Features :
