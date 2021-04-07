@@ -1,5 +1,4 @@
 # 📚 Collaborative Task Management App 📚
-***
 
 ## 🚀 Built with :
 
