@@ -83,7 +83,7 @@
 
 <br>
 
-## Summary :
+## Summary
 ### 🚀 Homepage :
 In the upper part of the homepage there is a welcome banner which, depending on the user status (logged in yes / no), greets the user by name and provides a dashboard button, or a general welcome message with Login / Sign Up button.
 In the lower part there is brief information about the app with images and text.
@@ -112,7 +112,7 @@ The user chat enables live chat with all desk members who are currently in this 
 
 ***
 
-## Zusammenfassung :
+## Zusammenfassung
 ### 🚀 Homepage :
 Im oberen Teil der Homepage befindet sich ein Welcome-Banner der je nach User-Status (eingeloggt ja/nein) den User beim Namen begrüßt und einen Dashboard Button zur verfügung stellt, oder eine allgemeine Willkommens Nachricht mit Login/SignUp Button.
 Im unteren Teil befinden sich Infos zur App mit Bild und Text.
