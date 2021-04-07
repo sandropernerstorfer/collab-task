@@ -4,19 +4,20 @@
 
 ##### HTML / CSS ( SCSS, Bootstrap 5 ) / JavaScript
 <br>
-<img src="./static/assets/img/readme/html5.png" width="50" height="50">
-<img src="./static/assets/img/readme/css3.png" width="50" height="50">
-<img src="./static/assets/img/readme/scss.png" width="50" height="50">
-<img src="./static/assets/img/readme/bootstrap5.png" width="60" height="50">
-<img src="./static/assets/img/readme/javascript.png" width="50" height="50">
-<br>
-<br>
+<img style="float: left;" src="./static/assets/img/readme/html5.png" width="50" height="50">
+<img style="float: left;" src="./static/assets/img/readme/css3.png" width="50" height="50">
+<img style="float: left;" src="./static/assets/img/readme/scss.png" width="50" height="50">
+<img style="float: left;" src="./static/assets/img/readme/bootstrap5.png" width="60" height="50">
+<img style="float: left;" src="./static/assets/img/readme/javascript.png" width="50" height="50">
+
+<br><br><br>
 
 ##### NodeJS ( ExpressJS ) / MongoDB
-<img src="./static/assets/img/readme/nodejs.png" width="100" height="100">
-<img src="./static/assets/img/readme/express.png" width="100" height="90">
-<img src="./static/assets/img/readme/mongodb.png" width="100" height="100">
+<img style="float: left;" src="./static/assets/img/readme/nodejs.png" width="100" height="98">
+<img style="float: left;" src="./static/assets/img/readme/express.png" width="100" height="105">
+<img style="float: left;" src="./static/assets/img/readme/mongodb.png" width="100" height="98">
 
+<br><br><br>
 ***
 
 ## 🚀 Packages, Tools, API's :
