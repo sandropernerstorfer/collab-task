@@ -3,7 +3,7 @@
 <h2 style="text-align: center;">🚀 Built with :</h2>
 
 <h5 style="text-align: center; color: #444;">HTML / CSS ( SCSS, Bootstrap 5 ) / JavaScript</h5>
-<br> <br>
+<br>
 <div style="display: flex; justify-content: space-evenly; align-items: center; padding: 30px 0; border: 1px solid #ccc; border-radius: 20px;">
     <img src="./static/assets/img/readme/html5.png" width="50" height="50">
     <img src="./static/assets/img/readme/css3.png" width="50" height="50">
