@@ -1,10 +1,10 @@
-<h1 style="text-align: center">📚 Collaborative Task Management App 📚</h1>
+<h1>📚 Collaborative Task Management App 📚</h1>
 
-<h2 style="text-align: center;">🚀 Built with :</h2>
+<h2>🚀 Built with :</h2>
 
-<h5 style="text-align: center; color: #444;">HTML / CSS ( SCSS, Bootstrap 5 ) / JavaScript</h5>
+<h5>HTML / CSS ( SCSS, Bootstrap 5 ) / JavaScript</h5>
 <br>
-<div style="display: flex; justify-content: space-evenly; align-items: center; padding: 30px 0; border: 1px solid #ccc; border-radius: 20px;">
+<div style="display: flex;">
     <img src="./static/assets/img/readme/html5.png" width="50" height="50">
     <img src="./static/assets/img/readme/css3.png" width="50" height="50">
     <img src="./static/assets/img/readme/scss.png" width="50" height="50">
@@ -12,11 +12,12 @@
     <img src="./static/assets/img/readme/javascript.png" width="50" height="50">
 </div>
 
-<h5 style="text-align: center; color: #444;">NodeJS ( ExpressJS ) / MongoDB</h5>
-<div style="display: flex; justify-content: space-evenly; align-items: center; border: 1px solid #ccc; border-radius: 20px;">
-<img src="./static/assets/img/readme/nodejs.png" width="100" height="98">
-<img src="./static/assets/img/readme/express.png" width="100" height="105">
-<img src="./static/assets/img/readme/mongodb.png" width="100" height="98">
+<h5>NodeJS ( ExpressJS ) / MongoDB / socket.io</h5>
+<div style="display: flex;">
+<img src="./static/assets/img/readme/node.png" width="70" height="70">
+<img src="./static/assets/img/readme/expressjs.png" width="250" height="70">&nbsp;&nbsp;
+<img src="./static/assets/img/readme/mongo.png" width="70" height="70">
+<img src="./static/assets/img/readme/socketio.png" width="65" height="65">
 </div>
 
 ***
