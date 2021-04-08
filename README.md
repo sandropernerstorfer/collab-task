@@ -5,19 +5,19 @@
 <h5>HTML / CSS ( SCSS, Bootstrap 5 ) / JavaScript</h5>
 <br>
 <div style="display: flex;">
-    <img src="./static/assets/img/readme/html5.png" width="50" height="50">
-    <img src="./static/assets/img/readme/css3.png" width="50" height="50">
-    <img src="./static/assets/img/readme/scss.png" width="50" height="50">
-    <img src="./static/assets/img/readme/bootstrap5.png" width="60" height="50">
-    <img src="./static/assets/img/readme/javascript.png" width="50" height="50">
+    <img src="./docs-app/img/html5.png" width="50" height="50">
+    <img src="./docs-app/img/css3.png" width="50" height="50">
+    <img src="./docs-app/img/scss.png" width="50" height="50">
+    <img src="./docs-app/img/bootstrap5.png" width="60" height="50">
+    <img src="./docs-app/img/javascript.png" width="50" height="50">
 </div>
 
 <h5>NodeJS ( ExpressJS ) / MongoDB / socket.io</h5>
 <div style="display: flex;">
-<img src="./static/assets/img/readme/node.png" width="70" height="70">
-<img src="./static/assets/img/readme/expressjs.png" width="250" height="70">&nbsp;&nbsp;
-<img src="./static/assets/img/readme/mongo.png" width="70" height="70">
-<img src="./static/assets/img/readme/socketio.png" width="65" height="65">
+<img src="./docs-app/img/node.png" width="70" height="70">
+<img src="./docs-app/img/expressjs.png" width="250" height="70">&nbsp;&nbsp;
+<img src="./docs-app/img/mongo.png" width="70" height="70">
+<img src="./docs-app/img/socketio.png" width="65" height="65">
 </div>
 
 <h2>🚀 Packages, Tools, API's :</h2>
