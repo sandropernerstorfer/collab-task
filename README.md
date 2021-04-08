@@ -20,8 +20,6 @@
 <img src="./static/assets/img/readme/socketio.png" width="65" height="65">
 </div>
 
-***
-
 <h2>🚀 Packages, Tools, API's :</h2>
 
 **Packages :**
@@ -47,8 +45,6 @@
 
 **API's :**
 * Cloudinary
-</div>
-***
 
 ## 🚀 Main Features :
 
@@ -69,8 +65,6 @@
 * Live Chat
 * Websockets
 * Database
-
-***
 
 ### 🚀 App Parts :
 * Homepage
