@@ -24,17 +24,22 @@
 ———————————————————————————————————————————————————————————————————————————————
 **MIDDLEWARE**
 * _mongoose.set('useFindAndModify', false)_
-    ...
+    veraltete mongoose funktion exkludieren
+
 * _app.use(express.static('static'))_
-    ...
+    static ordner angeben
+
 * _app.use(express.json())_
-    ...
+    automatisches JSON Parsing
+
 * _app.use(express.urlencoded({ extended: true }))_
-    ...
+    automatisches urlencoded payload Parsing
+
 * _app.use(cookieParser())_
-    ...
+    automatisches cookie parsing. wird in req.cookies.-cookieName- gespeichert
+
 * _app.use(session(......))_
-    ...
+    konfiguriert die express user-session mit secret key und sonstigen parametern
 ———————————————————————————————————————————————————————————————————————————————
 **CHECK STATUS**
 * _Get and Save User Data (Middleware)_

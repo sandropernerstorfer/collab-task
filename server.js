@@ -25,7 +25,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(session({ secret : process.env.SESSION_SECRET, resave: false, saveUninitialized: false, cookie: {sameSite: true} }));
 
-// CHECK STATUS, Get and Save User Data (Middleware)
+// Check User/Session Status
 const User = require('./models/User');
 app.use(getUserDataLocal);
 async function getUserDataLocal(req, res, next){
