@@ -315,3 +315,4 @@
 #### 08.04.2021
 * **App-Work :**
     * FadeIn & FadeOut wenn man auf desk bereich kommt & von board auf desk
+    * server dokumentation erweitert

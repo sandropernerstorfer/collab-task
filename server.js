@@ -1,11 +1,11 @@
+// Import Packages
 const 
 express = require('express'),
 app = express(),
-socket = require('socket.io'),
 session = require('express-session'),
-cookieParser = require("cookie-parser"),
+socket = require('socket.io'),
+cookieParser = require('cookie-parser'),
 mongoose = require('mongoose');
-
 require('dotenv/config');
 
 // Import Routes
@@ -72,36 +72,27 @@ mongoose.connect(
     }
 );
 
+// Socket Connections / Events
 const io = socket(server);
 io.on('connection', socket => {
-
     socket.on('join', obj => {
         socket.join( obj.room );
         socket.userID = obj.id;
         socket.name = obj.name;
         socket.desk = obj.room;
     });
-
     socket.on('board-join', id => socket.join( id ));
-
     socket.on('sent-invite', id => socket.broadcast.to( id ).emit( 'new-invite' ));
-
     socket.on('invite-accepted', room => socket.broadcast.to( room ).emit( 'new-member' ));
-
     socket.on('member-leaving', id => socket.broadcast.to( socket.desk ).emit( 'left-member', id ));
-
     socket.on('desk-deletion', members => {
         socket.broadcast.to( socket.desk ).emit( 'desk-deleted' );
         members.forEach( board => {
             socket.broadcast.to( board ).emit( 'board-deleted' );
         });
     });
-
     socket.on('chat-send', obj => socket.broadcast.to( socket.desk ).emit( 'chat-receive', obj ));
-
     socket.on('chat-here', name => socket.broadcast.to( socket.desk ).emit( 'chat-otherHere', { id: socket.userID, name: name }));
-
     socket.on('status-here', id => socket.broadcast.to( socket.desk ).emit( 'status-otherHere', id ));
-
     socket.on('disconnect', () => socket.broadcast.to( socket.desk ).emit( 'desk-leave', { id: socket.userID, name: socket.name }));
 });

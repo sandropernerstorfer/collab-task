@@ -1,12 +1,60 @@
 ———————————————————————————————————————————————————————————————————————————————
-**CHECK STATUS, Get and Save User Data (Middleware)**
+**IMPORT PACKAGES**
+* _require('express') / app = express()_
+    express framework und app initialisierung
+
+* _require('express-session')_
+    express-session package für user-session handling via cookie und req.session objekt
+
+* _require('socket.io')_
+    socket.io package für realtime client/server verbindungen (websockets)
+
+* _require('cookie-parser')_
+    cookie-parser für middleware zur cookie verarbeitung
+
+* _require('mongoose')_
+    mongoDB "framework" / tool
+
+* _require('dotenv/config')_
+    environment variables
+———————————————————————————————————————————————————————————————————————————————
+**IMPORT ROUTES**
+* _require(./routes/ROUTE)_
+    importiere routen (.js dateien) aus 'routes' ordner
+———————————————————————————————————————————————————————————————————————————————
+**MIDDLEWARE**
+* _mongoose.set('useFindAndModify', false)_
+    ...
+* _app.use(express.static('static'))_
+    ...
+* _app.use(express.json())_
+    ...
+* _app.use(express.urlencoded({ extended: true }))_
+    ...
+* _app.use(cookieParser())_
+    ...
+* _app.use(session(......))_
+    ...
+———————————————————————————————————————————————————————————————————————————————
+**CHECK STATUS**
+* _Get and Save User Data (Middleware)_
     kontrolliert den User status und speichert user daten in das session objekt
     ist der session cookie & session data vorhanden wird die middleware übersprungen
     ist nur der session cookie vorhanden wird damit der passende user in der Datenbank gesucht
     wird kein User gefunden (zB. wegen falscher cookieID) wird der cookie gelöscht und session data zurückgesetzt
     ansonsten speichere die nötigen user daten in das session objekt
 ———————————————————————————————————————————————————————————————————————————————
-**SOCKETS**
+**ROUTING**
+* _app.use( route, imported Route )_
+    requests auf die angegebenen routen zu den importierten routen weiterleiten
+———————————————————————————————————————————————————————————————————————————————
+**PORT / DB CONNECTION**
+* _app.listen(PORT)_
+    server hört auf angegebenen port
+* _mongoose.connect()_
+    verbinde mongoDB datenbank mit angegebenen umgebungs-variablen
+———————————————————————————————————————————————————————————————————————————————
+**SOCKETS** 
 * _socket.on( 'join' )_
     join wird von client ausgelöst wenn ein user einen desk öffnet
     client schickt: url-path und username. Welche im socket gespeichert werden
