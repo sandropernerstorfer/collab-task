@@ -311,3 +311,7 @@
     * Socket events bei desk delete
     * Desk Menu UI Update
     * Add Task & Add List Inputs UI update
+
+#### 08.04.2021
+* **App-Work :**
+    * FadeIn & FadeOut wenn man auf desk bereich kommt & von board auf desk

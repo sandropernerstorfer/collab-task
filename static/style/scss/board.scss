@@ -440,3 +440,15 @@ nav{
     top: 0;
     left: -9000px;
 }
+
+#fadeWindow{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    opacity: 0;
+    z-index: -9000;
+    background-color: #fff;
+    transition: opacity .8s;
+}

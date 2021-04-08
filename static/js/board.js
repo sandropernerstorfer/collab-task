@@ -135,7 +135,12 @@ function renderInvites(){
  * übernimmt die gewählte deskID und leitet weiter an diesen Desk
  */
 function openDesk(deskID){
-    window.location.href = `desk/${deskID}`;
+    const fadeWindow = document.querySelector('#fadeWindow')
+    fadeWindow.style.zIndex = '9000';
+    fadeWindow.style.opacity = '1';
+    setTimeout(() => {
+        window.location.href = `desk/${deskID}`;    
+    }, 800);
 };
 
 /**

@@ -15,7 +15,16 @@ fetch('/desk/deskdata')
 
     addOnlineStatus(userData._id);
     setupSocket();
+    fadeOutLoader();
 });
+
+function fadeOutLoader(){
+    const fadeWindow = document.querySelector('#fadeWindow');
+    fadeWindow.style.opacity = 0;
+    setTimeout(() => {
+        fadeWindow.remove();
+    }, 1000);
+};
 
 function renderDeskname(){
     document.querySelector('#topDeskname').textContent = deskData.name;
