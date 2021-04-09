@@ -1,5 +1,4 @@
 import validation from './scripts/validation.js';
-import sortBoard from './scripts/boardSorting.js';
 const socket = io();
 /**
  * BOARD DATA FETCH
@@ -405,7 +404,9 @@ function resetProfile(){
  */
 document.querySelector('#logoutButton').addEventListener('click', () => {
     fetch('/logout')
-    .then( res => window.location.href = '/login');
+    .then( res => {
+        window.location.href = '/login';
+    });
 });
 
 /**
@@ -425,6 +426,27 @@ sortForm.addEventListener('change', e => {
     renderDeskData();
     renderSharedData();
 });
+
+/**
+ * @param {ARRAY} array         Array dass sortiert wird
+ * @param {STRING} sortBy       wonach wird sortiert : zb. 'name', 'date', 'color'
+ * @param {STRING} sortOrder    bestimmt die sortier Richtung : 'ascending' oder 'descending'
+ */
+function sortBoard(array, sortBy, sortOrder){
+    array.sort((a,b) => {
+        if(sortBy == 'name'){
+            if(a[sortBy].toLowerCase() < b[sortBy].toLowerCase()) return -1;
+            if(a[sortBy].toLowerCase() > b[sortBy].toLowerCase()) return 1;    
+        }
+        else{
+            if(a[sortBy] < b[sortBy]) return -1;
+            if(a[sortBy] > b[sortBy]) return 1;
+        }
+        return 0;
+    });
+    if(sortOrder == 'descending') return array.reverse();
+    return array;
+};
 
 /**
  * INVITE CARDS DYNAMIC COLORS

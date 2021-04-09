@@ -321,3 +321,5 @@
 * **App-Work :**
     * CSS / SCSS kommentiert und aufgeräumt
     * DB Schema dokumentation erstellt
+    * board Sorting Funktion fix in board.js verwendet
+    * validation.js dokumentiert
