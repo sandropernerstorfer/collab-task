@@ -1,10 +1,12 @@
 @import 'base';
 @import 'basenav';
 
+// REMOVE NAV POINTER
 nav h3{
     cursor: default !important;
 }
 
+// TOP BANNER / IMAGES / BUTTONS
 #main-banner{
     @include flex(space-around,center);
     flex-wrap: nowrap;
@@ -94,6 +96,7 @@ nav h3{
     }
 }
 
+// APP CARD BUBBLES
 #intro-cards{
     @include flex(space-evenly,center);
     flex-wrap: wrap;
@@ -137,41 +140,41 @@ nav h3{
     }
 }
 
+// MAIN SECTION
 main{
     margin-top: 10vh;
     padding-bottom: 30px;
     background-color: #FEFCFE;
     box-shadow: 2px 4px 13px -4px rgba(97,97,97,1);
+}
 
-    #product-section{
-        .product-row{
-            @include flex(space-between,center);
-            flex-wrap: wrap;
-        }
-        .product-description{
-            cursor: default;
-            width: 50%;
-        }
-        .product-image{
-            height: 400px;
-            width: 50%;
-            background-size: cover;
-            background-repeat: no-repeat;
-            box-shadow: 1px 1px 13px -5px rgba(102,102,102,1);
-            border-radius: 5px;
-        }
-
-        @media screen and (max-width: 990px){
-            .product-description{
-                width: 100%;
-            }
-            .product-image{
-                width: 100%;
-            }
-        }
+// PRODUCT INFO ROWS / DESCRIPTION / IMAGES
+.product-row{
+    @include flex(space-between,center);
+    flex-wrap: wrap;
+}
+.product-description{
+    cursor: default;
+    width: 50%;
+}
+.product-image{
+    height: 400px;
+    width: 50%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    box-shadow: 1px 1px 13px -5px rgba(102,102,102,1);
+    border-radius: 5px;
+}
+@media screen and (max-width: 990px){
+    .product-description{
+        width: 100%;
+    }
+    .product-image{
+        width: 100%;
     }
 }
 
+// IMAGE PATHS
 #board-image{
     background-image: url('../../assets/img/prod-img-board.jpeg');
     background-position: -15px center;
@@ -189,6 +192,7 @@ main{
     background-position: -16px center;
 }
 
+// BOTTOM BUTTON
 #dynamic-bottom{
     @include flex(center,center);
     height: 100px;
@@ -198,6 +202,7 @@ main{
     }
 }
 
+// FOOTER
 footer{
     @include flex(space-between,center);
     width: 100%;
@@ -219,6 +224,7 @@ footer{
     }
 }
 
+// SCROLL TO TOP BUTTON
 .scroll-to-top{
     border-radius: 50%;
     font-size: 1.3rem;

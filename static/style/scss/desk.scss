@@ -1,5 +1,6 @@
 @import 'base';
 
+// COLOR THEME VARIABLES
 [data-theme="dark"]{
     --theme-bg : #373f47;
     --theme-txt: #F5F5F5;
@@ -13,28 +14,19 @@
     --border-color: rgb(231, 231, 231);
 }
 
+// SELECTION HIGHLIGHT COLORS
 *::selection{
     background-color: $secondary2;
     color: #fff;
 }
 
+// DOCUMENT STYLE
 body{
     width: 100vw;
     height: 100vh;
 }
 
-// Coloring
-.top-division, #topDeskname, #inviteBtn i, .menuSection .menuIcon, #addListBtn i, .addTaskBtn i{
-    color: $secondary2 !important;
-}
-#admin i, #inviteModal form button{
-    background-color: $secondary2 !important;
-}
-#inviteModal form button{
-    border-color: $secondary2 !important;
-}
-
-// Top Navbar
+// TOP NAVBAR
 nav{
     @include flex(space-between,center);
     padding: 8px;
@@ -53,66 +45,75 @@ nav{
             margin-right: 5px;
         }
     }
-    .top-division{
-        margin: 0 0px 0 10px;
-    }
-    #topDeskname{
-        padding: 3px 8px;
-        border-radius: 5px;
-        font-weight: 700;
-        white-space: nowrap;
-    }
+}
+.top-division{
+    margin: 0 0px 0 10px;
+    color: $secondary2;
+}
+#topDeskname{
+    padding: 3px 8px;
+    border-radius: 5px;
+    font-weight: 700;
+    white-space: nowrap;
+    color: $secondary2;
 }
 #topMembers{
     @include flex(flex-end,center);
     margin-right: 7px;
-    #inviteBtn{
-        height: 30px;
-        width: 70px;
-        border: 0;
-        color: $primaryText;
-        background-color: transparent;
-        margin-right: 0px;
-        padding: 0 5px;
-        border-radius: 5px;
-    }
-    .member-card{
-        border-radius: 50%;
-        height: 29px;
-        width: 29px;
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: center;
-        border: 3px solid rgb(117, 117, 117);
-        opacity: .4;
-        transition: all .4s;
-    }
-    #admin{
-        position: relative;
-        i{
-            font-size: .35rem;
-            position: absolute;
-            top: -3px;
-            right: -3px;
-            color: #fff;
-            border-radius: 20px;
-            padding: 3px;
-        }
-    }
-    .member-online{
-        border: 3px solid rgb(20, 235, 20);
-        opacity: 1; 
+}
+#inviteBtn{
+    height: 30px;
+    width: 70px;
+    border: 0;
+    color: $primaryText;
+    background-color: transparent;
+    margin-right: 0px;
+    padding: 0 5px;
+    border-radius: 5px;
+    i{
+        color: $secondary2;
     }
 }
+.member-card{
+    border-radius: 50%;
+    height: 29px;
+    width: 29px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    border: 3px solid rgb(117, 117, 117);
+    opacity: .4;
+    transition: all .4s;
+    @media screen and (max-width: 551px){
+        display: none;
+    }
+}
+#admin{
+    position: relative;
+    i{
+        font-size: .35rem;
+        position: absolute;
+        top: -3px;
+        right: -3px;
+        color: #fff;
+        background-color: $secondary2;
+        border-radius: 20px;
+        padding: 3px;
+    }
+}
+.member-online{
+    border: 3px solid rgb(20, 235, 20);
+    opacity: 1; 
+}
 
-// Main
+// MAIN SECTION
 main{
     width: 100vw;
     height: calc(100vh - 60px);
     overflow: hidden
 }
 
-// Small Top Sub Navbar
+// DESK SUB NAVBAR
 #deskMenuBar{
     @include flex(space-between, center);
     height: 37px;
@@ -131,56 +132,70 @@ main{
         position: relative;
     }
 
-    #chatBtn i, #menuBtn i{
-        color: $secondary2;
-    }
-
-    #topSearch{
-        @include flex(flex-end,center);
-        position: relative;
-        #searchbar, #clearSearch{
-            width: auto;
-            border-style: solid;
-            border-color: var(--border-color);
-            font-size: .9rem;
-            transition: border-color .3s, color .3s;
-        }
-        #searchbar{
-            width: 180px;
-            border-width: 2px 0 2px 2px;
-            border-radius: 5px 0 0 5px;
-            padding-left: 5px;
-            color: $primaryText;
-            &:focus{
-                border-color: $secondary2;
-            }
-            &:focus + #clearSearch{
-                border-color: $secondary2;
-            }
-            &::placeholder{
-                color: $placeholder;
-                font-size: .85rem;
-            }
-        }
-        #clearSearch{
-            border-width: 2px 2px 2px 0;
-            border-radius: 0 5px 5px 0;
-            padding: 0 5px;
-            background-color: #fff;
-            margin-right: 10px;
-            color: $secondary2;
-        }
+    @media screen and (max-width: 391px){
+        justify-content: flex-end;
     }
 }
+#chatBtn i, #menuBtn i{
+    color: $secondary2;
+}
+#topSearch{
+    @include flex(flex-end,center);
+    position: relative;
+    @media screen and (max-width: 391px){
+        display: none !important;
+    }
+}
+#searchbar, #clearSearch{
+    width: auto;
+    border-style: solid;
+    border-color: var(--border-color);
+    font-size: .9rem;
+    transition: border-color .3s, color .3s;
+}
+#searchbar{
+    width: 180px;
+    border-width: 2px 0 2px 2px;
+    border-radius: 5px 0 0 5px;
+    padding-left: 5px;
+    color: $primaryText;
+    &:focus{
+        border-color: $secondary2;
+    }
+    &:focus + #clearSearch{
+        border-color: $secondary2;
+    }
+    &::placeholder{
+        color: $placeholder;
+        font-size: .85rem;
+    }
+}
+#clearSearch{
+    border-width: 2px 2px 2px 0;
+    border-radius: 0 5px 5px 0;
+    padding: 0 5px;
+    background-color: #fff;
+    margin-right: 10px;
+    color: $secondary2;
+}
+#messageIndicator{
+    background-color: rgba(255, 68, 106, 0.9);
+    width: 8px;
+    height: 8px;
+    position: absolute;
+    top: 2px;
+    left: 10px;
+    border-radius: 50%;
+}
 
-// Entire Desk Space (minus top bars)
+// ENTIRE DESK SPACE (minus top bars)
 #deskSpace{
     width: 100%;
     height: calc(100% - 37px);
     position: relative;
 }
 
-// Side Menu
+// SIDE DESK MENU
 #sideMenu{
     @include flex(space-evenly, center);
     flex-direction: column;
@@ -196,90 +211,72 @@ main{
     box-shadow: $boxShadow;
     z-index: 150;
     border: var(--theme-border);
+}
+#sideMenuHeading{
+    @include flex(flex-start, center);
+    width: 100%;
+    height: 42.8px;
+    min-height: 42.8px;
+    padding-left: 12px;
+    color: $primaryText;
+    font-weight: 600;
+    border-bottom: 1px solid #ccc;
 
-    #sideMenuHeading{
-        @include flex(flex-start, center);
-        width: 100%;
-        height: 42.8px;
-        min-height: 42.8px;
-        padding-left: 12px;
-        color: $primaryText;
-        font-weight: 600;
-        border-bottom: 1px solid #ccc;
-
-        i{
-            color: $secondary2;
-            margin-right: 5px;
-        }
-    }
-
-    .menuSection{
-        @include flex(space-between,center);
-        width: 100%;
-        padding: 20px 10px;
-        padding-left: 12px;
-        color: $primaryText;
-        font-size: .83rem;
-        font-weight: 600;
-        height: 70px;
-    }
-
-    #deskActionText{
-        color: $error;
-    }
-
-    #deskActionBtn{
-        background-color: #fff;
-        border: 2px solid $error;
-        color: $error;
-        padding: 2px 4px;
-        border-radius: 5px;
-    }
-
-    #darkModeSwitch{
-        position: relative;
-        right: -6px;
-        margin-top: 7px;
-        cursor: pointer;
-    }
-
-    #renameInput{
-        border-radius: 5px 0 0 5px;
-        border: 1px solid #ccc;
-        border-right: 0;
-        padding-left: 5px;
-        color: $primaryText;
-
-        @media screen and (max-width:320px) {
-           width: 110px;
-        }
-    }
-
-    #renameBtn{
-        border-radius: 0 5px 5px 0;
-        border: 1px solid #ccc;
-        border-left: 0;
-        padding: 0 3px;
-        color: #426EFD;
-        background-color: #fff;
-    }
-
-    #dangerIcon{
-        color: $error;
+    i{
+        color: $secondary2;
+        margin-right: 5px;
     }
 }
+.menuSection{
+    @include flex(space-between,center);
+    width: 100%;
+    padding: 20px 10px;
+    padding-left: 12px;
+    color: $primaryText;
+    font-size: .83rem;
+    font-weight: 600;
+    height: 70px;
+}
+#deskActionText{
+    color: $error;
+}
+#deskActionBtn{
+    background-color: #fff;
+    border: 2px solid $error;
+    color: $error;
+    padding: 2px 4px;
+    border-radius: 5px;
+}
+#darkModeSwitch{
+    position: relative;
+    right: -6px;
+    margin-top: 7px;
+    cursor: pointer;
+}
+#renameInput{
+    border-radius: 5px 0 0 5px;
+    border: 1px solid #ccc;
+    border-right: 0;
+    padding-left: 5px;
+    color: $primaryText;
 
-#messageIndicator{
-    background-color: rgba(255, 68, 106, 0.9);
-    width: 8px;
-    height: 8px;
-    position: absolute;
-    top: 2px;
-    left: 10px;
-    border-radius: 50%;
+    @media screen and (max-width:320px) {
+       width: 110px;
+    }
+}
+#renameBtn{
+    border-radius: 0 5px 5px 0;
+    border: 1px solid #ccc;
+    border-left: 0;
+    padding: 0 3px;
+    color: #426EFD;
+    background-color: #fff;
+}
+#dangerIcon{
+    color: $error;
 }
 
-// Chat
+// CHAT WINDOW
 #chatWindow{
     z-index: 140;
     position: absolute;
@@ -293,92 +290,6 @@ main{
     border-radius: 5px 5px 0 0;
     background-color: rgb(252, 252, 252);
 
-    #chatHeading{
-        @include flex(flex-start, center);
-        height: 10%;
-        padding-left: 12px;
-        border-bottom: 1px solid #ccc;
-        color: $secondary2;
-        span{
-            color: $primaryText;
-            margin-left: 5px;
-            font-weight: 600;
-        }
-    }
-
-    .msg-align-right{
-        @include flex(flex-end, flex-end);
-        text-align: left;
-        flex-direction: column;
-    }
-    .msg-align-left{
-        @include flex(flex-start, flex-start);
-        text-align: left;
-        flex-direction: column;
-    }
-
-    #messageWindow{
-        width: 100%;
-        height: 78%;
-        padding: 5px;
-        overflow-y: scroll;
-        overflow-wrap: break-word;
-        max-width: 100%;
-
-        ul{
-            padding: 3px 10px 10px 10px;
-            margin: 0;
-            cursor: default;
-        }
-        li{
-            margin-bottom: 2px;
-            width: 100%;
-            color: $primaryText;
-            font-size: .9rem;
-
-            small{
-                font-weight: 400;
-                font-size: .8rem;
-                display: inline-block;
-                margin-top: 8px;
-                margin-left: 2px;
-                margin-right: 2px;
-            }
-
-            div{
-                padding: 3px 8px;
-                border-radius: 10px;
-                background-color: $secondary2;
-                color: #F5F5F5;
-                font-weight: 300;
-                display: inline-block;
-                width: auto;
-                word-wrap: break-word;
-                max-width: 100%;
-                max-width: 94%;
-            }
-        }
-        .chat-info{
-            @include flex(center,center);
-            padding-top: 10px;
-            padding-bottom: 8px;
-
-            span{
-                font-weight: 300;
-                font-size: .8rem;
-                text-align: center;
-                display: inline-block;
-                line-height: 100%;
-            }
-
-            div{
-                width: 3px;
-                height: 3px;
-                padding: 4px;
-                margin-right: 5px;
-            }
-        }
-    }
     form{
         @include flex(space-between,center);
         height: 12%;
@@ -408,8 +319,92 @@ main{
         }
     }
 }
+#chatHeading{
+    @include flex(flex-start, center);
+    height: 10%;
+    padding-left: 12px;
+    border-bottom: 1px solid #ccc;
+    color: $secondary2;
+    span{
+        color: $primaryText;
+        margin-left: 5px;
+        font-weight: 600;
+    }
+}
+.msg-align-right{
+    @include flex(flex-end, flex-end);
+    text-align: left;
+    flex-direction: column;
+}
+.msg-align-left{
+    @include flex(flex-start, flex-start);
+    text-align: left;
+    flex-direction: column;
+}
+#messageWindow{
+    width: 100%;
+    height: 78%;
+    padding: 5px;
+    overflow-y: scroll;
+    overflow-wrap: break-word;
+    max-width: 100%;
 
-// Entire List Cell Container
+    ul{
+        padding: 3px 10px 10px 10px;
+        margin: 0;
+        cursor: default;
+    }
+    li{
+        margin-bottom: 2px;
+        width: 100%;
+        color: $primaryText;
+        font-size: .9rem;
+
+        small{
+            font-weight: 400;
+            font-size: .8rem;
+            display: inline-block;
+            margin-top: 8px;
+            margin-left: 2px;
+            margin-right: 2px;
+        }
+
+        div{
+            padding: 3px 8px;
+            border-radius: 10px;
+            background-color: $secondary2;
+            color: #F5F5F5;
+            font-weight: 300;
+            display: inline-block;
+            width: auto;
+            word-wrap: break-word;
+            max-width: 100%;
+            max-width: 94%;
+        }
+    }
+}
+.chat-info{
+    @include flex(center,center);
+    padding-top: 10px;
+    padding-bottom: 8px;
+
+    span{
+        font-weight: 300;
+        font-size: .8rem;
+        text-align: center;
+        display: inline-block;
+        line-height: 100%;
+    }
+
+    div{
+        width: 3px;
+        height: 3px;
+        padding: 4px;
+        margin-right: 5px;
+    }
+}
+
+// ENTIRE CELLS CONTAINER
 #listContainer{
     @include flex(flex-start, flex-start);
     width: 100%;
@@ -428,13 +423,15 @@ main{
         border-radius: 10px;
     }
 }
+
+// LIST-CELL CONTAINER
 #cellContainer{
     @include flex(flex-start,flex-start);
     height: 100%;
     width: auto;
 }
 
-// Add List Row
+// ADD LIST
 #addList{
     @include flex(center,center);
     width: 300px;
@@ -449,13 +446,6 @@ main{
         background-color: transparent;
         border: 0;
         font-weight: 500;
-    }
-
-    #addListBtn{
-        width: 100%;
-        height: 100%;
-        border-radius: 5px;
-        color: $primaryText;
     }
 
     form{
@@ -495,8 +485,18 @@ main{
         }
     }
 }
+#addListBtn{
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    color: $primaryText;
+    
+    i{
+        color: $secondary2;
+    }
+}
 
-// Full Height list cell (column)
+// FULL HEIGHT LIST-CELL (column)
 .list-cell{
     height: auto;
     width: 300px;
@@ -507,7 +507,7 @@ main{
     }
 }
 
-// List Card
+// LIST CARD
 .list{
     @include flex(center,flex-start);
     flex-direction: column;
@@ -517,97 +517,85 @@ main{
     width: 100%;
     height: auto;
     padding: 5px 10px 20px 10px;
-
-    .list-head{
-        @include flex(space-between,center);
-        width: 100%;
-        position: relative;
-        white-space: wrap;
-        word-wrap: break-word;
-        textarea{
-            width: 82%;
-            padding: 0px 0 2px 1px;
-            height: fit-content;
-            resize: none;
-            overflow-y: hidden;
-            color: $primaryText;
-            font-weight: 600;
-            border: 2px solid transparent;
-            background-color: transparent;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: border-color .2s;
-            &:focus{
-                outline: none;
-                border-color: #13c7ebb9;
-                cursor: text;
-            }
-        }
-        div{
-            @include flex(space-between,center);
-            width: 17%;
-            position: absolute;
-            top: 0;
-            right: 0;
-            padding-left: 10px;
-        }
-        button{
-            color: $error;
-            background-color: transparent;
-            border: 0;
-            i{
-                pointer-events: none;
-            }
-        }
-        .grab-icon{
-            cursor: ew-resize;
-            color: #14badbb9;
-            padding-left: 10px;
-            font-size: 1.1rem;
+}
+.list-head{
+    @include flex(space-between,center);
+    width: 100%;
+    position: relative;
+    white-space: wrap;
+    word-wrap: break-word;
+    textarea{
+        width: 82%;
+        padding: 0px 0 2px 1px;
+        height: fit-content;
+        resize: none;
+        overflow-y: hidden;
+        color: $primaryText;
+        font-weight: 600;
+        border: 2px solid transparent;
+        background-color: transparent;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: border-color .2s;
+        &:focus{
+            outline: none;
+            border-color: #13c7ebb9;
+            cursor: text;
         }
     }
-
-    .list-tasks{
-        @include flex(flex-start,flex-start);
-        flex-direction: column;
-        padding-left: 0;
-        margin: 5px 0;
-        width: 100%;
-        padding-bottom: 5px;
-        
-        li{
-            position: relative;
-            margin: 3px 0;
-            border-color: #ccc;
-            border-style: solid;
-            border-width: 0 1px 2px 0;
-            background-color: #fff;
-            padding: 5px;
-            border-radius: 5px;
-            width: 100%;
-            word-wrap: break-word;
-            font-size: .9rem;
-            color: $primaryText;
-            transition: padding .3s, background-color .8s, color .5s;
+    div{
+        @include flex(space-between,center);
+        width: 17%;
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding-left: 10px;
+    }
+    button{
+        color: $error;
+        background-color: transparent;
+        border: 0;
+        i{
+            pointer-events: none;
         }
+    }
+    .grab-icon{
+        cursor: ew-resize;
+        color: #14badbb9;
+        padding-left: 10px;
+        font-size: 1.1rem;
+    }
+}
+.list-tasks{
+    @include flex(flex-start,flex-start);
+    flex-direction: column;
+    padding-left: 0;
+    margin: 5px 0;
+    width: 100%;
+    padding-bottom: 5px;
+    
+    li{
+        position: relative;
+        margin: 3px 0;
+        border-color: #ccc;
+        border-style: solid;
+        border-width: 0 1px 2px 0;
+        background-color: #fff;
+        padding: 5px;
+        border-radius: 5px;
+        width: 100%;
+        word-wrap: break-word;
+        font-size: .9rem;
+        color: $primaryText;
+        transition: padding .3s, background-color .8s, color .5s;
     }
 }
 
+// TASK
 .task{
     cursor: pointer;
     position: relative;
     outline: none;
-
-    .taskMarker{
-        position: absolute;
-        top: 3px;
-        right: 3px;
-        width: 6px;
-        height: 6px;
-        border: 1px solid $secondary2;
-        background-color: rgba(28, 191, 202, 0.603);
-        border-radius: 50%;
-    }
 
     span{
         pointer-events: none;
@@ -617,15 +605,22 @@ main{
         }
     }
 }
-
+.taskMarker{
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    width: 6px;
+    height: 6px;
+    border: 1px solid $secondary2;
+    background-color: rgba(28, 191, 202, 0.603);
+    border-radius: 50%;
+}
 .task-expand{
     padding-bottom: 44.34px !important;
 }
-
 .task-closed{
     display: none !important;
 }
-
 .task-buttons{
     @include flex(flex-start,center);
     width: 100%;
@@ -651,24 +646,23 @@ main{
             color: inherit;
         }
     }
-    .taskComplete{
-        background-color: $primary;
-    }
-    .taskInfo{
-        background-color: #5BC1DE;
-    }
 }
-
+.taskComplete{
+    background-color: $primary;
+}
+.taskInfo{
+    background-color: #5BC1DE;
+}
 .task-found{
     background-color: $secondary2 !important;
     color: #fff !important;
 }
-
 .task-not-found{
     color: rgb(255, 71, 71) !important;
     border-color: rgb(255, 71, 71) !important;
 }
 
+// ADD TASK
 .addTask{
     @include flex(center,center);
     width: 100%;
@@ -685,14 +679,6 @@ main{
         i{
             pointer-events: none;
         }
-    }
-
-    .addTaskBtn{
-        width: 100%;
-        border: 0;
-        border-radius: 5px;
-        background-color: transparent;
-        color: $primaryText;
     }
 
     form{
@@ -732,29 +718,20 @@ main{
         }
     }
 }
+.addTaskBtn{
+    width: 100%;
+    border: 0;
+    border-radius: 5px;
+    background-color: transparent;
+    color: $primaryText;
 
-#taskModal{
-    #taskNameTextarea{
-        margin-top: 6px;
-        overflow-y: hidden;
-        font-size: 1.1rem;
-        padding-left: 2px;
-        padding-bottom: 2px;
-        color: $primaryText;
-        font-weight: 600;
-        cursor: pointer;
-        width: 87%;
-        height: auto;
-        resize: none;
-        border-radius: 5px;
-        border: 2px solid transparent;
-        transition: border-color .2s;
-        &:focus{
-            outline: none;
-            cursor: text;
-            border-color: #13c7ebb9;
-        }
+    i{
+        color: $secondary2;
     }
+}
+
+// TASK INFO MODAL
+#taskModal{
     .modal-header button{
         margin-right: 5px;
     }
@@ -778,116 +755,135 @@ main{
             color: $secondary2;
         }
     }
-    #taskDescriptionTextarea{
-        width: 100%;
-        resize: none;
-        overflow-y: hidden;
-        color: $primaryText;
-        box-shadow: inset 0px 0px 50px -48px rgb(75, 75, 75);
-        font-size: .88rem;
+}
+#taskNameTextarea{
+    margin-top: 6px;
+    overflow-y: hidden;
+    font-size: 1.1rem;
+    padding-left: 2px;
+    padding-bottom: 2px;
+    color: $primaryText;
+    font-weight: 600;
+    cursor: pointer;
+    width: 87%;
+    height: auto;
+    resize: none;
+    border-radius: 5px;
+    border: 2px solid transparent;
+    transition: border-color .2s;
+    &:focus{
+        outline: none;
+        cursor: text;
+        border-color: #13c7ebb9;
+    }
+}
+#taskDescriptionTextarea{
+    width: 100%;
+    resize: none;
+    overflow-y: hidden;
+    color: $primaryText;
+    box-shadow: inset 0px 0px 50px -48px rgb(75, 75, 75);
+    font-size: .88rem;
+    font-weight: 300;
+    min-height: 120px;
+    padding: 5px;
+    margin-bottom: 10px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: border-color .2s, box-shadow .2s;
+    &:focus{
+        outline: none;
+        box-shadow: none;
+        border-color: #13c7ebb9;
+        color: rgba(34, 34, 34, 0.89);
+        cursor: text;
+    }
+    &::placeholder{
+        color: $placeholder;
         font-weight: 300;
-        min-height: 120px;
-        padding: 5px;
-        margin-bottom: 10px;
-        border: 2px solid transparent;
-        cursor: pointer;
-        border-radius: 5px;
-        transition: border-color .2s, box-shadow .2s;
-        &:focus{
-            outline: none;
-            box-shadow: none;
-            border-color: #13c7ebb9;
-            color: rgba(34, 34, 34, 0.89);
-            cursor: text;
-        }
-        &::placeholder{
-            color: $placeholder;
-            font-weight: 300;
-        }
     }
-    #availableRow{
-        @include flex(flex-start,center);
+}
+#availableRow{
+    @include flex(flex-start,center);
+    width: 100%;
+    min-height: 81px;
+    padding: 0 10px;
+    overflow-x: auto;
+    .no-members{
+        text-align: center;
         width: 100%;
-        min-height: 81px;
-        padding: 0 10px;
-        overflow-x: auto;
-        .no-members{
-            text-align: center;
-            width: 100%;
-            font-size: .8rem;
-            color: $placeholder;
-        }
-        i{
-            color: $primary;
-        }
+        font-size: .8rem;
+        color: $placeholder;
     }
-
-    #assignedRow{
-        @include flex(flex-start,center);
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        padding: 0 10px;
-        margin: 10px 0;
-        min-height: 81px;
-        overflow-x: auto;
-        .no-members{
-            text-align: center;
-            width: 100%;
-            font-size: .8rem;
-            color: $placeholder;
-        }
-        i{
-            color: $error;
-        }
+    i{
+        color: $primary;
     }
-
-    .member-box{
-        @include flex(center,center);
-        flex-direction: column;
-        padding: 5px;
-        margin-right: 8px;
-        width: 70px;
-        white-space: nowrap;
-        background-color: rgb(253, 253, 253);
-        box-shadow: 0px 0px 4px 0px rgba(196, 196, 196, 0.792);
-        cursor: pointer;
-        border-radius: 5px;
-
-        span{
-            font-size: .8rem;
-            font-weight: 300;
-            color: rgb(179, 179, 179);
-            height: 15px;
-            max-width: 100%;
-            padding: 0 5px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
+}
+#assignedRow{
+    @include flex(flex-start,center);
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 0 10px;
+    margin: 10px 0;
+    min-height: 81px;
+    overflow-x: auto;
+    .no-members{
+        text-align: center;
+        width: 100%;
+        font-size: .8rem;
+        color: $placeholder;
     }
+    i{
+        color: $error;
+    }
+}
+.member-box{
+    @include flex(center,center);
+    flex-direction: column;
+    padding: 5px;
+    margin-right: 8px;
+    width: 70px;
+    white-space: nowrap;
+    background-color: rgb(253, 253, 253);
+    box-shadow: 0px 0px 4px 0px rgba(196, 196, 196, 0.792);
+    cursor: pointer;
+    border-radius: 5px;
 
-    .task-member{
-        position: relative;
-        width: 35px;
-        height: 35px;
-        cursor: pointer;
+    span{
+        font-size: .8rem;
+        font-weight: 300;
+        color: rgb(179, 179, 179);
+        height: 15px;
+        max-width: 100%;
+        padding: 0 5px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+.task-member{
+    position: relative;
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-color: transparent;
+
+    i{
+        position: absolute;
+        bottom: 0;
+        left: -3px;
+        background-color: #fff;
         border-radius: 50%;
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: center;
-        background-color: transparent;
-
-        i{
-            position: absolute;
-            bottom: 0;
-            left: -3px;
-            background-color: #fff;
-            border-radius: 50%;
-            font-size: .8rem;
-            pointer-events: none;
-        }
+        font-size: .8rem;
+        pointer-events: none;
     }
 }
 
+// INVITE MODAL
 #inviteModal{
     .modal-header{
         height: 50px;
@@ -899,27 +895,6 @@ main{
         width: 100%;
         padding-top: 5px;
         padding-bottom: 5px;
-    }
-    #inviteInfo{
-        width: 100%;
-        padding: 5px;
-        margin-top: 15px;
-        font-weight: 300;
-        border-radius: 5px;
-        text-align: center;
-        small{
-            color: rgb(155, 155, 155);
-        }
-        i{
-            color: $secondary2;
-        }
-    }
-    #inviteError{
-        width: 100%;
-        text-align: center;
-        font-weight: 400;
-        color: $error;
-        margin: 3px 0 5px 3px;
     }
     form{
         @include flex(space-between,center);
@@ -946,12 +921,35 @@ main{
             font-weight: 600;
             border: 2px solid $secondary2;
             color: #fff;
+            background-color: $secondary2;
             border-radius: 5px;
             padding: 3px;
         }
     }
 }
+#inviteInfo{
+    width: 100%;
+    padding: 5px;
+    margin-top: 15px;
+    font-weight: 300;
+    border-radius: 5px;
+    text-align: center;
+    small{
+        color: rgb(155, 155, 155);
+    }
+    i{
+        color: $secondary2;
+    }
+}
+#inviteError{
+    width: 100%;
+    text-align: center;
+    font-weight: 400;
+    color: $error;
+    margin: 3px 0 5px 3px;
+}
 
+// REDIRECTION MODAL ( if admin deletes desk)
 #redirectionModal{
     pointer-events: none;
 
@@ -985,16 +983,19 @@ main{
     }
 }
 
+// IF NO ACCESS
 .accessDisabled{
     opacity: .4;
     cursor: default !important;
     pointer-events: none;
 }
 
+// WHILE DRAGGING
 .dragging{
     opacity: .01;
 }
 
+// FADE IN/OUT WINDOW
 #fadeWindow{
     position: fixed;
     top: 0;
@@ -1006,25 +1007,4 @@ main{
     background-color: #fff;
     transition: opacity 1s;
     @include flex(center, center);
-}
-
-// Media Queries
-// Hide Member Cards & Searchbar
-@media screen and (max-width: 551px){
-    #topMembers{
-        #inviteBtn{
-            margin-right: 0;
-        }
-        .member-card{
-            display: none;    
-        } 
-    }
-}
-@media screen and (max-width: 391px){
-    #topSearch{
-        display: none !important;
-    }
-    #deskMenuBar{
-        justify-content: flex-end;
-    }
 }

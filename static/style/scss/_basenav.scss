@@ -1,15 +1,13 @@
+// TOP HEADER WITH APP-NAME
 header{
-
     nav{
         padding: 20px;
         width: 100vw;
         @include flex(center,center);
-
         h3{
             color: rgb(94, 94, 94);
             font-family: "APP-NAME";
             cursor: pointer;
-            
             i{
                 color: $primary;
             }

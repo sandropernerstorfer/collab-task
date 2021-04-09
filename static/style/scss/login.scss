@@ -1,11 +1,13 @@
 @import 'base';
 @import 'basenav';
 
+// DOCUMENT STYLE
 body{
     width: 100vw;
     height: 100vh;
 }
 
+// LOGIN | SIGN UP (HEADING)
 #form-toggle-box{
     @include flex(center,flex-end);
     padding-bottom: 50px;
@@ -30,6 +32,7 @@ body{
     }
 }
 
+// FORM
 #user-form{
     @include flex(center,center);
     transition: opacity .4s;
@@ -80,6 +83,7 @@ body{
     }
 }
 
+// BOTTOM SVG
 .bottom-wave-shape {
     position: absolute;
     bottom: 0;

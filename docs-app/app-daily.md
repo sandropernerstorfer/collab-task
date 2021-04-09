@@ -316,3 +316,7 @@
 * **App-Work :**
     * FadeIn & FadeOut wenn man auf desk bereich kommt & von board auf desk
     * server dokumentation erweitert
+
+#### 09.04.2021
+* **App-Work :**
+    * CSS / SCSS kommentiert und aufgeräumt

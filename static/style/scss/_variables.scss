@@ -1,4 +1,4 @@
-// Colors
+// COLORS
 $primary : #23CE6B;
 $primaryText : #575757;
 $secondary : #095AD9;
@@ -7,14 +7,14 @@ $muted : rgba(204, 204, 204, 0.560);
 $placeholder : rgba(72, 78, 72, 0.562);
 $error : rgba(220, 20, 60, 0.699);
 
-// Shadows
+// SHADOWS
 $boxShadow : -1px 4px 20px -2px rgba(99, 99, 99, 0.63);
 
-// Radius
+// RADIUS
 $boxRadius : 10px;
 $btnRadius : 13px;
 
-// Mixins
+// MIXINS
 @mixin flex($a,$b) {
     display: flex;
     justify-content: $a;

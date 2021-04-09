@@ -1,11 +1,7 @@
 @import 'base';
 @import 'basenav';
 
-section{
-    @include flex(center, flex-start);
-    flex-direction: column;
-}
-
+// TOP NAVIGATION / PROFILE
 nav{
     justify-content: space-between !important;
 
@@ -23,55 +19,61 @@ nav{
     }
 }
 
+// SORTING CONTAINER / FORM
 #sortBar{
     width: 100%;
     padding: 0 20px;
     margin-bottom: 25px;
-    #sortForm{
-        @include flex(flex-end,center);
-        select{
-            width: 90px;
-            height: 25px;
-            padding: 0 8px;
-            border-color: #ccc;
-            border-radius: 0;
-            border-width: 1px;
-            margin-right: 0;
-            color: $primaryText;
-            font-weight: 400;
-            cursor: pointer;
+}
+#sortForm{
+    @include flex(flex-end,center);
+    select{
+        width: 90px;
+        height: 25px;
+        padding: 0 8px;
+        border-color: #ccc;
+        border-radius: 0;
+        border-width: 1px;
+        margin-right: 0;
+        color: $primaryText;
+        font-weight: 400;
+        cursor: pointer;
 
-            &:nth-child(1){
-                border-right: 0;
-                border-radius: 5px 0 0 5px;
-            }
-            &:nth-child(2){
-                width: 115px;
-                border-left: 0;
-                border-radius: 0 5px 5px 0;
-            }
+        &:nth-child(1){
+            border-right: 0;
+            border-radius: 5px 0 0 5px;
         }
-        button{
-            padding: 0 5px;
-            width: 25px;
-            height: 25px;
+        &:nth-child(2){
+            width: 115px;
+            border-left: 0;
             border-radius: 0 5px 5px 0;
-            background-color: $primary;
-            color: #fff;
-            border: none;
         }
+    }
+    button{
+        padding: 0 5px;
+        width: 25px;
+        height: 25px;
+        border-radius: 0 5px 5px 0;
+        background-color: $primary;
+        color: #fff;
+        border: none;
     }
 }
 
+// CONTAINER: PERSONAL DESKS / SHARED DESKS / INVITES
+section{
+    @include flex(center, flex-start);
+    flex-direction: column;
+}
+
+// SECTION HEADING / COUNTERS
 .section-heading{
     @include flex(space-between, center);
     width: 100%;
     padding: 0 20px;
     margin-bottom: 20px;
-
     div{
         @include flex(flex-start,center);
-
         h4{
             margin: 0;
         }
@@ -90,16 +92,17 @@ nav{
         font-weight: 400;
         border-radius: 5px;
     }
-    #deskCount{
-        color: $primary;
-        border: 2px solid $primary;
-    }
-    #sharedCount, #inviteCount{
-        color: $secondary2;
-        border: 2px solid $secondary2;
-    }
+}
+#deskCount{
+    color: $primary;
+    border: 2px solid $primary;
+}
+#sharedCount, #inviteCount{
+    color: $secondary2;
+    border: 2px solid $secondary2;
 }
 
+// DESK CARD
 .card{
     padding: 10px 20px;
     height: 130px;
@@ -122,6 +125,7 @@ nav{
     }
 }
 
+// CARD COLORING
 .black-card{
     background-color:#32343b;
 }
@@ -135,6 +139,7 @@ nav{
     background-color: $primary;
 }
 
+// NO CARD IN SECTION
 .no-card{
     @include flex(center,center);
     border-radius: 13px;
@@ -154,7 +159,6 @@ nav{
         cursor: default;
     }
 }
-
 .no-desk, .no-shared, .no-invites{
     h4{
         text-align: center;
@@ -167,11 +171,11 @@ nav{
         text-align: center;
     }
 }
-
 .no-desk small{
     color: $primary;
 }
 
+// INVITE STYLING
 .invite-available{
     @include flex(space-evenly,center);
     flex-direction: column;
@@ -195,94 +199,30 @@ nav{
             cursor: default;
         }
     }
-    .invite-buttons{
-        @include flex(space-around,center);
-        width: 100%;
-    }
-    .accept-button{
-        border-color: $primary;
-        background-color: #fff;
-        color: $primary;
-    }
-    .discard-button{
-        border-color: $error;
-        color: $error;
-    }
+}
+.invite-buttons{
+    @include flex(space-around,center);
+    width: 100%;
+}
+.accept-button{
+    border-color: $primary;
+    background-color: #fff;
+    color: $primary;
+}
+.discard-button{
+    border-color: $error;
+    color: $error;
 }
 
-.modal.modal-static .modal-dialog{
-    transform: none !important;
-}
-
+// MODALS
 .modal-content{
     border-radius: 20px;
     border: 0;
 }
 
+// PROFILE MODAL
 #profileModal{
     padding: 30px;
-
-    #profile-content{
-        @include flex(center,center);
-        flex-direction: column;
-        position: relative;
-    }
-
-    #closeContainer{
-        @include flex(flex-end,center);
-        width: 100%;
-        button{
-            color: $error;
-            border: 0;
-            padding: 0;
-            font-size: 1.6rem;
-        }
-    }
-
-    #profile-picture{
-        @include flex(center,flex-end);
-        width: 150px;
-        height: 150px;
-        border-radius: 50%;
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        overflow: hidden;
-        position: relative;
-
-        &:hover{
-            #imageEdit{
-                bottom: 14px;
-            }
-        }
-        #loadingCircle{
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%,-50%);
-            color: $secondary2;
-        }
-        #imageEdit{
-            cursor: pointer;
-            position: absolute;
-            bottom: -25px;
-            left: 0;
-            width: 100%;
-            height: 25px;
-            background-color: $secondary2;
-            color: #fff;
-            transition: bottom .6s;
-            font-weight: 500;
-        }
-        input{
-            width: 0px;
-            height: 0px;
-            position: absolute;
-            top: 0;
-            left: -90000px;
-        }
-    }
-
     h3{
         font-weight: 300;
         margin-top: 15px;
@@ -290,86 +230,143 @@ nav{
             color: $primary;
         }
     }
+}
+#profile-content{
+    @include flex(center,center);
+    flex-direction: column;
+    position: relative;
+}
+#closeContainer{
+    @include flex(flex-end,center);
+    width: 100%;
+    button{
+        color: $error;
+        border: 0;
+        padding: 0;
+        font-size: 1.6rem;
+    }
+}
+#profile-picture{
+    @include flex(center,flex-end);
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+    position: relative;
 
-    #data-field{
-        @include flex(space-between,center);
-        position: relative;
-        padding: 15px 0;
-        width: 100%;
-        border-top: 1px solid #ccc;
-        border-bottom: 1px solid #ccc;
-        font-weight: 300;
-
-        #usernameError{
-            position: absolute;
-            top: 0;
-            right: 10px;
-            color: $error;
-        }
-        div{
-            @include flex(flex-start,center);
-            width: 100%;
-            flex-wrap: wrap;
-        }
-        #cancel-box{
-            position: absolute;
-            top: 50%;
-            right: 40px;
-            transform: translateY(-50%);
-            button{
-                color: rgb(255, 228, 75);
-            }
-        }
-        #left-icon{
-            margin-right: 10px;
-        }
-        span{
-            color: $primaryText;
-            font-size: 1.1rem;
-        }
-        button{
-            font-size: 1.2rem;
-            color: $primary;
-            border-color: transparent;
-            background-color: transparent;
-        }
-        input{
-            margin-left: 5px;
-            width: 100%;
-            border-width: 0 0 2px 0;
-            border-radius: 0px;
-            padding-left: 0;
-            color: $primaryText;
-            font-weight: 300;
-            font-size: 1.05rem;
-            &:focus{
-                border-color: $primary;
-            }
-            &::placeholder{
-                color: $placeholder;
-            }
+    &:hover{
+        #imageEdit{
+            bottom: 14px;
         }
     }
-
-    #profile-buttons{
-        @include flex(space-between,center);
+    #loadingCircle{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        color: $secondary2;
+    }
+    #imageEdit{
+        cursor: pointer;
+        position: absolute;
+        bottom: -25px;
+        left: 0;
         width: 100%;
-
-        button{
-            padding: 3px 15px;
-            border-radius: 10px;
-            background-color: #fff;
+        height: 25px;
+        background-color: $secondary2;
+        color: #fff;
+        transition: bottom .6s;
+        font-weight: 500;
+    }
+    input{
+        width: 0px;
+        height: 0px;
+        position: absolute;
+        top: 0;
+        left: -90000px;
+    }
+}
+#data-field{
+    @include flex(space-between,center);
+    position: relative;
+    padding: 15px 0;
+    width: 100%;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    font-weight: 300;
+    div{
+        @include flex(flex-start,center);
+        width: 100%;
+        flex-wrap: wrap;
+    }
+    
+    span{
+        color: $primaryText;
+        font-size: 1.1rem;
+    }
+    button{
+        font-size: 1.2rem;
+        color: $primary;
+        border-color: transparent;
+        background-color: transparent;
+    }
+    input{
+        margin-left: 5px;
+        width: 100%;
+        border-width: 0 0 2px 0;
+        border-radius: 0px;
+        padding-left: 0;
+        color: $primaryText;
+        font-weight: 300;
+        font-size: 1.05rem;
+        &:focus{
+            border-color: $primary;
         }
-        #profileSave{
-            color: $primary;
-        }
-        #logoutButton{
-            color: $secondary2;
-            border-color: $secondary2;
+        &::placeholder{
+            color: $placeholder;
         }
     }
 }
+#usernameError{
+    position: absolute;
+    top: 0;
+    right: 10px;
+    color: $error;
+}
+#cancel-box{
+    position: absolute;
+    top: 50%;
+    right: 40px;
+    transform: translateY(-50%);
+    button{
+        color: rgb(255, 228, 75);
+    }
+}
+#left-icon{
+    margin-right: 10px;
+}
+#profile-buttons{
+    @include flex(space-between,center);
+    width: 100%;
 
+    button{
+        padding: 3px 15px;
+        border-radius: 10px;
+        background-color: #fff;
+    }
+    #profileSave{
+        color: $primary;
+    }
+    #logoutButton{
+        color: $secondary2;
+        border-color: $secondary2;
+    }
+}
+
+// DESK MODAL
 #deskModalBody{
     padding: 30px;
     padding-bottom: 15px;
@@ -394,44 +391,42 @@ nav{
         top: 10px;
         right: 0;
     }
+}
+#desknameError{
+    color: $error;
+}
+#deskColors{
+    @include flex(center,center);
+    flex-wrap: wrap;
+    padding: 20px 5px;
+    border-radius: 10px;
 
-    #desknameError{
-        color: $error;
-    }
-    
-    #deskColors{
-        @include flex(center,center);
-        flex-wrap: wrap;
-        padding: 20px 5px;
-        border-radius: 10px;
-
-        span{
-            font-size: 1.1rem;
-            margin-bottom: 10px;
-            color: rgb(107, 107, 107);
-            i{
-                color: $primary;
-            }
+    span{
+        font-size: 1.1rem;
+        margin-bottom: 10px;
+        color: rgb(107, 107, 107);
+        i{
+            color: $primary;
         }
+    }
+    div{
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        @include flex(space-between, center);
+        flex-wrap: wrap;
+        border: 5px solid #fff;
+
         div{
-            width: 100%;
-            margin: 0;
-            padding: 0;
-            @include flex(space-between, center);
-            flex-wrap: wrap;
-            border: 5px solid #fff;
+            cursor: pointer;
+            border-radius: 10px;
+            height: 60px;
+            width: 60px;
+            margin: 10px;
+        }
 
-            div{
-                cursor: pointer;
-                border-radius: 10px;
-                height: 60px;
-                width: 60px;
-                margin: 10px;
-            }
-
-            .selected-color{
-                border: 5px solid rgba(0, 0, 0, 0.301);
-            }
+        .selected-color{
+            border: 5px solid rgba(0, 0, 0, 0.301);
         }
     }
 }
@@ -441,6 +436,7 @@ nav{
     left: -9000px;
 }
 
+// FADE OUT WINDOW
 #fadeWindow{
     position: fixed;
     top: 0;
