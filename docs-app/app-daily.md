@@ -320,3 +320,4 @@
 #### 09.04.2021
 * **App-Work :**
     * CSS / SCSS kommentiert und aufgeräumt
+    * DB Schema dokumentation erstellt
