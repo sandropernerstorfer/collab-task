@@ -323,3 +323,4 @@
     * DB Schema dokumentation erstellt
     * board Sorting Funktion fix in board.js verwendet
     * validation.js dokumentiert
+    * doc paths hinzugefügt

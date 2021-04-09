@@ -1,3 +1,9 @@
+/**
+ *************************************************
+ * @documentation --> ../docs-code/db-schemas.md *
+ *************************************************
+**/
+
 const mongoose = require('mongoose');
 
 const TaskSchema = mongoose.Schema({
