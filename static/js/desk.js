@@ -1,5 +1,8 @@
+// IMPORTS AND GLOBAL
 import validation from './scripts/validation.js';
 const socket = io();
+
+// DESK DATA FETCH
 let userData, deskData, adminData, memberData;
 fetch('/desk/deskdata')
 .then(res => res.json())
@@ -18,6 +21,7 @@ fetch('/desk/deskdata')
     fadeOutLoader();
 });
 
+// SETUP FUNCTIONS / RENDER FUNCTIONS
 function fadeOutLoader(){
     const fadeWindow = document.querySelector('#fadeWindow');
     fadeWindow.style.opacity = 0;
@@ -25,14 +29,12 @@ function fadeOutLoader(){
         fadeWindow.remove();
     }, 1000);
 };
-
 function renderDeskname(){
     document.querySelector('#topDeskname').textContent = deskData.name;
     document.querySelector('#renameInput').value = deskData.name;
     document.querySelector('#chatDeskname').textContent = deskData.name;
     document.title = `Task-App | ${deskData.name}`;
 };
-
 function renderMembers(){
     const admin = document.querySelector('#admin');
     const url = adminData.image == null ? '../../assets/img/user-default.png' : `https://res.cloudinary.com/sandrocloud/image/upload/w_50,c_scale/${adminData.image}`;
@@ -49,23 +51,21 @@ function renderMembers(){
         currentMember.setAttribute('title', member.name);
     });
 };
-
 function addRoleDependingEvents(){
     const deskActionText = document.querySelector('#deskActionText');
     const deskActionBtn = document.querySelector('#deskActionBtn');
-
+    // FOR ADMIN
     if(userData._id == adminData._id){
-        deskActionText.innerHTML = 'Delete Desk';
-        deskActionBtn.textContent = 'Delete';
-        const elements = document.querySelectorAll('.accessDisabled');
 
+        // REMOVE DISABLED STYLING FROM ELEMENTS
+        const elements = document.querySelectorAll('.accessDisabled');
         elements.forEach( element => {
             element.classList.remove('accessDisabled');
         });
 
+        // INVITE BUTTON + MODAL
         elements[0].setAttribute('data-bs-toggle', 'modal');
         elements[0].setAttribute('data-bs-target', '#inviteModal');
-
         const inviteForm = document.querySelector('#inviteForm');
         inviteForm.addEventListener('submit', e => {
             e.preventDefault();
@@ -108,6 +108,8 @@ function addRoleDependingEvents(){
                 }
             });
         });
+
+        // UPDATE DESKNAME
         elements[2].addEventListener('click', () => {
             const newName = document.querySelector('#renameInput').value.trim();
             if(newName == deskData.name) return;
@@ -122,6 +124,10 @@ function addRoleDependingEvents(){
                 renderDeskname();
             });
         });
+
+        // DELETE DESK
+        deskActionText.innerHTML = 'Delete Desk';
+        deskActionBtn.textContent = 'Delete';
         deskActionBtn.addEventListener('click', () => {
             const confirmed = confirm(`Are you sure you want to delete this desk:\n"${deskData.name}"`);
             if(confirmed){
@@ -136,7 +142,9 @@ function addRoleDependingEvents(){
             };
         });
     }
+    // FOR MEMBERS
     else{
+        // LEAVE DESK
         deskActionText.innerHTML = 'Leave Desk';
         deskActionBtn.textContent = 'Leave';
         deskActionBtn.addEventListener('click', () => {
@@ -156,10 +164,8 @@ function addRoleDependingEvents(){
         });
     };
 };
-
 const cellContainer = document.querySelector('#cellContainer');
 addDragOverList(cellContainer);
-
 function renderLists(){
 
     cellContainer.innerHTML = '';
@@ -212,16 +218,19 @@ function renderLists(){
     });
     
     if(lists.length > 0){
+        // OPEN-TASK BUTTON EVENTS
         document.querySelectorAll('.taskInfo').forEach( button => {
             const listID = button.closest('.list').id;
             const taskID = button.closest('.task').id;
             button.addEventListener('click', () => {openTaskModal(listID, taskID)});
         });
+        // DELETE-TASK BUTTON EVENTS
         document.querySelectorAll('.taskComplete').forEach( button => {
             const listID = button.closest('.list').id;
             const taskID = button.closest('.task').id;
             button.addEventListener('click', () => {deleteTask(listID, taskID)});
         });
+        // LISTNAME TEXTAREA SETTINGS AND EVENTS
         document.querySelectorAll('.list-name-textarea').forEach( textarea => {
             autoSetTextareaHeight(textarea);
             textarea.addEventListener('input', () => {
@@ -246,10 +255,10 @@ function renderLists(){
                 currentListName = textarea.value.trim();
             });
         });
-    }
-    
+    };
 };
 
+// UPDATE LISTNAME
 let currentListName;
 function updateListName(listID, newName){
     fetch('/desk/list/name', {
@@ -268,8 +277,7 @@ function updateListName(listID, newName){
 };
 
 // LIST AND TASK DRAGGING
-
-// Make list only draggable when mouse over drag icon
+// LIST ONLY DRAGGABLE WHEN ON GRAB-ICON
 cellContainer.addEventListener('mouseover', e => {
     if(e.target.matches('.grab-icon')){
         e.target.closest('.list-cell').setAttribute('draggable', 'true');
@@ -283,7 +291,7 @@ cellContainer.addEventListener('mouseout', e => {
 
 let draggedElement, oldList, newList, oldOrder, newOrder;
 
-// Add .dragging class
+// ADD .dragging CLASS
 function addDragStartEvent(element){
     element.addEventListener('dragstart', e => {
         e.stopPropagation();
@@ -300,7 +308,7 @@ function addDragStartEvent(element){
     });    
 };
 
-// Remove .dragging class and handle new Order
+// REMOVE .dragging CLASS and handle new order
 function addDragEndEvent(element){
     element.addEventListener('dragend', e => {
         e.stopPropagation();
@@ -384,7 +392,7 @@ function saveNewListOrder(array){
     });
 };
 
-// Fires when drag cursor is over CONTAINER
+// ADD DRAGOVER EVENTS
 function addDragOverList(container){
     container.addEventListener('dragover', e => {
         if(draggedElement == 'task') return;
@@ -414,7 +422,7 @@ function addDragOverTask(container){
     });
 };
 
-// Fires everytime dragover event fires. And RETURNS THE AFTER ELEMENT
+// RETURNS THE AFTER ELEMENT
 function getDragAfterList(container, axis){
     const draggableElements = [...container.querySelectorAll('.list-cell:not(.dragging)')];
     return draggableElements.reduce( (closest, child) => {
@@ -442,7 +450,7 @@ function getDragAfterTask(container, axis){
     }, { offset: Number.NEGATIVE_INFINITY }).element;
 };
 
-// Invite Modal - Input focus und Error Reset
+// INVITE MODAL - Input focus und Error Reset
 const inviteModal = document.querySelector('#inviteModal');
 inviteModal.addEventListener('shown.bs.modal', () => {
     document.querySelector('input[name="inviteEmail"]').focus();
@@ -587,13 +595,14 @@ function deleteList(listID){
     });
 };
 
-// LOAD SPECIFIC TASK INFO
+// SPECIFIC TASK
 const taskNameTextarea = document.querySelector('#taskNameTextarea');
 const taskDescTextarea = document.querySelector('#taskDescriptionTextarea');
 const availableRow = document.querySelector('#availableRow');
 const assignedRow = document.querySelector('#assignedRow');
 let currentList, currentTask, currentTaskName, currentDescription;
 
+// OPEN TASKMODAL
 function openTaskModal(listID, taskID){
     currentList = listID;
     currentTask = taskID;
@@ -630,7 +639,7 @@ function openTaskModal(listID, taskID){
     }
     else renderTaskMembers(assignedRow, assigned);
 };
-
+// FIND SPECIFIC TASK IN DATA
 function findSpecificTask(listID, taskID){
     const getIndexWithID = list => list._id == listID;
     const listIndex = deskData.lists.findIndex(getIndexWithID);
@@ -638,14 +647,7 @@ function findSpecificTask(listID, taskID){
     return list.tasks.find( task => task._id == taskID);
 };
 
-/**
- * ## calculatePassedTime()
- * Rechnet die vergangene Zeit zwischen 2 Zeitpunkten und gibt die Anzahl in Tagen, Stunden, Minuten oder Sekunden zurück.
- * @param {STRING} earlierMS Früherer Zeitpunkt in ms.
- * @param {STRING} laterMS   Späterer Zeitpunkt in ms. <- (Optional)
- * @default Date.now()
- * @returns Nach dem Errechnen der vergangenen Zeit wird der Wert je nach Ergebnis in: Days, Hours, Minutes or Seconds zurück gegeben.
- */
+// CALCULATE TIME DIFFERENCE
 function calculatePassedTime(earlierMS, laterMS = Date.now()){
     // if minimum 1 Day: return Days
     let msBetween = (laterMS - earlierMS) / (1000*3600*24);
@@ -671,11 +673,7 @@ function calculatePassedTime(earlierMS, laterMS = Date.now()){
     return seconds == 1 ? seconds+' second' : seconds+' seconds';
 };
 
-/**
- * 
- * @param {ARRAY} taskMembers Array von member ID's die dem task zugewiesen sind.
- * @returns {OBJECT} Objekt mit zwei Arrays. eines für die zugewiesenen und eines für die verfügbaren member
- */
+// FILTER TASK MEMBERS
 function filterTaskMembers(taskMembers){
     let allMembers = [...memberData];
     allMembers.unshift(adminData);
@@ -700,6 +698,7 @@ function filterTaskMembers(taskMembers){
     return { available: available, assigned: assigned };
 };
 
+// CREATE TASK MEMBER BUBBLES
 function renderTaskMembers(element, array){
     array.forEach( user => {
         const url = user.image == null ? '../../assets/img/user-default.png' : `https://res.cloudinary.com/sandrocloud/image/upload/w_40,c_scale/${user.image}`;
@@ -715,7 +714,7 @@ function renderTaskMembers(element, array){
     });   
 };
 
-// Assign member to task
+// ASSIGN MEMBER TO TASK
 document.querySelector('#availableRow').addEventListener('click', e => {
     if(e.target.matches('.member-box')){
         e.target.querySelector('.task-member').click();
@@ -757,7 +756,7 @@ document.querySelector('#availableRow').addEventListener('click', e => {
     });
 });
 
-// Remove member from task
+// REMOVE MEMBER FROM TASK
 document.querySelector('#assignedRow').addEventListener('click', e => {
     if(e.target.matches('.member-box')){
         e.target.querySelector('.task-member').click();
@@ -875,10 +874,7 @@ function updateTaskDescription(newDesc){
     });
 };
 
-/**
- * #### Auto Set height of textare to content size
- * @param {HTML ELEMENT} textarea html textarea
- */
+// SET TEXTAREA HEIGHT TO CONTENT
 function autoSetTextareaHeight(textarea){
     textarea.style.height = "5px";
     textarea.style.height = (textarea.scrollHeight)+"px";
@@ -901,12 +897,15 @@ function deleteTask(listID, taskID){
 const theme = localStorage.getItem('task_deskDarkTheme');
 const themeSwitch = document.querySelector('#darkModeSwitch');
 
+// CHECK THEME PREFERENCE
 theme ? applyDarkTheme() : applyLightTheme();
 
+// THEME SWITCH/BUTTON
 themeSwitch.addEventListener('click', () => {
     themeSwitch.checked ? applyDarkTheme() : applyLightTheme();
 });
 
+// SET DATA-THEME ON BODY
 function applyDarkTheme(){
     localStorage.setItem('task_deskDarkTheme', true);
     document.body.setAttribute('data-theme', 'dark');
@@ -923,15 +922,18 @@ function applyLightTheme(){
 const searchbar = document.querySelector('#searchbar');
 const searchBtn = document.querySelector('#clearSearch');
 let searchReady = true;
+
+// SEARCH ON ENTER KEY
 searchbar.addEventListener('keydown', e => {
     if(e.key != 'Enter' || !searchReady) return;
     processSearchQuery();
 });
+// SEARCH ON SEARCHBUTTON
 searchBtn.addEventListener('click', () => {
     if(!searchReady) return;
     processSearchQuery();
 });
-
+// PROCESS SEARCH QUERY
 function processSearchQuery(){
     const query = searchbar.value.toLowerCase();
     if(query == '') return markNotFound();
@@ -949,7 +951,6 @@ function processSearchQuery(){
         markNotFound();
     }
 };
-
 // Mark task after Search
 function markFoundTask(found){
     found.scrollIntoView({behavior:'smooth', block: 'center', inline: 'center'});
@@ -960,7 +961,6 @@ function markFoundTask(found){
         searchReady = true;
     }, 1000);
 };
-
 // Mark Searchbar if not found
 function markNotFound(){
     searchbar.classList.add('task-not-found');
@@ -979,7 +979,39 @@ const chatWindow = document.querySelector('#chatWindow');
 const messages = document.querySelector('#messages');
 const messageIndicator = document.querySelector('#messageIndicator');
 
-// Sets up socket events after desk data load
+// OPEN CHAT WINDOW
+openChat.addEventListener('click', () => {
+    chatWindow.classList.toggle('d-none');
+    chatForm.reset();
+    chatForm.querySelector('input').focus();
+    scrollWindow.scrollTop = scrollWindow.scrollHeight;
+    messageIndicator.classList.add('d-none');
+});
+
+// BUILD CHAT MESSAGE LIST ELEMENT
+const scrollWindow = document.querySelector('#messageWindow');
+let lastMessageBy;
+function buildMessage(msg, identifier = 'You'){
+    const {alignment, color} = identifier == 'You' ? {alignment: 'left', color: '#777'} : {alignment: 'right', color: 'coral'};
+    const msgHead = lastMessageBy == identifier ? '' : `<small style="color:${color}">${identifier}</small>`;
+
+    lastMessageBy = identifier;
+    messages.innerHTML += `<li class="msg-align-${alignment}">${msgHead}<div>${msg}</div></li>`;
+    scrollWindow.scrollTop = scrollWindow.scrollHeight;
+
+    if(chatWindow.classList.contains('d-none')){
+        messageIndicator.classList.remove('d-none');
+    };
+};
+// BUILD CHAT INFO LIST ELEMENT
+function buildChatInfo(msg, type){
+    lastMessageBy = undefined;
+    const statusColor = type == 'online' ? 'limegreen' : 'rgba(220, 20, 60, 0.699)';
+    messages.innerHTML += `<li class="chat-info"><div style="background-color: ${statusColor};"></div><span>${msg}</span></li>`;
+    scrollWindow.scrollTop = scrollWindow.scrollHeight;
+};
+
+// SOCKETS
 function setupSocket(){
 
     socket.emit('join', { id: userData._id, name: userData.name, room: location.pathname });
@@ -1057,39 +1089,7 @@ function setupSocket(){
     });
 };
 
-openChat.addEventListener('click', () => {
-    chatWindow.classList.toggle('d-none');
-    chatForm.reset();
-    chatForm.querySelector('input').focus();
-    scrollWindow.scrollTop = scrollWindow.scrollHeight;
-    messageIndicator.classList.add('d-none');
-});
-
-// Build Chat-Message List Element
-const scrollWindow = document.querySelector('#messageWindow');
-let lastMessageBy;
-
-function buildMessage(msg, identifier = 'You'){
-    const {alignment, color} = identifier == 'You' ? {alignment: 'left', color: '#777'} : {alignment: 'right', color: 'coral'};
-    const msgHead = lastMessageBy == identifier ? '' : `<small style="color:${color}">${identifier}</small>`;
-
-    lastMessageBy = identifier;
-    messages.innerHTML += `<li class="msg-align-${alignment}">${msgHead}<div>${msg}</div></li>`;
-    scrollWindow.scrollTop = scrollWindow.scrollHeight;
-
-    if(chatWindow.classList.contains('d-none')){
-        messageIndicator.classList.remove('d-none');
-    };
-};
-
-// Build Chat-Info List Element
-function buildChatInfo(msg, type){
-    lastMessageBy = undefined;
-    const statusColor = type == 'online' ? 'limegreen' : 'rgba(220, 20, 60, 0.699)';
-    messages.innerHTML += `<li class="chat-info"><div style="background-color: ${statusColor};"></div><span>${msg}</span></li>`;
-    scrollWindow.scrollTop = scrollWindow.scrollHeight;
-};
-
+// TOGGLE ONLINE STATUS
 function addOnlineStatus(userID){
     document.querySelector('.member-card[data-id="'+userID+'"]').classList.add('member-online');
 };
