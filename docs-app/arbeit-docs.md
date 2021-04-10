@@ -329,3 +329,4 @@
 * **Dokumentation :**
     * home.js dokumentation erstellt
     * login.js dokumentation erstellt
+    * board.js dokumentation erstellt

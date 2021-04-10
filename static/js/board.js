@@ -1,50 +1,26 @@
+// IMPORTS + GLOBAL
 import validation from './scripts/validation.js';
 const socket = io();
-/**
- * BOARD DATA FETCH
- * -- beim öffnen des Dashboards werden vom server die benötigten USER und DESK daten gefetcht
- * -- in 'boardData' als object gespeichert
- * -- und im client entsprechen angezeigt
- */
+let newName;
+let nameEditing = false;
+let newImage = false;
+
+// BOARD DATA FETCH
 let boardData = {};
 fetch('/board/boarddata')
-.then( response => response.json())
+.then( res => res.json())
 .then( data => {
     boardData = data;
-    sortHandling();
     renderUsername();
     renderUserImage();
     renderDeskData();
     renderSharedData();
     renderInvites();
-
+    sortHandling();
     setupSocket();
 });
 
-function sortHandling(){
-    if(localStorage.getItem('task_boardSort')){
-        const {sortBy, sortOrder} = JSON.parse(localStorage.getItem('task_boardSort'));
-        document.querySelector(`select option[value=${sortBy}]`).setAttribute('selected','true');
-        document.querySelector(`select option[value=${sortOrder}]`).setAttribute('selected','true');
-        boardData.desks = sortBoard(boardData.desks, sortBy, sortOrder);
-        boardData.sharedDesks = sortBoard(boardData.sharedDesks, sortBy, sortOrder);
-    };    
-}
-/**
- * Helper Variables
- */
-let newName;
-let editing = false;
-let newImage = false;
-
-/**
- * DISPLAY DESK & USER DATA
- * 
- * lädt user und desk daten von dem boardData objekt in das Dokument
- * beide funktionen werden aufgerufen sobald: 
- * -- der server die daten geschickt hat
- * -- und einzeln wenn daten geupdated wurden ( username bearbeitet, profilbild geändert, desk erstellt)
- */
+// SETUP FUNCTIONS / RENDER FUNCTIONS
 function renderUsername(){
     newName = boardData.name;
     const nameElements = document.querySelectorAll('.username');
@@ -127,12 +103,17 @@ function renderInvites(){
     };
     document.querySelector('#inviteCount').textContent = inviteCount.toString();
 };
+function sortHandling(){
+    if(localStorage.getItem('task_boardSort')){
+        const {sortBy, sortOrder} = JSON.parse(localStorage.getItem('task_boardSort'));
+        document.querySelector(`select option[value=${sortBy}]`).setAttribute('selected','true');
+        document.querySelector(`select option[value=${sortOrder}]`).setAttribute('selected','true');
+        boardData.desks = sortBoard(boardData.desks, sortBy, sortOrder);
+        boardData.sharedDesks = sortBoard(boardData.sharedDesks, sortBy, sortOrder);
+    };    
+};
 
-/**
- *
- * @param {string} deskID - Desk ID des gewählten Desk
- * übernimmt die gewählte deskID und leitet weiter an diesen Desk
- */
+// OPEN DESK
 function openDesk(deskID){
     const fadeWindow = document.querySelector('#fadeWindow')
     fadeWindow.style.zIndex = '9000';
@@ -142,10 +123,7 @@ function openDesk(deskID){
     }, 800);
 };
 
-/**
- * INVITE HANDLIND
- * @param {string} inviteID - Desk ID der Einladung
- */
+// INVITE HANDLING
 function acceptInvite(inviteID){
     fetch('/board/invite', {
         method: 'PATCH',
@@ -177,16 +155,10 @@ function discardInvite(inviteID){
     });
 };
 
-//---- DESK CREATION
-/**
- *  DESK-MODAL
- * 1.) nach dem öffnen -> Fokus auf Deskname Input
- * 2.) nach dem schließen -> Reset error und input
- */
+// DESK CREATION
 const deskModal = document.querySelector('#addDeskModal');
 const deskForm = document.querySelector('#createDeskForm');
 const deskError = document.querySelector('#desknameError');
-
 deskModal.addEventListener('shown.bs.modal', () => {
     deskForm.deskname.focus();
 });
@@ -195,11 +167,7 @@ deskModal.addEventListener('hidden.bs.modal', () => {
     deskForm.deskname.value = '';
 });
 
-/**
- * Desk Data Validation
- * Error Handling
- * Speichert Desk in Datenbank
- */
+// CREATE DESK SUBMIT
 deskForm.addEventListener('submit', e => {
     e.preventDefault();
     const deskname = deskForm.deskname.value.trim();
@@ -235,12 +203,7 @@ deskForm.addEventListener('submit', e => {
     }
 });
 
-/**
- * Desk FARBEN durchschalten
- * bei auswahl :
- * entferne alle .selected-color klassen
- * füge sie bei dem ausgewählten element hinzu
- */
+// DESK COLORS
 document.addEventListener('click', e => {
     if(!e.target.matches('.desk-color')) return;
     const colorElements = document.querySelectorAll('.desk-color');
@@ -250,21 +213,16 @@ document.addEventListener('click', e => {
     e.target.classList.add('selected-color'); 
 });
 
-// ---- USER PROFILE
-/**
- * newName; zwischenspeichert lokal den neu gewählten namen ( wenn validierung OK )
- * editing; boolean -> ändert die button funktion abhängig davon ob der name gerade bearbeitet wird oder nicht
- * editName Event Listener:
- * Übernimmt zwischenspeicherung, error handling und button + input wechsel
- */
+// USER PROFILE
 const editName = document.querySelector('#editName');
 const nameField = document.querySelector('#currentUsername');
 const cancelBox = document.querySelector('#cancel-box');
 const userError = document.querySelector('#usernameError');
 
+// EDIT NAME BUTTON
 editName.addEventListener('click', e => {
-    if(!editing){
-        editing = true;
+    if(!nameEditing){
+        nameEditing = true;
         nameField.innerHTML = `<input type="text" name="newUsername" maxlength="30" class="form-control shadow-none" id="newUsername" value=${nameField.textContent}>`;
         editName.innerHTML = `<i class="fas fa-check"></i>`;
         cancelBox.innerHTML = `<button class="btn btn-outline-success button shadow-none"><i id="cancel" class="fas fa-redo-alt"></i></button>`;
@@ -287,10 +245,7 @@ editName.addEventListener('click', e => {
     }
 });
 
-/**
- * CANCEL EDIT
- * beendet die bearbeitung und setzt den usernamen wieder auf den letzten stand zurück
- */
+// CANCEL EDIT BUTTON
 document.addEventListener('click', e => {
     if(e.target.matches('#cancel')){
         nameField.innerHTML = newName;
@@ -299,15 +254,8 @@ document.addEventListener('click', e => {
     else return;
 });
 
-/**
- * INSTANT IMAGE DISPLAY
- * 
- * imageEdit ist der custom EDIT button, dieser leitet den click an den eigentlichen file-input weiter
- * wenn ein bild ausgewählt wurde wird das event vom eventListener erkannt
- * und das bild als dataURL in das element geladen
- */
+// INSTANT IMAGE DISPLAY
 const imageInput = document.querySelector('#imageInput');
-
 document.querySelector('#imageEdit').addEventListener('click', () => {
     imageInput.click();
 });
@@ -323,14 +271,7 @@ imageInput.addEventListener('change', e => {
     }
 });
 
-/**
- * PROFIL ÄNDERUNG SPEICHERN
- * 
- * wenn der SAVE button im Profil bereich geklickt wird
- * vergleiche den neuen namen mit dem originalen
- * wenn der name neu ist Update in der Datenbank und update client mit response
- * kontrolliere ob ein neues bild gewählt wurde, wenn ja sende an server
- */
+// SAVE PROFILE CHANGES
 document.querySelector('#profileSave').addEventListener('click', async () => {
     if(newName !== boardData.name && newName !== undefined){
         await fetch('/user/username', {
@@ -367,13 +308,7 @@ document.querySelector('#profileSave').addEventListener('click', async () => {
     };
 });
 
-/**
- * PROFILE CLOSE EVENT LISTENER
- * 
- * wenn das modal geschlossen wird -> rufe resetProfile() funktion auf
- * resetProfile() setzt editing auf false , den zwischenspeicher auf den originalen username
- * und setzt die Profile Page auf standard zurück
- */
+// CLOSE PROFILE
 document.querySelector('#profileClose').addEventListener('click', () => {
     setTimeout(() => {
         newImage = false;
@@ -384,24 +319,15 @@ document.querySelector('#profileClose').addEventListener('click', () => {
     }, 400);
 });
 
-/**
- * resetProfile()
- * setzt im user profil entsprechend die buttons und daten zurück (zb beim schließen des modal)
- */
+// RESET PROFILE
 function resetProfile(){
-    editing = false;
+    nameEditing = false;
     editName.innerHTML = `<i class="fas fa-pencil-alt"></i>`;
     cancelBox.innerHTML = '';
     userError.textContent = '';
 };
 
-/**
- * USER LOGOUT
- * 
- * bei klick auf den Log Out button
- * server call auf /logout -> setzt lokal den user zurück und löscht session
- * danach redirect auf /login
- */
+// USER LOGOUT
 document.querySelector('#logoutButton').addEventListener('click', () => {
     fetch('/logout')
     .then( res => {
@@ -409,13 +335,9 @@ document.querySelector('#logoutButton').addEventListener('click', () => {
     });
 });
 
-/**
- * BOARD SORTING
- * übernimmt die zwei werte der sorting form -> wonach sortieren & in welche richtung
- * die werte werden als präferenz in den localStorage gespeichert damit nach app neustart wieder genau so sortiert wird
- * die sortBoard() funktion sortiert die Desk Arrays, speichert sie in das haupt boardData objekt, und rendert die Desks
- */
+// BOARD SORTING
 const sortForm = document.querySelector('#sortForm');
+// SORT FORM EVENT
 sortForm.addEventListener('change', e => {
     e.preventDefault();
     const sortBy = sortForm.sortBy.value;
@@ -427,11 +349,7 @@ sortForm.addEventListener('change', e => {
     renderSharedData();
 });
 
-/**
- * @param {ARRAY} array         Array dass sortiert wird
- * @param {STRING} sortBy       wonach wird sortiert : zb. 'name', 'date', 'color'
- * @param {STRING} sortOrder    bestimmt die sortier Richtung : 'ascending' oder 'descending'
- */
+// SORT BOARD FUNCTION
 function sortBoard(array, sortBy, sortOrder){
     array.sort((a,b) => {
         if(sortBy == 'name'){
@@ -448,9 +366,7 @@ function sortBoard(array, sortBy, sortOrder){
     return array;
 };
 
-/**
- * INVITE CARDS DYNAMIC COLORS
- */
+// INVITE CARDS DYNAMIC COLORS
 document.querySelector('#invitesContainer').addEventListener('mouseover', e => {
     if(!e.target.matches('.accept-button')) return;
     const parent = e.target.closest('.invite-available');
@@ -484,6 +400,7 @@ document.querySelector('#invitesContainer').addEventListener('mouseout', e => {
     }
 });
 
+// SOCKET EVENTS
 function setupSocket(){
 
     socket.emit('board-join', boardData._id);
@@ -507,6 +424,7 @@ function setupSocket(){
     });
 };
 
+// UPDATE CLIENTS ON INVITE-ACCEPT
 function updateOtherClients(inviteID){
     socket.emit('invite-accepted', '/desk/'+inviteID);
 };
