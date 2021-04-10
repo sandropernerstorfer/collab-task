@@ -22,11 +22,12 @@
 
 ---------------------------------------------------------------------------
 
-**_Scroll To Top_**
-##### Button
+##### SCROLL TO TOP
+
+**_Button_**
     wird der TopScroll button geklickt wird automatisch zum oberen ende des Dokuments gescrollt
 
-##### Show/Hide Button
+**_Show/Hide Button_**
     erstellt einen neuen IntersectionObserver welcher das element mit der ID #observed-element überwacht (main section)
     ist das element in sicht wird der button eingeblendet.
     entfernt sich das element aus dem bildschirm wird der button ausgeblendet

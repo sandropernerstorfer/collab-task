@@ -2,20 +2,20 @@
 
 ---------------------------------------------------------------------------
 
-**_Validierungs Funktion ( Objekt + Methoden)_**
+##### Validierungs Funktion ( Objekt + Methoden)
     Bei erfolgreicher Validierung wird ein leerer String zurückgegeben -> ''.
     Bei fehlgeschlagener Validierung wird eine passende Fehlermeldung als String zurückgegeben.
 
-##### name
+**_name_**
     trim() -> mindestens 6 stellen ? -> maximal 30 stellen ? -> return ''
 
-##### mail
+**_mail_**
     trim() -> enthält @ ? -> enthält . ? -> return ''
 
-##### pass
+**_pass_**
     trim() -> mindestens 8 stellen ? -> return ''
 
-##### deskname
+**_deskname_**
     trim() -> mindestens 1 stelle ? -> maximal 15 stellen ? -> return ''
     
 ---------------------------------------------------------------------------

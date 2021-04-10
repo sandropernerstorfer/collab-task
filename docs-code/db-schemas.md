@@ -2,7 +2,7 @@
 
 ---------------------------------------------------------------------------
 
-#### USER
+**_USER_**
     name: REQUIRED STRING
     email: REQUIRED STRING
     password: REQUIRED STRING
@@ -14,7 +14,7 @@
 
 ---------------------------------------------------------------------------
 
-#### DESK
+**_DESK_**
     name: REQUIRED STRING
     color: REQUIRED STRING
     admin: REQUIRED STRING
@@ -24,14 +24,14 @@
 
 ---------------------------------------------------------------------------
 
-#### LIST
+**_LIST_**
     name: REQUIRED STRING
     tasks: ARRAY of SCHEMA(Task)
     order: Number / default 0
 
 ---------------------------------------------------------------------------
 
-#### TASK
+**_TASK_**
     name: REQUIRED STRING,
     description: STRING / default '',
     location: STRING / default NULL,
