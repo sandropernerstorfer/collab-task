@@ -1,8 +1,4 @@
-/**
- * Versuche Session-Cookie zu lesen und rufe renderBannerContent() auf
- * wird ein cookie gefunden werden per GET request die passenden user daten an den client geschickt
- * wurde zB. ein 'falscher cookie' erstellt werden keine userdaten gefunden und der server schickt nichts zurück
- */
+// CHECK USER STATUS
 try{
     const cookie = document.cookie.split('; ').find(row => row.startsWith('_taskID')).split('=')[1];
     fetch('/user/username')
@@ -20,12 +16,7 @@ catch(err){
     renderBannerContent();
 };
 
-/**
- * @param {STRING} username Enthält den Username des eingeloggten Users
- * wird kein parameter an die funktion übergeben, beudetet das dass keine passende session gefunden wurde
- * und eine allgemeine begrüßung + Login/SignUp button werden gerendert
- * ansonsten wird eine begrüßung mit username + Dashboard button eingeblendet
- */
+// RENDER BANNER CONTENT
 function renderBannerContent(username){
     let heading, html, route;
     if(!username){
@@ -45,33 +36,18 @@ function renderBannerContent(username){
     });
 };
 
-/**
- * LEARN MORE BUTTON
- * wird der learn more button geklickt wird automatisch zur App Info gescrollt (main-section)
- */
-const aboutButton = document.querySelector('#about-button');
-
-aboutButton.addEventListener('click', e => {
+// LEARN MORE BUTTON
+document.querySelector('#about-button').addEventListener('click', e => {
     const mainSection = document.querySelector('#main-content');
     mainSection.scrollIntoView({ left: 0, block: 'start', behavior: 'smooth' });
 });
 
-/**
- * SCROLL TO TOP BUTTON
- * wird der TopScroll button geklickt wird automatisch zum oberen ende des Dokuments gescrollt
- */
+// SCROLL TO TOP BUTTON
 const scrollTopButton = document.querySelector('#scroll-to-top');
-
 scrollTopButton.addEventListener('click', e => {
     document.documentElement.scroll({ top: 0, behavior: 'smooth' });
 });
-
-/**
- * SHOW / HIDE SCROLL TO TOP BUTTON
- * erstellt einen neuen IntersectionObserver welcher das element mit der ID #observed-element überwacht (main section)
- * ist das element in sicht wird der button eingeblendet.
- * entfernt sich das element aus dem bildschirm wird der button ausgeblendet
- */
+// SHOW / HIDE SCROLL TO TOP BUTTON
 let observer = new IntersectionObserver(callback);
 const observedElement = document.querySelector('#observed-element');
 observer.observe(observedElement);

@@ -318,9 +318,13 @@
     * server dokumentation erweitert
 
 #### 09.04.2021
-* **App-Work :**
+* **Dokumentation :**
     * CSS / SCSS kommentiert und aufgeräumt
     * DB Schema dokumentation erstellt
     * board Sorting Funktion fix in board.js verwendet
     * validation.js dokumentiert
     * doc paths hinzugefügt
+
+#### 10.04.2021
+* **Dokumentation :**
+    * home.js dokumentation erstellt
