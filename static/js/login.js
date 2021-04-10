@@ -1,14 +1,14 @@
+// IMPORTS + GLOBAL
 import validation from './scripts/validation.js';
-const form = document.querySelector('form');
-const signinForm = document.querySelector('#signin-form');
-const signupForm = document.querySelector('#signup-form');
 let toggling = false;
 let activeForm = 'signin';
 
-/**
- * FORM AUSWAHL
- * rufen nach auswahl 'toggleFormSwitches' und 'toggleForms('signin' oder 'signup')' auf
- */
+// FORM AUSWAHL / TOGGLE
+const form = document.querySelector('form');
+const signinForm = document.querySelector('#signin-form');
+const signupForm = document.querySelector('#signup-form');
+
+// FORM AUSWAHL ( heading click events )
 signinForm.addEventListener('click', e => {
     if(toggling) return;
     if(e.target.matches('.active-form')) return;
@@ -22,21 +22,13 @@ signupForm.addEventListener('click', e => {
     toggleForms('signup');
 });
 
-/**
- * SWITCH HEADINGS
- * markiert je nach aktiver form das entsprechende Heading
- */
+// TOGGLE HEADING
 function toggleFormSwitches(){
     signinForm.classList.toggle('active-form');
     signupForm.classList.toggle('active-form');
 };
 
-/**
- * 
- * @param {STRING} formType enthält entweder 'signin' oder 'signup'
- * dem paramenter entsprechend wird dann die Form per übergang umgeschalten
- * und elemente hinzugefügt oder wieder entfernt (zb. username input = bei signin entfernt, bei signup hinzugefügt)
- */
+// TOGGLE FORMS
 function toggleForms(formType){
     toggling = true;
     activeForm = formType;
@@ -66,13 +58,7 @@ function toggleForms(formType){
     }, 400);
 };
 
-/**
- * SUBMIT FORM
- * wird auf einen der beiden Submit buttons geklickt werden die Input Werte validiert
- * bei fehlgeschlagener validierung werden alle nötigen Fehlermeldungen eingeblendet
- * sind alle werte validiert und bereit an den server geschickt zu werden,
- * wird je nach aktiver Form - signupUser(<input werte>) oder signinUser(<input werte>) - aufgerufen
- */
+// SUBMIT FORM
 form.addEventListener('submit', e => {
     e.preventDefault();
 
@@ -110,12 +96,7 @@ form.addEventListener('submit', e => {
     }
 });
 
-/**
- * 
- * @param {ARRAY} errorArray Array welches alle nötigen Fehlermeldungen bei fehlgeschlagener Validierung enthält
- * wird kein parameter an diese funktion übergeben, werden die Error felder zurückgesetzt (leerer String)
- * ansonsten werden die nachrichten nach der reihe in die elemente eingefügt und dem User angezeigt
- */
+// RENDER FORM ERRORS
 function renderErrors(errorArray){
     const errorElements = document.querySelectorAll('.form-error');
     if(!errorArray){
@@ -130,14 +111,7 @@ function renderErrors(errorArray){
     }
 };
 
-/**
- * 
- * @param {OBJECT} newUser Objekt welches alle input daten für den SIGNUP enthält
- * dieses Objekt wird dann per POST Request an den server geschickt
- * welcher dann in der Datenbank kontrolliert ob die angegebene Email schon existiert
- * wenn ja wird dem User per renderErrors funktion dies angezeigt
- * ansonsten war der Signup erfolgreich -> weiterleitung zum Persönlichen Dashboard
- */
+// SIGN UP USER
 function signupUser(newUser){
     fetch('/user/signup', {
         method: 'POST',
@@ -155,17 +129,7 @@ function signupUser(newUser){
     });
 };
 
-/**
- * 
- * @param {OBJECT} userLogin Objekt welches alle input daten für den SIGNIN enthält
- * dieses Objekt wird dann per POST Request an den server geschickt
- * welcher dann zuerst in der Datenbank kontrolliert ob diese Email existiert
- * wenn nicht wird dem User per renderErrors funktion dies angezeigt
- * 
- * Existiert die Email Adresse vergleicht der Server das angegebene Passwort mit dem aus der Datenbank
- * flasches Passwort -> Fehlermeldung
- * ansonsten war der Sigin erfolgreich -> weiterleitung zum Persönlichen Dashboard
- */
+// SIGN IN USER
 function signinUser(userLogin){
     fetch('/user/signin', {
         method: 'POST',

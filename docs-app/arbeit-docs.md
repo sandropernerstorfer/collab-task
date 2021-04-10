@@ -328,3 +328,4 @@
 #### 10.04.2021
 * **Dokumentation :**
     * home.js dokumentation erstellt
+    * login.js dokumentation erstellt
