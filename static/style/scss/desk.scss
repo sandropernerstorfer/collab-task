@@ -379,25 +379,25 @@ main{
             max-width: 94%;
         }
     }
-}
-.chat-info{
-    @include flex(center,center);
-    padding-top: 10px;
-    padding-bottom: 8px;
-
-    span{
-        font-weight: 300;
-        font-size: .8rem;
-        text-align: center;
-        display: inline-block;
-        line-height: 100%;
-    }
-
-    div{
-        width: 3px;
-        height: 3px;
-        padding: 4px;
-        margin-right: 5px;
+    .chat-info{
+        @include flex(center,center);
+        padding-top: 10px;
+        padding-bottom: 8px;
+    
+        span{
+            font-weight: 300;
+            font-size: .8rem;
+            text-align: center;
+            display: inline-block;
+            line-height: 100%;
+        }
+    
+        div{
+            width: 3px;
+            height: 3px;
+            padding: 4px;
+            margin-right: 5px;
+        }
     }
 }
 
