@@ -40,7 +40,7 @@ app.use(express.static('static'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(session({ secret : process.env.SESSION_SECRET, resave: false, saveUninitialized: false, cookie: {sameSite: true} }));
+app.use(session({ secret : process.env.SESSION_SECRET, resave: false, saveUninitialized: false, cookie: {sameSite: 'lax', httpOnly: false} }));
 
 // Check User/Session Status
 const User = require('./models/User');

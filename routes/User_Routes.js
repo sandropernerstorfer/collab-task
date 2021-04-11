@@ -76,7 +76,7 @@ router.post('/signin', async (req, res) => {
             if(await bcrypt.compare(req.body.password, userExists.password)){
                 const sessionID = uuidv4();
                 const updatedUser = await User.findOneAndUpdate({ email: req.body.email }, { $set: {sessionid: sessionID}}, {new: true}).select('-password');
-                res.cookie('_taskID', sessionID, {httpOnly: false, maxAge: 1000*1000*1000*1000, sameSite: 'strict'});
+                res.cookie('_taskID', sessionID, {httpOnly: false, maxAge: 1000*1000*1000*1000, sameSite: 'lax'});
                 req.session.currentUser = updatedUser;
                 res.end();
             }
