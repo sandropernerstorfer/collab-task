@@ -338,3 +338,4 @@
     * Login_Routes.js dokumentation erstellt
     * Logout_Routes.js dokumentation erstellt
     * User_Routes.js dokumentation erstellt
+    * Board_Routes.js dokumentation erstellt

@@ -1,8 +1,16 @@
+/**
+ **************************************************************
+ * @documentation --> ../docs-code/API_Routes/Board_Routes.md *
+ **************************************************************
+**/
+
+// IMPORTS + GLOBALS
 const express = require('express');
 const router = express.Router();
 const Desk = require('../models/Desk');
 const User = require('../models/User');
 
+// ROUTES
 router.get('/', (req, res) => {
     if(!req.session.currentUser){
         res.redirect('/login');
@@ -83,4 +91,5 @@ router.delete('/invite', async (req, res) => {
     res.end(JSON.stringify(true));
 });
 
+// EXPORTING ROUTES
 module.exports = router;
