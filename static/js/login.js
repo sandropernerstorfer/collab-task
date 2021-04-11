@@ -1,3 +1,9 @@
+/**
+ *********************************************************
+ * @documentation --> ../../docs-code/Client/login.js.md *
+ *********************************************************
+**/
+
 // IMPORTS + GLOBAL
 import validation from './scripts/validation.js';
 let toggling = false;

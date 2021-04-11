@@ -1,3 +1,9 @@
+/**
+ ********************************************************
+ * @documentation --> ../../docs-code/Client/desk.js.md *
+ ********************************************************
+**/
+
 // IMPORTS AND GLOBAL
 import validation from './scripts/validation.js';
 const socket = io();

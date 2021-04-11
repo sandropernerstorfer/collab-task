@@ -1,3 +1,9 @@
+/**
+ ********************************************************
+ * @documentation --> ../../docs-code/Client/home.js.md *
+ ********************************************************
+**/
+
 // CHECK USER STATUS
 try{
     const cookie = document.cookie.split('; ').find(row => row.startsWith('_taskID')).split('=')[1];
