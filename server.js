@@ -62,6 +62,10 @@ async function getUserDataLocal(req, res, next){
 };
 
 // ROUTING
+app.get('/', (req, res) => {
+    res.sendFile('index.html', {root:'static'});
+    res.end();
+});
 app.use('/login', Login_Routes);
 app.use('/user', User_Routes);
 app.use('/board', Board_Routes);
