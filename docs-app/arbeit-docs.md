@@ -331,3 +331,7 @@
     * login.js dokumentation erstellt
     * board.js dokumentation erstellt
     * desk.js dokumentation erstellt
+
+#### 11.04.2021
+* **Dokumentation :**
+    * 404_Routes.js dokumentation erstellt
