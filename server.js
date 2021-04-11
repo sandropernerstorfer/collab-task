@@ -26,6 +26,7 @@ NotFound_Routes = require('./routes/404_Routes');
 // PORT & DB Connection
 const PORT = process.env.PORT || 5400;
 app.set('port', PORT);
+app.set('trust proxy', 1);
 const server = app.listen(PORT);
 mongoose.connect(
     process.env.DB_CONNECTION, {useNewUrlParser: true, useUnifiedTopology: true}, () => {
