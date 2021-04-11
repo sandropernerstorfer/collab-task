@@ -142,41 +142,38 @@ main{
 #topSearch{
     @include flex(flex-end,center);
     position: relative;
-    @media screen and (max-width: 391px){
-        display: none !important;
+    #searchbar, #clearSearch{
+        width: auto;
+        border-style: solid;
+        border-color: var(--border-color);
+        font-size: .9rem;
+        transition: border-color .3s, color .3s;
     }
-}
-#searchbar, #clearSearch{
-    width: auto;
-    border-style: solid;
-    border-color: var(--border-color);
-    font-size: .9rem;
-    transition: border-color .3s, color .3s;
-}
-#searchbar{
-    width: 180px;
-    border-width: 2px 0 2px 2px;
-    border-radius: 5px 0 0 5px;
-    padding-left: 5px;
-    color: $primaryText;
-    &:focus{
-        border-color: $secondary2;
+    #searchbar{
+        width: 180px;
+        border-width: 2px 0 2px 2px;
+        border-radius: 5px 0 0 5px;
+        padding-left: 5px;
+        color: $primaryText;
+        &:focus{
+            border-color: $secondary2;
+        }
+        &:focus + #clearSearch{
+            border-color: $secondary2;
+        }
+        &::placeholder{
+            color: $placeholder;
+            font-size: .85rem;
+        }
     }
-    &:focus + #clearSearch{
-        border-color: $secondary2;
+    #clearSearch{
+        border-width: 2px 2px 2px 0;
+        border-radius: 0 5px 5px 0;
+        padding: 0 5px;
+        background-color: #fff;
+        margin-right: 10px;
+        color: $secondary2;
     }
-    &::placeholder{
-        color: $placeholder;
-        font-size: .85rem;
-    }
-}
-#clearSearch{
-    border-width: 2px 2px 2px 0;
-    border-radius: 0 5px 5px 0;
-    padding: 0 5px;
-    background-color: #fff;
-    margin-right: 10px;
-    color: $secondary2;
 }
 #messageIndicator{
     background-color: rgba(255, 68, 106, 0.9);
@@ -635,7 +632,6 @@ main{
         padding: 0 5px;
         border: 0;
         color: #fff;
-        background-color: transparent;
         font-size: .8rem;
         margin-right: 10px;
         pointer-events: all;
