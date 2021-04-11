@@ -1,8 +1,16 @@
+/**
+ *************************************************************
+ * @documentation --> ../docs-code/API_Routes/Desk_Routes.md *
+ *************************************************************
+**/
+
+// IMPORTS + GLOBALS
 const express = require('express');
 const router = express.Router();
 const Desk = require('../models/Desk');
 const User = require('../models/User');
 
+// ROUTES
 router.get('/', (req, res) => {
     res.redirect('/board');
 });
@@ -342,4 +350,5 @@ router.delete('/:listID/:taskID/:userID', async (req, res) => {
     };
 });
 
+// EXPORTING ROUTES
 module.exports = router;
