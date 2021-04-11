@@ -1,3 +1,10 @@
+/**
+ *************************************************************
+ * @documentation --> ../docs-code/API_Routes/User_Routes.md *
+ *************************************************************
+**/
+
+// IMPORTS + GLOBALS
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
@@ -11,6 +18,7 @@ cloudinary.config({
 });
 const User = require('../models/User');
 
+// ROUTES
 router.get('/username', (req, res) => {
     if(!req.session.currentUser){
         res.end(JSON.stringify(false));
@@ -115,4 +123,5 @@ router.post('/invite', async (req, res) => {
     res.end(JSON.stringify(updatedUser));
 });
 
+// EXPORTING ROUTES
 module.exports = router;
