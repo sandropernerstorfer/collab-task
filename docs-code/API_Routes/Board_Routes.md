@@ -1,4 +1,4 @@
-<h1>User_Routes.js</h1>
+<h1>Board_Routes.js</h1>
 
 ---------------------------------------------------------------------------
 
@@ -20,7 +20,7 @@
 ---------------------------------------------------------------------------
 
 ##### ROUTES
-    Alle User Routen hören auf url path: '/board'.
+    Alle Board Routen hören auf url path: '/board'.
 
 **_get('/')_**
     Wird aufgerufen wenn User das Dashboard öffnen möchte ( /board )
