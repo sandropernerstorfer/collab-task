@@ -335,3 +335,4 @@
 #### 11.04.2021
 * **Dokumentation :**
     * 404_Routes.js dokumentation erstellt
+    * Login_Routes.js dokumentation erstellt

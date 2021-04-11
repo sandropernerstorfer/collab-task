@@ -1,4 +1,4 @@
-<h1>404_Routes.js</h1>
+<h1>Login_Routes.js</h1>
 
 ---------------------------------------------------------------------------
 
@@ -14,12 +14,17 @@
 ---------------------------------------------------------------------------
 
 ##### ROUTES
-    Alle 404 Routen hören auf url path: '/*?'.
-    Bedeutet alle url's die sonst keinen festgelegten Router besitzen
+    Alle Login Routen hören auf url path: '/login'.
 
 **_GET('/')_**
-    Schickt die HTML-Datei '404.html' an den client
-    Signalisiert dem User dass diese URL so nicht im Programm existiert
+    User öffnet /login
+    Prüft ob ein Zugangstoken vorhanden ist
+    Token vorhanden -> leite User weiter zum Dashboard
+    Token nicht vorhanden -> User gelangt zum Login / Sign Up
+
+**_USE('/*?')_**
+    User öffnet /login/*?
+    Egal welcher url-path nach '/login' hinzugefügt wird, der User wird auf /login geleitet
 
 ---------------------------------------------------------------------------
 
