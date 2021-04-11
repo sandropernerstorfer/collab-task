@@ -23,6 +23,16 @@ Board_Routes = require('./routes/Board_Routes'),
 Desk_Routes = require('./routes/Desk_Routes'),
 NotFound_Routes = require('./routes/404_Routes');
 
+// PORT & DB Connection
+const PORT = process.env.PORT || 5400;
+app.set('port', PORT);
+const server = app.listen(PORT);
+mongoose.connect(
+    process.env.DB_CONNECTION, {useNewUrlParser: true, useUnifiedTopology: true}, () => {
+        console.log('DB Connected');
+    }
+);
+
 // Middleware
 mongoose.set('useFindAndModify', false);
 app.use(express.static('static'));
@@ -72,15 +82,6 @@ app.use('/board', Board_Routes);
 app.use('/desk', Desk_Routes);
 app.use('/logout', Logout_Routes);
 app.use('/*?', NotFound_Routes);
-
-// PORT & DB Connection
-const PORT = process.env.PORT || 5400;
-const server = app.listen(PORT);
-mongoose.connect(
-    process.env.DB_CONNECTION, {useNewUrlParser: true, useUnifiedTopology: true}, () => {
-        console.log('DB Connected');
-    }
-);
 
 // Socket Connections / Events
 const io = socket(server);
