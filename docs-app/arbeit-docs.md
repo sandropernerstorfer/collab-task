@@ -336,3 +336,4 @@
 * **Dokumentation :**
     * 404_Routes.js dokumentation erstellt
     * Login_Routes.js dokumentation erstellt
+    * Logout_Routes.js dokumentation erstellt
