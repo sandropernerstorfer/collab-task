@@ -52,7 +52,7 @@ function toggleForms(formType){
             usernameContainer.innerHTML = `
                 <div class="form-group position-relative mb-3">
                     <label for="username-input" class="mb-0"></label><small class="form-error float-end form-text"></small>
-                    <input type="text" maxlength="30" class="form-control shadow-none" id="username-input" name="username" placeholder="Username"><span class="form-icon"><i class="fas fa-signature"></i></span>
+                    <input type="text" maxlength="15" spellcheck="false" class="form-control shadow-none" id="username-input" name="username" placeholder="Username"><span class="form-icon"><i class="fas fa-signature"></i></span>
                 </div>
             `;
             submitText.textContent = 'Sign Up ';

@@ -229,7 +229,7 @@ const userError = document.querySelector('#usernameError');
 editName.addEventListener('click', e => {
     if(!nameEditing){
         nameEditing = true;
-        nameField.innerHTML = `<input type="text" name="newUsername" maxlength="30" class="form-control shadow-none" id="newUsername" value=${nameField.textContent}>`;
+        nameField.innerHTML = `<input type="text" name="newUsername" maxlength="15" spellcheck="false" class="form-control shadow-none" id="newUsername" value=${nameField.textContent}>`;
         editName.innerHTML = `<i class="fas fa-check"></i>`;
         cancelBox.innerHTML = `<button class="btn btn-outline-success button shadow-none"><i id="cancel" class="fas fa-redo-alt"></i></button>`;
         const input = document.querySelector('#newUsername');
