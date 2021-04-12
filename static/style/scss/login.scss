@@ -36,6 +36,7 @@ body{
 #user-form{
     @include flex(center,center);
     transition: opacity .4s;
+    z-index: 9000;
 
     form{
         border-radius: $boxRadius;
@@ -43,6 +44,8 @@ body{
         padding: 20px;
         width: 97%;
         max-width: 500px;
+        background-color: #fff;
+        z-index: 9000;
 
         input{
             border-width: 0 0 1px 0;
@@ -92,6 +95,7 @@ body{
     overflow: hidden;
     line-height: 0;
     transform: rotate(180deg);
+    z-index: 1;
     svg{
         position: relative;
         display: block;
