@@ -142,6 +142,10 @@ main{
 #topSearch{
     @include flex(flex-end,center);
     position: relative;
+    @media screen and (max-width: 391px){
+        display: none;
+    }
+
     #searchbar, #clearSearch{
         width: auto;
         border-style: solid;
