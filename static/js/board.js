@@ -67,7 +67,7 @@ function renderSharedData(){
     let deskCount = 0;
     const sharedSection = document.querySelector('#sharedContainer');
     if(boardData.sharedDesks.length == 0){
-        sharedSection.innerHTML = `<div class="card col no-card no-shared"><div><h4>Desks you are a member on are shown here</h4><small>Currently you are not a member on a desk</small></div></div>`;
+        sharedSection.innerHTML = `<div class="card col no-card no-shared"><div><h4>Shared Desks</h4><small>Currently you are not a member on a desk</small></div></div>`;
     }
     else{
         sharedSection.innerHTML = '';
