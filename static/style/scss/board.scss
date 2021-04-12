@@ -230,6 +230,13 @@ section{
             color: $primary;
         }
     }
+    @media screen and (max-width: 450px){
+        padding: 0;
+        .modal-content{
+            margin: auto;
+            width: 100% !important;
+        }
+    }
 }
 #profile-content{
     @include flex(center,center);
@@ -347,6 +354,9 @@ section{
 }
 #left-icon{
     margin-right: 10px;
+    @media screen and (max-width: 330px){
+        display: none;
+    }
 }
 #profile-buttons{
     @include flex(space-between,center);
