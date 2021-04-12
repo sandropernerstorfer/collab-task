@@ -189,7 +189,7 @@ main{
 }
 #chat-image{
     background-image: url('../../assets/img/prod-img-chat.png');
-    background-position: -16px center;
+    background-position: center;
 }
 
 // BOTTOM BUTTON
@@ -227,13 +227,12 @@ footer{
 // SCROLL TO TOP BUTTON
 .scroll-to-top{
     border-radius: 50%;
-    font-size: 1.3rem;
+    font-size: 1rem;
     font-weight: 700;
-    padding-left: 13px;
-    padding-right: 13px;
+    padding: 7px 12px;
     position: fixed;
-    bottom: 35px;
-    right: 30px;
+    bottom: 10px;
+    right: 10px;
     z-index: 100;
     opacity: 0;
     transform: translateY(100px);

@@ -55,15 +55,15 @@ scrollTopButton.addEventListener('click', e => {
 });
 // SHOW / HIDE SCROLL TO TOP BUTTON
 let observer = new IntersectionObserver(callback);
-const observedElement = document.querySelector('#observed-element');
+const observedElement = document.querySelector('.observed-element');
 observer.observe(observedElement);
 function callback(entries, observer){
     entries.forEach(entry => {
         if(entry.isIntersecting){
-            scrollTopButton.classList.add('show-btn');
+            scrollTopButton.classList.remove('show-btn');
         }
         else{
-            scrollTopButton.classList.remove('show-btn');
+            scrollTopButton.classList.add('show-btn');
         };
     });
 };
