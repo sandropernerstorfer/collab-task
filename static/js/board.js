@@ -33,7 +33,7 @@ function fadeOutLoader(){
     fadeWindow.style.opacity = 0;
     setTimeout(() => {
         fadeWindow.remove();
-    }, 1000);
+    }, 800);
 };
 function renderUsername(){
     newName = boardData.name;
@@ -134,7 +134,7 @@ function openDesk(deskID){
     fadeWindow.style.opacity = '1';
     setTimeout(() => {
         window.location.href = `desk/${deskID}`;    
-    }, 800);
+    }, 500);
 };
 
 // INVITE HANDLING

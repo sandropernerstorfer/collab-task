@@ -30,7 +30,7 @@ function fadeOutLoader(){
     fadeWindow.style.opacity = 0;
     setTimeout(() => {
         fadeWindow.remove();
-    }, 1000);
+    }, 800);
 };
 
 // RENDER BANNER CONTENT
@@ -55,7 +55,7 @@ function renderBannerContent(username){
             fadeWindow.style.zIndex = 9000;
             setTimeout(() => {
                 location.href = route;
-            }, 800);
+            }, 500);
         });
     });
 };

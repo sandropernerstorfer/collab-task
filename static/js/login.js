@@ -16,7 +16,7 @@ function fadeOutLoader(){
     fadeWindow.style.opacity = 0;
     setTimeout(() => {
         fadeWindow.remove();
-    }, 1000);
+    }, 800);
 };
 
 // FORM AUSWAHL / TOGGLE
@@ -145,7 +145,7 @@ function signupUser(newUser){
             fadeWindow.style.zIndex = 9000;
             setTimeout(() => {
                 location.href = '/board';
-            }, 800);
+            }, 500);
         }
     });
 };
@@ -171,7 +171,7 @@ function signinUser(userLogin){
             fadeWindow.style.zIndex = 9000;
             setTimeout(() => {
                 location.href = '/board';
-            }, 800);
+            }, 500);
         }
     });
 };

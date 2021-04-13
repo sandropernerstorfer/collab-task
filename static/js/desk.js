@@ -33,7 +33,7 @@ function fadeOutLoader(){
     fadeWindow.style.opacity = 0;
     setTimeout(() => {
         fadeWindow.remove();
-    }, 1000);
+    }, 800);
 };
 function renderDeskname(){
     document.querySelector('#topDeskname').textContent = deskData.name;
@@ -271,7 +271,7 @@ document.querySelector('#dashboardBtn').addEventListener('click', () => {
     fadeWindow.style.zIndex = 9000;
     setTimeout(() => {
         location.href = '/board';
-    }, 800);
+    }, 500);
 });
 
 // UPDATE LISTNAME

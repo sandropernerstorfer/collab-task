@@ -1005,7 +1005,7 @@ main{
     opacity: 1;
     z-index: 9000;
     background-color: #fff;
-    transition: opacity 1s;
+    transition: opacity .8s;
     @include flex(center, center);
 }
 
@@ -1018,5 +1018,5 @@ main{
     opacity: 0;
     z-index: -9000;
     background-color: #fff;
-    transition: opacity .8s;
+    transition: opacity .5s;
 }
