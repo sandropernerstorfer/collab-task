@@ -24,9 +24,17 @@ fetch('/board/boarddata')
     renderInvites();
     sortHandling();
     setupSocket();
+    fadeOutLoader();
 });
 
 // SETUP FUNCTIONS / RENDER FUNCTIONS
+function fadeOutLoader(){
+    const fadeWindow = document.querySelector('#fadeInWindow');
+    fadeWindow.style.opacity = 0;
+    setTimeout(() => {
+        fadeWindow.remove();
+    }, 1000);
+};
 function renderUsername(){
     newName = boardData.name;
     const nameElements = document.querySelectorAll('.username');
@@ -121,7 +129,7 @@ function sortHandling(){
 
 // OPEN DESK
 function openDesk(deskID){
-    const fadeWindow = document.querySelector('#fadeWindow')
+    const fadeWindow = document.querySelector('#fadeOutWindow')
     fadeWindow.style.zIndex = '9000';
     fadeWindow.style.opacity = '1';
     setTimeout(() => {
