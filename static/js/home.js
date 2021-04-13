@@ -10,6 +10,7 @@ try{
     fetch('/user/username')
     .then(response => response.json())
     .then(username => {
+        fadeOutLoader();
         if(!username){
             renderBannerContent();
         }
@@ -19,7 +20,17 @@ try{
     });
 }
 catch(err){
+    fadeOutLoader();
     renderBannerContent();
+};
+
+// FADE OUT LOADER
+function fadeOutLoader(){
+    const fadeWindow = document.querySelector('#fadeInWindow');
+    fadeWindow.style.opacity = 0;
+    setTimeout(() => {
+        fadeWindow.remove();
+    }, 1000);
 };
 
 // RENDER BANNER CONTENT
@@ -38,7 +49,14 @@ function renderBannerContent(username){
     document.querySelector('#dynamic-heading').innerHTML = heading;
     document.querySelectorAll('.dynamic-route').forEach( element => {
         element.innerHTML = `<button class="btn btn-outline-success button shadow-none">${html}</button>`;
-        element.setAttribute('href',route);
+        element.addEventListener('click', () => {
+            const fadeWindow = document.querySelector('#fadeOutWindow');
+            fadeWindow.style.opacity = 1;
+            fadeWindow.style.zIndex = 9000;
+            setTimeout(() => {
+                location.href = route;
+            }, 800);
+        });
     });
 };
 
