@@ -9,6 +9,16 @@ import validation from './scripts/validation.js';
 let toggling = false;
 let activeForm = 'signin';
 
+// FADE OUT LOADER
+fadeOutLoader();
+function fadeOutLoader(){
+    const fadeWindow = document.querySelector('#fadeInWindow');
+    fadeWindow.style.opacity = 0;
+    setTimeout(() => {
+        fadeWindow.remove();
+    }, 1000);
+};
+
 // FORM AUSWAHL / TOGGLE
 const form = document.querySelector('form');
 const signinForm = document.querySelector('#signin-form');
@@ -130,7 +140,12 @@ function signupUser(newUser){
             renderErrors(['', 'This email is already in use', '']);
         }
         else{
-            window.location.href = '/board';
+            const fadeWindow = document.querySelector('#fadeOutWindow');
+            fadeWindow.style.opacity = 1;
+            fadeWindow.style.zIndex = 9000;
+            setTimeout(() => {
+                location.href = '/board';
+            }, 800);
         }
     });
 };
@@ -151,7 +166,12 @@ function signinUser(userLogin){
             renderErrors(['','Incorrect Password']);
         }
         else{
-            window.location.href = '/board';
+            const fadeWindow = document.querySelector('#fadeOutWindow');
+            fadeWindow.style.opacity = 1;
+            fadeWindow.style.zIndex = 9000;
+            setTimeout(() => {
+                location.href = '/board';
+            }, 800);
         }
     });
 };
