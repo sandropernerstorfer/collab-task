@@ -24,7 +24,7 @@
 <!-- Top Navbar -->
     <nav>
         <div id="topControl">
-            <a href="/board"><button><i class="fas fa-caret-left"></i> Dashboard</button></a>
+            <button id="dashboardBtn"><i class="fas fa-caret-left"></i> Dashboard</button>
             <i class="fas fa-grip-lines-vertical top-division"></i>
             <span id="topDeskname"></span>
         </div>
@@ -146,9 +146,10 @@
         </div>
     </div>
 <!-- Full Screen White Fade -->
-    <div id="fadeWindow">
+    <div id="fadeInWindow">
         <div class="spinner-border text-info" role="status"></div>
     </div>
+    <div id="fadeOutWindow"></div>
 <!-- Templates -->
     <!-- List Template -->
     <template id="listTemplate">

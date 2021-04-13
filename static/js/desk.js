@@ -29,7 +29,7 @@ fetch('/desk/deskdata')
 
 // SETUP FUNCTIONS / RENDER FUNCTIONS
 function fadeOutLoader(){
-    const fadeWindow = document.querySelector('#fadeWindow');
+    const fadeWindow = document.querySelector('#fadeInWindow');
     fadeWindow.style.opacity = 0;
     setTimeout(() => {
         fadeWindow.remove();
@@ -263,6 +263,16 @@ function renderLists(){
         });
     };
 };
+
+// DASHBOARD BUTTON
+document.querySelector('#dashboardBtn').addEventListener('click', () => {
+    const fadeWindow = document.querySelector('#fadeOutWindow');
+    fadeWindow.style.opacity = 1;
+    fadeWindow.style.zIndex = 9000;
+    setTimeout(() => {
+        location.href = '/board';
+    }, 800);
+});
 
 // UPDATE LISTNAME
 let currentListName;

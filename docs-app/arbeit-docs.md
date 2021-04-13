@@ -344,3 +344,7 @@
 #### 12.04.2021
 * **App-Work :**
     * UI ausbesserungen
+
+#### 13.04.2021
+* **App-Work :**
+    * FadeIns und FadOuts
