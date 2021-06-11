@@ -1,6 +1,6 @@
 <h1>📚 Collaborative Task Management App 📚</h1>
 
-## -> <a href="https://sandi-task.herokuapp.com">Project Link</a> <-
+## <a href="https://sandi-task.herokuapp.com">Live Application on Heroku</a>
 ***
 
 <h2>🚀 Built with :</h2>
