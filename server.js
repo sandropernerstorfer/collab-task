@@ -103,6 +103,8 @@ io.on('connection', socket => {
             socket.broadcast.to( board ).emit( 'board-deleted' );
         });
     });
+    socket.on('lists-change', lists => socket.broadcast.to( socket.desk ).emit( 'lists-changed', lists));
+    socket.on('deskname-change', deskname => socket.broadcast.to( socket.desk ).emit( 'new-deskname', deskname ));
     socket.on('chat-send', obj => socket.broadcast.to( socket.desk ).emit( 'chat-receive', obj ));
     socket.on('chat-here', name => socket.broadcast.to( socket.desk ).emit( 'chat-otherHere', { id: socket.userID, name: name }));
     socket.on('status-here', id => socket.broadcast.to( socket.desk ).emit( 'status-otherHere', id ));

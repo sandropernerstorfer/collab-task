@@ -128,6 +128,7 @@ function addRoleDependingEvents(){
             .then(deskname => {
                 deskData.name = deskname;
                 renderDeskname();
+                socket.emit( 'deskname-change', deskname);
             });
         });
 
@@ -393,6 +394,7 @@ function saveNewTaskOrder(list1,list2){
     .then(newLists => {
         if(!newLists) return;
         deskData.lists = newLists;
+        socket.emit( 'lists-change', newLists);
     });
 };
 function saveNewListOrder(array){
@@ -405,6 +407,7 @@ function saveNewListOrder(array){
     .then(newLists => {
         if(!newLists) return;
         deskData.lists = newLists;
+        socket.emit( 'lists-change', newLists);
     });
 };
 
@@ -539,6 +542,7 @@ listForm.addEventListener('submit', e => {
         toggleListCreation();
         renderLists();
         listForm.listName.value = '';
+        socket.emit('lists-change', newLists);
     });
 });
 
@@ -575,6 +579,7 @@ cellContainer.addEventListener('click', e => {
                 renderLists();
                 const currentList = document.getElementById(listID);
                 currentList.querySelector('.addTaskBtn').click();
+                socket.emit( 'lists-change', newLists);
             });
         });
     }
@@ -608,6 +613,7 @@ function deleteList(listID){
         if(!newLists) return;
         deskData.lists = newLists;
         document.getElementById(listID).closest('.list-cell').remove();
+        socket.emit( 'lists-change', newLists);
     });
 };
 
@@ -906,6 +912,7 @@ function deleteTask(listID, taskID){
         if(!newLists) return;
         deskData.lists = newLists;
         document.getElementById(taskID).remove();
+        socket.emit( 'lists-change', newLists);
     });
 };
 
@@ -1088,6 +1095,16 @@ function setupSocket(){
         const info = `${data.name} left`;
         buildChatInfo(info, 'leave');
         removeOnlineStatus(data.id);
+    });
+
+    socket.on( 'lists-changed', lists => {
+      deskData.lists = lists;
+      renderLists();
+    });
+
+    socket.on( 'new-deskname', deskname => {
+      deskData.name = deskname;
+      renderDeskname();
     });
 
     // Chat Form - Send Msg event
