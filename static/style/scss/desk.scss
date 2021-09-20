@@ -583,6 +583,7 @@ main{
         border-width: 0 1px 2px 0;
         background-color: #fff;
         padding: 5px;
+        padding-right: 20px;
         border-radius: 5px;
         width: 100%;
         word-wrap: break-word;
@@ -607,14 +608,18 @@ main{
     }
 }
 .taskMarker{
-    position: absolute;
-    top: 3px;
-    right: 3px;
-    width: 6px;
-    height: 6px;
-    border: 1px solid $secondary2;
-    background-color: rgba(28, 191, 202, 0.603);
-    border-radius: 50%;
+  position: absolute;
+  top: 8px;
+  right: 16px;
+  font-size: 10px;
+  color: rgba(255, 166, 0, 0.781);
+}
+.descMarker{
+  position: absolute;
+  top: 8px;
+  right: 4px;
+  font-size: 10px;
+  color: rgba(28, 191, 202, 0.803);
 }
 .task-expand{
     padding-bottom: 44.34px !important;

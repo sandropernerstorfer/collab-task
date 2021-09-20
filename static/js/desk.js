@@ -213,7 +213,9 @@ function renderLists(){
             if(task.members.includes(userData._id)){
                 taskTemplate.querySelector('.taskMarker').classList.remove('d-none');
             };
-
+            if(task.description){
+                taskTemplate.querySelector('.descMarker').classList.remove('d-none');
+            }
             addDragStartEvent(taskTemplate.querySelector('.task'));
             addDragEndEvent(taskTemplate.querySelector('.task'));
 
@@ -626,6 +628,7 @@ let currentList, currentTask, currentTaskName, currentDescription;
 
 // OPEN TASKMODAL
 function openTaskModal(listID, taskID){
+    closeOpenTasks();
     currentList = listID;
     currentTask = taskID;
     // When modal open Auto set Textarea Height to content size
@@ -893,6 +896,7 @@ function updateTaskDescription(newDesc){
     .then(newLists => {
         if(!newLists) return;
         deskData.lists = newLists;
+        renderLists();
     });
 };
 
