@@ -4,7 +4,7 @@
 // DOCUMENT STYLE
 body{
     width: 100vw;
-    height: 100vh;
+    height: 100%;
 }
 
 // LOGIN | SIGN UP (HEADING)
@@ -60,14 +60,16 @@ body{
 
             &::placeholder{
                 color: $placeholder;
+                font-size: 14px;
             }
         }
 
         button{
-            padding: 5px 10px;
-            width: 20%;
-            min-width: 115px;
+            padding: 3px 7px;
             cursor: pointer;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 400;
 
             span{
                 cursor: pointer;
@@ -87,6 +89,7 @@ body{
             margin-right: 12px;
             color: $error;
             cursor: default;
+            font-size: 13px;
         }
     }
 }
@@ -112,7 +115,8 @@ body{
     }
     @media screen and (max-width:650px){
         svg{
-            height: 20vw;
+          display: none;
+          height: 20vw;
         }
     }
 }
