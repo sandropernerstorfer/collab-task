@@ -324,15 +324,12 @@ section{
         margin-left: 5px;
         width: 100%;
         max-width: 150px;
-        border-width: 0 0 2px 0;
+        border-width: 0;
         border-radius: 0px;
         padding-left: 0;
         color: $primaryText;
         font-weight: 300;
         font-size: 1.05rem;
-        &:focus{
-            border-color: $primary;
-        }
         &::placeholder{
             color: $placeholder;
         }
@@ -434,6 +431,10 @@ section{
             height: 60px;
             width: 60px;
             margin: 10px;
+            @media screen and (max-width: 630px){
+              width: 45px;
+              height: 45px;
+          }
         }
 
         .selected-color{
