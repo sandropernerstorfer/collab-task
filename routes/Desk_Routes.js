@@ -49,18 +49,20 @@ router.get('/members', async (req, res) => {
 router.use('/', express.static('static'));
 
 router.get('/:deskID', (req, res) => {
-    if(!req.cookies._taskID) res.redirect('/login')
+    if(!req.cookies._taskID){
+      res.redirect('/login');
+    }
     else{
         let desk;
         desk = req.session.currentUser.desks.find( desk => {
             return desk == req.params.deskID;
         });
-        if(desk == undefined){
+        if(!desk){
             desk = req.session.currentUser.sharedDesks.find( shared => {
                 return shared == req.params.deskID;
             });    
         };   
-        if(desk == undefined){
+        if(!desk){
             res.redirect('/board');
         }
         else{
