@@ -274,6 +274,15 @@ document.querySelector('#imageEdit').addEventListener('click', () => {
     imageInput.click();
 });
 imageInput.addEventListener('change', e => {
+    try{    
+        if(!e.target.files[0].type.includes("image/")){
+            setTimeout(() => {imageInput.click()},1000)
+            return;
+        }
+    }
+    catch(err){
+        return;
+    }
     if(e.target.files && e.target.files[0]){
         newImage = true;
         let reader = new FileReader();
