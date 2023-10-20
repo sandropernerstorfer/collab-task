@@ -1,6 +1,6 @@
 # Collaborative Task Management
 
-#### [Check it out on Heroku](https://sandi-task.herokuapp.com)
+#### [Check it out on AWS App Runner!](https://uk7zwec3vh.eu-central-1.awsapprunner.com/)
 
 ***
 
