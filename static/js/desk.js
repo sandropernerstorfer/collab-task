@@ -30,6 +30,8 @@ fetch('/desk/deskdata')
 // SETUP FUNCTIONS / RENDER FUNCTIONS
 function fadeOutLoader(){
     const fadeWindow = document.querySelector('#fadeInWindow');
+    const spinner = document.querySelector('.spinner-border');
+    spinner.remove();
     fadeWindow.style.opacity = 0;
     setTimeout(() => {
         fadeWindow.remove();
